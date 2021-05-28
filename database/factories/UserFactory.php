@@ -12,6 +12,7 @@ class UserFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
+     * Holi
      *
      * @var string
      */
