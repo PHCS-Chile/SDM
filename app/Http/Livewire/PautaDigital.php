@@ -8,6 +8,11 @@ use App\Models\Respuesta;
 use Auth;
 use Livewire\Component;
 
+/**
+ * Class PautaDigital
+ * @package App\Http\Livewire
+ * @version 1
+ */
 class PautaDigital extends Component
 {
     public $evaluacionid, $respuestas,$gestiones, $resoluciones;
@@ -1072,6 +1077,7 @@ class PautaDigital extends Component
         }
 
 
+
         $penc = 0;
         $pecu = 100;
         $pecn = 100;
@@ -1145,6 +1151,8 @@ class PautaDigital extends Component
             $pecc = 0;
         }
 
+
+
         $evaluacion = Evaluacion::where('id',$this->evaluacionid)->first();
         $evaluacion->penc = $pencfinal;
         $evaluacion->pecu = $pecu;
@@ -1152,20 +1160,18 @@ class PautaDigital extends Component
         $evaluacion->pecc = $pecc;
         if($evaluacion->estado_id = 1){
             $evaluacion->user_completa = Auth::user()->name;
-            $evaluacion->fecha_completa = now()->format('d-m-Y H:i:s');
-            $evaluacion->created_at = now();
+            $evaluacion->fecha_completa = now();
         }
         if(is_null($evaluacion->user_id)){
             $evaluacion->user_id = Auth::user()->id;
         }
         if(Auth::user()->perfil == 1){
             $evaluacion->user_supervisor = Auth::user()->name;
-            $evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
+            $evaluacion->fecha_supervision = now();
             $evaluacion->estado_id = 5;
         }else{
             $evaluacion->estado_id = 2;
         }
-        $evaluacion->updated_at = now();
         $evaluacion->save();
         return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacionid]));
 

@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Respuesta
+ * @package App\Models
+ * @version 1
+ */
 class Respuesta extends Model
 {
     protected $guarded = ['id'];
@@ -12,8 +17,6 @@ class Respuesta extends Model
     const CENTRO = 1;
     const PH = 2;
     const ICI = 3;
-
-    protected $dateFormat = 'd-m-Y H:i:s';
 
     public function evaluacion()
     {
@@ -25,8 +28,4 @@ class Respuesta extends Model
         return $this->belongsTo(Atributo::class);
     }
 
-    protected $casts = [
-        'created_at' => 'datetime:d-m-Y H:i:s',
-        'updated_at' => 'datetime:d-m-Y H:i:s',
-    ];
 }

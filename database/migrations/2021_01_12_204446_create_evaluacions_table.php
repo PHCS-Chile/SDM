@@ -4,6 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class CreateEvaluacionsTable
+ * @version 1
+ */
 class CreateEvaluacionsTable extends Migration
 {
     /**
@@ -30,6 +34,7 @@ class CreateEvaluacionsTable extends Migration
             $table->decimal('pecu', 4, 1)->nullable();
             $table->decimal('pecn', 4, 1)->nullable();
             $table->decimal('pecc', 4, 1)->nullable();
+            $table->text('comentario_interno')->nullable();
             $table->string('user_completa')->nullable();
             $table->datetime('fecha_completa')->nullable();
             $table->string('user_supervisor')->nullable();
