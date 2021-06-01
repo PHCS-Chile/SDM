@@ -9,6 +9,11 @@ use App\Models\Escala;
 use Illuminate\Http\Request;
 use Auth;
 
+/**
+ * Class EvaluacionController
+ * @package App\Http\Controllers
+ * @version 1
+ */
 
 class EvaluacionController extends Controller
 {
@@ -40,17 +45,17 @@ class EvaluacionController extends Controller
             $evaluacion->save();
             return back()->with("status", "El chat se guardo correctamente");
         }elseif($request->has('form3')){
-            $evaluacion = Evaluacion::all()->find($evaluacionid);
+            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
             $evaluacion->estado_id = $request->cambioestado;
             $evaluacion->update();
             return back()->with("status", "El estado se cambio correctamente");
         }elseif($request->has('descartarEval')){
-            $evaluacion = Evaluacion::all()->find($evaluacionid);
+            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
             $evaluacion->estado_id = 6;
             $evaluacion->save();
             return back()->with("status", "La evaluación se descarto correctamente");
         }elseif($request->has('enviarRevision')){
-            $evaluacion = Evaluacion::all()->find($evaluacionid);
+            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
             $evaluacion->estado_id = 3;
             $evaluacion->update();
             return back()->with("status", "La evaluación se envió a Revisión");

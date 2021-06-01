@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class PeriodosSeeder
  * @package Database\Seeders
- * @version 1
+ * @version 2
  */
 class PeriodosSeeder extends Seeder
 {
@@ -30,6 +30,7 @@ class PeriodosSeeder extends Seeder
         ['name' => "Marzo-2021", 'periodo_id' => '2103', 'periodo_fecha' => '2021-03-01', 'visible' => 1, 'status' => 1, 'web' => 1],
         ['name' => "Abril-2021", 'periodo_id' => '2104', 'periodo_fecha' => '2021-04-01', 'visible' => 1, 'status' => 1, 'web' => 1],
         ['name' => "Mayo-2021", 'periodo_id' => '2105', 'periodo_fecha' => '2021-05-01', 'visible' => 1, 'status' => 1, 'web' => 1],
+        ['name' => "Junio-2021", 'periodo_id' => '2106', 'periodo_fecha' => '2021-06-01', 'visible' => 1, 'status' => 1, 'web' => 1],
     ];
 
 }

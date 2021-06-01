@@ -11,7 +11,7 @@ use Livewire\Component;
 /**
  * Class PautaDigital
  * @package App\Http\Livewire
- * @version 1
+ * @version 2
  */
 class PautaDigital extends Component
 {
@@ -740,10 +740,38 @@ class PautaDigital extends Component
         $evaluacion = Evaluacion::where('id',$this->evaluacionid)->first();
         $evaluacion->ici = $suma / 92;
         $evaluacion->user_ici = Auth::user()->id;
-        $evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
+        $evaluacion->fecha_ici = now();//->format('d-m-Y H:i:s');
         $evaluacion->save();
 
         $this->save();
+    }
+
+    //Esta es la funcion con el problema
+
+    public function resetici(){
+
+        //Respuesta::where('evaluacion_id', $this->evaluacionid)->where('origen_id',1)->delete();
+
+        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacionid)->where('origen_id',1)->get();
+        foreach ($respuestas as $respuesta){
+            $respuesta->origen_id = 3;
+            $respuesta->save();
+        }
+
+        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacionid)->where('origen_id',2)->get();
+        foreach ($respuestas as $respuesta){
+            $respuesta->origen_id = 1;
+            $respuesta->save();
+        }
+
+        $evaluacion = Evaluacion::where('id',$this->evaluacionid)->first();
+        $evaluacion->ici = null;
+        $evaluacion->user_ici = null;
+        $evaluacion->fecha_ici = null;
+        $evaluacion->save();
+
+        return back()->with("status", "Se borro ICI correctamente");
+
     }
 
 
