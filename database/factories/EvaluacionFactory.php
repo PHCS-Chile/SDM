@@ -44,7 +44,10 @@ class EvaluacionFactory extends Factory
             $user_id = $this->faker->numberBetween(1, 5);
             $user_completa = User::find($user_id)->name;
             $fecha_completa = $this->faker->dateTimeBetween('-1 years');
-            $image_path = $this->faker->catchPhrase;
+            $image_path = "";
+            for ($i = 0; $i < $this->faker->numberBetween(2, 20); ++$i) {
+                $image_path .= crearBurbuja($this->faker->realText($this->faker->numberBetween(10, 40)), $i % 2 == 0);
+            }
         }
         return [
             'movil' => '9' . $this->faker->randomNumber(8),

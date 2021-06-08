@@ -1,4 +1,5 @@
 <div>
+    asdasd
     <form wire:submit.prevent="save">
 
         <div class="mt-10 sm:mt-0">
@@ -127,38 +128,38 @@
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend class="text-base font-medium text-gray-900">4 - Gestión de información y uso de Plantillas - ({{$gestionplanillas5}})</legend>
+                                <legend class="text-base font-medium text-gray-900">4 - Gestión de información y uso de Plantillas - ({{$gestionplantillas5}})</legend>
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplanillas1" name="gestionplanillas1" wire:model.lazy="gestionplanillas1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplanillas1}}>
+                                            <input id="gestionplantillas1" name="gestionplantillas1" wire:model.lazy="gestionplantillas1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="gestionplanillas1" class="font-medium text-gray-700">No Entrega la información de manera ordenada</label>
+                                            <label for="gestionplantillas1" class="font-medium text-gray-700">No Entrega la información de manera ordenada</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplanillas2" name="gestionplanillas2" wire:model.lazy="gestionplanillas2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplanillas2}}>
+                                            <input id="gestionplantillas2" name="gestionplantillas2" wire:model.lazy="gestionplantillas2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="gestionplanillas2" class="font-medium text-gray-700">Vuelve a solicitar la misma información mas de una vez</label>
+                                            <label for="gestionplantillas2" class="font-medium text-gray-700">Vuelve a solicitar la misma información mas de una vez</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplanillas3" name="gestionplanillas3" wire:model.lazy="gestionplanillas3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplanillas3}}>
+                                            <input id="gestionplantillas3" name="gestionplantillas3" wire:model.lazy="gestionplantillas3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="gestionplanillas3" class="font-medium text-gray-700">Usa plantillas o imágenes en exceso</label>
+                                            <label for="gestionplantillas3" class="font-medium text-gray-700">Usa plantillas o imágenes en exceso</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplanillas4" name="gestionplanillas4" wire:model.lazy="gestionplanillas4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplanillas4}}>
+                                            <input id="gestionplantillas4" name="gestionplantillas4" wire:model.lazy="gestionplantillas4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="gestionplanillas4" class="font-medium text-gray-700">Usa plantillas o información irrelevantes para la gestión</label>
+                                            <label for="gestionplantillas4" class="font-medium text-gray-700">Usa plantillas o información irrelevantes para la gestión</label>
                                         </div>
                                     </div>
                                 </div>
@@ -287,30 +288,30 @@
                                 </div>
                             </fieldset>
                             <fieldset>
-                                <legend class="text-base font-medium text-gray-900">8 - Maneja correctamente los tiempos de espera - ({{$manejosilecios4}})</legend>
+                                <legend class="text-base font-medium text-gray-900">8 - Maneja correctamente los tiempos de espera - ({{$manejosilencios4}})</legend>
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilecios1" name="manejosilecios1" wire:model.lazy="manejosilecios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilecios1}}>
+                                            <input id="manejosilencios1" name="manejosilencios1" wire:model.lazy="manejosilencios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="manejosilecios1" class="font-medium text-gray-700">No menciona la necesidad de dejar en espera</label>
+                                            <label for="manejosilencios1" class="font-medium text-gray-700">No menciona la necesidad de dejar en espera</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilecios2" name="manejosilecios2" wire:model.lazy="manejosilecios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilecios2}}>
+                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.lazy="manejosilencios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="manejosilecios2" class="font-medium text-gray-700">No retoma la conversación en los tiempos definidos</label>
+                                            <label for="manejosilencios2" class="font-medium text-gray-700">No retoma la conversación en los tiempos definidos</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilecios3" name="manejosilecios3" wire:model.lazy="manejosilecios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilecios3}}>
+                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.lazy="manejosilencios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="manejosilecios3" class="font-medium text-gray-700">No agradece el tiempo de espera</label>
+                                            <label for="manejosilencios3" class="font-medium text-gray-700">No agradece el tiempo de espera</label>
                                         </div>
                                     </div>
                                 </div>
@@ -712,19 +713,19 @@
                                     </div>
                                 @endif
 
-                                @if(Auth::user()->perfil  == 1 && $marca_ici == 1)
-                                    <div>
-                                        <button wire:click="resetici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                            <!-- Heroicon name: check -->
+{{--                                @if(Auth::user()->perfil  == 1 && $marca_ici == 1)--}}
+{{--                                    <div>--}}
+{{--                                        <button wire:click="resetici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">--}}
+{{--                                            <!-- Heroicon name: check -->--}}
 
 
-                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
-                                            </svg>
-                                            Reset Discrepancia
-                                        </button>
-                                    </div>
-                                @endif
+{{--                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
+{{--                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />--}}
+{{--                                            </svg>--}}
+{{--                                            Reset Discrepancia--}}
+{{--                                        </button>--}}
+{{--                                    </div>--}}
+{{--                                @endif--}}
 
 
                                 <div wire:loading>

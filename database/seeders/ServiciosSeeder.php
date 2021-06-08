@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
+use App\Models\Servicio;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class ServiciosSeeder
  * @package Database\Seeders
- * @version 1
+ * @version 1 (21-06-02)
  */
 class ServiciosSeeder extends Seeder
 {
@@ -19,15 +20,7 @@ class ServiciosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('servicios')->insert($this->servicios);
+        Servicio::factory()->count(2)->create();
     }
-
-    /**
-     * @var string[][] Servicios actualmente existentes. (Usar Factory?)
-     */
-    private $servicios = [
-        ['name' => 'SCCP', 'status' => 1, 'estudio_id' => 1],
-        ['name' => 'Konecta PE', 'status' => 1, 'estudio_id' => 1],
-    ];
 
 }

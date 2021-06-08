@@ -2,31 +2,25 @@
 
 namespace Database\Seeders;
 
+use App\Models\Estudio;
 use DB;
 use Illuminate\Database\Seeder;
 
 /**
  * Class EstudiosSeeder
  * @package Database\Seeders
- * @version 1
+ * @version 1 (21-06-02)
  */
 class EstudiosSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Ejecuta el seeder
      *
      * @return void
      */
     public function run()
     {
-        DB::table('estudios')->insert($this->estudios);
+        Estudio::factory()->count(1)->create();
     }
-
-    /**
-     * @var string[][] Estudios actualmente existentes. (Usar Factory?)
-     */
-    private $estudios = [
-        ['name' => 'EPCS Call Center Canales Digitales'],
-    ];
 
 }

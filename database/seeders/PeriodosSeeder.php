@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class PeriodosSeeder
  * @package Database\Seeders
- * @version 2
+ * @version 2 (21-06-04)
  */
 class PeriodosSeeder extends Seeder
 {
@@ -19,18 +19,17 @@ class PeriodosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('periodos')->insert($this->periodos);
+        $mesInicial = 2;
+        $anoInicial = 2021;
+        $periodos = crearPeriodos($mesInicial, $anoInicial);
+        foreach ($periodos as $periodo) {
+            $periodo_full = [
+                'name' => ucfirst(mesEspanol($periodo[0])) . "-" . $periodo[1],
+                'periodo_id' => idDePeriodo($periodo),
+                'periodo_fecha' => $periodo[1] . '-' . ajustarMes($periodo[0]) . '-01',
+                'visible' => 1, 'status' => 1, 'web' => 1,
+            ];
+            DB::table('periodos')->insert($periodo_full);
+        }
     }
-
-    /**
-     * @var string[][] Periodos actualmente existentes.
-     */
-    private $periodos = [
-        ['name' => "Febrero-2021", 'periodo_id' => '2102', 'periodo_fecha' => '2021-02-01', 'visible' => 1, 'status' => 1, 'web' => 1],
-        ['name' => "Marzo-2021", 'periodo_id' => '2103', 'periodo_fecha' => '2021-03-01', 'visible' => 1, 'status' => 1, 'web' => 1],
-        ['name' => "Abril-2021", 'periodo_id' => '2104', 'periodo_fecha' => '2021-04-01', 'visible' => 1, 'status' => 1, 'web' => 1],
-        ['name' => "Mayo-2021", 'periodo_id' => '2105', 'periodo_fecha' => '2021-05-01', 'visible' => 1, 'status' => 1, 'web' => 1],
-        ['name' => "Junio-2021", 'periodo_id' => '2106', 'periodo_fecha' => '2021-06-01', 'visible' => 1, 'status' => 1, 'web' => 1],
-    ];
-
 }
