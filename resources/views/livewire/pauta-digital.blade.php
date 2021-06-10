@@ -1,5 +1,8 @@
+{{--
+Plantilla: Pauta Digital
+Versión 2 (10/06/2021)
+--}}
 <div>
-    asdasd
     <form wire:submit.prevent="save">
 
         <div class="mt-10 sm:mt-0">

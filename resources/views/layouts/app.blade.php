@@ -1,3 +1,7 @@
+{{--
+Plantilla: App (base)
+Versión 2 (10/06/2021)
+--}}
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -16,6 +20,7 @@
         @livewireStyles
 
         <!-- Scripts -->
+        <script src="https://kit.fontawesome.com/9a88af10f1.js" crossorigin="anonymous"></script>
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">

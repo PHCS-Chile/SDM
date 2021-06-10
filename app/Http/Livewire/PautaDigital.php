@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire;
 
-use App\Models\Atributo;
 use App\Models\Escala;
 use App\Models\Evaluacion;
 use App\Models\Respuesta;
@@ -12,7 +11,7 @@ use Livewire\Component;
 /**
  * Class PautaDigital
  * @package App\Http\Livewire
- * @version 2
+ * @version 3
  */
 class PautaDigital extends Component
 {
@@ -182,9 +181,7 @@ class PautaDigital extends Component
      */
     public function ici()
     {
-
         $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
-
         $suma = 0;
         $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->get();
         foreach ($respuestas as $respuesta) {
@@ -203,27 +200,6 @@ class PautaDigital extends Component
         $this->save();
     }
 
-
-    /**
-     * Elimina la evaluación de calidad interna
-     * @return \Illuminate\Http\RedirectResponse
-     */
-    public function resetici(){
-        Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id',1)->delete();
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id',2)->get();
-        foreach ($respuestas as $respuesta) {
-            $respuesta->origen_id = 1;
-            $respuesta->save();
-        }
-
-        $this->evaluacion->ici = null;
-        $this->evaluacion->user_ici = null;
-        $this->evaluacion->fecha_ici = null;
-        $this->evaluacion->save();
-
-        return back()->with("status", "Se borro ICI correctamente");
-
-    }
 
     /**
      * Guarda una respuesta.

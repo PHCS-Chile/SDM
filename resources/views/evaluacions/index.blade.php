@@ -1,3 +1,7 @@
+{{--
+Plantilla: Evaluaciones (plantilla general)
+Versión 2 (10/06/2021)
+--}}
 <x-app-layout>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
     <x-slot name="header">
@@ -10,7 +14,7 @@
         <div class="alert alert-success">
 
         </div>
-        <div class="bg-green-600">
+        <div id="session-status" class="bg-green-600" style="position: fixed; left: 0; right: 0; top: 0; transition: opacity 1s ease-out;">
             <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between flex-wrap">
                     <div class="w-0 flex-1 flex items-center">
@@ -48,6 +52,11 @@
                 </div>
             </div>
         </div>
+        <script>
+            setTimeout(function(){
+                document.getElementById("session-status").style.opacity=0;
+            }, 4000);
+        </script>
     @endif
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
@@ -62,6 +71,9 @@
                     <div class="flex-1 min-w-0">
                         <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
                             Monitoreo - {{$evaluacionfinal->asignacion->agente->servicio->name}} {{$evaluacionfinal->asignacion->agente->habilidad}}
+                            <a href="{{ route('asignacions.ejecutivoevaluaciones', [$evaluacionfinal->asignacion->id, $evaluacionfinal->rut_ejecutivo]) }}" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                <i class="fas fa-arrow-left fa-fw fa-lg mr-2"></i> Volver a Base del Agente
+                            </a>
                         </h2>
                         <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                             <div class="mt-2 flex items-center text-sm text-gray-500">

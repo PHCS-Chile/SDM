@@ -1,3 +1,7 @@
+{{--
+Plantilla: Ejecutivo-Evaluaciones
+Versión 2 (10/06/2021)
+--}}
 <div>
 
     <table class="min-w-full divide-y divide-gray-200">
@@ -103,11 +107,17 @@
                     <a href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
                 </td>
                 <td>
-                    <form method="POST" action="{{ route('evaluacions.resetici', [$evaluacion->id]) }}" onsubmit="return confirm('¿Seguro quieres borrar la ICI? (Acción irreversible)');">
-                    @method('DELETE')
-                    @csrf
-                        <button type="submit" class="btn btn-default">[ Eliminar ICI ]</button>
-                    </form>
+                    @if(Auth::user()->perfil  == 1)
+                        @if($evaluacion->respuestas->max('origen_id') == 2)
+                        <form method="POST" action="{{ route('evaluacions.resetici', [$evaluacion->id]) }}" onsubmit="return confirm('¿Seguro quieres borrar la ICI? (Acción irreversible)');">
+                        @method('DELETE')
+                        @csrf
+                            <button type="submit" class="btn btn-default">[ Eliminar ICI ]</button>
+                        </form>
+                        @else
+                            <span><i class="text-gray-300">Sin ICI</i></span>
+                        @endif
+                    @endif
                 </td>
             </tr>
 
