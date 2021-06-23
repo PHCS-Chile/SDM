@@ -195,7 +195,7 @@ class PautaDigital extends Component
         }
         $this->evaluacion->ici = $suma / 92;
         $this->evaluacion->user_ici = Auth::user()->id;
-        $this->evaluacion->fecha_ici = now();   //->format('d-m-Y H:i:s');
+        $this->evaluacion->fecha_ici = now();//->format('d-m-Y H:i:s');
         $this->evaluacion->save();
         $this->save();
     }
@@ -595,14 +595,14 @@ class PautaDigital extends Component
         $this->evaluacion->pecc = $pecc;
         if($this->evaluacion->estado_id == 1){
             $this->evaluacion->user_completa = Auth::user()->name;
-            $this->evaluacion->fecha_completa = now();  // ->format('d-m-Y H:i:s');
+            $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
         }
         if(is_null($this->evaluacion->user_id)){
             $this->evaluacion->user_id = Auth::user()->id;
         }
         if(Auth::user()->perfil == 1){
             $this->evaluacion->user_supervisor = Auth::user()->name;
-            $this->evaluacion->fecha_supervision = now();   // ->format('d-m-Y H:i:s');
+            $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
             $this->evaluacion->estado_id = 5;
         }else{
             $this->evaluacion->estado_id = 2;

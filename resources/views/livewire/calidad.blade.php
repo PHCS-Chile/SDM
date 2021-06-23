@@ -114,6 +114,9 @@
                             <th scope="col" class="relative px-6 py-3">
                                 <span class="sr-only">Ir</span>
                             </th>
+                            <th scope="col" class="relative px-6 py-3">
+                                <span class="sr-only">ICI</span>
+                            </th>
                         </tr>
                         </thead>
 
@@ -156,6 +159,19 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                     <a href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                </td>
+                                <td>
+                                    @if(Auth::user()->perfil  == 1)
+                                        @if($evaluacion->fecha_ici)
+                                            <form method="POST" action="{{ route('evaluacions.resetici', [$evaluacion->id]) }}" onsubmit="return confirm('¿Seguro quieres borrar la ICI? (Acción irreversible)');">
+                                                @method('DELETE')
+                                                @csrf
+                                                <button type="submit" class="btn btn-default">[ Eliminar ICI ]</button>
+                                            </form>
+                                        @else
+                                            <span><i class="text-gray-300">Sin ICI</i></span>
+                                        @endif
+                                    @endif
                                 </td>
 
                             </tr>

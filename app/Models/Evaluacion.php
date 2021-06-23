@@ -15,7 +15,7 @@ class Evaluacion extends Model
     protected $guarded = ['id'];
     use HasFactory;
 
-
+    //protected $dateFormat = 'd-m-Y H:i:s';
 
     public function asignacion()
     {
@@ -36,5 +36,10 @@ class Evaluacion extends Model
     {
         return $this->hasMany(Respuesta::class);
     }
+
+//    protected $casts = [
+//        'created_at' => 'datetime:d-m-Y H:i:s',
+//        'updated_at' => 'datetime:d-m-Y H:i:s',
+//    ];
 
 }

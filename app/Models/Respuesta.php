@@ -18,6 +18,8 @@ class Respuesta extends Model
     const PH = 2;
     const ICI = 3;
 
+    //protected $dateFormat = 'd-m-Y H:i:s';
+
     public function evaluacion()
     {
         return $this->belongsTo(Evaluacion::class);
@@ -27,5 +29,10 @@ class Respuesta extends Model
     {
         return $this->belongsTo(Atributo::class);
     }
+
+    protected $casts = [
+        'created_at' => 'datetime:d-m-Y H:i:s',
+        'updated_at' => 'datetime:d-m-Y H:i:s',
+    ];
 
 }

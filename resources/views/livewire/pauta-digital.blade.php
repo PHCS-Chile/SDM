@@ -16,7 +16,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo1" name="saludo1" wire:model.lazy="saludo1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo1}}>
+                                            <input id="saludo1" name="saludo1" wire:model.defer="saludo1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo1" class="font-medium text-gray-700">No saluda o indica nombre al iniciar la conversación</label>
@@ -24,7 +24,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo2" name="saludo2" wire:model.lazy="saludo2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
+                                            <input id="saludo2" name="saludo2" wire:model.defer="saludo2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo2" class="font-medium text-gray-700">No usa preguntas o frases de conexión inicial</label>
@@ -32,7 +32,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo3" name="saludo3" wire:model.lazy="saludo3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
+                                            <input id="saludo3" name="saludo3" wire:model.defer="saludo3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo3" class="font-medium text-gray-700">No Valida contexto indicado previamente</label>
@@ -40,7 +40,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo4" name="saludo4" wire:model.lazy="saludo4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo4}}>
+                                            <input id="saludo4" name="saludo4" wire:model.defer="saludo4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo4" class="font-medium text-gray-700">No se despide y/o realiza de forma poco cordial</label>
@@ -48,7 +48,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo5" name="saludo5" wire:model.lazy="saludo5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo5}}>
+                                            <input id="saludo5" name="saludo5" wire:model.defer="saludo5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo5" class="font-medium text-gray-700">No agradece contacto al despedirse</label>
@@ -61,7 +61,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frases1" name="frases1" wire:model.lazy="frases1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases1}}>
+                                            <input id="frases1" name="frases1" wire:model.defer="frases1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frases1" class="font-medium text-gray-700">Utiliza frases formales y/o poco cercanas</label>
@@ -69,7 +69,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frases2" name="frases2" wire:model.lazy="frases2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases2}}>
+                                            <input id="frases2" name="frases2" wire:model.defer="frases2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frases2" class="font-medium text-gray-700">Utiliza conceptos técnicos</label>
@@ -77,7 +77,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frases3" name="frases3" wire:model.lazy="frases3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases3}}>
+                                            <input id="frases3" name="frases3" wire:model.defer="frases3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frases3" class="font-medium text-gray-700">Utiliza frases coloquiales y/o abreviaturas</label>
@@ -85,7 +85,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frases4" name="frases4" wire:model.lazy="frases4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases4}}>
+                                            <input id="frases4" name="frases4" wire:model.defer="frases4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frases4" class="font-medium text-gray-700">Utiliza más de un emoticón por comentario</label>
@@ -98,7 +98,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad1" name="cordialidad1" wire:model.lazy="cordialidad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad1}}>
+                                            <input id="cordialidad1" name="cordialidad1" wire:model.defer="cordialidad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad1" class="font-medium text-gray-700">No utiliza frases para expresar disposición para atender</label>
@@ -106,7 +106,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad2" name="cordialidad2" wire:model.lazy="cordialidad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
+                                            <input id="cordialidad2" name="cordialidad2" wire:model.defer="cordialidad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad2" class="font-medium text-gray-700">No utiliza frases para manifestar interés frente a dificultades</label>
@@ -114,7 +114,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad3" name="cordialidad3" wire:model.lazy="cordialidad3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad3}}>
+                                            <input id="cordialidad3" name="cordialidad3" wire:model.defer="cordialidad3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad3" class="font-medium text-gray-700">No pide disculpas en caso de reclamos de nuestra responsabilidad</label>
@@ -122,7 +122,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad4" name="cordialidad4" wire:model.lazy="cordialidad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad4}}>
+                                            <input id="cordialidad4" name="cordialidad4" wire:model.defer="cordialidad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad4" class="font-medium text-gray-700">No reduce el conflicto frente a cliente alterados</label>
@@ -135,7 +135,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplantillas1" name="gestionplantillas1" wire:model.lazy="gestionplantillas1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas1}}>
+                                            <input id="gestionplantillas1" name="gestionplantillas1" wire:model.defer="gestionplantillas1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionplantillas1" class="font-medium text-gray-700">No Entrega la información de manera ordenada</label>
@@ -143,7 +143,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplantillas2" name="gestionplantillas2" wire:model.lazy="gestionplantillas2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas2}}>
+                                            <input id="gestionplantillas2" name="gestionplantillas2" wire:model.defer="gestionplantillas2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionplantillas2" class="font-medium text-gray-700">Vuelve a solicitar la misma información mas de una vez</label>
@@ -151,7 +151,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplantillas3" name="gestionplantillas3" wire:model.lazy="gestionplantillas3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas3}}>
+                                            <input id="gestionplantillas3" name="gestionplantillas3" wire:model.defer="gestionplantillas3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionplantillas3" class="font-medium text-gray-700">Usa plantillas o imágenes en exceso</label>
@@ -159,7 +159,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionplantillas4" name="gestionplantillas4" wire:model.lazy="gestionplantillas4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas4}}>
+                                            <input id="gestionplantillas4" name="gestionplantillas4" wire:model.defer="gestionplantillas4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionplantillas4" class="font-medium text-gray-700">Usa plantillas o información irrelevantes para la gestión</label>
@@ -172,7 +172,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia1" name="ortografia1" wire:model.lazy="ortografia1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia1}}>
+                                            <input id="ortografia1" name="ortografia1" wire:model.defer="ortografia1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia1" class="font-medium text-gray-700">Errores semánticos y/o sintácticos</label>
@@ -180,7 +180,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia2" name="ortografia2" wire:model.lazy="ortografia2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia2}}>
+                                            <input id="ortografia2" name="ortografia2" wire:model.defer="ortografia2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia2" class="font-medium text-gray-700">Mal uso de reglas de puntuación (puntos y coma)</label>
@@ -188,7 +188,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia3" name="ortografia3" wire:model.lazy="ortografia3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia3}}>
+                                            <input id="ortografia3" name="ortografia3" wire:model.defer="ortografia3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia3" class="font-medium text-gray-700">Errores de escrituras y aplicación de reglas ortográficas (español)</label>
@@ -196,7 +196,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia4" name="ortografia4" wire:model.lazy="ortografia4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia4}}>
+                                            <input id="ortografia4" name="ortografia4" wire:model.defer="ortografia4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia4" class="font-medium text-gray-700">Escritura incorrecta de palabras técnicas o de origen extranjero</label>
@@ -204,7 +204,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia5" name="ortografia5" wire:model.lazy="ortografia5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia5}}>
+                                            <input id="ortografia5" name="ortografia5" wire:model.defer="ortografia5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia5" class="font-medium text-gray-700">Mal uso del acento diacrítico</label>
@@ -212,7 +212,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ortografia6" name="ortografia6" wire:model.lazy="ortografia6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia6}}>
+                                            <input id="ortografia6" name="ortografia6" wire:model.defer="ortografia6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia6}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ortografia6" class="font-medium text-gray-700">Uso incorrecto de Mayúsculas/Minúsculas</label>
@@ -227,15 +227,15 @@ Versión 2 (10/06/2021)
                                     <span class="text-gray-700">Personalizacion Padre</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.lazy="personalizacion4" value="Si" {{ $personalizacion4 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="Si" {{ $personalizacion4 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Si</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.lazy="personalizacion4" value="No" {{ $personalizacion4 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="No" {{ $personalizacion4 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.lazy="personalizacion4" value="No Aplica" {{ $personalizacion4 == "No Aplica" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="No Aplica" {{ $personalizacion4 == "No Aplica" ? 'checked' : '' }}>
                                             <p class="ml-2">No Aplica</p>
                                         </label>
                                     </div>
@@ -244,7 +244,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="personalizacion1" name="personalizacion1" wire:model.lazy="personalizacion1" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion1}}>
+                                            <input id="personalizacion1" name="personalizacion1" wire:model.defer="personalizacion1" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="personalizacion1" class="font-medium text-gray-700">No personaliza durante la conversación</label>
@@ -252,7 +252,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="personalizacion2" name="personalizacion2" wire:model.lazy="personalizacion2" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion2}}>
+                                            <input id="personalizacion2" name="personalizacion2" wire:model.defer="personalizacion2" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="personalizacion2" class="font-medium text-gray-700">Trata al cliente por un nombre/usuario erróneo</label>
@@ -260,7 +260,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="personalizacion3" name="personalizacion3" wire:model.lazy="personalizacion3" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion3}}>
+                                            <input id="personalizacion3" name="personalizacion3" wire:model.defer="personalizacion3" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="personalizacion3" class="font-medium text-yellow-500">No Aplica</label>
@@ -273,7 +273,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad1" name="seguridad1" wire:model.lazy="seguridad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad1}}>
+                                            <input id="seguridad1" name="seguridad1" wire:model.defer="seguridad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad1" class="font-medium text-gray-700">Proyecta inseguridad o falta de conocimientos</label>
@@ -281,7 +281,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad2" name="seguridad2" wire:model.lazy="seguridad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
+                                            <input id="seguridad2" name="seguridad2" wire:model.defer="seguridad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad2" class="font-medium text-gray-700">Se autocorrige o se contradice en la conversación</label>
@@ -295,7 +295,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios1" name="manejosilencios1" wire:model.lazy="manejosilencios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios1}}>
+                                            <input id="manejosilencios1" name="manejosilencios1" wire:model.defer="manejosilencios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios1" class="font-medium text-gray-700">No menciona la necesidad de dejar en espera</label>
@@ -303,7 +303,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.lazy="manejosilencios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
+                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.defer="manejosilencios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios2" class="font-medium text-gray-700">No retoma la conversación en los tiempos definidos</label>
@@ -311,7 +311,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.lazy="manejosilencios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
+                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.defer="manejosilencios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios3" class="font-medium text-gray-700">No agradece el tiempo de espera</label>
@@ -325,15 +325,15 @@ Versión 2 (10/06/2021)
                                     <span class="text-gray-700">Aseguramiento Padre</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.lazy="aseguramiento3" value="Si" {{ $aseguramiento3 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="Si" {{ $aseguramiento3 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Si</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.lazy="aseguramiento3" value="No" {{ $aseguramiento3 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="No" {{ $aseguramiento3 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.lazy="aseguramiento3" value="No Aplica" {{ $aseguramiento3 == "No Aplica" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="No Aplica" {{ $aseguramiento3 == "No Aplica" ? 'checked' : '' }}>
                                             <p class="ml-2">No Aplica</p>
                                         </label>
                                     </div>
@@ -342,7 +342,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento1" name="aseguramiento1" wire:model.lazy="aseguramiento1" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento1}}>
+                                            <input id="aseguramiento1" name="aseguramiento1" wire:model.defer="aseguramiento1" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="aseguramiento1" class="font-medium text-gray-700">No realiza aseguramiento de lo informado</label>
@@ -350,7 +350,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento2" name="aseguramiento2" wire:model.lazy="aseguramiento2" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
+                                            <input id="aseguramiento2" name="aseguramiento2" wire:model.defer="aseguramiento2" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="aseguramiento2" class="font-medium text-yellow-500">No Aplica</label>
@@ -365,15 +365,15 @@ Versión 2 (10/06/2021)
                                     <span class="text-gray-700">Ofrecimiento Padre</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.lazy="ofrecimiento5" value="Si" {{ $ofrecimiento5 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="Si" {{ $ofrecimiento5 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Si</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.lazy="ofrecimiento5" value="No" {{ $ofrecimiento5 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="No" {{ $ofrecimiento5 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.lazy="ofrecimiento5" value="No Aplica" {{ $ofrecimiento5 == "No Aplica" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="No Aplica" {{ $ofrecimiento5 == "No Aplica" ? 'checked' : '' }}>
                                             <p class="ml-2">No Aplica</p>
                                         </label>
                                     </div>
@@ -382,7 +382,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimiento1" name="ofrecimiento1" wire:model.lazy="ofrecimiento1" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento1}}>
+                                            <input id="ofrecimiento1" name="ofrecimiento1" wire:model.defer="ofrecimiento1" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ofrecimiento1" class="font-medium text-gray-700">No realiza ofrecimiento comercial a titular</label>
@@ -390,7 +390,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimiento2" name="ofrecimiento2" wire:model.lazy="ofrecimiento2" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento2}}>
+                                            <input id="ofrecimiento2" name="ofrecimiento2" wire:model.defer="ofrecimiento2" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ofrecimiento2" class="font-medium text-gray-700">No argumenta o intenta revertir objeciones</label>
@@ -398,7 +398,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimiento3" name="ofrecimiento3" wire:model.lazy="ofrecimiento3" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento3}}>
+                                            <input id="ofrecimiento3" name="ofrecimiento3" wire:model.defer="ofrecimiento3" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ofrecimiento3" class="font-medium text-gray-700">Realiza ofrecimiento comercial a usuario no autorizado</label>
@@ -406,7 +406,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimiento4" name="ofrecimiento4" wire:model.lazy="ofrecimiento4" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento4}}>
+                                            <input id="ofrecimiento4" name="ofrecimiento4" wire:model.defer="ofrecimiento4" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ofrecimiento4" class="font-medium text-yellow-500">No Aplica</label>
@@ -451,7 +451,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_pocoprofesional" name="pecu_pocoprofesional" wire:model.lazy="pecu_pocoprofesional" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_pocoprofesional}}>
+                                            <input id="pecu_pocoprofesional" name="pecu_pocoprofesional" wire:model.defer="pecu_pocoprofesional" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_pocoprofesional}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_pocoprofesional" class="font-medium text-gray-700">Atención Irrespetuosa y Gestión poco Profesional</label>
@@ -459,7 +459,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_manipulacliente" name="pecu_manipulacliente" wire:model.lazy="pecu_manipulacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_manipulacliente}}>
+                                            <input id="pecu_manipulacliente" name="pecu_manipulacliente" wire:model.defer="pecu_manipulacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_manipulacliente}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_manipulacliente" class="font-medium text-gray-700">Manipula al Cliente para concretar venta</label>
@@ -467,7 +467,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_cierreinteraccion" name="pecu_cierreinteraccion" wire:model.lazy="pecu_cierreinteraccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_cierreinteraccion}}>
+                                            <input id="pecu_cierreinteraccion" name="pecu_cierreinteraccion" wire:model.defer="pecu_cierreinteraccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_cierreinteraccion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_cierreinteraccion" class="font-medium text-gray-700">Cierre anticipado de la Interacción</label>
@@ -475,7 +475,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_provocacierre" name="pecu_provocacierre" wire:model.lazy="pecu_provocacierre" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_provocacierre}}>
+                                            <input id="pecu_provocacierre" name="pecu_provocacierre" wire:model.defer="pecu_provocacierre" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_provocacierre}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_provocacierre" class="font-medium text-gray-700">Provoca o incita el cierre por inactividad</label>
@@ -488,7 +488,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_beneficio" name="pecn_beneficio" wire:model.lazy="pecn_beneficio" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_beneficio}}>
+                                            <input id="pecn_beneficio" name="pecn_beneficio" wire:model.defer="pecn_beneficio" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_beneficio}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_beneficio" class="font-medium text-gray-700">Entrega Beneficio o Excepción comercial fuera de Procedimiento</label>
@@ -496,7 +496,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_fraude" name="pecn_fraude" wire:model.lazy="pecn_fraude" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_fraude}}>
+                                            <input id="pecn_fraude" name="pecn_fraude" wire:model.defer="pecn_fraude" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_fraude}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_fraude" class="font-medium text-gray-700">Fraude</label>
@@ -504,7 +504,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_nosondea" name="pecn_nosondea" wire:model.lazy="pecn_nosondea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_nosondea}}>
+                                            <input id="pecn_nosondea" name="pecn_nosondea" wire:model.defer="pecn_nosondea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_nosondea}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_nosondea" class="font-medium text-gray-700">No Sondea motivo de renuncia o no Retiene</label>
@@ -512,7 +512,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_tipificacion" name="pecn_tipificacion" wire:model.lazy="pecn_tipificacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_tipificacion}}>
+                                            <input id="pecn_tipificacion" name="pecn_tipificacion" wire:model.defer="pecn_tipificacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_tipificacion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_tipificacion" class="font-medium text-gray-700">No Tipifica en sistema o lo realiza de manera incorrecta.</label>
@@ -520,7 +520,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_factibilidad" name="pecn_factibilidad" wire:model.lazy="pecn_factibilidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_factibilidad}}>
+                                            <input id="pecn_factibilidad" name="pecn_factibilidad" wire:model.defer="pecn_factibilidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_factibilidad}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_factibilidad" class="font-medium text-gray-700">Validación de Factibilidad Técnica y Comercial</label>
@@ -528,7 +528,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_otragestion" name="pecn_otragestion" wire:model.lazy="pecn_otragestion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_otragestion}}>
+                                            <input id="pecn_otragestion" name="pecn_otragestion" wire:model.defer="pecn_otragestion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_otragestion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_otragestion" class="font-medium text-gray-700">Otra Gestión Indebida</label>
@@ -541,7 +541,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_infoconfidencial" name="pecc_infoconfidencial" wire:model.lazy="pecc_infoconfidencial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoconfidencial}}>
+                                            <input id="pecc_infoconfidencial" name="pecc_infoconfidencial" wire:model.defer="pecc_infoconfidencial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoconfidencial}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_infoconfidencial" class="font-medium text-gray-700">Entrega información confidencial</label>
@@ -549,7 +549,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_novalidadatos" name="pecc_novalidadatos" wire:model.lazy="pecc_novalidadatos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_novalidadatos}}>
+                                            <input id="pecc_novalidadatos" name="pecc_novalidadatos" wire:model.defer="pecc_novalidadatos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_novalidadatos}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_novalidadatos" class="font-medium text-gray-700">No valida correctamente los datos personales del Cliente</label>
@@ -557,7 +557,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_cierre" name="pecc_cierre" wire:model.lazy="pecc_cierre" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_cierre}}>
+                                            <input id="pecc_cierre" name="pecc_cierre" wire:model.defer="pecc_cierre" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_cierre}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_cierre" class="font-medium text-gray-700">No realiza cierre de negocio según procedimiento</label>
@@ -565,7 +565,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_infoerronea" name="pecc_infoerronea" wire:model.lazy="pecc_infoerronea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoerronea}}>
+                                            <input id="pecc_infoerronea" name="pecc_infoerronea" wire:model.defer="pecc_infoerronea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoerronea}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_infoerronea" class="font-medium text-gray-700">Omite o Indica erróneamente información que es regulada legalmente</label>
@@ -585,7 +585,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="asistentevirtual1" name="asistentevirtual1" wire:model.lazy="asistentevirtual1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual1}}>
+                                            <input id="asistentevirtual1" name="asistentevirtual1" wire:model.defer="asistentevirtual1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="asistentevirtual1" class="font-medium text-gray-700">No comprende el motivo del Cliente</label>
@@ -593,7 +593,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="asistentevirtual2" name="asistentevirtual2" wire:model.lazy="asistentevirtual2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual2}}>
+                                            <input id="asistentevirtual2" name="asistentevirtual2" wire:model.defer="asistentevirtual2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="asistentevirtual2" class="font-medium text-gray-700">Cliente insiste mas de una vez en contacto con ejecutivo</label>
@@ -601,7 +601,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="asistentevirtual3" name="asistentevirtual3" wire:model.lazy="asistentevirtual3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual3}}>
+                                            <input id="asistentevirtual3" name="asistentevirtual3" wire:model.defer="asistentevirtual3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$asistentevirtual3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="asistentevirtual3" class="font-medium text-gray-700">Deriva de forma incorrecta al ejecutivo</label>
@@ -614,7 +614,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionesanteriores1" name="gestionesanteriores1" wire:model.lazy="gestionesanteriores1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores1}}>
+                                            <input id="gestionesanteriores1" name="gestionesanteriores1" wire:model.defer="gestionesanteriores1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionesanteriores1" class="font-medium text-gray-700">Abandonos previos por parte de otros ejecutivos</label>
@@ -622,7 +622,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionesanteriores2" name="gestionesanteriores2" wire:model.lazy="gestionesanteriores2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores2}}>
+                                            <input id="gestionesanteriores2" name="gestionesanteriores2" wire:model.defer="gestionesanteriores2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionesanteriores2" class="font-medium text-gray-700">Abandonos previos por parte del Cliente</label>
@@ -630,7 +630,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="gestionesanteriores3" name="gestionesanteriores3" wire:model.lazy="gestionesanteriores3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores3}}>
+                                            <input id="gestionesanteriores3" name="gestionesanteriores3" wire:model.defer="gestionesanteriores3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionesanteriores3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="gestionesanteriores3" class="font-medium text-gray-700">Más de una conversación reciente por el mismo motivo (NO FCR)</label>
@@ -643,7 +643,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="usuarios1" name="usuarios1" wire:model.lazy="usuarios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios1}}>
+                                            <input id="usuarios1" name="usuarios1" wire:model.defer="usuarios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios1}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="usuarios1" class="font-medium text-gray-700">Cliente molesto por la atención de la asistente virtual</label>
@@ -651,7 +651,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="usuarios2" name="usuarios2" wire:model.lazy="usuarios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios2}}>
+                                            <input id="usuarios2" name="usuarios2" wire:model.defer="usuarios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="usuarios2" class="font-medium text-gray-700">Cliente molesto por la atención de los ejecutivos del canal</label>
@@ -659,7 +659,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="usuarios3" name="usuarios3" wire:model.lazy="usuarios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios3}}>
+                                            <input id="usuarios3" name="usuarios3" wire:model.defer="usuarios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$usuarios3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="usuarios3" class="font-medium text-gray-700">Cliente solicita ser contactado telefónicamente</label>
@@ -682,7 +682,7 @@ Versión 2 (10/06/2021)
                                         Comentario Interno
                                     </label>
                                     <div class="mt-1">
-                                        <textarea id="comentario_interno" name="comentario_interno" wire:model.lazy="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$comentario_interno}}</textarea>
+                                        <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$comentario_interno}}</textarea>
                                     </div>
                                 </div>
 
@@ -692,7 +692,7 @@ Versión 2 (10/06/2021)
                                         Retroalimentación
                                     </label>
                                     <div class="mt-1">
-                                        <textarea id="retroalimentacion" name="retroalimentacion" wire:model.lazy="retroalimentacion" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la retroalimentación">{{$retroalimentacion}}</textarea>
+                                        <textarea id="retroalimentacion" name="retroalimentacion" wire:model.defer="retroalimentacion" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la retroalimentación">{{$retroalimentacion}}</textarea>
                                     </div>
                                 </div>
                                 <small class="text-red-600 font-bold">{{ $errors->first('retroalimentacion') }}</small>
@@ -750,15 +750,15 @@ Versión 2 (10/06/2021)
                                     <span class="text-gray-700">Motivo del Llamado</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="motivo" wire:model.lazy="motivo" value="Reclamo" {{ $motivo == "Reclamo" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Reclamo" {{ $motivo == "Reclamo" ? 'checked' : '' }}>
                                             <p class="ml-2">Reclamo</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="motivo" wire:model.lazy="motivo" value="Consulta" {{ $motivo == "Consulta" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Consulta" {{ $motivo == "Consulta" ? 'checked' : '' }}>
                                             <p class="ml-2">Consulta</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="motivo" wire:model.lazy="motivo" value="Requerimiento" {{ $motivo == "Requerimiento" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Requerimiento" {{ $motivo == "Requerimiento" ? 'checked' : '' }}>
                                             <p class="ml-2">Requerimiento</p>
                                         </label>
                                     </div>
@@ -766,7 +766,7 @@ Versión 2 (10/06/2021)
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="gestion1" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="gestion1" name="gestion1" wire:model.lazy="gestion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="gestion1" name="gestion1" wire:model.defer="gestion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($gestiones as $gestion)
                                             <option value="{{$gestion->name}}" {{ ( $gestion->name == $gestion1) ? 'selected' : '' }}>
@@ -820,7 +820,7 @@ Versión 2 (10/06/2021)
                                 <small class="text-red-600 font-bold">{{ $errors->first('procedimiento1') }}</small>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="resolucion1" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion1" name="resolucion1" wire:model.lazy="resolucion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="resolucion1" name="resolucion1" wire:model.defer="resolucion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($resoluciones as $resolucion)
                                             <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion1) ? 'selected' : '' }}>
@@ -839,7 +839,7 @@ Versión 2 (10/06/2021)
                                 <p class="font-bold text-xl">Gestión 2</p>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="gestion2" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="gestion2" name="gestion2" wire:model.lazy="gestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="gestion2" name="gestion2" wire:model.defer="gestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($gestiones as $gestion)
                                             <option value="{{$gestion->name}}" {{ ( $gestion->name == $gestion2) ? 'selected' : '' }}>
@@ -893,7 +893,7 @@ Versión 2 (10/06/2021)
                                 <small class="text-red-600 font-bold">{{ $errors->first('procedimiento2') }}</small>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="resolucion2" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion2" name="resolucion2" wire:model.lazy="resolucion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="resolucion2" name="resolucion2" wire:model.defer="resolucion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($resoluciones as $resolucion)
                                             <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion2) ? 'selected' : '' }}>
@@ -912,7 +912,7 @@ Versión 2 (10/06/2021)
                                 <p class="font-bold text-xl">Gestión 3</p>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="gestion3" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="gestion3" name="gestion3" wire:model.lazy="gestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="gestion3" name="gestion3" wire:model.defer="gestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($gestiones as $gestion)
                                             <option value="{{$gestion->name}}" {{ ( $gestion->name == $gestion3) ? 'selected' : '' }}>
@@ -966,7 +966,7 @@ Versión 2 (10/06/2021)
                                 <small class="text-red-600 font-bold">{{ $errors->first('procedimiento3') }}</small>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="resolucion3" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion3" name="resolucion3" wire:model.lazy="resolucion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="resolucion3" name="resolucion3" wire:model.defer="resolucion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($resoluciones as $resolucion)
                                             <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion3) ? 'selected' : '' }}>
