@@ -5,6 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Asignacion
+ * @package App\Models
+ * @version 1 (25/06/2021)
+ */
 class Asignacion extends Model
 {
     protected $guarded = ['id'];
@@ -28,7 +33,7 @@ class Asignacion extends Model
 
     public function getAgentescompletasAttribute(){
         return $this->evaluacions->wherein('estado_id',['2','3','4','5'])->groupBy('rut_ejecutivo');
-    }   
+    }
 
     public function getBaseAttribute(){
         return $this->evaluacions;
@@ -42,12 +47,20 @@ class Asignacion extends Model
     {
         return $this->belongsTo(Agente::class);
     }
+
     public function evaluacions()
     {
         return $this->hasMany(Evaluacion::class);
     }
-    public function periodo(){
+
+    public function periodo()
+    {
         return $this->belongsTo(Periodo::class);
+    }
+
+    public function estudio()
+    {
+        return $this->belongsTo(Estudio::class);
     }
 
 

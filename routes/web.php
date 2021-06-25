@@ -20,8 +20,7 @@ use App\Http\Livewire\Calidad;
 */
 
 Route::get('/', function () {
-
-    return view('welcome');
+    return redirect(route('dashboard'));
 });
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
@@ -38,8 +37,9 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return view('dashboard', compact('evaluacions', 'evaluacionesdehoy'));
 })->name('dashboard');
 
+
 Route::post('/asignaciones',[AsignacionController::class,'periodo'])->name('asignacions.periodo')->middleware(['auth:sanctum', 'verified']);
-Route::get('/asignaciones/{periodoid}',[AsignacionController::class,'index'])->name('asignacions.index')->middleware(['auth:sanctum', 'verified']);
+Route::get('/asignaciones/{estudioid}/{periodoid}',[AsignacionController::class,'index'])->name('asignacions.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacionid}',[AsignacionController::class,'listar'])->name('asignacions.listar')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacionid}/{rutejecutivo}',[AsignacionController::class,'ejecutivoevaluaciones'])->name('asignacions.ejecutivoevaluaciones')->middleware(['auth:sanctum', 'verified']);
 

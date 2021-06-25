@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class DatabaseSeeder
  * @package Database\Seeders
- * @version 1
+ * @version 2 (25/06/2021)
  */
 class DatabaseSeeder extends Seeder
 {
@@ -20,14 +20,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
+            PautasEstudiosSeeder::class,
             PeriodosSeeder::class,
             EstadosSeeder::class,
             UsersSeeder::class,
-            EstudiosSeeder::class,
             ServiciosSeeder::class,
             AgentesSeeder::class,
             AsignacionsSeeder::class,
-            PautasSeeder::class,
             AtributosSeeder::class,
         ]);
         Evaluacion::factory()->count(100)->create();

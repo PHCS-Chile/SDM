@@ -4,6 +4,10 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+/**
+ * Class CreateAsignacionsTable
+ * @version 1 (25/06/2021)
+ */
 class CreateAsignacionsTable extends Migration
 {
     /**
@@ -18,8 +22,10 @@ class CreateAsignacionsTable extends Migration
             $table->integer('n_asignacion');
             $table->unsignedBigInteger('agente_id')->nullable();
             $table->unsignedBigInteger('periodo_id')->nullable();
+            $table->unsignedBigInteger('estudio_id')->nullable();
             $table->foreign('agente_id')->references('id')->on('agentes')->onDelete('set null');
             $table->foreign('periodo_id')->references('id')->on('periodos')->onDelete('set null');
+            $table->foreign('estudio_id')->references('id')->on('estudios')->onDelete('set null');
             $table->timestamps();
         });
     }

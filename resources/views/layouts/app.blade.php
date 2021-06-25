@@ -1,7 +1,8 @@
 {{--
 Plantilla: App (base)
-Versión 2 (10/06/2021)
+Versión 3 (25/06/2021)
 --}}
+
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
@@ -16,6 +17,11 @@ Versión 2 (10/06/2021)
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+        <style>
+            .breadcrumb nav ol {
+                background-color: transparent !important;
+            }
+        </style>
 
         @livewireStyles
 

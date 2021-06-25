@@ -1,11 +1,25 @@
+{{--
+Plantilla: asignacions/listar
+Versión 1 (25/06/2021)
+--}}
+
 <x-app-layout>
+
+    {{-- Header --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-{{ __('Inicio') }}
-</h2>
-</x-slot>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Inicio') }}</h2>
+    </x-slot>
+
+    {{-- Breadcrumb --}}
+    <div class="breadcrumb">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {!! Breadcrumbs::render('asignacion', $asignacion) !!}
+        </div>
+    </div>
+
+    {{-- Contenido --}}
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
-<div class="flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 pt-10">
+    <div class="flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 pt-10">
         <div class="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
             <div class="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                 <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
@@ -42,13 +56,13 @@
                         </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach($asignacions as $asignacion)
+                        @foreach($asignacionesPeriodo as $asignacionPeriodo)
                         <tr>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="ml-4">
                                         <div class="text-sm font-medium text-gray-900">
-                                            {{$asignacion->agente->servicio->name}}
+                                            {{$asignacionPeriodo->agente->servicio->name}}
                                         </div>
 
                                     </div>
@@ -121,14 +135,7 @@
 
                         @foreach($evaluaciones as $evaluacion)
 
-                        <tr class="
-                        @foreach($evaluacionescompletas as $evaluacioncompleta)
-                            @if($evaluacioncompleta->rut_ejecutivo == $asignacion->rut_ejecutivo)
-                                bg-yellow-50
-
-                            @endif
-                        @endforeach
-                        ">
+                        <tr class="{{ $evaluacion->estaCompleta() ? 'bg-yellow-50' : '' }}">
 
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">{{$asignacion->rut_ejecutivo}}</div>
@@ -148,7 +155,7 @@
         </div>
     </div>
     @endif
-    @livewire('asignacion-index', ['asignacionid' => $asignacionfinal->id])
+    @livewire('asignacion-index', ['asignacionid' => $asignacion->id])
 </x-app-layout>
 
 

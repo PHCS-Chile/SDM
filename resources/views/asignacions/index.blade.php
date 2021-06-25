@@ -1,16 +1,33 @@
+{{--
+Plantilla: asignacions/index
+Versión 1 (25/06/2021)
+--}}
+
 <x-app-layout>
+
+    {{-- Header --}}
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Inicio') }}
-        </h2>
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ __('Inicio') }}</h2>
     </x-slot>
+
+    {{-- Breadcrumb --}}
+    <div class="breadcrumb">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            {!! Breadcrumbs::render('asignaciones', $estudio, $periodo) !!}
+        </div>
+    </div>
+
+    {{-- Contenido TODO: Revisar consistencia de tags HTML --}}
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
 
     <div class="flex flex-col max-w-7xl mx-auto sm:px-6 lg:px-8 pt-10">
 
         <form action="{{route('asignacions.periodo')}}" method="POST">
         @csrf
+            <input type="hidden" name="estudioid" value="{{ $estudio->id }}">
+        <strong class="flex flex-row inline-flex mr-10" style="font-size: 26px; font-weight: 600">{{ $estudio->name }}</strong>
         <div class="flex flex-row inline-flex items-center my-5">
+
             <div>
                 <p class="text-gray-600 font-bold">Periodo:&nbsp&nbsp</p>
             </div>
@@ -18,8 +35,8 @@
             <div>
                 <div class="text-sm text-gray-500">
                     <select id="seleccionPeriodo" name="seleccionPeriodo" class="py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                        @foreach($periodos as $periodo)
-                            <option value="{{$periodo->periodo_id}}" {{ ( $periodo->periodo_id == $periodoSeleccionado) ? 'selected' : '' }}>{{$periodo->name}}</option>
+                        @foreach($periodos as $unPeriodo)
+                            <option value="{{$unPeriodo->periodo_id}}" {{ ($unPeriodo->periodo_id == $periodo->periodo_id) ? 'selected' : '' }}>{{$unPeriodo->name}}</option>
                         @endforeach
 
                     </select>
