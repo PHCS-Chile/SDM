@@ -52,6 +52,7 @@ class PautaDigital extends Component
     public $seguridad1 = '';
     public $seguridad2 = '';
     public $seguridad3 = '';
+    public $seguridad4 = '';
     public $manejosilencios1 = '';
     public $manejosilencios2 = '';
     public $manejosilencios3 = '';
@@ -327,8 +328,9 @@ class PautaDigital extends Component
 
         $this->guardarespuesta(33, $this->seguridad1);
         $this->guardarespuesta(34, $this->seguridad2);
+        $this->guardarespuesta(178, $this->seguridad4);
 
-        if($this->seguridad1 == 'checked' or $this->seguridad2 == 'checked'){
+        if($this->seguridad1 == 'checked' or $this->seguridad2 == 'checked' or $this->seguridad4 == 'checked'){
             $respuestapadre = 0;
             $respuestapadretext = "No";
         }else{

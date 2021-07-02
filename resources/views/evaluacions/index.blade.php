@@ -200,8 +200,15 @@ Versión 2 (10/06/2021)
     </div>
 
     <div class="flex space-x-4 pt-6 px-6">
-
         <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
+
+{{--            <h3 class="font-bold">Audio de la conversacion</h3>--}}
+{{--            <audio controls>--}}
+{{--                <source src="d:\efetepe\dummy.mp3" type="audio/mpeg">--}}
+{{--                Your browser does not support the audio element.--}}
+{{--            </audio>--}}
+{{--            <hr class="mt-3 mb-3">--}}
+
             @if($evaluacionfinal->image_path)
                 {!! $evaluacionfinal->image_path !!}
             @else

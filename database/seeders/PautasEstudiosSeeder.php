@@ -28,7 +28,7 @@ class PautasEstudiosSeeder extends Seeder
      */
     private $pautas = [
         ['name' => 'Whatsapp', 'descripcion' => 'pauta de whatsapp'],
-        ['name' => 'Voz', 'descripcion' => 'pauta de voz'],
+        ['name' => 'Voz', 'descripcion' => 'Pauta Call Center Voz'],
     ];
 
     /**
@@ -36,7 +36,7 @@ class PautasEstudiosSeeder extends Seeder
      */
     private $estudios = [
         ['name' => 'EPCS Call Center Canales Digitales', 'pauta_id' => 1],
-        ['name' => 'Voz', 'pauta_id' => 2],
+        ['name' => 'Call Center Voz', 'pauta_id' => 2],
     ];
 
 }

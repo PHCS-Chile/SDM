@@ -287,6 +287,14 @@ Versión 2 (10/06/2021)
                                             <label for="seguridad2" class="font-medium text-gray-700">Se autocorrige o se contradice en la conversación</label>
                                         </div>
                                     </div>
+                                    <div class="flex items-start">
+                                        <div class="flex items-center h-5">
+                                            <input id="seguridad4" name="seguridad4" wire:model.defer="seguridad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad4}}>
+                                        </div>
+                                        <div class="ml-3 text-sm">
+                                            <label for="seguridad4" class="font-medium text-gray-700">No informa el motivo de uso de datos personales</label>
+                                        </div>
+                                    </div>
 
                                 </div>
                             </fieldset>
