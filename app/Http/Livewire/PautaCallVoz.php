@@ -5,8 +5,9 @@ namespace App\Http\Livewire;
 use App\Models\Escala;
 use App\Models\Evaluacion;
 use Livewire\Component;
+use App\Http\Livewire\PautaBase;
 
-class PautaCallVoz extends Component
+class PautaCallVoz extends PautaBase
 {
     public $PENC_SaludoDespedida = '';
     public $PENC_SD_Bienvenida = '';
@@ -110,29 +111,10 @@ class PautaCallVoz extends Component
     public $resolucion3 = '';
 
 
-
-    /**
-     * Carga info de la base de datos en el controlador
-     * @param $evaluacionid    int La id de la evaluación que se cargará
-     */
-    public function mount(int $evaluacionid){
-        /* Obtener info desde la base de datos */
-        $this->evaluacion = Evaluacion::find($evaluacionid);
+    public function inicializar()
+    {
         $this->gestiones = Escala::where('grupo_id',1)->get();
         $this->resoluciones = Escala::where('grupo_id',2)->get();
-        if($this->evaluacion->fecha_ici){
-            $this->marca_ici = 1;
-        }
-
-        /* Cargar información obtenida en el controlador */
-        $cargadas = [];
-        foreach ($this->evaluacion->respuestas as $respuesta){
-            if ($respuesta->atributo->name_categoria == "Memo") {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
-            } else {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_text;
-            }
-        }
         /* Reglas de validación */
         $this->rules1 = [
             'motivo' => 'required',
@@ -145,8 +127,19 @@ class PautaCallVoz extends Component
         ];
     }
 
+
     public function render()
     {
         return view('livewire.pauta-call-voz');
+    }
+
+    public function guardar()
+    {
+        // TODO: Implement guardar() method.
+    }
+
+    public function calcularPuntajes()
+    {
+        // TODO: Implement calcularPuntajes() method.
     }
 }

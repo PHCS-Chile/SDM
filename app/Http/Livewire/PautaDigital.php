@@ -7,15 +7,16 @@ use App\Models\Evaluacion;
 use App\Models\Respuesta;
 use Auth;
 use Livewire\Component;
+use App\Http\Livewire\PautaBase;
 
 /**
  * Class PautaDigital
  * @package App\Http\Livewire
- * @version 3.1
+ * @version 4
  */
-class PautaDigital extends Component
+class PautaDigital extends PautaBase
 {
-    public $evaluacion, $gestiones, $resoluciones;
+    public $gestiones, $resoluciones;
     public $resultado = '';
     public $saludo1 = '';
     public $saludo2 = '';
@@ -112,35 +113,13 @@ class PautaDigital extends Component
     public $usuarios3 = '';
     public $comentario_interno = '';
     public $retroalimentacion = '';
-    public $rules1 = [];
-    public $rules2 = [];
-    public $rules3 = [];
     public $paso = '';
-    public $marca_ici = 0;
 
 
-    /**
-     * Carga info de la base de datos en el controlador
-     * @param $evaluacionid    int La id de la evaluación que se cargará
-     */
-    public function mount(int $evaluacionid){
-        /* Obtener info desde la base de datos */
-        $this->evaluacion = Evaluacion::find($evaluacionid);
+    public function inicializar()
+    {
         $this->gestiones = Escala::where('grupo_id',1)->get();
         $this->resoluciones = Escala::where('grupo_id',2)->get();
-        if($this->evaluacion->fecha_ici){
-            $this->marca_ici = 1;
-        }
-
-        /* Cargar información obtenida en el controlador */
-        $cargadas = [];
-        foreach ($this->evaluacion->respuestas as $respuesta){
-            if ($respuesta->atributo->name_categoria == "Memo") {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
-            } else {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_text;
-            }
-        }
         /* Reglas de validación */
         $this->rules1 = [
             'motivo' => 'required',
@@ -177,424 +156,93 @@ class PautaDigital extends Component
         }
     }
 
-    /**
-     * Efectúa un proceso de evaluación de calidad interna
-     */
-    public function ici()
-    {
-        $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
-        $suma = 0;
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->get();
-        foreach ($respuestas as $respuesta) {
-            if ($respuesta->atributo->name_categoria != "Memo") {
-                if ($respuesta->respuesta_text != $this->{$respuesta->atributo->name_interno}) {
-                    $suma += 100;
-                }
-            }
-            $respuesta->origen_id = 2;
-            $respuesta->save();
-        }
-        $this->evaluacion->ici = $suma / 92;
-        $this->evaluacion->user_ici = Auth::user()->id;
-        $this->evaluacion->fecha_ici = now();//->format('d-m-Y H:i:s');
-        $this->evaluacion->save();
-        $this->save();
-    }
-
-
-    /**
-     * Guarda una respuesta.
-     * Si se entrega el parametro $atributoint con valor distinto de NULL se tratará como atributo "padre".
-     *
-     * @param $atributoid
-     * @param string $atributotext
-     * @param null $atributoint
-     */
-    public function guardarespuesta($atributoid, string $atributotext, $atributoint=NULL){
-
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', $atributoid)->where('origen_id',1)->first();
-        if(!$respuesta) {
-            $respuesta = new Respuesta();
-            $respuesta->atributo_id = $atributoid;
-            $respuesta->evaluacion_id = $this->evaluacion->id;
-            $respuesta->origen_id = 1;
-        }
-        $respuesta->respuesta_text = $atributotext;
-        if ($atributoint !== NULL) {
-            $respuesta->respuesta_int = $atributoint;
-        }
-        $respuesta->save();
-    }
 
 
     /*
      * TODO: Esto requiere una manito de gato
      */
-    public function save(){
-
-        $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
-
-        $this->guardarespuesta(1, $this->saludo1);
-        $this->guardarespuesta(2, $this->saludo2);
-        $this->guardarespuesta(3, $this->saludo3);
-        $this->guardarespuesta(4, $this->saludo4);
-        $this->guardarespuesta(5, $this->saludo5);
-
-        if($this->saludo1 == 'checked' or $this->saludo2 == 'checked' or $this->saludo3 == 'checked' or $this->saludo4 == 'checked' or $this->saludo5 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(6, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(7, $this->frases1);
-        $this->guardarespuesta(8, $this->frases2);
-        $this->guardarespuesta(9, $this->frases3);
-        $this-> guardarespuesta(10, $this->frases4);
-
-        if($this->frases1 == 'checked' or $this->frases2 == 'checked' or $this->frases3 == 'checked' or $this->frases4 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(11, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(12, $this->cordialidad1);
-        $this->guardarespuesta(13, $this->cordialidad2);
-        $this->guardarespuesta(14, $this->cordialidad3);
-        $this->guardarespuesta(15, $this->cordialidad4);
-
-        if($this->cordialidad1 == 'checked' or $this->cordialidad2 == 'checked' or $this->cordialidad3 == 'checked' or $this->cordialidad4 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(16, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(17, $this->gestionplantillas1);
-        $this->guardarespuesta(18, $this->gestionplantillas2);
-        $this->guardarespuesta(19, $this->gestionplantillas3);
-        $this->guardarespuesta(20, $this->gestionplantillas4);
-
-        if($this->gestionplantillas1 == 'checked' or $this->gestionplantillas2 == 'checked' or $this->gestionplantillas3 == 'checked' or $this->gestionplantillas4 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(21, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(22, $this->ortografia1);
-        $this->guardarespuesta(23, $this->ortografia2);
-        $this->guardarespuesta(24, $this->ortografia3);
-        $this->guardarespuesta(25, $this->ortografia4);
-        $this->guardarespuesta(26, $this->ortografia5);
-        $this->guardarespuesta(27, $this->ortografia6);
-
-        if($this->ortografia1 == 'checked' or $this->ortografia2 == 'checked' or $this->ortografia3 == 'checked' or $this->ortografia4 == 'checked' or $this->ortografia5 == 'checked' or $this->ortografia6 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(28, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(29, $this->personalizacion1);
-        $this->guardarespuesta(30, $this->personalizacion2);
-        $this->guardarespuesta(31, $this->personalizacion3);
-
-        if($this->personalizacion3 == 'checked'){
-            if($this->personalizacion1 != 'checked' and $this->personalizacion2 != 'checked'){
-                $respuestapadre = -1;
-                $respuestapadretext = "No Aplica";
-            }
-        }elseif($this->personalizacion1 == 'checked' or $this->personalizacion2 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(32, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(33, $this->seguridad1);
-        $this->guardarespuesta(34, $this->seguridad2);
-        $this->guardarespuesta(178, $this->seguridad4);
-
-        if($this->seguridad1 == 'checked' or $this->seguridad2 == 'checked' or $this->seguridad4 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(35, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(36, $this->manejosilencios1);
-        $this->guardarespuesta(37, $this->manejosilencios2);
-        $this->guardarespuesta(38, $this->manejosilencios3);
-
-        if($this->manejosilencios1 == 'checked' or $this->manejosilencios2 == 'checked' or $this->manejosilencios3 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-        $this->guardarespuesta(39, $respuestapadretext, $respuestapadre);
-
-        $this->guardarespuesta(40, $this->aseguramiento1);
-        $this->guardarespuesta(41, $this->aseguramiento2);
-
-        if($this->aseguramiento2 == 'checked'){
-            if($this->aseguramiento1 != 'checked'){
-                $respuestapadre = -1;
-                $respuestapadretext = "No Aplica";
-            }
-        }elseif($this->aseguramiento1 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(42, $respuestapadretext, $respuestapadre);
-
-        // Ofrece nuevos productos/servicios
-
-        $this->guardarespuesta(43, $this->ofrecimiento1);
-        $this->guardarespuesta(44, $this->ofrecimiento2);
-        $this->guardarespuesta(45, $this->ofrecimiento3);
-        $this->guardarespuesta(46, $this->ofrecimiento4);
-
-        if($this->ofrecimiento4 == 'checked'){
-            if($this->ofrecimiento1 != 'checked' and $this->ofrecimiento2 != 'checked' and $this->ofrecimiento3 != 'checked'){
-                $respuestapadre = -1;
-                $respuestapadretext = "No Aplica";
-            }
-        }elseif($this->ofrecimiento1 == 'checked' or $this->ofrecimiento2 == 'checked' or $this->ofrecimiento3 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(47, $respuestapadretext, $respuestapadre);
-
-        // MOTIVO DEL LLAMADO
-
-        $this->guardarespuesta(48, $this->motivo);
-
-        // GESTIONES
-
-        $this->guardarespuesta(49, $this->gestion1);
-        $this->guardarespuesta(50, $this->gestion2);
-        $this->guardarespuesta(51, $this->gestion3);
-
-
-        // DETECCION DE NECESIDADES
-
-        $this->guardarespuesta(52, $this->deteccion1);
-        $this->guardarespuesta(53, $this->deteccion2);
-        $this->guardarespuesta(54, $this->deteccion3);
-
-
-        if($this->deteccion1 == 'checked' or $this->deteccion2 == 'checked' or $this->deteccion3 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(55, $respuestapadretext, $respuestapadre);
-
-        // INFO CORRECTA
-
-        $this->guardarespuesta(56, $this->infocorrecta1);
-        $this->guardarespuesta(57, $this->infocorrecta2);
-        $this->guardarespuesta(58, $this->infocorrecta3);
-
-        if($this->infocorrecta1 == 'checked' or $this->infocorrecta2 == 'checked' or $this->infocorrecta3 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(59, $respuestapadretext, $respuestapadre);
-
-        // PROCEDIMIENTO
-
-        $this->guardarespuesta(60, $this->procedimiento1);
-        $this->guardarespuesta(61, $this->procedimiento2);
-        $this->guardarespuesta(62, $this->procedimiento3);
-
-        if($this->procedimiento1 == 'checked' or $this->procedimiento2 == 'checked' or $this->procedimiento3 == 'checked'){
-            $respuestapadre = 0;
-            $respuestapadretext = "No";
-        }else{
-            $respuestapadre = 1;
-            $respuestapadretext = "Si";
-        }
-
-        $this->guardarespuesta(63, $respuestapadretext, $respuestapadre);
-
-        // RESOLUCION EN LINEA
-
-        $this->guardarespuesta(64, $this->resolucion1);
-        $this->guardarespuesta(65, $this->resolucion2);
-        $this->guardarespuesta(66, $this->resolucion3);
+    public function guardar(){
+//        $this->guardarRespuestas([1, 2, 3, 4, 5, 6], 'saludo', 6);
+//        $this->guardarRespuestas([7, 8, 9, 10, 11], 'frases', 5);
+//        $this->guardarRespuestas([12, 13, 14, 15, 16], 'cordialidad', 5);
+//        $this->guardarRespuestas([17, 18, 19, 20, 21], 'gestionplantillas', 5);
+//        $this->guardarRespuestas([22, 23, 24, 25, 26, 27, 28], 'ortografia', 7);
+        $this->guardarRespuestas([29, 30, 31, 32], 'personalizacion', 4, 3);
+        $this->guardarRespuestas([33, 34, 35, 178], 'seguridad', 3);
+        $this->guardarRespuestas([36, 37, 38, 39], 'manejosilencios', 4);
+        $this->guardarRespuestas([40, 41, 42], 'aseguramiento', 3, 2);
+        $this->guardarRespuestas([43, 44, 45, 46, 47], 'ofrecimiento', 5, 4);
+        $this->guardarRespuesta(48, ['text' => $this->motivo]);
+        $this->guardarRespuestas([49, 50, 51], 'gestion');
+        $this->guardarRespuestas([52, 53, 54, 55], 'deteccion', 4);
+        $this->guardarRespuestas([56, 57, 58, 59], 'infocorrecta', 4);
+        $this->guardarRespuestas([60, 61, 62, 63], 'procedimiento', 4);
+        $this->guardarRespuestas([64, 65, 66], 'resolucion');
 
         // ERRORES CRITICOS
-
-        $this->guardarespuesta(67, $this->pecu_deteccion);
-        $this->guardarespuesta(68, $this->pecu_infocorrecta);
-        $this->guardarespuesta(69, $this->pecu_procedimiento);
-        $this->guardarespuesta(70, $this->pecu_pocoprofesional);
-        $this->guardarespuesta(71, $this->pecu_manipulacliente);
-        $this->guardarespuesta(73, $this->pecu_cierreinteraccion);
-        $this->guardarespuesta(74, $this->pecu_provocacierre);
-        $this->guardarespuesta(75, $this->pecn_beneficio);
-        $this->guardarespuesta(76, $this->pecn_fraude);
-        $this->guardarespuesta(77, $this->pecn_nosondea);
-        $this->guardarespuesta(78, $this->pecn_tipificacion);
-        $this->guardarespuesta(79, $this->pecn_factibilidad);
-        $this->guardarespuesta(80, $this->pecn_otragestion);
-        $this->guardarespuesta(81, $this->pecc_infoconfidencial);
-        $this->guardarespuesta(82, $this->pecc_novalidadatos);
-        $this->guardarespuesta(83, $this->pecc_cierre);
-        $this->guardarespuesta(84, $this->pecc_infoerronea);
+        $this->guardarRespuesta(67, ['text' => $this->pecu_deteccion]);
+        $this->guardarRespuesta(68, ['text' => $this->pecu_infocorrecta]);
+        $this->guardarRespuesta(69, ['text' => $this->pecu_procedimiento]);
+        $this->guardarRespuesta(70, ['text' => $this->pecu_pocoprofesional]);
+        $this->guardarRespuesta(71, ['text' => $this->pecu_manipulacliente]);
+        $this->guardarRespuesta(73, ['text' => $this->pecu_cierreinteraccion]);
+        $this->guardarRespuesta(74, ['text' => $this->pecu_provocacierre]);
+        $this->guardarRespuesta(75, ['text' => $this->pecn_beneficio]);
+        $this->guardarRespuesta(76, ['text' => $this->pecn_fraude]);
+        $this->guardarRespuesta(77, ['text' => $this->pecn_nosondea]);
+        $this->guardarRespuesta(78, ['text' => $this->pecn_tipificacion]);
+        $this->guardarRespuesta(79, ['text' => $this->pecn_factibilidad]);
+        $this->guardarRespuesta(80, ['text' => $this->pecn_otragestion]);
+        $this->guardarRespuesta(81, ['text' => $this->pecc_infoconfidencial]);
+        $this->guardarRespuesta(82, ['text' => $this->pecc_novalidadatos]);
+        $this->guardarRespuesta(83, ['text' => $this->pecc_cierre]);
+        $this->guardarRespuesta(84, ['text' => $this->pecc_infoerronea]);
 
         // CARACTERIZACION COMPLEMENTARIA
+        $this->guardarRespuestas([85, 86, 87], 'asistentevirtual');
+        $this->guardarRespuestas([88, 89, 90], 'gestionesanteriores');
+        $this->guardarRespuestas([91, 92, 93], 'usuarios');
 
-        $this->guardarespuesta(85, $this->asistentevirtual1);
-        $this->guardarespuesta(86, $this->asistentevirtual2);
-        $this->guardarespuesta(87, $this->asistentevirtual3);
-        $this->guardarespuesta(88, $this->gestionesanteriores1);
-        $this->guardarespuesta(89, $this->gestionesanteriores2);
-        $this->guardarespuesta(90, $this->gestionesanteriores3);
-        $this->guardarespuesta(91, $this->usuarios1);
-        $this->guardarespuesta(92, $this->usuarios2);
-        $this->guardarespuesta(93, $this->usuarios3);
+        $this->guardarRespuesta(94, ['memo' => $this->retroalimentacion]);
+        $this->guardarRespuesta(95, ['memo' => $this->comentario_interno]);
+    }
 
 
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 94)->where('origen_id',1)->first();
-        if($respuesta){
-            $respuesta->respuesta_memo = $this->retroalimentacion;
-            $respuesta->save();
-        }else{
-            Respuesta::create([
-                'atributo_id' => 94,
-                'evaluacion_id' => $this->evaluacion->id,
-                'respuesta_memo' => $this->retroalimentacion,
-                'origen_id' => 1,
-            ]);
-        }
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 95)->where('origen_id',1)->first();
-        if($respuesta){
-            $respuesta->respuesta_memo = $this->comentario_interno;
-            $respuesta->save();
-        }else{
-            Respuesta::create([
-                'atributo_id' => 95,
-                'evaluacion_id' => $this->evaluacion->id,
-                'respuesta_memo' => $this->comentario_interno,
-                'origen_id' => 1,
-            ]);
-        }
 
-
+    /*
+     * TODO: Esto requiere una manito de gato
+     */
+    public function calcularPuntajes(){
 
         $penc = 0;
         $pecu = 100;
         $pecn = 100;
         $pecc = 100;
         $penctotal = 100;
-        //Saludo
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 6)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Frases
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 11)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Cordialidad
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 16)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Gestion de Planillas e Info
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 21)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Ortografia
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 28)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Personalizacion
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 32)->first();
-        if($respuesta->respuesta_text == 'No Aplica'){
-            $penctotal = $penctotal - 10;
-        }elseif($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Seguridad
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 35)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Manejo de Silencios
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 39)->first();
-        if($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Aseguramiento
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 42)->first();
-        if($respuesta->respuesta_text == 'No Aplica'){
-            $penctotal = $penctotal - 10;
-        }elseif($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
-        }
-        //Ofrecimiento
-        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('atributo_id', 47)->first();
-        if($respuesta->respuesta_text == 'No Aplica'){
-            $penctotal = $penctotal - 10;
-        }elseif($respuesta->respuesta_text == 'Si'){
-            $penc = $penc + 10;
+
+        $atributosResumenPENC = [6, 11, 16, 21, 28, 32, 35, 39, 42, 47];
+        foreach ($atributosResumenPENC as $atributoResumen) {
+            $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributoResumen);
+            $penc += (10 * $respuesta->respuesta_int);
         }
         $pencfinal = $penc / $penctotal * 100;
 
-        if($this->pecu_deteccion == 'checked' or $this->pecu_infocorrecta == 'checked' or $this->pecu_procedimiento == 'checked' or $this->pecu_pocoprofesional == 'checked' or $this->pecu_manipulacliente == 'checked' or $this->pecu_cierreinteraccion == 'checked' or $this->pecu_provocacierre == 'checked'){
-            $pecu = 0;
+        $atributosCriticos = [
+            'pecu' => ['deteccion', 'infocorrecta', 'procedimiento', 'pocoprofesional', 'manipulacliente', 'cierreinteraccion', 'provocacierre'],
+            'pecn' => ['beneficio', 'fraude', 'nosondea', 'tipificacion', 'factibilidad', 'otragestion'],
+            'pecc' => ['infoconfidencial', 'novalidadatos', 'cierre', 'infoerronea'],
+        ];
+        foreach ($atributosCriticos as $tipo => $atributos) {
+            foreach ($atributos as $atributo) {
+                if ($this->{$tipo . "_" . $atributo} == 'checked') {
+                    ${$tipo} = 0;
+                    break;
+                }
+            }
+            $this->evaluacion->{$tipo} = ${$tipo};
         }
-        if($this->pecn_beneficio == 'checked' or $this->pecn_fraude == 'checked' or $this->pecn_nosondea == 'checked' or $this->pecn_tipificacion == 'checked' or $this->pecn_factibilidad == 'checked' or $this->pecn_otragestion == 'checked'){
-            $pecn = 0;
-        }
-        if($this->pecc_infoconfidencial == 'checked' or $this->pecc_novalidadatos == 'checked' or $this->pecc_cierre == 'checked' or $this->pecc_infoerronea == 'checked'){
-            $pecc = 0;
-        }
-
         $this->evaluacion->penc = $pencfinal;
-        $this->evaluacion->pecu = $pecu;
-        $this->evaluacion->pecn = $pecn;
-        $this->evaluacion->pecc = $pecc;
+
         if($this->evaluacion->estado_id == 1){
             $this->evaluacion->user_completa = Auth::user()->name;
             $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
