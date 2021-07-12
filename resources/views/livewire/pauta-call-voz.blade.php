@@ -190,7 +190,7 @@ Versión 2 (10/06/2021)
                                             <input id="comunicacion4" name="comunicacion4" wire:model.defer="comunicacion4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="comunicacion4" class="font-medium text-yellow-500">Usa tecnicismos</label>
+                                            <label for="comunicacion4" class="font-medium text-gray-700">Usa tecnicismos</label>
                                         </div>
                                     </div>
                                 </div>
@@ -218,7 +218,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="educacliente2" name="educacliente2" wire:model.defer="educacliente2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente2}}>
+                                            <input id="educacliente2" name="educacliente2" wire:model.defer="educacliente2" wire:click="xeducacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="educacliente2" class="font-medium text-gray-700">No menciona otros canales</label>
@@ -226,18 +226,18 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="educacliente3" name="educacliente3" wire:model.defer="educacliente3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente3}}>
+                                            <input id="educacliente3" name="educacliente3" wire:model.defer="educacliente3" wire:click="xeducacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="educacliente3" class="font-medium text-gray-700">No Aplica - Por posible molestia</label>
+                                            <label for="educacliente3" class="font-medium text-yellow-500">No Aplica - Por posible molestia</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="educacliente4" name="educacliente4" wire:model.defer="educacliente4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente4}}>
+                                            <input id="educacliente4" name="educacliente4" wire:model.defer="educacliente4" wire:click="xeducacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="educacliente4" class="font-medium text-gray-700">No Aplica - Sin opciones</label>
+                                            <label for="educacliente4" class="font-medium text-yellow-500">No Aplica - Sin opciones</label>
                                         </div>
                                     </div>
                                 </div>

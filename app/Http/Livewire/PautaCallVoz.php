@@ -135,6 +135,12 @@ class PautaCallVoz extends PautaBase
         ];
     }
 
+    public function xeducacliente(){
+        if($this->educacliente3 == "checked" or $this->educacliente4 == "checked"){
+            $this->educacliente2 = "";
+            $this->educacliente1 = "No Aplica";
+        }
+    }
 
     public function render()
     {
