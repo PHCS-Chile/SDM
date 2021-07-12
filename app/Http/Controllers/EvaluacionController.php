@@ -12,7 +12,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 1
+ * @version 2
  */
 
 class EvaluacionController extends Controller
@@ -25,13 +25,15 @@ class EvaluacionController extends Controller
         $estados = Estado::all();
         $gestiones = Escala::where('grupo_id',1)->get();
         $resoluciones = Escala::where('grupo_id',2)->get();
-        return view('evaluacions.reporte',compact( 'evaluacionfinal',  'estados', 'respuestas', 'gestiones', 'resoluciones'));
+        return view('evaluacions.reporte',compact( 'evaluacionfinal',  'estados', 'respuestas',
+            'gestiones', 'resoluciones'));
     }
 
     public function index($evaluacionid){
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
         $estados = Estado::all();
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados'));
+        $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta'));
     }
 
     public function guardaeval(Request $request, $evaluacionid){

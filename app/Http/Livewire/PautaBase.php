@@ -125,6 +125,7 @@ abstract class PautaBase extends Component
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
         $this->calcularPuntajes();
+        return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
     }
 
 

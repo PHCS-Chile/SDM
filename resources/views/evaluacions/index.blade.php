@@ -1,6 +1,6 @@
 {{--
 Plantilla: Evaluaciones (plantilla general)
-Versión 2 (10/06/2021)
+Versión 3
 --}}
 <x-app-layout>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
@@ -208,30 +208,42 @@ Versión 2 (10/06/2021)
 {{--                Your browser does not support the audio element.--}}
 {{--            </audio>--}}
 {{--            <hr class="mt-3 mb-3">--}}
+            @if ($pauta == 1)
+                @if ($evaluacionfinal->image_path)
+                    {!! $evaluacionfinal->image_path !!}
+                @else
+                    <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
+                        @csrf
+                        <p class="text-red-600 font-bold">No hay un Chat ingresado.</p>
+                        Inserta el texto aca y haz click en guardar
 
-            @if($evaluacionfinal->image_path)
-                {!! $evaluacionfinal->image_path !!}
-            @else
-                <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
-                    @csrf
-                    <p class="text-red-600 font-bold">No hay un Chat ingresado.</p>
-                    Inserta el texto aca y haz click en guardar
+                        <div class="mt-1">
+                            <textarea id="textochatinput" name="textochatinput" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Inserta el Texto copiado desde Copycat aquí"></textarea>
+                        </div>
+                        <p class="mt-2 text-sm text-gray-500">
+                            Recuerda que el texto tiene que tener las etiquetas html como por ejemplo < div >
+                        </p>
+                        <button type="submit" name="form1" class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Guardar
+                        </button>
 
-                    <div class="mt-1">
-                        <textarea id="textochatinput" name="textochatinput" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Inserta el Texto copiado desde Copycat aquí"></textarea>
-                    </div>
-                    <p class="mt-2 text-sm text-gray-500">
-                        Recuerda que el texto tiene que tener las etiquetas html como por ejemplo < div >
-                    </p>
-                    <button type="submit" name="form1" class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        Guardar
-                    </button>
-
-                </form>
+                    </form>
+                @endif
+            @elseif ($pauta == 2)
+                <h3 class="font-bold">Audio de la conversacion</h3>--}}
+                <audio controls>
+                    <source src="" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <hr class="mt-3 mb-3">
             @endif
         </div>
         <div class="w-3/4 p-6 bg-gray-50 overflow-hidden shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
-            @livewire('pauta-digital', ['evaluacionid' => $evaluacionfinal->id])
+            @if ($pauta == 1)
+                @livewire('pauta-digital', ['evaluacionid' => $evaluacionfinal->id])
+            @elseif ($pauta == 2)
+                @livewire('pauta-call-voz', ['evaluacionid' => $evaluacionfinal->id])
+            @endif
         </div>
     </div>
     @endif

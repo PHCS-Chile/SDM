@@ -258,7 +258,6 @@ class PautaDigital extends PautaBase
             $this->evaluacion->estado_id = 2;
         }
         $this->evaluacion->save();
-        return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
 
     }
 

@@ -7,93 +7,97 @@ use App\Models\Evaluacion;
 use Livewire\Component;
 use App\Http\Livewire\PautaBase;
 
+
+/**
+ * Class PautaCallVoz
+ * @package App\Http\Livewire
+ * @version 1
+ */
 class PautaCallVoz extends PautaBase
 {
-    public $PENC_SaludoDespedida = '';
-    public $PENC_SD_Bienvenida = '';
-    public $PENC_SD_Despedida = '';
-    public $PENC_SD_Contexto = '';
-    public $PENC_Disposicion = '';
-    public $PENC_DI_Interrumpe = '';
-    public $PENC_DI_NoRetieneInfo = '';
-    public $PENC_Cordialidad = '';
-    public $PENC_CO_NoMuestraInteres = '';
-    public $PENC_CO_NoReduceConflicto = '';
-    public $PENC_CO_NoManifiestaDisposicion = '';
-    public $PENC_CO_NoPideDisculpas = '';
-    public $PENC_ManejoSilencios = '';
-    public $PENC_MS_NoInformaPausa = '';
-    public $PENC_MS_NoInteractua = '';
-    public $PENC_MS_NoAgradece = '';
-    public $PENC_Seguridad = '';
-    public $PENC_Seguridad_Confianza = '';
-    public $PENC_Seguridad_Informacion = '';
-    public $PENC_Seguridad_Titubea = '';
-    public $PENC_Seguridad_NoInformaMotivo = '';
-    public $PENC_ComunicacionSimple = '';
-    public $PENC_Comunicacion_TratoCercano = '';
-    public $PENC_Comunicacion_PalabrasColoquiales = '';
-    public $PENC_Comunicacion_Tecnicismos = '';
-    public $PENC_EducaCliente = '';
-    public $PENC_EducaCliente_NoInformaOtrosMedios = '';
-    public $PENC_EducaCliente_NAMolestia = '';
-    public $PENC_EducaCliente_NASinOpciones = '';
-    public $PENC_Aseguramiento = '';
-    public $PENC_Aseguramiento_NoValida = '';
-    public $PENC_Aseguramiento_NATransfer = '';
-    public $PENC_Aseguramiento_NACanal = '';
-    public $PENC_Aseguramiento_NAMolestia = '';
-    public $PENC_Aseguramiento_NAClienteAseguraInfo = '';
-    public $PENC_Mejor_Alternativa = '';
-    public $PENC_MA_NoAsesora = '';
-    public $PENC_MA_NoOfreceAcorde = '';
-    public $PENC_MA_NAPlataformaEspecialista = '';
-    public $PENC_MA_NARechazaOfertas = '';
-    public $PENC_MA_NANoTitular = '';
-    public $PENC_MA_NASinFactComercial = '';
-    public $PENC_MA_NASinFactTecnica = '';
-    public $PENC_MA_NAProblemasTecnicos = '';
-    public $PENC_MA_NAOtros = '';
-    public $PENC_Frases_Enganche = '';
-    public $PENC_FE_NoUtilizaFrases = '';
-    public $PENC_FE_UsaArgumentosErroneos = '';
-    public $PENC_FE_NASinOfrecimiento = '';
-    public $PECU_DeteccionNecesidades = '';
-    public $PECU_GestionIncorrecta = '';
-    public $PECU_NoResuelve = '';
-    public $PECU_AtencionGrosera = '';
-    public $PECU_PocoProfesional = '';
-    public $PECU_ManipulaCliente = '';
-    public $PECN_NoSondea = '';
-    public $PECN_DescalificaEntel = '';
-    public $PECN_BeneficioFueraProc = '';
-    public $PECN_Fraude = '';
-    public $PECN_NoLiberaLinea = '';
-    public $PECN_ValidacionFactibilidad = '';
-    public $PECN_NoTipificaSistema = '';
-    public $PECN_OtraGestion = '';
-    public $PECC_NiegaEscalamiento = '';
-    public $PECC_OmiteInformacion = '';
-    public $PECC_InfoConfidencial = '';
-    public $PECC_CierreNegocios = '';
-    public $PECC_NoValidaDatos = '';
-    public $PECC_CoordinacionDespacho = '';
-    public $PEC_Responsable = '';
-    public $OTRO_MotivoLlamado = '';
-    public $OTRO_RuidoenLlamada = '';
-    public $OTRO_FrasesyScripts = '';
-    public $OTRO_TipoGestion = '';
-    public $OTRO_TipoNegocio = '';
-    public $OTRO_TN_OfrecimientoMultilinea = '';
-    public $OTRO_TN_OfrecimientoEquipo = '';
-    public $OTRO_TN_OfrecimientoAccesorio = '';
-    public $OTRO_ResuelveEnLinea = '';
+    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables;
+    public $saludo1 = '';
+    public $saludo2 = '';
+    public $saludo3 = '';
+    public $saludo4 = '';
+    public $disposicion1 = '';
+    public $disposicion2 = '';
+    public $disposicion3 = '';
+    public $cordialidad1 = '';
+    public $cordialidad2 = '';
+    public $cordialidad3 = '';
+    public $cordialidad4 = '';
+    public $cordialidad5 = '';
+    public $manejosilencios1 = '';
+    public $manejosilencios2 = '';
+    public $manejosilencios3 = '';
+    public $manejosilencios4 = '';
+    public $seguridad1 = '';
+    public $seguridad2 = '';
+    public $seguridad3 = '';
+    public $seguridad4 = '';
+    public $seguridad5 = '';
+    public $comunicacion1 = '';
+    public $comunicacion2 = '';
+    public $comunicacion3 = '';
+    public $comunicacion4 = '';
+    public $educacliente1 = '';
+    public $educacliente2 = '';
+    public $educacliente3 = '';
+    public $educacliente4 = '';
+    public $aseguramiento1 = '';
+    public $aseguramiento2 = '';
+    public $aseguramiento3 = '';
+    public $aseguramiento4 = '';
+    public $aseguramiento5 = '';
+    public $aseguramiento6 = '';
+    public $ofrecimientocomercial1 = '';
+    public $ofrecimientocomercial2 = '';
+    public $ofrecimientocomercial3 = '';
+    public $ofrecimientocomercial4 = '';
+    public $ofrecimientocomercial5 = '';
+    public $ofrecimientocomercial6 = '';
+    public $ofrecimientocomercial7 = '';
+    public $ofrecimientocomercial8 = '';
+    public $ofrecimientocomercial9 = '';
+    public $ofrecimientocomercial10 = '';
+    public $frasesenganche1 = '';
+    public $frasesenganche2 = '';
+    public $frasesenganche3 = '';
+    public $frasesenganche4 = '';
+    public $pecu_deteccion = '';
+    public $pecu_gestionincorrecta = '';
+    public $pecu_noresuelve = '';
+    public $pecu_atenciongrosera = '';
+    public $pecu_pocoprofesional = '';
+    public $pecu_manipulacliente = '';
+    public $pecn_nosondea = '';
+    public $pecn_descalificaentel = '';
+    public $pecn_beneficiofueraproc = '';
+    public $pecn_fraude = '';
+    public $pecn_noliberalinea = '';
+    public $pecn_factibilidad = '';
+    public $pecn_notipificasistema = '';
+    public $pecn_otragestion = '';
+    public $pecc_niegaescalamiento = '';
+    public $pecc_omiteinformacion = '';
+    public $pecc_infoconfidencial = '';
+    public $pecc_cierrenegocios = '';
+    public $pecc_novalidadatos = '';
+    public $pecc_despacho = '';
+    public $pec_responsable = '';
+    public $otro_ruidoenllamada = '';
+    public $otro_frasesyscripts = '';
+    public $otro_tiponegocio = '';
+    public $otro_ofrecimientomultilinea = '';
+    public $otro_ofrecimientoequipo = '';
+    public $otro_ofrecimientoaccesorio = '';
     public $retroalimentacion = '';
     public $comentario_interno = '';
     public $motivo = '';
-    public $gestion1 = '';
-    public $gestion2 = '';
-    public $gestion3 = '';
+    public $tipogestion1 = '';
+    public $tipogestion2 = '';
+    public $tipogestion3 = '';
     public $deteccion1 = '';
     public $deteccion2 = '';
     public $deteccion3 = '';
@@ -102,26 +106,30 @@ class PautaCallVoz extends PautaBase
     public $infocorrecta2 = '';
     public $infocorrecta3 = '';
     public $infocorrecta4 = '';
-    public $procedimiento1 = '';
-    public $procedimiento2 = '';
-    public $procedimiento3 = '';
-    public $procedimiento4 = '';
+    public $gestiona1 = '';
+    public $gestiona2 = '';
+    public $gestiona3 = '';
+    public $gestiona4 = '';
     public $resolucion1 = '';
     public $resolucion2 = '';
     public $resolucion3 = '';
+    public $resolucion4 = '';
 
 
     public function inicializar()
     {
         $this->gestiones = Escala::where('grupo_id',1)->get();
         $this->resoluciones = Escala::where('grupo_id',2)->get();
+        $this->ruidos = Escala::where('grupo_id',4)->get();
+        $this->tiposnegocio = Escala::where('grupo_id',5)->get();
+        $this->pecresponsables = Escala::where('grupo_id',3)->get();
         /* Reglas de validación */
         $this->rules1 = [
             'motivo' => 'required',
-            'gestion1' => 'required',
+            'tipogestion1' => 'required',
             'deteccion1' => 'required',
             'infocorrecta1' => 'required',
-            'procedimiento1' => 'required',
+            'gestiona1' => 'required',
             'resolucion1' => 'required',
             'retroalimentacion' => 'required',
         ];
@@ -135,7 +143,55 @@ class PautaCallVoz extends PautaBase
 
     public function guardar()
     {
-        // TODO: Implement guardar() method.
+        $this->guardarRespuestas([97, 98, 99, 100], 'saludo', 1);
+        $this->guardarRespuestas([101, 102, 103], 'disposicion', 1);
+        $this->guardarRespuestas([104, 105, 106, 107, 108], 'cordialidad', 1);
+        $this->guardarRespuestas([109, 110, 111, 112], 'manejosilencios', 1);
+        $this->guardarRespuestas([113, 114, 115, 116, 117], 'seguridad', 1);
+        $this->guardarRespuestas([118, 119, 120, 121], 'comunicacion', 1);
+        $this->guardarRespuestas([122, 123, 124, 125], 'educacliente', 1);
+        $this->guardarRespuestas([126, 127, 128, 129, 130, 131], 'aseguramiento', 1);
+        $this->guardarRespuestas([132, 133, 134, 135, 136, 137, 138, 139, 140, 141], 'ofrecimientocomercial', 1);
+        $this->guardarRespuestas([142, 143, 144, 145], 'frasesenganche', 1);
+
+        // Errores críticos
+        $this->guardarRespuesta(146, ['text' => $this->pecu_deteccion]);
+        $this->guardarRespuesta(147, ['text' => $this->pecu_gestionincorrecta]);
+        $this->guardarRespuesta(148, ['text' => $this->pecu_noresuelve]);
+        $this->guardarRespuesta(149, ['text' => $this->pecu_atenciongrosera]);
+        $this->guardarRespuesta(150, ['text' => $this->pecu_pocoprofesional]);
+        $this->guardarRespuesta(151, ['text' => $this->pecu_manipulacliente]);
+        $this->guardarRespuesta(152, ['text' => $this->pecn_nosondea]);
+        $this->guardarRespuesta(153, ['text' => $this->pecn_descalificaentel]);
+        $this->guardarRespuesta(154, ['text' => $this->pecn_beneficiofueraproc]);
+        $this->guardarRespuesta(155, ['text' => $this->pecn_fraude]);
+        $this->guardarRespuesta(156, ['text' => $this->pecn_noliberalinea]);
+        $this->guardarRespuesta(157, ['text' => $this->pecn_factibilidad]);
+        $this->guardarRespuesta(158, ['text' => $this->pecn_notipificasistema]);
+        $this->guardarRespuesta(159, ['text' => $this->pecn_otragestion]);
+        $this->guardarRespuesta(160, ['text' => $this->pecc_niegaescalamiento]);
+        $this->guardarRespuesta(161, ['text' => $this->pecc_omiteinformacion]);
+        $this->guardarRespuesta(162, ['text' => $this->pecc_infoconfidencial]);
+        $this->guardarRespuesta(163, ['text' => $this->pecc_cierrenegocios]);
+        $this->guardarRespuesta(164, ['text' => $this->pecc_novalidadatos]);
+        $this->guardarRespuesta(165, ['text' => $this->pecc_despacho]);
+        $this->guardarRespuesta(166, ['text' => $this->pec_responsable]);
+        $this->guardarRespuesta(168, ['text' => $this->otro_ruidoenllamada]);
+        $this->guardarRespuesta(169, ['text' => $this->otro_frasesyscripts]);
+        $this->guardarRespuesta(171, ['text' => $this->otro_tiponegocio]);
+        $this->guardarRespuesta(172, ['text' => $this->otro_ofrecimientomultilinea]);
+        $this->guardarRespuesta(173, ['text' => $this->otro_ofrecimientoequipo]);
+        $this->guardarRespuesta(174, ['text' => $this->otro_ofrecimientoaccesorio]);
+
+        $this->guardarRespuesta(176, ['memo' => $this->retroalimentacion]);
+        $this->guardarRespuesta(177, ['memo' => $this->comentario_interno]);
+        $this->guardarRespuesta(179, ['text' => $this->motivo]);
+
+        $this->guardarRespuestas([180, 181, 182], 'tipogestion');
+        $this->guardarRespuestas([183, 184, 185, 186], 'deteccion');
+        $this->guardarRespuestas([187, 188, 189, 190], 'infocorrecta');
+        $this->guardarRespuestas([191, 192, 193, 194], 'gestiona');
+        $this->guardarRespuestas([195, 196, 197, 198], 'resolucion');
     }
 
     public function calcularPuntajes()
