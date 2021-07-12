@@ -14,7 +14,7 @@ class CreateEscalasTable extends Migration
     public function up()
     {
         Schema::create('escalas', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id')->primary();
             $table->integer('grupo_id');
             $table->string('descripcion');
             $table->integer('value');

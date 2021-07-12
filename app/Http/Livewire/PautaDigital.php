@@ -162,11 +162,11 @@ class PautaDigital extends PautaBase
      * TODO: Esto requiere una manito de gato
      */
     public function guardar(){
-//        $this->guardarRespuestas([1, 2, 3, 4, 5, 6], 'saludo', 6);
-//        $this->guardarRespuestas([7, 8, 9, 10, 11], 'frases', 5);
-//        $this->guardarRespuestas([12, 13, 14, 15, 16], 'cordialidad', 5);
-//        $this->guardarRespuestas([17, 18, 19, 20, 21], 'gestionplantillas', 5);
-//        $this->guardarRespuestas([22, 23, 24, 25, 26, 27, 28], 'ortografia', 7);
+        $this->guardarRespuestas([1, 2, 3, 4, 5, 6], 'saludo', 6);
+        $this->guardarRespuestas([7, 8, 9, 10, 11], 'frases', 5);
+        $this->guardarRespuestas([12, 13, 14, 15, 16], 'cordialidad', 5);
+        $this->guardarRespuestas([17, 18, 19, 20, 21], 'gestionplantillas', 5);
+        $this->guardarRespuestas([22, 23, 24, 25, 26, 27, 28], 'ortografia', 7);
         $this->guardarRespuestas([29, 30, 31, 32], 'personalizacion', 4, 3);
         $this->guardarRespuestas([33, 34, 35, 178], 'seguridad', 3);
         $this->guardarRespuestas([36, 37, 38, 39], 'manejosilencios', 4);
