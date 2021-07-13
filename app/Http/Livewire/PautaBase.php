@@ -18,7 +18,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 2
+ * @version 3
  */
 abstract class PautaBase extends Component
 {
@@ -116,6 +116,52 @@ abstract class PautaBase extends Component
 
 
     /**
+     * Determina si hay una casilla marcada en una familia, para los correlativos indicados
+     *
+     * @param $correlativos array Lista de correlativos a verificar
+     * @param $familia string Nombre de la familia de atributos
+     * @return bool True si hay algun atributo marcado, False si no
+     */
+    public function hayCasillaMarcada($correlativos, $familia)
+    {
+        foreach ($correlativos as $correlativo) {
+            if ($this->{$familia . $correlativo} == "checked") {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * Realiza la validación completa de marcado de casillas en el formulario. Se debe indicar los correlativos
+     * que sean de tipo "no aplica", los campos "normales" y el campo resumen (padre), así como la familia de
+     * atributos. Por ejemplo, si tenemos los atributos: entrada1, entrada2, entrada3, entrada4, entrada5 y entrada6
+     * Y definimos que el "entrada1" es el resumen, que "entrada 5" y "entrada6" son camplos "no aplica" (por lo que
+     * "entrada2", "entrada3" y "entrada4" son campos normales), el llamado a la función quedaría:
+     *      validarCamposNoAplica([5, 6], [2, 3, 4], 1, "entrada");
+     *
+     * @param $correlativosNoAplica array Lista de correlativos de tipo "No Aplica"
+     * @param $correlativosNormales array Lista de correlativos "normales"
+     * @param $correlativoPadre int Correlativo del atributo padre (resumen)
+     * @param $familia string Nombre de la familia de atributos
+     */
+    public function validarCamposNoAplica($correlativosNoAplica, $correlativosNormales, $correlativoPadre, $familia)
+    {
+        if ($this->hayCasillaMarcada($correlativosNoAplica, $familia)) {
+            foreach ($correlativosNormales as $correlativo) {
+                $this->{$familia . $correlativo} = "";
+            }
+            $this->{$familia . $correlativoPadre} = "No Aplica";
+        } else if ($this->hayCasillaMarcada($correlativosNormales, $familia)) {
+            $this->{$familia . $correlativoPadre} = "No";
+        } else {
+            $this->{$familia . $correlativoPadre} = "Si";
+        }
+    }
+
+
+    /**
      * Guarda el formulario verificando estado actualizado de la evaluación y las validaciones.
      */
     public function save()
@@ -148,7 +194,6 @@ abstract class PautaBase extends Component
      */
     public function guardarRespuestas(array $idsAtributo, string $nombreFamilia, $resumen=false, $noAplica=false)
     {
-
         /* Se carga en un arreglo auxiliar los atributos que no sean ni "resumen" ni "no aplica" */
         $atributosRegulares = [];
         for ($i = 0; $i < count($idsAtributo); ++$i) {

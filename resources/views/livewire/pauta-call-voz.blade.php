@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Digital
-Versión 2 (10/06/2021)
+Versión 3 (10/06/2021)
 --}}
 <div>
     <form wire:submit.prevent="save">
@@ -16,7 +16,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo2" name="saludo2" wire:model.defer="saludo2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
+                                            <input id="saludo2" name="saludo2" wire:model.defer="saludo2" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo2" class="font-medium text-gray-700">No hace Bienvenida</label>
@@ -24,7 +24,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo3" name="saludo3" wire:model.defer="saludo3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
+                                            <input id="saludo3" name="saludo3" wire:model.defer="saludo3" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo3" class="font-medium text-gray-700">No se despide</label>
@@ -32,7 +32,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="saludo4" name="saludo4" wire:model.defer="saludo4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo4}}>
+                                            <input id="saludo4" name="saludo4" wire:model.defer="saludo4" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="saludo4" class="font-medium text-gray-700">No utiliza contexto</label>
@@ -45,7 +45,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="disposicion2" name="disposicion2" wire:model.defer="disposicion2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$disposicion2}}>
+                                            <input id="disposicion2" name="disposicion2" wire:model.defer="disposicion2" wire:click="xdisposicion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$disposicion2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="disposicion2" class="font-medium text-gray-700">Interrumpe</label>
@@ -53,7 +53,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="disposicion3" name="disposicion3" wire:model.defer="disposicion3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$disposicion3}}>
+                                            <input id="disposicion3" name="disposicion3" wire:model.defer="disposicion3" wire:click="xdisposicion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$disposicion3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="disposicion3" class="font-medium text-gray-700">No retiene información</label>
@@ -66,7 +66,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad2" name="cordialidad2" wire:model.defer="cordialidad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
+                                            <input id="cordialidad2" name="cordialidad2" wire:model.defer="cordialidad2" wire:click="xcordialidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad2" class="font-medium text-gray-700">No muestra interés</label>
@@ -74,7 +74,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad3" name="cordialidad3" wire:model.defer="cordialidad3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad3}}>
+                                            <input id="cordialidad3" name="cordialidad3" wire:model.defer="cordialidad3" wire:click="xcordialidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad3" class="font-medium text-gray-700">No reduce conflicto</label>
@@ -82,7 +82,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad4" name="cordialidad4" wire:model.defer="cordialidad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad4}}>
+                                            <input id="cordialidad4" name="cordialidad4" wire:model.defer="cordialidad4" wire:click="xcordialidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad4" class="font-medium text-gray-700">No manifiesta disposición</label>
@@ -90,7 +90,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="cordialidad5" name="cordialidad5" wire:model.defer="cordialidad5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad5}}>
+                                            <input id="cordialidad5" name="cordialidad5" wire:model.defer="cordialidad5" wire:click="xcordialidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="cordialidad5" class="font-medium text-gray-700">No pide disculpas</label>
@@ -103,7 +103,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.defer="manejosilencios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
+                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.defer="manejosilencios2" wire:click="xmanejosilencios" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios2" class="font-medium text-gray-700">No informa Pausa/Hold</label>
@@ -111,7 +111,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.defer="manejosilencios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
+                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.defer="manejosilencios3" wire:click="xmanejosilencios" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios3" class="font-medium text-gray-700">No interactua</label>
@@ -119,7 +119,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="manejosilencios4" name="manejosilencios4" wire:model.defer="manejosilencios4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios4}}>
+                                            <input id="manejosilencios4" name="manejosilencios4" wire:model.defer="manejosilencios4" wire:click="xmanejosilencios" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="manejosilencios4" class="font-medium text-gray-700">No agradece espera</label>
@@ -132,7 +132,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad2" name="seguridad2" wire:model.defer="seguridad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
+                                            <input id="seguridad2" name="seguridad2" wire:model.defer="seguridad2" wire:click="xseguridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad2" class="font-medium text-gray-700">Inseguridad en conocimientos</label>
@@ -140,7 +140,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad3" name="seguridad3" wire:model.defer="seguridad3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad3}}>
+                                            <input id="seguridad3" name="seguridad3" wire:model.defer="seguridad3" wire:click="xseguridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad3" class="font-medium text-gray-700">Mal manejo de la información</label>
@@ -148,7 +148,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad4" name="seguridad4" wire:model.defer="seguridad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad4}}>
+                                            <input id="seguridad4" name="seguridad4" wire:model.defer="seguridad4" wire:click="xseguridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad4" class="font-medium text-gray-700">Se contradice y autocorrige</label>
@@ -156,7 +156,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="seguridad5" name="seguridad5" wire:model.defer="seguridad5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad5}}>
+                                            <input id="seguridad5" name="seguridad5" wire:model.defer="seguridad5" wire:click="xseguridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="seguridad5" class="font-medium text-gray-700">No informa el motivo de uso de datos personales</label>
@@ -171,7 +171,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="comunicacion2" name="comunicacion2" wire:model.defer="comunicacion2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion2}}>
+                                            <input id="comunicacion2" name="comunicacion2" wire:model.defer="comunicacion2" wire:click="xcomunicacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="comunicacion2" class="font-medium text-gray-700">Trato cercano y cordial</label>
@@ -179,7 +179,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="comunicacion3" name="comunicacion3" wire:model.defer="comunicacion3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion3}}>
+                                            <input id="comunicacion3" name="comunicacion3" wire:model.defer="comunicacion3" wire:click="xcomunicacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="comunicacion3" class="font-medium text-gray-700">Palabras coloquiales</label>
@@ -187,7 +187,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="comunicacion4" name="comunicacion4" wire:model.defer="comunicacion4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion4}}>
+                                            <input id="comunicacion4" name="comunicacion4" wire:model.defer="comunicacion4" wire:click="xcomunicacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="comunicacion4" class="font-medium text-gray-700">Usa tecnicismos</label>
@@ -265,7 +265,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento2" name="aseguramiento2" wire:model.defer="aseguramiento2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
+                                            <input id="aseguramiento2" name="aseguramiento2" wire:model.defer="aseguramiento2" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="aseguramiento2" class="font-medium text-gray-700">No valida información entregada</label>
@@ -273,34 +273,34 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento3" name="aseguramiento3" wire:model.defer="aseguramiento3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento3}}>
+                                            <input id="aseguramiento3" name="aseguramiento3" wire:model.defer="aseguramiento3" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="aseguramiento3" class="font-medium text-gray-700">N/A por transfer/Callback</label>
+                                            <label for="aseguramiento3" class="font-medium text-yellow-500">N/A por transfer/Callback</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento4" name="aseguramiento4" wire:model.defer="aseguramiento4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento4}}>
+                                            <input id="aseguramiento4" name="aseguramiento4" wire:model.defer="aseguramiento4" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="aseguramiento4" class="font-medium text-gray-700">N/A canal incorrecto</label>
+                                            <label for="aseguramiento4" class="font-medium text-yellow-500">N/A canal incorrecto</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento5" name="aseguramiento5" wire:model.defer="aseguramiento5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento5}}>
+                                            <input id="aseguramiento5" name="aseguramiento5" wire:model.defer="aseguramiento5" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="aseguramiento5" class="font-medium text-gray-700">N/A por posible molestia</label>
+                                            <label for="aseguramiento5" class="font-medium text-yellow-500">N/A por posible molestia</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="aseguramiento6" name="aseguramiento6" wire:model.defer="aseguramiento6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento6}}>
+                                            <input id="aseguramiento6" name="aseguramiento6" wire:model.defer="aseguramiento6" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento6}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="aseguramiento6" class="font-medium text-gray-700">N/A cliente asegura info</label>
+                                            <label for="aseguramiento6" class="font-medium text-yellow-500">N/A cliente asegura info</label>
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +329,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial2" name="ofrecimientocomercial2" wire:model.defer="ofrecimientocomercial2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial2}}>
+                                            <input id="ofrecimientocomercial2" name="ofrecimientocomercial2" wire:model.defer="ofrecimientocomercial2" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="ofrecimientocomercial2" class="font-medium text-gray-700">No Asesora</label>
@@ -337,68 +337,68 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial3" name="ofrecimientocomercial3" wire:model.defer="ofrecimientocomercial3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial3}}>
+                                            <input id="ofrecimientocomercial3" name="ofrecimientocomercial3" wire:model.defer="ofrecimientocomercial3" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial3" class="font-medium text-yellow-500">No Ofrece Acorde</label>
+                                            <label for="ofrecimientocomercial3" class="font-medium text-gray-700">No Ofrece Acorde</label>
                                         </div>
                                     </div>
 
 
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial4" name="ofrecimientocomercial4" wire:model.defer="ofrecimientocomercial4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial4}}>
+                                            <input id="ofrecimientocomercial4" name="ofrecimientocomercial4" wire:model.defer="ofrecimientocomercial4" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial4" class="font-medium text-gray-700">No Aplica - Plataforma Especialista</label>
+                                            <label for="ofrecimientocomercial4" class="font-medium text-yellow-500">No Aplica - Plataforma Especialista</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial5" name="ofrecimientocomercial5" wire:model.defer="ofrecimientocomercial5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial5}}>
+                                            <input id="ofrecimientocomercial5" name="ofrecimientocomercial5" wire:model.defer="ofrecimientocomercial5" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial5}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial5" class="font-medium text-gray-700">No Aplica - Cliente Indispuesto</label>
+                                            <label for="ofrecimientocomercial5" class="font-medium text-yellow-500">No Aplica - Cliente Indispuesto</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial6" name="ofrecimientocomercial6" wire:model.defer="ofrecimientocomercial6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial6}}>
+                                            <input id="ofrecimientocomercial6" name="ofrecimientocomercial6" wire:model.defer="ofrecimientocomercial6" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial6}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial6" class="font-medium text-gray-700">No Aplica - No es titular o usuario registrado</label>
+                                            <label for="ofrecimientocomercial6" class="font-medium text-yellow-500">No Aplica - No es titular o usuario registrado</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial7" name="ofrecimientocomercial7" wire:model.defer="ofrecimientocomercial7" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial7}}>
+                                            <input id="ofrecimientocomercial7" name="ofrecimientocomercial7" wire:model.defer="ofrecimientocomercial7" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial7}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial7" class="font-medium text-gray-700">No Aplica - Sin Factibilidad Comercial</label>
+                                            <label for="ofrecimientocomercial7" class="font-medium text-yellow-500">No Aplica - Sin Factibilidad Comercial</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial8" name="ofrecimientocomercial8" wire:model.defer="ofrecimientocomercial8" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial8}}>
+                                            <input id="ofrecimientocomercial8" name="ofrecimientocomercial8" wire:model.defer="ofrecimientocomercial8" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial8}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial8" class="font-medium text-gray-700">No Aplica - Sin Factibilidad Técnica</label>
+                                            <label for="ofrecimientocomercial8" class="font-medium text-yellow-500">No Aplica - Sin Factibilidad Técnica</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial9" name="ofrecimientocomercial9" wire:model.defer="ofrecimientocomercial9" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial9}}>
+                                            <input id="ofrecimientocomercial9" name="ofrecimientocomercial9" wire:model.defer="ofrecimientocomercial9" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial9}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial9" class="font-medium text-gray-700">No Aplica - Problemas Técnicos</label>
+                                            <label for="ofrecimientocomercial9" class="font-medium text-yellow-500">No Aplica - Problemas Técnicos</label>
                                         </div>
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="ofrecimientocomercial10" name="ofrecimientocomercial10" wire:model.defer="ofrecimientocomercial10" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial10}}>
+                                            <input id="ofrecimientocomercial10" name="ofrecimientocomercial10" wire:model.defer="ofrecimientocomercial10" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial10}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="ofrecimientocomercial10" class="font-medium text-gray-700">No Aplica - Otros</label>
+                                            <label for="ofrecimientocomercial10" class="font-medium text-yellow-500">No Aplica - Otros</label>
                                         </div>
                                     </div>
 
@@ -429,7 +429,7 @@ Versión 2 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frasesenganche2" name="frasesenganche2" wire:model.defer="frasesenganche2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche2}}>
+                                            <input id="frasesenganche2" name="frasesenganche2" wire:model.defer="frasesenganche2" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche2}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frasesenganche2" class="font-medium text-gray-700">No argumenta</label>
@@ -437,7 +437,7 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frasesenganche3" name="frasesenganche3" wire:model.defer="frasesenganche3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche3}}>
+                                            <input id="frasesenganche3" name="frasesenganche3" wire:model.defer="frasesenganche3" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche3}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="frasesenganche3" class="font-medium text-gray-700">Usa argumentos erroneos</label>
@@ -445,10 +445,10 @@ Versión 2 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="frasesenganche4" name="frasesenganche4" wire:model.defer="frasesenganche4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche4}}>
+                                            <input id="frasesenganche4" name="frasesenganche4" wire:model.defer="frasesenganche4" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche4}}>
                                         </div>
                                         <div class="ml-3 text-sm">
-                                            <label for="frasesenganche4" class="font-medium text-gray-700">No Aplica - Sin ofrecimiento comercial</label>
+                                            <label for="frasesenganche4" class="font-medium text-yellow-500">No Aplica - Sin ofrecimiento comercial</label>
                                         </div>
                                     </div>
                                 </div>

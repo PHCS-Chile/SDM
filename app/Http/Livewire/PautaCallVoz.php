@@ -11,7 +11,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 1
+ * @version 2
  */
 class PautaCallVoz extends PautaBase
 {
@@ -116,6 +116,11 @@ class PautaCallVoz extends PautaBase
     public $resolucion4 = '';
 
 
+    // FUNCIONES ESPECÍFICAS DEL BACKEND DE CALL VOZ
+
+    /**
+     * Implementación de método abstracto para ejecutar en el contexto del "mount".
+     */
     public function inicializar()
     {
         $this->gestiones = Escala::where('grupo_id',1)->get();
@@ -135,18 +140,9 @@ class PautaCallVoz extends PautaBase
         ];
     }
 
-    public function xeducacliente(){
-        if($this->educacliente3 == "checked" or $this->educacliente4 == "checked"){
-            $this->educacliente2 = "";
-            $this->educacliente1 = "No Aplica";
-        }
-    }
-
-    public function render()
-    {
-        return view('livewire.pauta-call-voz');
-    }
-
+    /**
+     * Implementación de método abstracto para ejecutar en el contexto del "save".
+     */
     public function guardar()
     {
         $this->guardarRespuestas([97, 98, 99, 100], 'saludo', 1);
@@ -200,8 +196,105 @@ class PautaCallVoz extends PautaBase
         $this->guardarRespuestas([195, 196, 197, 198], 'resolucion');
     }
 
+    /**
+     * Implementación de método abstracto para ejecutar en el contexto del "save".
+     */
     public function calcularPuntajes()
     {
         // TODO: Implement calcularPuntajes() method.
     }
+
+    /**
+     * Gestiona la construccion de la interfaz, así como de sus validaciones.
+     *
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     */
+    public function render()
+    {
+        return view('livewire.pauta-call-voz');
+    }
+
+
+    // FUNCIONES PARA LA VALIDACION Y AUTOCOMPLETACIÓN DE CAMPOS SUJETOS A RESTRICCIONES
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xsaludo()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4], 1, "saludo");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xdisposicion()
+    {
+        $this->validarCamposNoAplica([], [2, 3], 1, "disposicion");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xcordialidad()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5], 1, "cordialidad");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xmanejosilencios()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4], 1, "manejosilencios");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xseguridad()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5], 1, "seguridad");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xcomunicacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4], 1, "comunicacion");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xeducacliente()
+    {
+        $this->validarCamposNoAplica([3, 4], [2], 1, "educacliente");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xaseguramiento()
+    {
+        $this->validarCamposNoAplica([3, 4, 5, 6], [2], 1, "aseguramiento");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xofrecimientocomercial()
+    {
+        $this->validarCamposNoAplica([4, 5, 6, 7, 8, 9, 10], [2, 3], 1, "ofrecimientocomercial");
+    }
+
+    /**
+     * Gestiona las acciones a realizar al marcar campos en el grupo (familia) "saludo".
+     */
+    public function xfrasesenganche()
+    {
+        $this->validarCamposNoAplica([4], [2, 3], 1, "frasesenganche");
+    }
+
 }
