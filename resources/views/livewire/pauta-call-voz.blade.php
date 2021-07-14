@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Digital
-Versión 3 (10/06/2021)
+Versión 4 (10/06/2021)
 --}}
 <div>
     <form wire:submit.prevent="save">
@@ -465,7 +465,7 @@ Versión 3 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_deteccion" name="pecu_deteccion" wire:model.lazy="pecu_deteccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_deteccion}}>
+                                            <input id="pecu_deteccion" name="pecu_deteccion" wire:model.lazy="pecu_deteccion" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_deteccion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_deteccion" class="font-medium text-gray-700">Error grave en la detección de necesidades y en el analisis de la información</label>
@@ -473,7 +473,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_gestionincorrecta" name="pecu_gestionincorrecta" wire:model.lazy="pecu_gestionincorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_gestionincorrecta}}>
+                                            <input id="pecu_gestionincorrecta" name="pecu_gestionincorrecta" wire:model.lazy="pecu_gestionincorrecta" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_gestionincorrecta}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_gestionincorrecta" class="font-medium text-gray-700">Error grave en la gestión por Info incorrecta o incompleta</label>
@@ -481,7 +481,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_noresuelve" name="pecu_noresuelve" wire:model.lazy="pecu_noresuelve" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_noresuelve}}>
+                                            <input id="pecu_noresuelve" name="pecu_noresuelve" wire:model.lazy="pecu_noresuelve" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_noresuelve}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_noresuelve" class="font-medium text-gray-700">Error grave en la gestión por no resolver o resolver de forma errónea</label>
@@ -489,7 +489,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_atenciongrosera" name="pecu_atenciongrosera" wire:model.defer="pecu_atenciongrosera" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_atenciongrosera}}>
+                                            <input id="pecu_atenciongrosera" name="pecu_atenciongrosera" wire:model.defer="pecu_atenciongrosera" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_atenciongrosera}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_atenciongrosera" class="font-medium text-gray-700">Atendió de forma grosera</label>
@@ -497,7 +497,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_pocoprofesional" name="pecu_pocoprofesional" wire:model.defer="pecu_pocoprofesional" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_pocoprofesional}}>
+                                            <input id="pecu_pocoprofesional" name="pecu_pocoprofesional" wire:model.defer="pecu_pocoprofesional" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_pocoprofesional}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_pocoprofesional" class="font-medium text-gray-700">Se desentiende o es poco profesional</label>
@@ -505,7 +505,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecu_manipulacliente" name="pecu_manipulacliente" wire:model.defer="pecu_manipulacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_manipulacliente}}>
+                                            <input id="pecu_manipulacliente" name="pecu_manipulacliente" wire:model.defer="pecu_manipulacliente" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_manipulacliente}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecu_manipulacliente" class="font-medium text-gray-700">Manipula al Cliente para concretar venta</label>
@@ -519,7 +519,7 @@ Versión 3 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_nosondea" name="pecn_nosondea" wire:model.defer="pecn_nosondea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_nosondea}}>
+                                            <input id="pecn_nosondea" name="pecn_nosondea" wire:model.defer="pecn_nosondea" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_nosondea}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_nosondea" class="font-medium text-gray-700">No sondea motivo de renuncia o no Retiene</label>
@@ -527,7 +527,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_descalificaentel" name="pecn_descalificaentel" wire:model.defer="pecn_descalificaentel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_descalificaentel}}>
+                                            <input id="pecn_descalificaentel" name="pecn_descalificaentel" wire:model.defer="pecn_descalificaentel" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_descalificaentel}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_descalificaentel" class="font-medium text-gray-700">Descalificó a ENTEL</label>
@@ -535,7 +535,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_beneficiofueraproc" name="pecn_beneficiofueraproc" wire:model.defer="pecn_beneficiofueraproc" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_beneficiofueraproc}}>
+                                            <input id="pecn_beneficiofueraproc" name="pecn_beneficiofueraproc" wire:model.defer="pecn_beneficiofueraproc" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_beneficiofueraproc}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_beneficiofueraproc" class="font-medium text-gray-700">Entrega Beneficio o Excepción comercial fuera de Procedimiento</label>
@@ -543,7 +543,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_fraude" name="pecn_fraude" wire:model.defer="pecn_fraude" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_fraude}}>
+                                            <input id="pecn_fraude" name="pecn_fraude" wire:model.defer="pecn_fraude" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_fraude}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_fraude" class="font-medium text-gray-700">Fraude</label>
@@ -551,7 +551,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_noliberalinea" name="pecn_noliberalinea" wire:model.defer="pecn_noliberalinea" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_noliberalinea}}>
+                                            <input id="pecn_noliberalinea" name="pecn_noliberalinea" wire:model.defer="pecn_noliberalinea" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_noliberalinea}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_noliberalinea" class="font-medium text-gray-700">No libera la línea una vez finalizada la llamada</label>
@@ -559,7 +559,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_factibilidad" name="pecn_factibilidad" wire:model.defer="pecn_factibilidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_factibilidad}}>
+                                            <input id="pecn_factibilidad" name="pecn_factibilidad" wire:model.defer="pecn_factibilidad" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_factibilidad}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_factibilidad" class="font-medium text-gray-700">Validación de Factibilidad Técnica y Comercial</label>
@@ -567,7 +567,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_notipificasistema" name="pecn_notipificasistema" wire:model.defer="pecn_notipificasistema" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_notipificasistema}}>
+                                            <input id="pecn_notipificasistema" name="pecn_notipificasistema" wire:model.defer="pecn_notipificasistema" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_notipificasistema}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_notipificasistema" class="font-medium text-gray-700">Ingreso a Sistema</label>
@@ -575,7 +575,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecn_otragestion" name="pecn_otragestion" wire:model.defer="pecn_otragestion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_otragestion}}>
+                                            <input id="pecn_otragestion" name="pecn_otragestion" wire:model.defer="pecn_otragestion" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_otragestion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecn_otragestion" class="font-medium text-gray-700">Otra Gestión Indebida</label>
@@ -588,7 +588,7 @@ Versión 3 (10/06/2021)
                                 <div class="mt-4 space-y-4">
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_niegaescalamiento" name="pecc_niegaescalamiento" wire:model.defer="pecc_niegaescalamiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_niegaescalamiento}}>
+                                            <input id="pecc_niegaescalamiento" name="pecc_niegaescalamiento" wire:model.defer="pecc_niegaescalamiento" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_niegaescalamiento}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_niegaescalamiento" class="font-medium text-gray-700">Niega Escalamiento o Ingreso de Reclamo</label>
@@ -596,7 +596,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_omiteinformacion" name="pecc_omiteinformacion" wire:model.defer="pecc_omiteinformacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_omiteinformacion}}>
+                                            <input id="pecc_omiteinformacion" name="pecc_omiteinformacion" wire:model.defer="pecc_omiteinformacion" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_omiteinformacion}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_omiteinformacion" class="font-medium text-gray-700">Omite o Indica erróneamente información que es regulada legalmente</label>
@@ -604,7 +604,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_infoconfidencial" name="pecc_infoconfidencial" wire:model.defer="pecc_infoconfidencial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoconfidencial}}>
+                                            <input id="pecc_infoconfidencial" name="pecc_infoconfidencial" wire:model.defer="pecc_infoconfidencial" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_infoconfidencial}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_infoconfidencial" class="font-medium text-gray-700">Entregó información confidencial</label>
@@ -612,7 +612,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_cierrenegocios" name="pecc_cierrenegocios" wire:model.defer="pecc_cierrenegocios" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_cierrenegocios}}>
+                                            <input id="pecc_cierrenegocios" name="pecc_cierrenegocios" wire:model.defer="pecc_cierrenegocios" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_cierrenegocios}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_cierrenegocios" class="font-medium text-gray-700">Cierre de negocios</label>
@@ -620,7 +620,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_novalidadatos" name="pecc_novalidadatos" wire:model.defer="pecc_novalidadatos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_novalidadatos}}>
+                                            <input id="pecc_novalidadatos" name="pecc_novalidadatos" wire:model.defer="pecc_novalidadatos" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_novalidadatos}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_novalidadatos" class="font-medium text-gray-700">No Valida correctamente los datos personales del cliente</label>
@@ -628,7 +628,7 @@ Versión 3 (10/06/2021)
                                     </div>
                                     <div class="flex items-start">
                                         <div class="flex items-center h-5">
-                                            <input id="pecc_despacho" name="pecc_despacho" wire:model.defer="pecc_despacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_despacho}}>
+                                            <input id="pecc_despacho" name="pecc_despacho" wire:model.defer="pecc_despacho" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_despacho}}>
                                         </div>
                                         <div class="ml-3 text-sm">
                                             <label for="pecc_despacho" class="font-medium text-gray-700">No coordina correctamente Despacho/Entrega/Instalación</label>
@@ -649,6 +649,7 @@ Versión 3 (10/06/2021)
                                         @endforeach
                                     </select>
                                 </div>
+                                <small class="text-red-600 font-bold">{{ $errors->first('pec_responsable') }}</small>
                             </fieldset>
                         </div>
                     </div>
@@ -683,7 +684,7 @@ Versión 3 (10/06/2021)
                                 </div>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="otro_tiponegocio" class="block text-sm font-medium text-gray-700">Tipo de Negocio</label>
-                                    <select id="otro_tiponegocio" name="otro_tiponegocio" wire:model.defer="otro_tiponegocio" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="otro_tiponegocio" name="otro_tiponegocio" wire:model.defer="otro_tiponegocio" wire:change="xotronegocio" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($tiposnegocio as $tiponegocio)
                                             <option value="{{$tiponegocio->name}}" {{ ( $tiponegocio->name == $otro_tiponegocio) ? 'selected' : '' }}>
@@ -704,6 +705,7 @@ Versión 3 (10/06/2021)
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
+                                    <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientomultilinea') }}</small>
                                 </div>
                                 <div class="mt-4">
                                     <span class="text-gray-700">Ofrecimiento de equipo</span>
@@ -717,6 +719,7 @@ Versión 3 (10/06/2021)
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
+                                    <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientoequipo') }}</small>
                                 </div>
                                 <div class="mt-4">
                                     <span class="text-gray-700">Ofrecimiento de accesorios</span>
@@ -730,6 +733,7 @@ Versión 3 (10/06/2021)
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
+                                    <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientoaccesorio') }}</small>
                                 </div>
                             </fieldset>
                         </div>
@@ -899,7 +903,7 @@ Versión 3 (10/06/2021)
                                 <p class="font-bold text-xl">Gestión 2</p>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="tipogestion2" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="tipogestion2" name="tipogestion2" wire:model.defer="tipogestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="tipogestion2" name="tipogestion2" wire:model.defer="tipogestion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($gestiones as $gestion)
                                             <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion2) ? 'selected' : '' }}>
@@ -913,11 +917,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" value="Si" {{ $deteccion2 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="Si" {{ $deteccion2 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" value="No" {{ $deteccion2 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="No" {{ $deteccion2 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -927,11 +931,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Entrega de información correcta y completa</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" value="Si" {{ $infocorrecta2 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="Si" {{ $infocorrecta2 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" value="No" {{ $infocorrecta2 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="No" {{ $infocorrecta2 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -941,11 +945,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Gestiona según proced. en sistema</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" value="Si" {{ $gestiona2 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="Si" {{ $gestiona2 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" value="No" {{ $gestiona2 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="No" {{ $gestiona2 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -953,7 +957,7 @@ Versión 3 (10/06/2021)
                                 <small class="text-red-600 font-bold">{{ $errors->first('gestiona2') }}</small>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="resolucion2" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion2" name="resolucion2" wire:model.defer="resolucion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="resolucion2" name="resolucion2" wire:model.defer="resolucion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($resoluciones as $resolucion)
                                             <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion2) ? 'selected' : '' }}>
@@ -972,7 +976,7 @@ Versión 3 (10/06/2021)
                                 <p class="font-bold text-xl">Gestión 3</p>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="tipogestion3" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="tipogestion3" name="tipogestion3" wire:model.defer="tipogestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="tipogestion3" name="tipogestion3" wire:model.defer="tipogestion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($gestiones as $gestion)
                                             <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion3) ? 'selected' : '' }}>
@@ -986,11 +990,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" value="Si" {{ $deteccion3 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="Si" {{ $deteccion3 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" value="No" {{ $deteccion3 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="No" {{ $deteccion3 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -1000,11 +1004,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Entrega de información correcta y completa</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" value="Si" {{ $infocorrecta3 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="Si" {{ $infocorrecta3 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" value="No" {{ $infocorrecta3 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="No" {{ $infocorrecta3 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -1014,11 +1018,11 @@ Versión 3 (10/06/2021)
                                     <span class="text-gray-700">Gestiona según proced. en sistema</span>
                                     <div class="mt-2 text-sm">
                                         <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" value="Si" {{ $gestiona3 == "Si" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="Si" {{ $gestiona3 == "Si" ? 'checked' : '' }}>
                                             <p class="ml-2">Sí</p>
                                         </label>
                                         <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" value="No" {{ $gestiona3 == "No" ? 'checked' : '' }}>
+                                            <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="No" {{ $gestiona3 == "No" ? 'checked' : '' }}>
                                             <p class="ml-2">No</p>
                                         </label>
                                     </div>
@@ -1026,7 +1030,7 @@ Versión 3 (10/06/2021)
                                 <small class="text-red-600 font-bold">{{ $errors->first('gestiona3') }}</small>
                                 <div class="col-span-6 sm:col-span-3">
                                     <label for="resolucion3" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion3" name="resolucion3" wire:model.defer="resolucion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <select id="resolucion3" name="resolucion3" wire:model.defer="resolucion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($resoluciones as $resolucion)
                                             <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion3) ? 'selected' : '' }}>

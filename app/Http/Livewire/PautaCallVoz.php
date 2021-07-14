@@ -11,7 +11,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 2
+ * @version 3
  */
 class PautaCallVoz extends PautaBase
 {
@@ -295,6 +295,92 @@ class PautaCallVoz extends PautaBase
     public function xfrasesenganche()
     {
         $this->validarCamposNoAplica([4], [2, 3], 1, "frasesenganche");
+    }
+
+    public function xotronegocio()
+    {
+        $campos = [
+            'otro_ofrecimientomultilinea' => 'required',
+            'otro_ofrecimientoequipo' => 'required',
+            'otro_ofrecimientoaccesorio' => 'required',
+        ];
+        if ($this->otro_tiponegocio != "No aplica") {
+            $this->agregarValidaciones($campos);
+        } else {
+            $this->quitarValidaciones($campos);
+        }
+    }
+
+    public function xatributospec()
+    {
+        $atriobutosPEC = [
+            'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
+            'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
+            'pecc' => ['niegaescalamiento', 'omiteinformacion', 'infoconfidencial', 'cierrenegocios', 'novalidadatos', 'despacho'],
+        ];
+        $hayMarcado = false;
+        foreach ($atriobutosPEC as $tipo => $atributos) {
+            foreach ($atributos as $atributo) {
+                if ($this->{$tipo . "_" . $atributo} == 'checked') {
+                    $hayMarcado = true;
+                    break;
+                }
+            }
+            if ($hayMarcado) {
+                break;
+            }
+        }
+        if ($hayMarcado) {
+            $this->agregarValidaciones(['pec_responsable' => 'required']);
+        } else {
+            $this->quitarValidaciones(['pec_responsable' => 'required']);
+        }
+    }
+
+    public function xgestion2()
+    {
+        $marcada = false;
+        $campos = [
+            'tipogestion2' => 'required',
+            'deteccion2' => 'required',
+            'infocorrecta2' => 'required',
+            'gestiona2' => 'required',
+            'resolucion2' => 'required',
+        ];
+        foreach ($campos as $campo => $regla) {
+            if ($this->{$campo} != "") {
+                $marcada = true;
+                break;
+            }
+        }
+        if ($marcada) {
+            $this->agregarValidaciones($campos);
+        } else {
+            $this->quitarValidaciones($campos);
+        }
+    }
+
+    public function xgestion3()
+    {
+        $marcada = false;
+        $campos = [
+            'tipogestion3' => 'required',
+            'deteccion3' => 'required',
+            'infocorrecta3' => 'required',
+            'gestiona3' => 'required',
+            'resolucion3' => 'required',
+        ];
+        foreach ($campos as $campo => $regla) {
+            if ($this->{$campo} != "") {
+                $marcada = true;
+                break;
+            }
+        }
+        if ($marcada) {
+            $this->agregarValidaciones($campos);
+        } else {
+            $this->quitarValidaciones($campos);
+        }
     }
 
 }

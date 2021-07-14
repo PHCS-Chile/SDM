@@ -18,13 +18,14 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 3
+ * @version 4
  */
 abstract class PautaBase extends Component
 {
 
     /* Variables de instancia mínimas */
     public $evaluacion;
+    public $rules = [];
     public $rules1 = [];
     public $rules2 = [];
     public $rules3 = [];
@@ -70,6 +71,21 @@ abstract class PautaBase extends Component
      * @return mixed
      */
     public abstract function inicializar();
+
+
+    public function agregarValidaciones(array $validaciones)
+    {
+        foreach ($validaciones as $campo => $regla) {
+            $this->rules[$campo] = $regla;
+        }
+    }
+
+    public function quitarValidaciones($campos)
+    {
+        foreach ($campos as $campo => $regla) {
+            unset($this->rules[$campo]);
+        }
+    }
 
 
     /**
@@ -166,7 +182,10 @@ abstract class PautaBase extends Component
      */
     public function save()
     {
-        $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
+//        dd($this->rules);
+        if (!empty($this->rules)) {
+            $this->validate($this->rules);
+        }
         $this->cargarEvaluacion($this->evaluacion->id);
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
