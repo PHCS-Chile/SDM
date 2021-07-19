@@ -69,40 +69,40 @@ Versión 1 (25/06/2021)
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
-                                <div class="text-sm text-gray-900">{{$asignacion->agente->habilidad}}</div>
+                                <div class="text-sm text-gray-900">{{$asignacionPeriodo->agente->habilidad}}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                  {{$asignacion->n_asignacion}}
+                                  {{$asignacionPeriodo->n_asignacion}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                  {{$asignacion->completas->count()}}
+                                  {{$asignacionPeriodo->completas->count()}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
-                                  {{$asignacion->chatenblanco->count()}}
+                                  {{$asignacionPeriodo->chatenblanco->count()}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                  {{$asignacion->base->count()}}
+                                  {{$asignacionPeriodo->base->count()}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                  {{$asignacion->agentes->count()}}
+                                  {{$asignacionPeriodo->agentes->count()}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                                  {{$asignacion->agentescompletas->count()}}
+                                  {{$asignacionPeriodo->agentescompletas->count()}}
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{route('asignacions.listar', $asignacion->id)}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                <a href="{{route('asignacions.listar', $asignacionPeriodo->id)}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
                             </td>
                         </tr>
                         @endforeach
