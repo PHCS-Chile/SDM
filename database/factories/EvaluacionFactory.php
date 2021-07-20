@@ -31,7 +31,7 @@ class EvaluacionFactory extends Factory
         /* Creación de atributos aleatorios que dependen entre ellos */
         $supervisor = $this->faker->randomElement([NULL, ""]);
         $penc = $pecu = $pecn = $pecc = $user_id = NULL;
-        $asignacion_id = $this->faker->numberBetween(1, 90);
+        $asignacion_id = $this->faker->numberBetween(1, 110);
         $user_completa = NULL;
         $fecha_completa = NULL;
         $estado_id = $this->faker->numberBetween(1, 6);
