@@ -23,13 +23,14 @@ class PautaController extends Controller
      * @param $evaluacionid
      * @return Application|RedirectResponse|Redirector
      */
-    public function resetici($evaluacionid){
+    public function resetici($evaluacionid)
+    {
         $evaluacion = Evaluacion::find($evaluacionid);
         /* Si tiene ICI */
         if ($evaluacion->respuestas->max('origen_id') == 2) {
             /* Se eliminan los origen_id = 1 (respuestas con discrepancia) */
-            Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id',1)->delete();
-            $respuestas = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id',2)->get();
+            Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', 1)->delete();
+            $respuestas = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', 2)->get();
             /* Se actualiza el origen_id a 1 (sin ICI) */
             foreach ($respuestas as $respuesta) {
                 $respuesta->origen_id = 1;
@@ -42,6 +43,11 @@ class PautaController extends Controller
             $evaluacion->save();
         }
         return redirect(route('evaluacions.index', [$evaluacionid]))->with("status", "Se borro ICI correctamente");
+
+    }
+
+    public function cambiarEstado($evaluacionid, $estado)
+    {
 
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Evaluacion;
+use App\Models\Grabacion;
 use App\Models\Respuesta;
 use App\Models\Estado;
 use App\Models\Escala;
@@ -33,7 +34,11 @@ class EvaluacionController extends Controller
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
         $estados = Estado::all();
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta'));
+        $grabacion = null;
+        if ($pauta == 2) {
+            $grabacion = Grabacion::where('evaluacion_id', $evaluacionid)->first();
+        }
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion'));
     }
 
     public function guardaeval(Request $request, $evaluacionid){

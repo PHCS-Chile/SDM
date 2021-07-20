@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\GrabacionController;
 use App\Http\Controllers\PautaController;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Route;
@@ -51,3 +52,6 @@ Route::get('/evaluacion/{evaluacionid}',[EvaluacionController::class,'index'])->
 //Route::get('/evaluacion/{evaluacionid}', PautaWhatsapp::class)->name('digital.index')->middleware(['auth:sanctum', 'verified']);
 Route::post('/evaluacion/{evaluacionid}',[EvaluacionController::class,'guardaeval'])->name('evaluacions.guardaeval')->middleware(['auth:sanctum', 'verified']);
 Route::delete('/evaluacion/{evaluacionid}', [PautaController::class, 'resetici'])->name('evaluacions.resetici')->middleware(['auth:sanctum', 'verified']);
+
+Route::post('evaluacion/{evaluacionid}/subir_grabacion', [GrabacionController::class, 'subir'])->name('evaluacions.grabacion')->middleware(['auth:sanctum', 'verified']);;
+Route::get ( '/evaluacion/{evaluacionid}/grabacion',  [GrabacionController::class, 'embed'])->name('evaluacions.embed_audio')->middleware(['auth:sanctum', 'verified']);
