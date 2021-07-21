@@ -71,7 +71,7 @@ Versión 5
             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
             </svg>
-            Fecha Grabación: {{ $grabacion ? $grabacion->created_at : '-'}}
+            Fecha Grabación Adjunta: {{ $grabacion ? $grabacion->created_at : '-'}}
         </div>
         <div class="mt-2 flex items-center text-sm text-gray-500">
             <!-- Heroicon name: calendar -->
@@ -91,6 +91,247 @@ Versión 5
     </div>
 
     <div class="w-3/4 p-6 bg-gray-50 overflow-hidden shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
+        <div class="mb-10">
+            <div class="md:grid md:grid-cols-3 md:gap-6">
+                <div class="mt-5 md:mt-0 md:col-span-1 ">
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <p class="font-bold text-xl">Gestión 1</p>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Motivo del Llamado</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Reclamo" {{ $motivo == "Reclamo" ? 'checked' : '' }}>
+                                        <p class="ml-2">Reclamo</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Consulta" {{ $motivo == "Consulta" ? 'checked' : '' }}>
+                                        <p class="ml-2">Consulta</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Requerimiento" {{ $motivo == "Requerimiento" ? 'checked' : '' }}>
+                                        <p class="ml-2">Requerimiento</p>
+                                    </label>
+                                </div>
+                                <small class="text-red-600 font-bold">{{ $errors->first('motivo') }}</small>
+                            </div>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="tipogestion1" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
+                                <select id="tipogestion1" name="tipogestion1" wire:model.defer="tipogestion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($gestiones as $gestion)
+                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
+                                            {{$gestion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('tipogestion1') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="deteccion1" wire:model.lazy="deteccion1" value="Si" {{ $deteccion1 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="deteccion1" wire:model.lazy="deteccion1" value="No" {{ $deteccion1 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('deteccion1') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Entrega de información correcta y completa</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="infocorrecta1" wire:model.lazy="infocorrecta1" value="Si" {{ $infocorrecta1 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="infocorrecta1" wire:model.lazy="infocorrecta1" value="No" {{ $infocorrecta1 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta1') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="gestiona1" wire:model.lazy="gestiona1" value="Si" {{ $gestiona1 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="gestiona1" wire:model.lazy="gestiona1" value="No" {{ $gestiona1 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('gestiona1') }}</small>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="resolucion1" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
+                                <select id="resolucion1" name="resolucion1" wire:model.defer="resolucion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($resoluciones as $resolucion)
+                                        <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion1) ? 'selected' : '' }}>
+                                            {{$resolucion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('resolucion1') }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-1 ">
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <p class="font-bold text-xl">Gestión 2</p>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="tipogestion2" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
+                                <select id="tipogestion2" name="tipogestion2" wire:model.defer="tipogestion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($gestiones as $gestion)
+                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion2) ? 'selected' : '' }}>
+                                            {{$gestion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('tipogestion2') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="Si" {{ $deteccion2 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="No" {{ $deteccion2 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('deteccion2') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Entrega de información correcta y completa</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="Si" {{ $infocorrecta2 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="No" {{ $infocorrecta2 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta2') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="Si" {{ $gestiona2 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="No" {{ $gestiona2 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('gestiona2') }}</small>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="resolucion2" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
+                                <select id="resolucion2" name="resolucion2" wire:model.defer="resolucion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($resoluciones as $resolucion)
+                                        <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion2) ? 'selected' : '' }}>
+                                            {{$resolucion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('resolucion2') }}</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5 md:mt-0 md:col-span-1 ">
+                    <div class="shadow overflow-hidden sm:rounded-md">
+                        <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <p class="font-bold text-xl">Gestión 3</p>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="tipogestion3" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
+                                <select id="tipogestion3" name="tipogestion3" wire:model.defer="tipogestion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($gestiones as $gestion)
+                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion3) ? 'selected' : '' }}>
+                                            {{$gestion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('tipogestion3') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="Si" {{ $deteccion3 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="No" {{ $deteccion3 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('deteccion3') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Entrega de información correcta y completa</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="Si" {{ $infocorrecta3 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="No" {{ $infocorrecta3 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta3') }}</small>
+                            <div class="mt-4">
+                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
+                                <div class="mt-2 text-sm">
+                                    <label class="inline-flex items-center">
+                                        <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="Si" {{ $gestiona3 == "Si" ? 'checked' : '' }}>
+                                        <p class="ml-2">Sí</p>
+                                    </label>
+                                    <label class="inline-flex items-center ml-6">
+                                        <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="No" {{ $gestiona3 == "No" ? 'checked' : '' }}>
+                                        <p class="ml-2">No</p>
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('gestiona3') }}</small>
+                            <div class="col-span-6 sm:col-span-3">
+                                <label for="resolucion3" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
+                                <select id="resolucion3" name="resolucion3" wire:model.defer="resolucion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                    <option></option>
+                                    @foreach($resoluciones as $resolucion)
+                                        <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion3) ? 'selected' : '' }}>
+                                            {{$resolucion->name}}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <small class="text-red-600 font-bold">{{ $errors->first('resolucion3') }}</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div>
             <form wire:submit.prevent="save">
 
@@ -831,247 +1072,7 @@ Versión 5
                         </div>
 
                     </div>
-                    <div class="mb-10 pt-6">
-                        <div class="md:grid md:grid-cols-3 md:gap-6">
-                            <div class="mt-5 md:mt-0 md:col-span-1 ">
-                                <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                        <p class="font-bold text-xl">Gestión 1</p>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Motivo del Llamado</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Reclamo" {{ $motivo == "Reclamo" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Reclamo</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Consulta" {{ $motivo == "Consulta" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Consulta</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Requerimiento" {{ $motivo == "Requerimiento" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Requerimiento</p>
-                                                </label>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('motivo') }}</small>
-                                        </div>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="tipogestion1" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                            <select id="tipogestion1" name="tipogestion1" wire:model.defer="tipogestion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($gestiones as $gestion)
-                                                    <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
-                                                        {{$gestion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('tipogestion1') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="deteccion1" wire:model.lazy="deteccion1" value="Si" {{ $deteccion1 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="deteccion1" wire:model.lazy="deteccion1" value="No" {{ $deteccion1 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('deteccion1') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Entrega de información correcta y completa</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="infocorrecta1" wire:model.lazy="infocorrecta1" value="Si" {{ $infocorrecta1 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="infocorrecta1" wire:model.lazy="infocorrecta1" value="No" {{ $infocorrecta1 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta1') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Gestiona según proced. en sistema</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="gestiona1" wire:model.lazy="gestiona1" value="Si" {{ $gestiona1 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="gestiona1" wire:model.lazy="gestiona1" value="No" {{ $gestiona1 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('gestiona1') }}</small>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="resolucion1" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                            <select id="resolucion1" name="resolucion1" wire:model.defer="resolucion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($resoluciones as $resolucion)
-                                                    <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion1) ? 'selected' : '' }}>
-                                                        {{$resolucion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('resolucion1') }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-5 md:mt-0 md:col-span-1 ">
-                                <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                        <p class="font-bold text-xl">Gestión 2</p>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="tipogestion2" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                            <select id="tipogestion2" name="tipogestion2" wire:model.defer="tipogestion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($gestiones as $gestion)
-                                                    <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion2) ? 'selected' : '' }}>
-                                                        {{$gestion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('tipogestion2') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="Si" {{ $deteccion2 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="No" {{ $deteccion2 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('deteccion2') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Entrega de información correcta y completa</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="Si" {{ $infocorrecta2 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="No" {{ $infocorrecta2 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta2') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Gestiona según proced. en sistema</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="Si" {{ $gestiona2 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="No" {{ $gestiona2 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('gestiona2') }}</small>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="resolucion2" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                            <select id="resolucion2" name="resolucion2" wire:model.defer="resolucion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($resoluciones as $resolucion)
-                                                    <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion2) ? 'selected' : '' }}>
-                                                        {{$resolucion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('resolucion2') }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="mt-5 md:mt-0 md:col-span-1 ">
-                                <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                                        <p class="font-bold text-xl">Gestión 3</p>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="tipogestion3" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                            <select id="tipogestion3" name="tipogestion3" wire:model.defer="tipogestion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($gestiones as $gestion)
-                                                    <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion3) ? 'selected' : '' }}>
-                                                        {{$gestion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('tipogestion3') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="Si" {{ $deteccion3 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="No" {{ $deteccion3 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('deteccion3') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Entrega de información correcta y completa</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="Si" {{ $infocorrecta3 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="No" {{ $infocorrecta3 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta3') }}</small>
-                                        <div class="mt-4">
-                                            <span class="text-gray-700">Gestiona según proced. en sistema</span>
-                                            <div class="mt-2 text-sm">
-                                                <label class="inline-flex items-center">
-                                                    <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="Si" {{ $gestiona3 == "Si" ? 'checked' : '' }}>
-                                                    <p class="ml-2">Sí</p>
-                                                </label>
-                                                <label class="inline-flex items-center ml-6">
-                                                    <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="No" {{ $gestiona3 == "No" ? 'checked' : '' }}>
-                                                    <p class="ml-2">No</p>
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('gestiona3') }}</small>
-                                        <div class="col-span-6 sm:col-span-3">
-                                            <label for="resolucion3" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                            <select id="resolucion3" name="resolucion3" wire:model.defer="resolucion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                <option></option>
-                                                @foreach($resoluciones as $resolucion)
-                                                    <option value="{{$resolucion->name}}" {{ ( $resolucion->name == $resolucion3) ? 'selected' : '' }}>
-                                                        {{$resolucion->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                        <small class="text-red-600 font-bold">{{ $errors->first('resolucion3') }}</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
             </form>
         </div>
