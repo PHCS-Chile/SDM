@@ -13,7 +13,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 2
+ * @version 3
  */
 
 class EvaluacionController extends Controller
@@ -37,6 +37,7 @@ class EvaluacionController extends Controller
         $grabacion = null;
         if ($pauta == 2) {
             $grabacion = Grabacion::where('evaluacion_id', $evaluacionid)->first();
+            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion'));
         }
         return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion'));
     }

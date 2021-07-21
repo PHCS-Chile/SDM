@@ -7,6 +7,7 @@ use App\Models\Evaluacion;
 use App\Models\Grabacion;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class GrabacionController extends Controller
 {
@@ -43,6 +44,16 @@ class GrabacionController extends Controller
             return back()->withErrors([ "Grabación no existe" ]);
         }
         return response()->file( $filePath );
+    }
+
+    public function eliminar($evaluacion_id)
+    {
+        $grabaciones = Grabacion::where('evaluacion_id', $evaluacion_id)->get();
+        foreach ($grabaciones as $grabacion) {
+            $grabacion->delete();
+        }
+        Storage::delete('uploads/' . $evaluacion_id . '_grabacion.mp3');
+        return redirect(route('evaluacions.index', [$evaluacion_id]))->with('message', 'Grabación eliminada con éxito!');
     }
 
 }

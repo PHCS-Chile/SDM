@@ -12,7 +12,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaDigital
  * @package App\Http\Livewire
- * @version 4
+ * @version 5
  */
 class PautaDigital extends PautaBase
 {
@@ -208,56 +208,31 @@ class PautaDigital extends PautaBase
     }
 
 
-
-    /*
-     * TODO: Esto requiere una manito de gato
+    /**
+     * Implementación de método abstracto para ejecutar en el contexto del "save".
+     *
+     * @return mixed|void
      */
-    public function calcularPuntajes(){
+    public function configurarCalculoDePuntajes(){
 
-        $penc = 0;
-        $pecu = 100;
-        $pecn = 100;
-        $pecc = 100;
-        $penctotal = 100;
-
-        $atributosResumenPENC = [6, 11, 16, 21, 28, 32, 35, 39, 42, 47];
-        foreach ($atributosResumenPENC as $atributoResumen) {
-            $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributoResumen);
-            $penc += (10 * $respuesta->respuesta_int);
-        }
-        $pencfinal = $penc / $penctotal * 100;
-
-        $atributosCriticos = [
+        $ponderadores = [
+            6 => 10,
+            11 => 10,
+            16 => 10,
+            21 => 10,
+            28 => 10,
+            32 => 10,
+            35 => 10,
+            39 => 10,
+            42 => 10,
+            47 => 10,
+        ];
+         $atributosCriticos = [
             'pecu' => ['deteccion', 'infocorrecta', 'procedimiento', 'pocoprofesional', 'manipulacliente', 'cierreinteraccion', 'provocacierre'],
             'pecn' => ['beneficio', 'fraude', 'nosondea', 'tipificacion', 'factibilidad', 'otragestion'],
             'pecc' => ['infoconfidencial', 'novalidadatos', 'cierre', 'infoerronea'],
         ];
-        foreach ($atributosCriticos as $tipo => $atributos) {
-            foreach ($atributos as $atributo) {
-                if ($this->{$tipo . "_" . $atributo} == 'checked') {
-                    ${$tipo} = 0;
-                    break;
-                }
-            }
-            $this->evaluacion->{$tipo} = ${$tipo};
-        }
-        $this->evaluacion->penc = $pencfinal;
-
-        if($this->evaluacion->estado_id == 1){
-            $this->evaluacion->user_completa = Auth::user()->name;
-            $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
-        }
-        if(is_null($this->evaluacion->user_id)){
-            $this->evaluacion->user_id = Auth::user()->id;
-        }
-        if(Auth::user()->perfil == 1){
-            $this->evaluacion->user_supervisor = Auth::user()->name;
-            $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
-            $this->evaluacion->estado_id = 5;
-        }else{
-            $this->evaluacion->estado_id = 2;
-        }
-        $this->evaluacion->save();
+        $this->calcularPuntajes($ponderadores, $atributosCriticos);
 
     }
 

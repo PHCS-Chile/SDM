@@ -128,7 +128,7 @@ abstract class PautaBase extends Component
      *
      * @return mixed
      */
-    public abstract function calcularPuntajes();
+    public abstract function configurarCalculoDePuntajes();
 
 
     /**
@@ -189,8 +189,59 @@ abstract class PautaBase extends Component
         $this->cargarEvaluacion($this->evaluacion->id);
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
-        $this->calcularPuntajes();
+        $this->configurarCalculoDePuntajes();
         return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
+    }
+
+    public function calcularPuntajes($ponderadores, $atributosCriticos)
+    {
+        $penc = 0;
+        $pec = 0;
+        $pecu = 100;
+        $pecn = 100;
+        $pecc = 100;
+
+        $sumatotal = 100;
+        $suma = 0;
+
+        foreach ($ponderadores as $atributo_id => $ponderador) {
+            $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributo_id);
+            if ($respuesta->respuesta_int < 0) {
+                $sumatotal -= $ponderador;
+            } elseif ($respuesta->respuesta_int > 0) {
+                $suma += $ponderador;
+            }
+        }
+        $penc = ($suma / $sumatotal) * 100;
+        foreach ($atributosCriticos as $tipo => $atributos) {
+            foreach ($atributos as $atributo) {
+                if ($this->{$tipo . "_" . $atributo} == 'checked') {
+                    ${$tipo} = 0;
+                    break;
+                }
+            }
+            $this->evaluacion->{$tipo} = ${$tipo};
+        }
+        $this->evaluacion->penc = $penc;
+        $this->evaluacion->pecu = $pecu;
+        $this->evaluacion->pecn = $pecn;
+        $this->evaluacion->pecc = $pecc;
+
+        if($this->evaluacion->estado_id == 1){
+            $this->evaluacion->user_completa = Auth::user()->name;
+            $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
+        }
+        if(is_null($this->evaluacion->user_id)){
+            $this->evaluacion->user_id = Auth::user()->id;
+        }
+        if(Auth::user()->perfil == 1){
+            $this->evaluacion->user_supervisor = Auth::user()->name;
+            $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
+            $this->evaluacion->estado_id = 5;
+        }else{
+            $this->evaluacion->estado_id = 2;
+        }
+        $this->evaluacion->save();
     }
 
 

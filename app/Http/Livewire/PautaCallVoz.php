@@ -4,6 +4,9 @@ namespace App\Http\Livewire;
 
 use App\Models\Escala;
 use App\Models\Evaluacion;
+use App\Models\Grabacion;
+use App\Models\Respuesta;
+use Auth;
 use Livewire\Component;
 use App\Http\Livewire\PautaBase;
 
@@ -15,7 +18,7 @@ use App\Http\Livewire\PautaBase;
  */
 class PautaCallVoz extends PautaBase
 {
-    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables;
+    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables, $grabacion;
     public $saludo1 = '';
     public $saludo2 = '';
     public $saludo3 = '';
@@ -138,6 +141,7 @@ class PautaCallVoz extends PautaBase
             'resolucion1' => 'required',
             'retroalimentacion' => 'required',
         ];
+        $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
     }
 
     /**
@@ -198,10 +202,30 @@ class PautaCallVoz extends PautaBase
 
     /**
      * Implementación de método abstracto para ejecutar en el contexto del "save".
+     *
+     * @return mixed|void
      */
-    public function calcularPuntajes()
+    public function configurarCalculoDePuntajes()
     {
-        // TODO: Implement calcularPuntajes() method.
+        $ponderadores = [
+            97 => 8,    // saludo
+            101 => 8,   // disposicion
+            104 => 15,  // cordialidad
+            109 => 10,  // manejosilencios
+            113 => 5,   // seguridad
+            126 => 4,   // aseguramiento
+            122 => 5,   // educacliente
+            118 => 15,  // comunicacion
+            142 => 15,  // frasesenganche
+            132 => 15,  // ofrecimiento comercial OJOOO
+        ];
+        $atributosCriticos = [
+            'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
+            'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
+            'pecc' => ['niegaescalamiento', 'omiteinformacion', 'infoconfidencial', 'cierrenegocios', 'novalidadatos', 'despacho'],
+        ];
+        $this->calcularPuntajes($ponderadores, $atributosCriticos);
+
     }
 
     /**

@@ -96,6 +96,7 @@ Versión 3
             }, 4000);
         </script>
     @endif
+
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
     <div class="p-6">
@@ -269,7 +270,7 @@ Versión 3
                 @endif
             @elseif ($pauta == 2)
                 <h3 class="font-bold">Audio de la conversacion</h3>
-                @if ($grabacion == null)
+                @if (!$grabacion)
                     <p>Esta evaluación aún no tiene asociada una grabación.</p>
                     <br>
                     <form action="{{ route('evaluacions.grabacion', [$evaluacionfinal->id]) }}" method="post" enctype="multipart/form-data">
@@ -277,15 +278,22 @@ Versión 3
                         <input type="hidden" name="evaluacionid" value="{{ $evaluacionfinal->id }}">
                         Elegir una grabación para subir:
                         <input type="file" name="grabacion" id="grabacion">
-                        <button type="submit"  wire:click="save" class="mt-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button type="submit"  class="mt-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             Guardar Grabacion
                         </button>
                     </form>
                 @else
                     <audio controls>
-                        <source src="{{ route('evaluacions.embed_audio'. [$evaluacionfinal->id]) }}" type="audio/mpeg">
+                        <source src="{{ asset('storage/uploads/' . $grabacion->nombre) }}" type="audio/mpeg">
                         Your browser does not support the audio element.
                     </audio>
+                    <form action="{{ route('evaluacions.eliminar_grabacion', [$evaluacionfinal->id]) }}" method="post" onsubmit="return confirm('¿Seguro que quieres eliminar la grabación? ESTA ACCIÓN ES IRREVERSIBLE!');">
+                        @method('DELETE')
+                        @csrf
+                        <button type="submit" class="mt-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Eliminar Grabacion
+                        </button>
+                    </form>
                 @endif
                 <hr class="mt-3 mb-3">
             @endif
