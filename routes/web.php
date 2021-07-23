@@ -18,6 +18,9 @@ use App\Http\Livewire\Calidad;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('phpinfo', function () {
+    return phpinfo();
+});
 
 Route::get('/', function () {
     return redirect(route('dashboard'));
