@@ -1,6 +1,6 @@
 {{--
 Plantilla: asignacions/listar
-Versión 1 (25/06/2021)
+Versión 2
 --}}
 
 <x-app-layout>

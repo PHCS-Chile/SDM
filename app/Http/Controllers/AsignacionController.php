@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 /**
  * Class AsignacionController
  * @package App\Http\Controllers
- * @version 2 (25/06/2021)
+ * @version 3
  */
 class AsignacionController extends Controller
 {
@@ -37,7 +37,7 @@ class AsignacionController extends Controller
 
     public function listar($asignacionid){
         $asignacion = Asignacion::find($asignacionid);
-        $asignacionesPeriodo = Asignacion::where('periodo_id',$asignacion->periodo_id)->get()->sortByDesc('servicio');
+        $asignacionesPeriodo = Asignacion::where('periodo_id',$asignacion->periodo_id)->where('estudio_id', 1)->get()->sortByDesc('servicio');
         $evaluaciones = Evaluacion::select('rut_ejecutivo','asignacion_id')
             ->where('asignacion_id', $asignacionid)->groupBy('rut_ejecutivo','asignacion_id')->get();
         return view('asignacions.listar',compact(
@@ -50,5 +50,12 @@ class AsignacionController extends Controller
         $asignacionfinal = Asignacion::where('id',$asignacionid)->first();
         $baseasignacions = Evaluacion::where('asignacion_id',$asignacionid)->where('rut_ejecutivo',$rutejecutivo);
         return view('asignacions.ejecutivoevaluaciones',compact('asignacions', 'baseasignacions', 'asignacionfinal', 'rutejecutivo'));
+    }
+
+    public function EjecutivoEvaluacionesCallVoz($asignacionid){
+        $asignacions = Asignacion::where('periodo_id',2)->get()->sortByDesc('servicio');
+        $asignacionfinal = Asignacion::where('id',$asignacionid)->first();
+        $baseasignacions = Evaluacion::where('asignacion_id',$asignacionid);
+        return view('asignacions.ejecutivo-evaluaciones-call-voz',compact('asignacions', 'baseasignacions', 'asignacionfinal'));
     }
 }

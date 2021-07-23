@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class EstadosSeeder
  * @package Database\Seeders
- * @version 1
+ * @version 2
  */
 class EstadosSeeder extends Seeder
 {
@@ -32,6 +32,8 @@ class EstadosSeeder extends Seeder
         ['name' => 'Para enviar EC', 'visible' => 1],
         ['name' => 'Completa y Revisada', 'visible' => 1],
         ['name' => 'Descartada', 'visible' => 1],
+        ['name' => 'Sin Grabación', 'visible' => 2],
+        ['name' => 'Grabación no Evaluable', 'visible' => 2],
     ];
 
 }

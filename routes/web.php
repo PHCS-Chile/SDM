@@ -1,10 +1,9 @@
 <?php
 
 use App\Http\Controllers\EvaluacionController;
-use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\GrabacionController;
 use App\Http\Controllers\PautaController;
-use Illuminate\Support\Carbon;
+use App\Models\Evaluacion;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsignacionController;
 use App\Http\Livewire\Calidad;
@@ -27,7 +26,7 @@ Route::get('/', function () {
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     $currentDate = date('Y-m-d');
     $evaluacionesdehoy = 0;
-    $evaluacions = \App\Models\Evaluacion::where('user_id', Auth::user()->id)->get();
+    $evaluacions = Evaluacion::where('user_id', Auth::user()->id)->get();
     foreach ($evaluacions as $evaluacion){
         $fechaupdated = date('Y-m-d', strtotime($evaluacion->updated_at));
         if($fechaupdated == $currentDate){
@@ -43,6 +42,7 @@ Route::post('/asignaciones',[AsignacionController::class,'periodo'])->name('asig
 Route::get('/asignaciones/{estudioid}/{periodoid}',[AsignacionController::class,'index'])->name('asignacions.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacionid}',[AsignacionController::class,'listar'])->name('asignacions.listar')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacionid}/{rutejecutivo}',[AsignacionController::class,'ejecutivoevaluaciones'])->name('asignacions.ejecutivoevaluaciones')->middleware(['auth:sanctum', 'verified']);
+Route::get('/asignacion_voz/{asignacionid}',[AsignacionController::class,'EjecutivoEvaluacionesCallVoz'])->name('asignacions.ejecutivoevaluacionescallvoz')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/reporte/{evaluacionid}',[EvaluacionController::class,'reporte'])->name('evaluacions.reporte')->middleware(['auth:sanctum', 'verified']);
 

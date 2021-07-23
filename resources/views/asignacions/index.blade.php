@@ -1,6 +1,6 @@
 {{--
 Plantilla: asignacions/index
-Versión 1 (25/06/2021)
+Versión 2
 --}}
 
 <x-app-layout>
@@ -134,7 +134,11 @@ Versión 1 (25/06/2021)
                                 </span>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <a href="{{route('asignacions.listar', $asignacion->id)}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                @if($estudio->id == 1)
+                                    <a href="{{route('asignacions.listar', $asignacion->id)}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                @elseif($estudio->id == 2)
+                                    <a href="{{route('asignacions.ejecutivoevaluacionescallvoz', $asignacion->id)}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                @endif
                             </td>
                         </tr>
                         @endforeach
