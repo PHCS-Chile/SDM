@@ -26,14 +26,15 @@ class EstadosSeeder extends Seeder
      * @var array[] Estados actualmente utilizados
      */
     private $estados = [
-        ['name' => 'En Blanco', 'visible' => 1],
-        ['name' => 'Completa', 'visible' => 1],
-        ['name' => 'Enviada a Revision', 'visible' => 1],
-        ['name' => 'Para enviar EC', 'visible' => 1],
-        ['name' => 'Completa y Revisada', 'visible' => 1],
-        ['name' => 'Descartada', 'visible' => 1],
-        ['name' => 'Sin Grabación', 'visible' => 2],
-        ['name' => 'Grabación no Evaluable', 'visible' => 2],
+        ['name' => 'En Blanco', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Completa', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Enviada a Revision', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Para enviar EC', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Completa y Revisada', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Descartada', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'Con Grabacion', 'visible' => 1, 'tipo' => 2],
+        ['name' => 'Sin Grabación', 'visible' => 1, 'tipo' => 2],
+        ['name' => 'Grabación no Evaluable', 'visible' => 1, 'tipo' => 2],
     ];
 
 }

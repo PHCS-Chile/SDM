@@ -45,9 +45,9 @@ class CreateEvaluacionsTable extends Migration
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('asignacion_id')->nullable();
             $table->unsignedBigInteger('estado_id')->nullable();
+            $table->unsignedInteger('estado_conversacion')->nullable();
+            $table->unsignedInteger('estado_reporte')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
-            $table->foreign('asignacion_id')->references('id')->on('asignacions')->onDelete('set null');
-            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('set null');
             $table->timestamps();
         });
     }

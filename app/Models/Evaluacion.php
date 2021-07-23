@@ -42,6 +42,7 @@ class Evaluacion extends Model
         return $this->estado_id > 1 && $this->estado_id < 6;
     }
 
+
 //    protected $casts = [
 //        'created_at' => 'datetime:d-m-Y H:i:s',
 //        'updated_at' => 'datetime:d-m-Y H:i:s',

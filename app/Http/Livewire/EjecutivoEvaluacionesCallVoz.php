@@ -23,10 +23,14 @@ class EjecutivoEvaluacionesCallVoz extends Component
     public $asignacionid;
     public $evaluaciones;
     public $estados;
+    public $estadosgrabacion = [];
+    public $grabacionestados;
     public $asignacionfinal;
     public $evaluacionescompletas;
     public $filtroEstado;
-    public $filtroChat;
+    public $filtroEstadoGrabacion;
+    public $filtroFecha;
+    public $filtroConnid;
     public $searchMovil;
     public $filtroNoRecorridos;
 
@@ -37,6 +41,10 @@ class EjecutivoEvaluacionesCallVoz extends Component
      */
     public function mount($asignacionid){
         $this->asignacionid = $asignacionid;
+        $estadosgrabacion = Estado::all();
+        foreach ($estadosgrabacion as $estadograbacion){
+            $this->estadosgrabacion [$estadograbacion->id] = $estadograbacion->name;
+        }
     }
 
     /**
@@ -45,7 +53,8 @@ class EjecutivoEvaluacionesCallVoz extends Component
      */
     public function render()
     {
-        $this->estados = Estado::all();
+        $this->estados = Estado::where('tipo',1)->get();
+        $this->grabacionestados = Estado::where('tipo',2)->get();
         $this->asignacionfinal = Asignacion::all()->find($this->asignacionid);
         $this->evaluacionescompletas = Evaluacion::where('asignacion_id','=',$this->asignacionid)
             ->where('estado_id', '>',1)
@@ -53,17 +62,15 @@ class EjecutivoEvaluacionesCallVoz extends Component
             ->get();
         $evaluaciones2 = Evaluacion::where('asignacion_id','=',$this->asignacionid)
             ->where('movil', 'like', "%" . $this->searchMovil . "%")
+            ->where('connid', 'like', "%" . $this->filtroConnid . "%")
+            ->where('fecha_grabacion', 'like', "%" . $this->filtroFecha . "%")
             ->orderBy('fecha_grabacion', 'desc');
 
         if ($this->filtroEstado > 0) {
             $evaluaciones2->where('estado_id', '=', $this->filtroEstado);
         }
-
-        if ($this->filtroChat == 'Con Chat') {
-            $evaluaciones2->whereNotNull('image_path');
-        }
-        if ($this->filtroChat == 'Sin Chat') {
-            $evaluaciones2->whereNull('image_path');
+        if ($this->filtroEstadoGrabacion > 0) {
+            $evaluaciones2->where('estado_conversacion', '=', $this->filtroEstadoGrabacion);
         }
         $this->evaluaciones = $evaluaciones2->get();
 

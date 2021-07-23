@@ -18,6 +18,7 @@ class CreateEstadosTable extends Migration
             $table->id();
             $table->string('name');
             $table->enum('visible', [Estado::ACTIVO,Estado::INACTIVO])->default(Estado::ACTIVO);
+            $table->integer('tipo');
             $table->timestamps();
         });
     }

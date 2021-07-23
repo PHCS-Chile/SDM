@@ -3,7 +3,41 @@ Plantilla: Ejecutivo-Evaluaciones Call Voz
 Versión 1
 --}}
 <div>
+    <script>
+        function esconderAlerta(containerid) {
+            document.getElementById(containerid + "_alert").style.display = "none";
+        }
 
+        function CopyToClipboard(containerid) {
+            if (document.selection) {
+                var range;
+                range = document.body.createTextRange();
+                range.moveToElementText(document.getElementById(containerid));
+                range.select().createTextRange();
+                document.execCommand("copy");
+                document.selection.empty();
+                document.getElementById(containerid + "_alert").style.display = "flex";
+                setTimeout(function() {
+                    esconderAlerta(containerid);
+                }, 1000);
+            } else if (window.getSelection) {
+                range = document.createRange();
+                range.selectNode(document.getElementById(containerid));
+                window.getSelection().addRange(range);
+                document.execCommand("copy");
+                if (window.getSelection().empty) {  // Chrome
+                    window.getSelection().empty();
+                } else if (window.getSelection().removeAllRanges) {  // Firefox
+                    window.getSelection().removeAllRanges();
+                }
+                document.getElementById(containerid + "_alert").style.display = "flex";
+                setTimeout(function() {
+                    esconderAlerta(containerid);
+                }, 1000);
+            }
+        }
+
+    </script>
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
 
@@ -17,7 +51,7 @@ Versión 1
                 ID Evaluación
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                <p>Estado</p>
+                <p>Estado Evaluación</p>
                 <div class="col-span-6 sm:col-span-3">
 
                     <select id="filtroEstado" name="filtroEstado" autocomplete="" wire:model="filtroEstado" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -29,25 +63,37 @@ Versión 1
                 </div>
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                RUT EJECUTIVO
+                <p>Estado Grabación</p>
+                <div class="col-span-6 sm:col-span-3">
+
+                    <select id="filtroEstadoGrabacion" name="filtroEstadoGrabacion" autocomplete="" wire:model="filtroEstadoGrabacion" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                        <option value="0">Todos</option>
+                        @foreach($grabacionestados as $estado)
+                            <option value="{{$estado->id}}">{{$estado->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                <div class="pt-2 relative mx-auto text-gray-600">
+                    <input class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-xs-sm focus:outline-none" type="search" name="search" placeholder="Fecha Grabación" wire:model="filtroFecha">
+                </div>
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <div class="pt-2 relative mx-auto text-gray-600">
                     <input class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-xs-sm focus:outline-none" type="search" name="search" placeholder="Móvil" wire:model="searchMovil">
                 </div>
             </th>
-
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ConnID
+                <div class="pt-2 relative mx-auto text-gray-600">
+                    <input class="border-2 border-gray-300 bg-white h-10 px-5 rounded-lg text-xs-sm focus:outline-none" type="search" name="search" placeholder="ConnID" wire:model="filtroConnid">
+                </div>
             </th>
             <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 VER
             </th>
             <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 GRABACIÓN
-            </th>
-            <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                ICI
             </th>
         </tr>
         </thead>
@@ -77,14 +123,57 @@ Versión 1
 
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{$evaluacion->rut_ejecutivo}}</div>
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado_conversacion == 7) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                      {{$estadosgrabacion[$evaluacion->estado_conversacion]}}
+                    </span>
+
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{$evaluacion->movil}}</div>
+                    <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_fecha')">
+                        <!-- Heroicon name: currency-dollar -->
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                        </svg>
+                         <span id="ctc_fecha" class="text-gray-500">{{$evaluacion->fecha_grabacion}}</span>
+                    </button>
+                    <div id="ctc_fecha_alert" class="transition duration-350 ease-in-out hidden shadow-md rounded-md flex fixed items-center bg-green-500 text-white text-sm px-3 py-3" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                        <p>Fecha copiada al portapapeles.</p>
+                    </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_movil')">
+                        <!-- Heroicon name: currency-dollar -->
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                        </svg>
+                        Móvil:&nbsp; <span id="ctc_movil" class="text-gray-500">{{$evaluacion->movil}}</span>
+                    </button>
+                    <div id="ctc_movil_alert" class="transition duration-350 ease-in-out hidden shadow-md rounded-md flex fixed items-center bg-green-500 text-white text-sm px-3 py-3" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                        <p>Móvil copiado al portapapeles.</p>
+                    </div>
                 </td>
 
                 <td class="px-6 py-4 whitespace-nowrap">
-                    <div class="text-sm text-gray-900">{{$evaluacion->connid}}</div>
+                    <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_connid')">
+                        <!-- Heroicon name: currency-dollar -->
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
+                            <path d="M11 4a1 1 0 10-2 0v1a1 1 0 002 0V4zM10 7a1 1 0 011 1v1h2a1 1 0 110 2h-3a1 1 0 01-1-1V8a1 1 0 011-1zM16 9a1 1 0 100 2 1 1 0 000-2zM9 13a1 1 0 011-1h1a1 1 0 110 2v2a1 1 0 11-2 0v-3zM7 11a1 1 0 100-2H4a1 1 0 100 2h3zM17 13a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM16 17a1 1 0 100-2h-3a1 1 0 100 2h3z" />
+                        </svg>
+                        ConnID:&nbsp; <span id="ctc_connid" class="text-gray-500">{{$evaluacion->connid}}</span>
+                    </button>
+                    <div id="ctc_connid_alert" class="transition duration-350 ease-in-out hidden shadow-md rounded-md flex fixed items-center bg-green-500 text-white text-sm px-3 py-3" role="alert">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                        <p>ConnID copiado al portapapeles.</p>
+                    </div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <a class="inline-flex items-center h-8 px-2 m-2 text-sm text-indigo-100 transition-colors duration-150 bg-green-700 rounded focus:shadow-outline hover:bg-green-900" href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
@@ -106,23 +195,7 @@ Versión 1
                         </svg>
                     </a>
                 </td>
-                <td class="text-center">
-                    @if(Auth::user()->perfil  == 1)
-                        @if($evaluacion->respuestas->max('origen_id') == 2)
-                            <form method="POST" action="{{ route('evaluacions.resetici', [$evaluacion->id]) }}" onsubmit="return confirm('¿Seguro quieres borrar la ICI? (Acción irreversible)');">
-                                @method('DELETE')
-                                @csrf
-                        @endif
-                                <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded disabled:opacity-30 @if($evaluacion->respuestas->max('origen_id') == 1) cursor-not-allowed" disabled @else " @endif>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                </button>
-                        @if($evaluacion->respuestas->max('origen_id') == 2)
-                            </form>
-                        @endif
-                    @endif
-                </td>
+
             </tr>
 
         @endforeach
