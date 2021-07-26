@@ -97,6 +97,7 @@ class PautaCallVoz extends PautaBase
     public $otro_ofrecimientoaccesorio = '';
     public $retroalimentacion = '';
     public $comentario_interno = '';
+    public $descripcion_caso = '';
     public $motivo = '';
     public $tipogestion1 = '';
     public $tipogestion2 = '';
@@ -191,6 +192,7 @@ class PautaCallVoz extends PautaBase
 
         $this->guardarRespuesta(176, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(177, ['memo' => $this->comentario_interno]);
+        $this->guardarRespuesta(199, ['memo' => $this->descripcion_caso]);
         $this->guardarRespuesta(179, ['text' => $this->motivo]);
 
         $this->guardarRespuestas([180, 181, 182], 'tipogestion');

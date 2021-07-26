@@ -76,6 +76,7 @@ class EvaluacionFactory extends Factory
             'ici' => NULL,
             'fecha_ici' => NULL,
             'user_ici' => NULL,
+            'estado_conversacion' => 7,
         ];
     }
 }

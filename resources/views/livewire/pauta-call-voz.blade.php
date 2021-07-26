@@ -12,11 +12,18 @@ Versión 5
                             Comentario Interno
                         </label>
                         <div class="mt-1">
-                            <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$comentario_interno}}</textarea>
+                            <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno">{{$comentario_interno}}</textarea>
                         </div>
                     </div>
-
-
+                    <div>
+                        <label for="descripcion_caso" class="block text-sm font-medium text-gray-700">
+                            Descripción del Caso
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="descripcion_caso" name="descripcion_caso" wire:model.defer="descripcion_caso" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$descripcion_caso}}</textarea>
+                        </div>
+                    </div>
+                    <small class="text-red-600 font-bold">{{ $errors->first('descripcion_caso') }}</small>
                     <div>
                         <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
                             Retroalimentación

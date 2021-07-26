@@ -127,8 +127,8 @@ class RespuestasSeeder extends Seeder
             ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => NULL, 'atributo_id' => 91, 'evaluacion_id' => $evaluacionid],
             ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => NULL, 'atributo_id' => 92, 'evaluacion_id' => $evaluacionid],
             ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => NULL, 'atributo_id' => 93, 'evaluacion_id' => $evaluacionid],
-            ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => 'Comentario interno de prueba', 'atributo_id' => 94, 'evaluacion_id' => $evaluacionid],
-            ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => 'Retroalimentacion de prueba', 'atributo_id' => 95, 'evaluacion_id' => $evaluacionid],
+            ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => 'Retroalimentacion de prueba', 'atributo_id' => 94, 'evaluacion_id' => $evaluacionid],
+            ['origen_id' => 1, 'respuesta_text' => '', 'respuesta_int' => NULL, 'respuesta_memo' => 'Comentario interno de prueba', 'atributo_id' => 95, 'evaluacion_id' => $evaluacionid],
         ];
     }
 

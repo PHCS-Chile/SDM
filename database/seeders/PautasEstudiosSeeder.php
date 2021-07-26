@@ -35,7 +35,7 @@ class PautasEstudiosSeeder extends Seeder
      * @var string[][] Estudios actualmente existentes. (Usar Factory?)
      */
     private $estudios = [
-        ['name' => 'EPCS Call Center Canales Digitales', 'pauta_id' => 1],
+        ['name' => 'Call Center Digital', 'pauta_id' => 1],
         ['name' => 'Call Center Voz', 'pauta_id' => 2],
     ];
 

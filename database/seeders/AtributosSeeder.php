@@ -234,7 +234,7 @@ class AtributosSeeder extends Seeder
         // Atributo Pauta Digital, resagado (178)
         ['name' => 'No informa el motivo de uso de datos personales', 'name_interno' => 'seguridad4', 'pauta_id' => 1, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => 35, 'name_categoria' => 'PENC'],
 
-        // Atributos Pauta Call Voz, parte 4 (179 > 198)
+        // Atributos Pauta Call Voz, parte 4 (179 > 199)
         ['name' => 'Motivo del llamado', 'name_interno' => 'motivo', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
         ['name' => 'Tipo de Gestión', 'name_interno' => 'tipogestion1', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
         ['name' => 'Tipo de Gestión', 'name_interno' => 'tipogestion2', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
@@ -255,7 +255,7 @@ class AtributosSeeder extends Seeder
         ['name' => 'Ejecutivo Resuelve el problema de origen en línea', 'name_interno' => 'resolucion2', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
         ['name' => 'Ejecutivo Resuelve el problema de origen en línea', 'name_interno' => 'resolucion3', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
         ['name' => 'Ejecutivo Resuelve el problema de origen en línea FULL', 'name_interno' => 'resolucion4', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
-
+        ['name' => 'Descripción del Caso', 'name_interno' => 'descripcion_caso', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
 
 }

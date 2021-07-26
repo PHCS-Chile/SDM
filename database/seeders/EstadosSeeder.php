@@ -32,6 +32,7 @@ class EstadosSeeder extends Seeder
         ['name' => 'Para enviar EC', 'visible' => 1, 'tipo' => 1],
         ['name' => 'Completa y Revisada', 'visible' => 1, 'tipo' => 1],
         ['name' => 'Descartada', 'visible' => 1, 'tipo' => 1],
+        ['name' => 'No Recorrida', 'visible' => 1, 'tipo' => 2],
         ['name' => 'Con Grabacion', 'visible' => 1, 'tipo' => 2],
         ['name' => 'Sin Grabación', 'visible' => 1, 'tipo' => 2],
         ['name' => 'Grabación no Evaluable', 'visible' => 1, 'tipo' => 2],
