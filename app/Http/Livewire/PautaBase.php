@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use App\Models\Escala;
 use App\Models\Evaluacion;
+use App\Models\Log;
 use App\Models\Respuesta;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
@@ -30,6 +31,8 @@ abstract class PautaBase extends Component
     public $rules2 = [];
     public $rules3 = [];
     public $marca_ici = 0;
+    public $gestion2 = "";
+
 
     public function cargarEvaluacion($evaluacionid=null)
     {
@@ -187,10 +190,38 @@ abstract class PautaBase extends Component
             $this->validate($this->rules);
         }
         $this->cargarEvaluacion($this->evaluacion->id);
+        //$detalles = ['antes' => $this->respuestasArreglo()];
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
+        //$detalles['despues'] = $this->respuestasArreglo();
+        //$this->guardarEnHistorial(Log::PAUTA_MODIFICAR, $detalles);
         $this->configurarCalculoDePuntajes();
         return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
+    }
+
+    public function guardarEnHistorial($accion, $detalles)
+    {
+        if ($detalles['antes'] != $detalles['despues']) {
+            $log = new Log();
+            $log->user_id = Auth::user()->id;
+            $log->evaluacion_id = $this->evaluacion->id;
+            $log->accion = $accion;
+            $log->detalles = $detalles;
+            $log->save();
+        }
+    }
+
+    public function respuestasArreglo()
+    {
+        $arreglo = [];
+        foreach ($this->evaluacion->respuestas->all() as $respuesta) {
+            $arreglo[$respuesta->atributo_id] = [
+                $respuesta->respuesta_int,
+                $respuesta->respuesta_text,
+                $respuesta->respuesta_memo,
+            ];
+        }
+        return $arreglo;
     }
 
     public function calcularPuntajes($ponderadores, $atributosCriticos)

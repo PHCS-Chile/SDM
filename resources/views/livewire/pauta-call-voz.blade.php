@@ -1006,6 +1006,7 @@ Versión 5
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <small class="text-red-600 font-bold">{{ $errors->first('otro_ruidoenllamada') }}</small>
                                         <div class="mt-4">
                                             <span class="text-gray-700">Uso de frases tipo o scripts para la comunicación</span>
                                             <div class="mt-2 text-sm">
@@ -1018,6 +1019,7 @@ Versión 5
                                                     <p class="ml-2">No</p>
                                                 </label>
                                             </div>
+                                            <small class="text-red-600 font-bold">{{ $errors->first('otro_frasesyscripts') }}</small>
                                         </div>
                                         <div class="col-span-6 sm:col-span-3">
                                             <label for="otro_tiponegocio" class="block text-sm font-medium text-gray-700">Tipo de Negocio</label>
@@ -1030,6 +1032,7 @@ Versión 5
                                                 @endforeach
                                             </select>
                                         </div>
+                                        <small class="text-red-600 font-bold">{{ $errors->first('otro_tiponegocio') }}</small>
                                         <div class="mt-4">
                                             <span class="text-gray-700">Ofrecimiento de más de una Línea</span>
                                             <div class="mt-2 text-sm">

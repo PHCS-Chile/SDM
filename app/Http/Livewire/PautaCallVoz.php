@@ -133,7 +133,7 @@ class PautaCallVoz extends PautaBase
         $this->tiposnegocio = Escala::where('grupo_id',5)->get();
         $this->pecresponsables = Escala::where('grupo_id',3)->get();
         /* Reglas de validación */
-        $this->rules1 = [
+        $this->agregarValidaciones([
             'motivo' => 'required',
             'tipogestion1' => 'required',
             'deteccion1' => 'required',
@@ -141,7 +141,13 @@ class PautaCallVoz extends PautaBase
             'gestiona1' => 'required',
             'resolucion1' => 'required',
             'retroalimentacion' => 'required',
-        ];
+        ]);
+        $this->agregarValidaciones([
+            'descripcion_caso' => 'required',
+            'otro_tiponegocio' => 'required',
+            'otro_ruidoenllamada' => 'required',
+            'otro_frasesyscripts' => 'required'
+        ]);
         $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
     }
 
@@ -330,7 +336,7 @@ class PautaCallVoz extends PautaBase
             'otro_ofrecimientoequipo' => 'required',
             'otro_ofrecimientoaccesorio' => 'required',
         ];
-        if ($this->otro_tiponegocio != "No aplica") {
+        if ($this->otro_tiponegocio !== "" and $this->otro_tiponegocio != "No aplica") {
             $this->agregarValidaciones($campos);
         } else {
             $this->quitarValidaciones($campos);
@@ -365,7 +371,6 @@ class PautaCallVoz extends PautaBase
 
     public function xgestion2()
     {
-        $marcada = false;
         $campos = [
             'tipogestion2' => 'required',
             'deteccion2' => 'required',
@@ -373,13 +378,7 @@ class PautaCallVoz extends PautaBase
             'gestiona2' => 'required',
             'resolucion2' => 'required',
         ];
-        foreach ($campos as $campo => $regla) {
-            if ($this->{$campo} != "") {
-                $marcada = true;
-                break;
-            }
-        }
-        if ($marcada) {
+        if ($this->tipogestion2 != '') {
             $this->agregarValidaciones($campos);
         } else {
             $this->quitarValidaciones($campos);
@@ -388,7 +387,6 @@ class PautaCallVoz extends PautaBase
 
     public function xgestion3()
     {
-        $marcada = false;
         $campos = [
             'tipogestion3' => 'required',
             'deteccion3' => 'required',
@@ -396,13 +394,7 @@ class PautaCallVoz extends PautaBase
             'gestiona3' => 'required',
             'resolucion3' => 'required',
         ];
-        foreach ($campos as $campo => $regla) {
-            if ($this->{$campo} != "") {
-                $marcada = true;
-                break;
-            }
-        }
-        if ($marcada) {
+        if ($this->tipogestion2 != '') {
             $this->agregarValidaciones($campos);
         } else {
             $this->quitarValidaciones($campos);

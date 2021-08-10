@@ -2,13 +2,16 @@
 
 namespace Database\Seeders;
 
+use App\Models\Agente;
+use App\Models\Asignacion;
+use App\Models\Periodo;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
 /**
  * Class AsignacionsSeeder
  * @package Database\Seeders
- * @version 4
+ * @version 5
  */
 class AsignacionsSeeder extends Seeder
 {
@@ -19,6 +22,17 @@ class AsignacionsSeeder extends Seeder
      */
     public function run()
     {
+//        $agentes = Agente::where('id' ,'>' ,0)->pluck('id')->toArray();
+//        $periodos =Periodo::where('id' ,'>' ,0)->pluck('id')->toArray();
+//        foreach ($periodos as $periodo) {
+//            foreach ($agentes as $agente) {
+//                Asignacion::factory()->digital()->create([
+//                    'periodo_id' => $periodo,
+//                    'agente_id'  => $agente,
+//                ]);
+//            }
+//        }
+        $periodos = Periodo::all();
 
         DB::table('asignacions')->insert($this->asignacions);
     }
