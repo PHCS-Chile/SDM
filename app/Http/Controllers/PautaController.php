@@ -50,4 +50,23 @@ class PautaController extends Controller
     {
 
     }
+
+    public function grabacionNoEvaluable($evaluacion_id)
+    {
+        $evaluacion = Evaluacion::find($evaluacion_id);
+        $evaluacion->estado_conversacion = 10;
+        $evaluacion->save();
+        return redirect(route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion->id]))
+            ->with('msg', 'Estado de la grabación ha cambiado!');
+    }
+
+    public function grabacionNoExiste($evaluacion_id)
+    {
+        $evaluacion = Evaluacion::find($evaluacion_id);
+        $evaluacion->estado_conversacion = 9;
+        $evaluacion->save();
+        return redirect(route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion->id]))
+            ->with('msg', 'Estado de la grabación ha cambiado!');
+    }
+
 }

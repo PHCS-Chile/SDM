@@ -9,6 +9,12 @@ use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class GrabacionController
+ *
+ * @package App\Http\Controllers
+ * @version 2
+ */
 class GrabacionController extends Controller
 {
     public function subir(SubirGrabacionRequest $request)
@@ -55,5 +61,7 @@ class GrabacionController extends Controller
         Storage::delete('uploads/' . $evaluacion_id . '_grabacion.mp3');
         return redirect(route('evaluacions.index', [$evaluacion_id]))->with('message', 'Grabación eliminada con éxito!');
     }
+
+
 
 }

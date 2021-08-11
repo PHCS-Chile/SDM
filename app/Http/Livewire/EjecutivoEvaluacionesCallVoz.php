@@ -15,7 +15,7 @@ use App\Models\Asignacion;
  * Class EjecutivoEvaluacionesCallVoz
  * @package App\Http\Livewire
  *
- * @version 1
+ * @version 2
  */
 class EjecutivoEvaluacionesCallVoz extends Component
 {
@@ -50,13 +50,13 @@ class EjecutivoEvaluacionesCallVoz extends Component
             'evaluacionescompletas' => Evaluacion::where('asignacion_id','=',$this->asignacionid)->where('estado_id', '>',1)->where('estado_id', '<',6)->get(),
             'evaluaciones' => Evaluacion::where('asignacion_id','=',$this->asignacionid)
                 ->when($this->searchMovil !== null, function ($query) {
-                    $query->where('movil', 'like', "%" . $this->searchMovil . "%");
+                    $query->where('movil', 'like', "%" . trim($this->searchMovil) . "%");
                 })
                 ->when($this->filtroConnid !== null, function ($query) {
                     $query->where('connid', 'like', "%" . trim($this->filtroConnid) . "%");
                 })
                 ->when($this->filtroFecha !== null, function ($query) {
-                    $query->where('fecha_grabacion', 'like', "%" . $this->filtroFecha . "%");
+                    $query->where('fecha_grabacion', 'like', "%" . trim($this->filtroFecha) . "%");
                 })
                 ->when($this->filtroEstado > 0, function ($query) {
                     $query->where('estado_id', $this->filtroEstado);

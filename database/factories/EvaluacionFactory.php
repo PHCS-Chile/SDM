@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * Class EvaluacionFactory
  * @package Database\Factories
- * @version 2
+ * @version 3
  */
 class EvaluacionFactory extends Factory
 {
@@ -31,7 +31,6 @@ class EvaluacionFactory extends Factory
         /* Creación de atributos aleatorios que dependen entre ellos */
         $supervisor = $this->faker->randomElement([NULL, ""]);
         $penc = $pecu = $pecn = $pecc = $user_id = NULL;
-        $asignacion_id = $this->faker->numberBetween(1, 110);
         $user_completa = NULL;
         $fecha_completa = NULL;
         $estado_id = $this->faker->numberBetween(1, 6);
@@ -64,7 +63,6 @@ class EvaluacionFactory extends Factory
             'pecn' => $pecn,
             'pecc' => $pecc,
             'user_id' => $user_id,
-            'asignacion_id' => $asignacion_id,
             'estado_id' => $estado_id,
             'tag1' => $this->faker->md5,
             'tag2' => $this->faker->randomElement([NULL, 'WS', 'RRSS', 'WS EPA']),

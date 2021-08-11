@@ -8,7 +8,7 @@ use Illuminate\Database\Seeder;
 /**
  * Class DatabaseSeeder
  * @package Database\Seeders
- * @version 2 (25/06/2021)
+ * @version 3
  */
 class DatabaseSeeder extends Seeder
 {
@@ -28,9 +28,7 @@ class DatabaseSeeder extends Seeder
             AgentesSeeder::class,
             AsignacionsSeeder::class,
             AtributosSeeder::class,
-        ]);
-        Evaluacion::factory()->count(100)->create();
-        $this->call([
+            EvaluacionsSeeder::class,
             RespuestasSeeder::class,
             EscalasSeeder::class,
         ]);
