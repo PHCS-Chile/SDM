@@ -23,7 +23,15 @@ Versión 5
                             <textarea id="descripcion_caso" name="descripcion_caso" wire:model.defer="descripcion_caso" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$descripcion_caso}}</textarea>
                         </div>
                     </div>
-                    <small class="text-red-600 font-bold">{{ $errors->first('descripcion_caso') }}</small>
+                    <div>
+                        <label for="respuesta_ejecutivo" class="block text-sm font-medium text-gray-700">
+                            Respuesta del Ejecutivo
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="respuesta_ejecutivo" name="respuesta_ejecutivo" wire:model.defer="respuesta_ejecutivo" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la Respuesta del Ejecutivo">{{$respuesta_ejecutivo}}</textarea>
+                        </div>
+                    </div>
+                    <small class="text-red-600 font-bold">{{ $errors->first('respuesta_ejecutivo') }}</small>
                     <div>
                         <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
                             Retroalimentación

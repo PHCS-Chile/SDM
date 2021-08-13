@@ -28,7 +28,7 @@ class RespuestaFactory extends Factory
     public function definition()
     {
         return [
-            'origen_id' => 1,
+            'origen_id' => Respuesta::PH,
             'respuesta_text' => '',
             'respuesta_int' => NULL,
             'respuesta_memo' => NULL,

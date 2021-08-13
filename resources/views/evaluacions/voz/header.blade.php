@@ -98,13 +98,9 @@ Versión 1
                                         @endif
                                     </div>
 
-
-
-                                    @if(Auth::user()->perfil  == 2)
-                                        <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
-                                            @csrf
-
-
+                                    <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
+                                        @csrf
+                                        @if(Auth::user()->perfil  == 1)
                                             <button type="submit" name="descartarEval" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                 <!-- Heroicon name: check -->
 
@@ -113,6 +109,8 @@ Versión 1
                                                 </svg>
                                                 Descartar Evaluación
                                             </button>
+                                        @endif
+                                        @if(Auth::user()->perfil  == 2)
                                             @if($evaluacionfinal->estado_id > 1)
                                                 <button type="submit" name="enviarRevision" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
                                                     <!-- Heroicon name: check -->
@@ -122,9 +120,9 @@ Versión 1
                                                     Enviar a Revisión
                                                 </button>
                                             @endif
-                                        </form>
+                                        @endif
+                                    </form>
 
-                                    @endif
                                     @if(Auth::user()->perfil  == 1)
                                         <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
                                             @csrf

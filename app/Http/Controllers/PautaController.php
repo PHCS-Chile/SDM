@@ -27,13 +27,13 @@ class PautaController extends Controller
     {
         $evaluacion = Evaluacion::find($evaluacionid);
         /* Si tiene ICI */
-        if ($evaluacion->respuestas->max('origen_id') == 2) {
+        if ($evaluacion->respuestas->max('origen_id') == Respuesta::ICI) {
             /* Se eliminan los origen_id = 1 (respuestas con discrepancia) */
-            Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', 1)->delete();
-            $respuestas = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', 2)->get();
+            Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::PH)->delete();
+            $respuestas = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::ICI)->get();
             /* Se actualiza el origen_id a 1 (sin ICI) */
             foreach ($respuestas as $respuesta) {
-                $respuesta->origen_id = 1;
+                $respuesta->origen_id = Respuesta::PH;
                 $respuesta->save();
             }
             /* Se actualiza la evaluación para que no tenga los resultados del ICI */

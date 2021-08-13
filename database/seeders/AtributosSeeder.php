@@ -256,6 +256,7 @@ class AtributosSeeder extends Seeder
         ['name' => 'Ejecutivo Resuelve el problema de origen en línea', 'name_interno' => 'resolucion3', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
         ['name' => 'Ejecutivo Resuelve el problema de origen en línea FULL', 'name_interno' => 'resolucion4', 'pauta_id' => 2, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión'],
         ['name' => 'Descripción del Caso', 'name_interno' => 'descripcion_caso', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Respuesta del Ejecutivo', 'name_interno' => 'respuesta_ejecutivo', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
 
 }

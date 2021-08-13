@@ -16,7 +16,7 @@ class CreateRespuestasTable extends Migration
     {
         Schema::create('respuestas', function (Blueprint $table) {
             $table->id();
-            $table->enum('origen_id', [Respuesta::CENTRO,Respuesta::PH,Respuesta::ICI]);
+            $table->enum('origen_id', [Respuesta::PH,Respuesta::ICI,Respuesta::CENTRO]);
             $table->string('respuesta_text')->nullable();
             $table->integer('respuesta_int')->nullable();
             $table->text('respuesta_memo')->nullable();

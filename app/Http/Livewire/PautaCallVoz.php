@@ -98,6 +98,7 @@ class PautaCallVoz extends PautaBase
     public $retroalimentacion = '';
     public $comentario_interno = '';
     public $descripcion_caso = '';
+    public $respuesta_ejecutivo = '';
     public $motivo = '';
     public $tipogestion1 = '';
     public $tipogestion2 = '';
@@ -243,6 +244,23 @@ class PautaCallVoz extends PautaBase
      */
     public function render()
     {
+        if($this->deteccion1 == "No" or $this->deteccion2 == "No" or $this->deteccion3 == "No"){
+            $this->pecu_deteccion = "checked";
+        }else{
+            $this->pecu_deteccion = "";
+        }
+
+        if($this->infocorrecta1 == "No" or $this->infocorrecta2 == "No" or $this->infocorrecta3 == "No"){
+            $this->pecu_gestionincorrecta = "checked";
+        }else{
+            $this->pecu_gestionincorrecta = "";
+        }
+
+        if($this->gestiona1 == "No" or $this->gestiona2 == "No" or $this->gestiona3 == "No"){
+            $this->pecu_noresuelve = "checked";
+        }else{
+            $this->pecu_noresuelve = "";
+        }
         return view('livewire.pauta-call-voz');
     }
 

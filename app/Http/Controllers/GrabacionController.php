@@ -29,6 +29,10 @@ class GrabacionController extends Controller
             $grabacion->tamano = $request->file('grabacion')->getSize();
             $grabacion->save();
 
+            $evaluacion = Evaluacion::where('id',$request->evaluacionid)->first();
+            $evaluacion->estado_conversacion = 8;
+            $evaluacion->save();
+
             return back()
                 ->with('success','Se ha guardado la grabación.')
                 ->with('file', $name);
@@ -59,6 +63,9 @@ class GrabacionController extends Controller
             $grabacion->delete();
         }
         Storage::delete('uploads/' . $evaluacion_id . '_grabacion.mp3');
+        $evaluacion = Evaluacion::where('id',$evaluacion_id)->first();
+        $evaluacion->estado_conversacion = 7;
+        $evaluacion->save();
         return redirect(route('evaluacions.index', [$evaluacion_id]))->with('message', 'Grabación eliminada con éxito!');
     }
 

@@ -14,9 +14,9 @@ class Respuesta extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
-    const CENTRO = 1;
-    const PH = 2;
-    const ICI = 3;
+    const PH = 1;
+    const ICI = 2;
+    const CENTRO = 3;
 
     //protected $dateFormat = 'd-m-Y H:i:s';
 

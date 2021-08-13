@@ -106,7 +106,7 @@ abstract class PautaBase extends Component
                     $suma += 100;
                 }
             }
-            $respuesta->origen_id = 2;
+            $respuesta->origen_id = Respuesta::ICI;
             $respuesta->save();
         }
         $atributosNoMemo = count($respuestas->atributos->where('name_categoria', "<>", "Memo")->all());
@@ -342,13 +342,13 @@ abstract class PautaBase extends Component
     public function guardarRespuesta(int $idAtributo, array $valores)
     {
         /* Se verifica la existencia del atributo. Si no existe, se crea. */
-        $respuestasOrigen1 = $this->evaluacion->respuestas->where('origen_id', 1);
+        $respuestasOrigen1 = $this->evaluacion->respuestas->where('origen_id', Respuesta::PH);
         $respuesta = $respuestasOrigen1->firstWhere('atributo_id', $idAtributo);
         if ($respuesta === null) {
             $respuesta = new Respuesta();
             $respuesta->atributo_id = $idAtributo;
             $respuesta->evaluacion_id = $this->evaluacion->id;
-            $respuesta->origen_id = 1;
+            $respuesta->origen_id = Respuesta::PH;
         }
         /* Se asigna valor al atributo, dependiendo de los índices que hayan sido entregados. */
         if (isset($valores['text']) && $valores['text'] != null) {
