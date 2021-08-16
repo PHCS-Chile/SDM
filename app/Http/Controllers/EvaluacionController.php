@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Estudio;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
 use App\Models\Respuesta;
@@ -68,6 +69,13 @@ class EvaluacionController extends Controller
             $evaluacion->update();
             return back()->with("status", "La evaluación se envió a Revisión");
         }
+    }
+
+    public function reportes()
+    {
+        $evaluaciones = Evaluacion::all();
+        $estudios = Estudio::all();
+        return view('evaluacions.reportes', compact('evaluaciones', 'estudios'));
     }
 
 }

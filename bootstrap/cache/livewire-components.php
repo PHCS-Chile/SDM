@@ -6,4 +6,5 @@
   'ejecutivo-evaluaciones-call-voz' => 'App\\Http\\Livewire\\EjecutivoEvaluacionesCallVoz',
   'pauta-call-voz' => 'App\\Http\\Livewire\\PautaCallVoz',
   'pauta-digital' => 'App\\Http\\Livewire\\PautaDigital',
+  'reportes' => 'App\\Http\\Livewire\\Reportes',
 );
