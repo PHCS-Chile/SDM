@@ -12,7 +12,7 @@ use Illuminate\Routing\Redirector;
  * Class PautaController
  * Gestiona las peticiones POST para la modificación de las pautas
  * @package App\Http\Controllers
- * @version 1
+ * @version 2
  */
 class PautaController extends Controller
 {
@@ -57,7 +57,7 @@ class PautaController extends Controller
         $evaluacion->estado_conversacion = 10;
         $evaluacion->save();
         return redirect(route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion->id]))
-            ->with('msg', 'Estado de la grabación ha cambiado!');
+            ->with('status', 'Estado de la grabación ha cambiado!');
     }
 
     public function grabacionNoExiste($evaluacion_id)
@@ -66,7 +66,7 @@ class PautaController extends Controller
         $evaluacion->estado_conversacion = 9;
         $evaluacion->save();
         return redirect(route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion->id]))
-            ->with('msg', 'Estado de la grabación ha cambiado!');
+            ->with('status', 'Estado de la grabación ha cambiado!');
     }
 
 }

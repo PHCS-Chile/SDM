@@ -1,6 +1,6 @@
 {{--
 Plantilla: navigation-menu
-Versión 1 (25/06/2021)
+Versión 2
 --}}
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow">
@@ -53,6 +53,12 @@ Versión 1 (25/06/2021)
                             {{ __('Calidad') }}
                         </x-jet-nav-link>
                     @endif
+
+                    @if(Auth::user()->perfil == 1)
+                        <x-jet-nav-link href="{{ route('evaluacions.reportes') }}" :active="request()->routeIs('evaluacions.reportes')">
+                            {{ __('Reportes') }}
+                        </x-jet-nav-link>
+                    @endif
                 </div>
                 @endif
             </div>
@@ -60,6 +66,7 @@ Versión 1 (25/06/2021)
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <!-- Teams Dropdown -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
+
                     <div class="ml-3 relative">
                         <x-jet-dropdown align="right" width="60">
                             <x-slot name="trigger">
@@ -106,6 +113,28 @@ Versión 1 (25/06/2021)
                             </x-slot>
                         </x-jet-dropdown>
                     </div>
+                @endif
+
+{{--                ESTO DEBE SER ELIMINADO ALO PASAR A TESTING--}}
+                @if(Auth::user()->id == 1)
+                <div class="ml-3 relative">
+                    <x-jet-dropdown align="right" width="48">
+                        <x-slot name="trigger">
+                            <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                                Perfil {{ Auth::user()->perfil }}
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+                            @if(Auth::user()->perfil == 2)
+                            <x-jet-dropdown-link href="{{ route('perfil', [1]) }}">Perfil 1</x-jet-dropdown-link>
+                            @endif
+                            @if(Auth::user()->perfil == 1)
+                            <x-jet-dropdown-link href="{{ route('perfil', [2]) }}">Perfil 2</x-jet-dropdown-link>
+                            @endif
+                        </x-slot>
+                    </x-jet-dropdown>
+                </div>
                 @endif
 
                 <!-- Settings Dropdown -->
