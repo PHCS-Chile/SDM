@@ -5,16 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Estudio;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
+use App\Models\Periodo;
 use App\Models\Respuesta;
 use App\Models\Estado;
 use App\Models\Escala;
+use App\Models\Servicio;
 use Illuminate\Http\Request;
 use Auth;
 
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 3
+ * @version 4
  */
 
 class EvaluacionController extends Controller
@@ -75,7 +77,12 @@ class EvaluacionController extends Controller
     {
         $evaluaciones = Evaluacion::all();
         $estudios = Estudio::all();
-        return view('evaluacions.reportes', compact('evaluaciones', 'estudios'));
+        $periodos = Periodo::all();
+        $servicios = Servicio::all();
+        $estados = Estado::all();
+        return view('evaluacions.reportes', compact(
+            'evaluaciones', 'estudios', 'periodos', 'servicios', 'estados'
+        ));
     }
 
 }
