@@ -40,7 +40,7 @@ Versión 2
                                     Estudios
                                 </div>
                                 @foreach(App\Models\Estudio::all() as $estudio)
-                                <x-jet-dropdown-link href="{{ route('asignacions.index', [$estudio->id, now()->format('ym')]) }}">
+                                <x-jet-dropdown-link href="{{ route('asignacions.index', [$estudio->id, Periodo::find(Periodo::max('id'))->periodo_id]) }}">
                                     {{ $estudio->name }}
                                 </x-jet-dropdown-link>
                                 @endforeach
@@ -160,12 +160,16 @@ Versión 2
 
                         <x-slot name="content">
                             <!-- Account Management -->
-                            <div class="block px-4 py-2 text-xs text-gray-400">
-                                {{ __('Manage Account') }}
+                            <div class="block px-4 pt-2 text-xs text-gray-500 italic font-bold">
+                                {{ strtoupper(Auth::user()->name) }}
                             </div>
+                            <div class="block px-4 pb-2 text-xs text-gray-400 -mt-1">
+                                Gestionar cuenta
+                            </div>
+                            <hr>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
-                                {{ __('Profile') }}
+                                Ver perfil
                             </x-jet-dropdown-link>
 
                             @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
@@ -183,13 +187,66 @@ Versión 2
                                 <x-jet-dropdown-link href="{{ route('logout') }}"
                                          onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                    {{ __('Logout') }}
+                                    Desconectarse
                                 </x-jet-dropdown-link>
                             </form>
                         </x-slot>
                     </x-jet-dropdown>
                 </div>
+
+                {{-- Notificaciones--}}
+                <div class="ml-3 relative">
+                    <x-jet-dropdown align="right" width="96">
+                        <x-slot name="trigger">
+                            <button class=" hover:bg-gray-200 h-7 inline-block rounded-full">
+                                <svg fill="none" viewBox="0 0 24 24" stroke="#666" class="h-7 -mr-1 align-text-top animate-swing origin-top inline-block">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                          d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                                    </path>
+                                </svg>
+                                <sup class="text-md font-normal {{ Notificacion::where('activa', true)->where('leida', false)->count() > 0 ? 'bg-red-700' : 'bg-gray-500' }} px-1.5 py-0.5 text-white -ml-2 rounded-full">{{ Notificacion::where('activa', true)->where('leida', false)->count() }}</sup>
+                            </button>
+                        </x-slot>
+
+                        <x-slot name="content">
+
+                            <div class="block px-4 py-2 text-sm text-gray-500">
+                                Notificaciones
+                            </div>
+
+                            @if(Notificacion::where('activa', true)->where('leida', false)->count() > 0)
+                                @foreach(Notificacion::where('activa', true)->where('leida', false)->get() as $notificacion)
+                                    <x-jet-dropdown-link href="{{ route('evaluacions.index.notify', [$notificacion->evaluacion->id]) }}">
+                                        <div class="inline-block">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                            </svg>
+                                        </div>
+                                        <div class="inline-block">
+                                            <strong>Evaluación pendiente de revisión</strong><br>
+                                            <div class="-mt-1">{{ $notificacion->evaluacion->asignacion->agente->name }}</div>
+                                            <div class="-mt-1 text-gray-400">{{ ucfirst(diferenciaFechas($notificacion->created_at)) }}</div>
+                                        </div>
+                                    </x-jet-dropdown-link>
+                                @endforeach
+                            @else
+                                <div class="block px-4 py-2 text-sm text-gray-500 text-center">
+                                    <i>No hay notificaciones.</i>
+                                </div>
+                            @endif
+
+
+                            <x-jet-dropdown-link href="{{ route('usuario.notificaciones') }}" class="text-center">
+                                <strong>Ver todas las notificaciones</strong>
+                            </x-jet-dropdown-link>
+
+                        </x-slot>
+                    </x-jet-dropdown>
+
+                </div>
+
             </div>
+
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">

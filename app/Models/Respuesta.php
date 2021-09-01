@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Respuesta
  * @package App\Models
- * @version 1
+ * @version 2
  */
 class Respuesta extends Model
 {
@@ -30,9 +30,9 @@ class Respuesta extends Model
         return $this->belongsTo(Atributo::class);
     }
 
-    protected $casts = [
-        'created_at' => 'datetime:d-m-Y H:i:s',
-        'updated_at' => 'datetime:d-m-Y H:i:s',
-    ];
+//    protected $casts = [
+//        'created_at' => 'datetime:d-m-Y H:i:s',
+//        'updated_at' => 'datetime:d-m-Y H:i:s',
+//    ];
 
 }

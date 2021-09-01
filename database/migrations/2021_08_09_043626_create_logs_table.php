@@ -18,8 +18,8 @@ class CreateLogsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('evaluacion_id');
-            $table->enum('accion', [Log::PAUTA_MODIFICAR, Log::PAUTA_CALIDAD]);
-            $table->text('detalles');
+            $table->string('accion');
+            $table->text('detalle');
             $table->timestamps();
         });
     }

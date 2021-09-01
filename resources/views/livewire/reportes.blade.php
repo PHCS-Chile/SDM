@@ -15,6 +15,16 @@ Versión 1
                 </select>
             </div>
 
+            <div class="mr-5 mt-6 float-right mb-4 inline-block">
+                <button type="submit"  wire:click="crearPDF" class="flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 2xl:group-hover:bg-red-700 focus:outline-none">
+                    <!-- Heroicon name: check -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    Crear PDFs
+                </button>
+            </div>
+
             <div class="mb-4 inline-block">
                 <label for="filtroPeriodo">Periodo</label>
                 <select id="filtroPeriodo" name="filtroPeriodo" autocomplete="" wire:model="filtroPeriodo" class="mt-1 block w-auto py-2 pl-2 pr-7 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -65,56 +75,60 @@ Versión 1
                     <thead class="bg-gray-50">
                     <tr>
                         <th scope="col" class="px-1 py-1">
-                            <label for="todo" class="sr-only">Marcar todo</label>
-                            <input id="todo" type="checkbox" wire:model="marcarTodo" wire:click="marcarTodo">
+                            <label class="" for="todo">
+                                <input class="form-checkbox rounded" id="todo" type="checkbox" wire:ignore wire:click="marcarTodo" wire:model.defer="marcarTodo">
+                                <span class="ml-2 sr-only">Marcar todo</span>
+                            </label>
+
+
                         </th>
-                        <th scope="col" class="px-2 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Id
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Agente
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Estado
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Reporte
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Fecha conversación
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Móvil
                         </th>
-                        <th scope="col" class="px-6 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Fecha evaluación
                         </th>
 
                     </tr>
                     </thead>
                     <tbody class="bg-white divide-y divide-gray-200">
-                    @foreach($evaluaciones as $evaluacion)
+                    @foreach($evaluaciones as $index => $evaluacion)
                         <tr>
-                            <td class="px-1 py-1 whitespace-nowrap text-right">
+                            <td class="pl-3 pr-1 py-1 whitespace-nowrap text-right">
                                 <label for="evaluacion_{{ $evaluacion->id }}" class="sr-only">Marcar</label>
-                                <input id="evaluacion_{{ $evaluacion->id }}" type="checkbox" wire:model="evaluacionesSeleccionadas.{{ $evaluacion->id }}" value="{{ $evaluacion->id }}">
+                                <input class="rounded" id="evaluacion_{{ $evaluacion->id }}" type="checkbox" wire:model.defer="evaluacionesSeleccionadas.{{ $index }}" value="{{ $evaluacion->id }}">
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-3 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->id }}
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->asignacion->agente->name }}
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->estado->name }}
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     @if ($estado = $estados->firstWhere('id', $evaluacion->estado_reporte))
                                     {{ $estado }}
@@ -123,17 +137,17 @@ Versión 1
                                     @endif
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->fecha_grabacion }}
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->movil }}
                                 </div>
                             </td>
-                            <td class="px-6 py-1 whitespace-nowrap">
+                            <td class="pl-4 py-1 whitespace-nowrap">
                                 <div class="text-sm text-gray-900">
                                     {{ $evaluacion->fecha_completa }}
                                 </div>
@@ -143,7 +157,7 @@ Versión 1
                     <!-- More items... -->
                     </tbody>
                 </table>
-                {{ $evaluaciones->links() }}
+                <div class="mx-2">{{ $evaluaciones->links('vendor.livewire.tailwind') }}</div>
             </div>
         </div>
     </div>

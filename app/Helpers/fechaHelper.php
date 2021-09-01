@@ -2,7 +2,7 @@
 /*
  * Ayudas para manejo de fechas en español.
  * Si esto puede ser escrito utilizando sólo funciones date de PHP, tanto mejor.
- * @version 1 (210602)
+ * @version 3
  */
 
 if (! function_exists('mesEspanol')) {
@@ -91,5 +91,37 @@ if (! function_exists('ajustarMes')) {
             $mes = '0' . $mes;
         }
         return $mes;
+    }
+}
+
+if (! function_exists('diferenciaFechas')) {
+    /**
+     * Devuelve una representación del mes con un ancho de 2 caracteres. Por ejemplo, el mes 5 devolverá '05',
+     * mientras que el mes 10 devolverá '10'.
+     *
+     * @param DateTime $fechaReferencia
+     * @return string
+     */
+    function diferenciaFechas(String $datetime): string
+    {
+        $date = new DateTime($datetime, new DateTimeZone('America/Santiago'));
+        $now = new DateTime("now", new DateTimeZone('America/Santiago') );
+        $interval = date_diff($date, $now);
+        if ($interval->y > 0) {
+            $msg = sprintf('hace %s año%s y %s mes%s', $interval->y, $interval->y == 1 ? '' : 's', $interval->m, $interval->m == 1 ? '' : 'es');
+        } elseif ($interval->m > 0) {
+            $msg = sprintf('hace %s mes%s y %s dia%s', $interval->m, $interval->m == 1 ? '' : 'es', $interval->d, $interval->d == 1 ? '' : 's');
+        } elseif ($interval->d > 0) {
+            $msg = sprintf('hace %s dia%s y %s hora%s', $interval->d, $interval->d == 1 ? '' : 's', $interval->h, $interval->h == 1 ? '' : 's');
+        } elseif ($interval->h > 0) {
+            $msg = sprintf('hace %s hora%s y %s minuto%s', $interval->h, $interval->h == 1 ? '' : 's', $interval->i, $interval->i == 1 ? '' : 's');
+        } elseif ($interval->i > 0) {
+            $msg = sprintf('hace %s minuto%s', $interval->i, $interval->i == 1 ? '' : 's');
+        } elseif ($interval->s > 10) {
+            $msg = sprintf('hace %s segundo%s', $interval->s, $interval->s == 1 ? '' : 's');
+        } else {
+            $msg = 'recién';
+        }
+        return $msg;
     }
 }

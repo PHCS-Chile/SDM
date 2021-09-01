@@ -4,6 +4,7 @@ use App\Http\Controllers\DevController;
 use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\GrabacionController;
 use App\Http\Controllers\PautaController;
+use App\Http\Controllers\UserEventController;
 use App\Models\Evaluacion;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsignacionController;
@@ -54,6 +55,7 @@ Route::get('/reportes/',[EvaluacionController::class,'reportes'])->name('evaluac
 Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/evaluacion/{evaluacionid}',[EvaluacionController::class,'index'])->name('evaluacions.index')->middleware(['auth:sanctum', 'verified']);
+Route::get('/evaluacion/{evaluacionid}/notify',[EvaluacionController::class,'indexNotify'])->name('evaluacions.index.notify')->middleware(['auth:sanctum', 'verified']);
 //Route::get('/evaluacion/{evaluacionid}', PautaWhatsapp::class)->name('digital.index')->middleware(['auth:sanctum', 'verified']);
 Route::post('/evaluacion/{evaluacionid}',[EvaluacionController::class,'guardaeval'])->name('evaluacions.guardaeval')->middleware(['auth:sanctum', 'verified']);
 Route::delete('/evaluacion/{evaluacionid}', [PautaController::class, 'resetici'])->name('evaluacions.resetici')->middleware(['auth:sanctum', 'verified']);
@@ -65,3 +67,4 @@ Route::delete('evaluacion/{evaluacionid}/grabacion_no_evaluable', [PautaControll
 Route::delete('evaluacion/{evaluacionid}/sin_grabacion', [PautaController::class, 'grabacionNoExiste'])->name('evaluacions.sin_grabacion')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('perfil/{perfil}', [DevController::class, 'cambiarPerfil'])->name('perfil')->middleware(['auth:sanctum', 'verified']);
+Route::get('usuario/notificaciones', [UserEventController::class, 'notificaciones'])->name('usuario.notificaciones')->middleware(['auth:sanctum', 'verified']);

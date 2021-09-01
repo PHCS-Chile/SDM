@@ -1,6 +1,6 @@
 {{--
 Plantilla: dashboard
-Versión 1 (25/06/2021)
+Versión 2
 --}}
 
 <x-app-layout>
@@ -30,6 +30,40 @@ Versión 1 (25/06/2021)
                                     </div>
                                 </div>
                             </div>
+
+
+
+                            <div class="col-span-12 sm:col-span-6 md:col-span-3">
+                                <a href="{{ route('usuario.notificaciones') }}">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4 hover:bg-opacity-50 hover:shadow-md transition">
+                                        <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex flex-col flex-grow ml-4">
+                                            <div class="text-sm text-gray-500">Notificaciones sin revisar</div>
+                                            <div class="font-bold text-lg">{{ Notificacion::where('activa', true)->where('leida', false)->count() }}</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                            <div class="col-span-12 sm:col-span-6 md:col-span-3">
+                                <a href="#">
+                                    <div class="flex flex-row bg-white shadow-sm rounded p-4 hover:bg-opacity-50 hover:shadow-md transition">
+                                        <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-blue-100 text-blue-500">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                                            </svg>
+                                        </div>
+                                        <div class="flex flex-col flex-grow ml-4">
+                                            <div class="text-sm text-gray-500">Historial de cambios</div>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
                             <div class="hidden col-span-12 sm:col-span-6 md:col-span-3">
                                 <div class="flex flex-row bg-white shadow-sm rounded p-4">
                                     <div class="flex items-center justify-center flex-shrink-0 h-12 w-12 rounded-xl bg-green-100 text-green-500">

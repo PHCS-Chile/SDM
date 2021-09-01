@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Estudio;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
+use App\Models\Log;
+use App\Models\Notificacion;
 use App\Models\Periodo;
 use App\Models\Respuesta;
 use App\Models\Estado;
@@ -16,7 +18,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 4
+ * @version 6
  */
 
 class EvaluacionController extends Controller
@@ -38,39 +40,49 @@ class EvaluacionController extends Controller
         $estados = Estado::all();
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
         $grabacion = null;
+        $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         if ($pauta == 2) {
             $grabacion = Grabacion::where('evaluacion_id', $evaluacionid)->first();
-            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion'));
+            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion', 'historial'));
         }
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion'));
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion', 'historial'));
+    }
+
+    public function indexNotify($evaluacionid)
+    {
+        $notificacion = Notificacion::where('evaluacion_id', $evaluacionid)->where('activa', true)->first();
+        if ($notificacion) {
+            $notificacion->leida = true;
+            $notificacion->save();
+
+        }
+        return $this->index($evaluacionid);
     }
 
     public function guardaeval(Request $request, $evaluacionid){
 
-        if($request->has('form1')){
+        $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
+        if ($request->has('form1')) {
             //Formulario para pegar el Chat de Whatsapp
-            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
             $evaluacion->image_path = $request->textochatinput;
             $evaluacion->user_id = Auth::user()->id;
-            $evaluacion->updated_at = now();
-            $evaluacion->save();
-            return back()->with("status", "El chat se guardo correctamente");
-        }elseif($request->has('form3')){
-            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
+            $message = "El chat se guardo correctamente";
+        } elseif ($request->has('form3')) {
+            Log::log($evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$evaluacion->estado_id, $request->cambioestado]);
             $evaluacion->estado_id = $request->cambioestado;
-            $evaluacion->update();
-            return back()->with("status", "El estado se cambio correctamente");
-        }elseif($request->has('descartarEval')){
-            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
+            $message = "El estado se cambio correctamente";
+        } elseif ($request->has('descartarEval')) {
             $evaluacion->estado_id = 6;
-            $evaluacion->save();
-            return back()->with("status", "La evaluación se descarto correctamente");
-        }elseif($request->has('enviarRevision')){
-            $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
+            $message = "La evaluación se descarto correctamente";
+        } elseif ($request->has('enviarRevision')) {
             $evaluacion->estado_id = 3;
-            $evaluacion->update();
-            return back()->with("status", "La evaluación se envió a Revisión");
+            $message = "La evaluación se envió a Revisión";
         }
+        if ($evaluacion->estado_id == 3) {
+            Notificacion::notificar($evaluacionid);
+        }
+        $evaluacion->save();
+        return back()->with("status", $message);
     }
 
     public function reportes()

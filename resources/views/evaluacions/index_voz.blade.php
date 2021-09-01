@@ -1,6 +1,6 @@
 {{--
 Plantilla: Index general de pautas (temporalmente sólo Call Voz)
-Versión 1
+Versión 2
 --}}
 <x-app-layout>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
@@ -127,7 +127,8 @@ Versión 1
         </div>
         <script>
             setTimeout(function(){
-                document.getElementById("session-status").style.opacity=0;
+                document.getElementById("session-status").style.opacity = 0;
+                document.getElementById("session-status").style.display = 'none';
             }, 4000);
         </script>
     @endif
