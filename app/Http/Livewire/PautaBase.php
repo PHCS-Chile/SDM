@@ -32,6 +32,7 @@ abstract class PautaBase extends Component
     public $rules3 = [];
     public $marca_ici = 0;
     public $gestion2 = "";
+    public $marca_ec = 0;
 
 
     public function cargarEvaluacion($evaluacionid=null)
@@ -54,9 +55,9 @@ abstract class PautaBase extends Component
         if($this->evaluacion->fecha_ici){
             $this->marca_ici = 1;
         }
-
+        $respuestas = $this->evaluacion->respuestas->where('origen_id','1');
         /* Cargar información obtenida en el controlador */
-        foreach ($this->evaluacion->respuestas as $respuesta){
+        foreach ($respuestas as $respuesta){
             if ($respuesta->atributo->name_categoria == "Memo") {
                 $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
             } else {
@@ -265,12 +266,17 @@ abstract class PautaBase extends Component
         if(is_null($this->evaluacion->user_id)){
             $this->evaluacion->user_id = Auth::user()->id;
         }
+
         if(Auth::user()->perfil == 1){
             $this->evaluacion->user_supervisor = Auth::user()->name;
             $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
             $this->evaluacion->estado_id = 5;
         }else{
-            $this->evaluacion->estado_id = 2;
+            if($this->marca_ec == 1){
+                $this->evaluacion->estado_id = 3;
+            }else{
+                $this->evaluacion->estado_id = 2;
+            }
         }
         $this->evaluacion->save();
     }

@@ -108,7 +108,7 @@ Versión 2 (10/06/2021)
                 </td>
                 <td>
                     @if(Auth::user()->perfil  == 1)
-                        @if($evaluacion->respuestas->max('origen_id') == Respuesta::ICI)
+                        @if($evaluacion->fecha_ici)
                         <form method="POST" action="{{ route('evaluacions.resetici', [$evaluacion->id]) }}" onsubmit="return confirm('¿Seguro quieres borrar la ICI? (Acción irreversible)');">
                         @method('DELETE')
                         @csrf

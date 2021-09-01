@@ -21,6 +21,7 @@ class Reportes extends Component
     public $filtroMercado;
     public $filtroEstudio;
     public $filtroServicio;
+    public $evaluaciones;
 
 
     public function marcarTodo()
@@ -34,7 +35,7 @@ class Reportes extends Component
     {
         $this->evaluacionesSeleccionadas = [];
         return view('livewire.reportes', [
-            'evaluaciones' => Evaluacion::with('asignacion')
+            'evaluaciones' => Evaluacion::where('id','>',1)
                 ->when($this->filtroPeriodo, function ($query) {
                     $query->where(function ($query2) {
                         $query2->select('periodo_id')
@@ -79,7 +80,7 @@ class Reportes extends Component
                             ->limit(1);
                     }, $this->filtroServicio);
                 })
-                ->paginate($this->pagination),
+                    ->paginate($this->pagination),
             'estudios' => Estudio::all(),
             'periodos' => Periodo::all(),
             'servicios' => Servicio::all(),

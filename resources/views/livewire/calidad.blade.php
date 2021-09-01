@@ -179,6 +179,7 @@
                         <!-- More items... -->
                         </tbody>
                     </table>
+                    <div class="px-3 py-2">{{ $evaluaciones->links() }}</div>
                 </div>
             </div>
         </div>
