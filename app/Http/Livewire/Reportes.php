@@ -27,6 +27,7 @@ class Reportes extends Component
     public $filtroMercado;
     public $filtroEstudio;
     public $filtroServicio;
+    public $evaluaciones;
 
     public $saltarRender = false;
 
@@ -104,7 +105,7 @@ class Reportes extends Component
                             ->limit(1);
                     }, $this->filtroServicio);
                 })
-                ->paginate($this->pagination),
+                    ->paginate($this->pagination),
             'estudios' => Estudio::all(),
             'periodos' => Periodo::all(),
             'servicios' => Servicio::all(),

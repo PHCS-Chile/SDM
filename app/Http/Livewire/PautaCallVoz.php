@@ -200,6 +200,7 @@ class PautaCallVoz extends PautaBase
         $this->guardarRespuesta(176, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(177, ['memo' => $this->comentario_interno]);
         $this->guardarRespuesta(199, ['memo' => $this->descripcion_caso]);
+        $this->guardarRespuesta(200, ['memo' => $this->respuesta_ejecutivo]);
         $this->guardarRespuesta(179, ['text' => $this->motivo]);
 
         $this->guardarRespuestas([180, 181, 182], 'tipogestion');
@@ -207,6 +208,8 @@ class PautaCallVoz extends PautaBase
         $this->guardarRespuestas([187, 188, 189, 190], 'infocorrecta');
         $this->guardarRespuestas([191, 192, 193, 194], 'gestiona');
         $this->guardarRespuestas([195, 196, 197, 198], 'resolucion');
+
+
     }
 
     /**
@@ -228,6 +231,7 @@ class PautaCallVoz extends PautaBase
             142 => 15,  // frasesenganche
             132 => 15,  // ofrecimiento comercial OJOOO
         ];
+
         $atributosCriticos = [
             'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
             'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
@@ -246,20 +250,26 @@ class PautaCallVoz extends PautaBase
     {
         if($this->deteccion1 == "No" or $this->deteccion2 == "No" or $this->deteccion3 == "No"){
             $this->pecu_deteccion = "checked";
+            $this->xatributospec();
         }else{
             $this->pecu_deteccion = "";
+            $this->xatributospec();
         }
 
         if($this->infocorrecta1 == "No" or $this->infocorrecta2 == "No" or $this->infocorrecta3 == "No"){
             $this->pecu_gestionincorrecta = "checked";
+            $this->xatributospec();
         }else{
             $this->pecu_gestionincorrecta = "";
+            $this->xatributospec();
         }
 
         if($this->gestiona1 == "No" or $this->gestiona2 == "No" or $this->gestiona3 == "No"){
             $this->pecu_noresuelve = "checked";
+            $this->xatributospec();
         }else{
             $this->pecu_noresuelve = "";
+            $this->xatributospec();
         }
         return view('livewire.pauta-call-voz');
     }
@@ -380,6 +390,22 @@ class PautaCallVoz extends PautaBase
                 break;
             }
         }
+
+        $errorescriticos = [146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165];
+        $marca_ec = 0;
+        $respuestascentro = $this->evaluacion->respuestas->where('origen_id',3);
+        foreach ($respuestascentro as $respuesta){
+            foreach($errorescriticos as $atributo_id){
+                if($respuesta->atributo_id == $atributo_id){
+                    if($respuesta->respuesta_int == 0 && $this->{$respuesta->atributo->name_interno} == 'checked'){
+                        $marca_ec = 1;
+                        break;
+                    }
+                }
+            }
+        }
+        $this->marca_ec = $marca_ec;
+
         if ($hayMarcado) {
             $this->agregarValidaciones(['pec_responsable' => 'required']);
         } else {

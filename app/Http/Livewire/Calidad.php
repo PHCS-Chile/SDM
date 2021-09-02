@@ -8,11 +8,13 @@ use App\Models\Evaluacion;
 use App\Models\Periodo;
 use App\Models\User;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 
 class Calidad extends Component
 {
-    public $estados, $usuarios, $usuariosresumen, $evaluaciones, $periodos, $filtroPeriodo, $asignacion1, $asignacion2, $filtroEstado, $filtroUsuario;
+    use WithPagination;
+    public $estados, $usuarios, $usuariosresumen, $periodos, $filtroPeriodo, $asignacion1, $asignacion2, $filtroEstado, $filtroUsuario, $pagination=25;
 
     public function mount(){
         $this->filtroPeriodo = Periodo::where('periodo_id',now()->format('ym'))->first()->id;
@@ -42,8 +44,6 @@ class Calidad extends Component
         $this->asignacion1 = $asignaciones->first()->id;
         $this->asignacion2 = $asignaciones->last()->id;
 
-
-
         $evaluaciones = Evaluacion::where('estado_id','>=',2)->where('estado_id','<=',5)->where('asignacion_id','>=',$this->asignacion1)->where('asignacion_id','<=',$this->asignacion2);
 
         if($this->filtroEstado){
@@ -54,10 +54,8 @@ class Calidad extends Component
             $evaluaciones->where('user_id',$this->filtroUsuario);
         }
 
-        $this->evaluaciones = $evaluaciones->get();
-
-
-
-        return view('livewire.calidad');
+        return view('livewire.calidad', [
+            'evaluaciones' => $evaluaciones->paginate(20),
+        ]);
     }
 }

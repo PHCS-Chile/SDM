@@ -33,6 +33,7 @@ abstract class PautaBase extends Component
     public $rules3 = [];
     public $marca_ici = 0;
     public $gestion2 = "";
+    public $marca_ec = 0;
 
 
     public function cargarEvaluacion($evaluacionid=null)
@@ -55,9 +56,9 @@ abstract class PautaBase extends Component
         if($this->evaluacion->fecha_ici){
             $this->marca_ici = 1;
         }
-
+        $respuestas = $this->evaluacion->respuestas->where('origen_id','1');
         /* Cargar información obtenida en el controlador */
-        foreach ($this->evaluacion->respuestas as $respuesta){
+        foreach ($respuestas as $respuesta){
             if ($respuesta->atributo->name_categoria == "Memo") {
                 $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
             } else {
@@ -259,9 +260,6 @@ abstract class PautaBase extends Component
         $this->evaluacion->pecn = $pecn;
         $this->evaluacion->pecc = $pecc;
 
-
-
-
         if($this->evaluacion->estado_id == 1){
             $this->evaluacion->user_completa = Auth::user()->name;
             $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
@@ -269,20 +267,25 @@ abstract class PautaBase extends Component
         if(is_null($this->evaluacion->user_id)){
             $this->evaluacion->user_id = Auth::user()->id;
         }
+
         if(Auth::user()->perfil == 1){
             $this->evaluacion->user_supervisor = Auth::user()->name;
             $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
             Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 5]);
             $this->evaluacion->estado_id = 5;
         }else{
-            Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 2]);
-            $this->evaluacion->estado_id = 2;
+            if($this->marca_ec == 1){
+                Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);
+                $this->evaluacion->estado_id = 3;
+            }else{
+                Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 2]);
+                $this->evaluacion->estado_id = 2;
+            }
         }
         if ($this->evaluacion->estado_id == 3) {
             Notificacion::notificar($this->evaluacion->id);
         }
         $this->evaluacion->save();
-
     }
 
 
@@ -351,9 +354,6 @@ abstract class PautaBase extends Component
      */
     public function guardarRespuesta(int $idAtributo, array $valores)
     {
-        /* Creamos el arreglo de historial */
-        $historial = [];
-
         /* Se verifica la existencia del atributo. Si no existe, se crea. */
         $respuestasOrigen1 = $this->evaluacion->respuestas->where('origen_id', Respuesta::PH);
         $respuesta = $respuestasOrigen1->firstWhere('atributo_id', $idAtributo);
@@ -362,11 +362,6 @@ abstract class PautaBase extends Component
             $respuesta->atributo_id = $idAtributo;
             $respuesta->evaluacion_id = $this->evaluacion->id;
             $respuesta->origen_id = Respuesta::PH;
-            $historial['accion'] = 'nuevo';
-            $historial['anterior'] = '';
-        } else {
-            $historial['accion'] = 'cambio';
-            $historial['anterior'] = [$respuesta->respuesta_text, $respuesta->respuesta_int, $respuesta->respuesta_memo];
         }
         /* Se asigna valor al atributo, dependiendo de los índices que hayan sido entregados. */
         if (isset($valores['text']) && $valores['text'] != null) {

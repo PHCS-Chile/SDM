@@ -18,7 +18,7 @@ class Respuesta extends Model
     const ICI = 2;
     const CENTRO = 3;
 
-    //protected $dateFormat = 'd-m-Y H:i:s';
+//    protected $dateFormat = 'd-m-Y H:i:s';
 
     public function evaluacion()
     {
