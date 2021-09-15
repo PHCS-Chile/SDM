@@ -24,14 +24,14 @@ class SubirGrabacionRequest extends FormRequest
     public function rules()
     {
         return [
-            'grabacion' => 'required|mimes:mp3'
+            'grabacion' => 'required|mimes:mp3,wav,ogg,mp4a'
         ];
     }
 
     public function messages()
     {
         return [
-            'grabacion.mimes' => 'El archivo debe ser de tipo MP3',
+            'grabacion.mimes' => 'El archivo debe tener un formato de audio permitido (MP3, WAV, OGG o M4A).',
         ];
     }
 }

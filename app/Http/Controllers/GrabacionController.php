@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Storage;
  * Class GrabacionController
  *
  * @package App\Http\Controllers
- * @version 2
+ * @version 3
  */
 class GrabacionController extends Controller
 {
@@ -21,8 +21,16 @@ class GrabacionController extends Controller
     {
 //        dd($request);
         $grabacion = new Grabacion;
+        $evaluacion = Evaluacion::find($request->evaluacionid);
         if ($request->file()) {
-            $name = $request->evaluacionid . "_grabacion." . $request->file('grabacion')->getClientOriginalExtension();
+            $name = sprintf("%s_%s(%s).%s",
+                "E" . $request->evaluacionid,
+                str_replace([' ', ':', '/'], ['_', '-', '-'],$evaluacion->fecha_grabacion),
+                date("Ymd_his"),
+                $request->file('grabacion')->getClientOriginalExtension()
+            );
+            //$name = $request->evaluacionid . "_grabacion." . $request->file('grabacion')->getClientOriginalExtension();
+
             $path = $request->file('grabacion')->storeAs('uploads', $name, 'public');
             $grabacion->evaluacion_id = $request->evaluacionid;
             $grabacion->nombre = $name;
@@ -40,7 +48,7 @@ class GrabacionController extends Controller
         return back()->withErrors(['msg', 'No se pudo subir la grabación (¿algo salió mal?)']);
     }
 
-    public function embed(Request $request)
+    public function embedw(Request $request)
     {
         $filePath = storage_path() . '/app/public/grabaciones/' . $request->evaluacionid . '_grabacion.mp3';
         try {
@@ -56,17 +64,16 @@ class GrabacionController extends Controller
         return response()->file( $filePath );
     }
 
-    public function eliminar($evaluacion_id)
+    public function eliminar(Request $request)
     {
-        $grabaciones = Grabacion::where('evaluacion_id', $evaluacion_id)->get();
-        foreach ($grabaciones as $grabacion) {
-            $grabacion->delete();
-        }
-        Storage::delete('uploads/' . $evaluacion_id . '_grabacion.mp3');
-        $evaluacion = Evaluacion::where('id',$evaluacion_id)->first();
+        $idGrabacion = substr($request->grabacionActiva, strpos($request->grabacionActiva, "_") + 1);
+        $grabacion = Grabacion::find($idGrabacion);
+        Storage::delete('uploads/' . $grabacion->nombre);
+        $evaluacion = Evaluacion::where('id',$grabacion->evaluacion_id)->first();
+        $grabacion->delete();
         $evaluacion->estado_conversacion = 7;
         $evaluacion->save();
-        return redirect(route('evaluacions.index', [$evaluacion_id]))->with('message', 'Grabación eliminada con éxito!');
+        return back()->with('message', 'Grabación eliminada con éxito!');
     }
 
 

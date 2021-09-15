@@ -18,6 +18,11 @@ mix.js('resources/js/app.js', 'public/js')
         require('autoprefixer'),
     ]);
 
+mix.scripts([
+    'resources/js/jquery-3.6.0.min.js',
+    'resources/js/app.js'
+], 'public/js/scripts.js');
+
 if (mix.inProduction()) {
     mix.version();
 }

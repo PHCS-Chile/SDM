@@ -1,6 +1,6 @@
 {{--
 Plantilla: Header resumen para Call Voz
-Versión 2
+Versión 3
 --}}
 @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
@@ -162,33 +162,100 @@ Versión 2
 
                             </div>
 
-                            <div class="w-1/4 p-3 border border-solid border-gray-300 rounded shadow">
+                            <div class="w-1/4 p-3 border border-solid border-gray-200 rounded-md bg-gray-50 shadow-md">
+
                                 <h2 class="font-bold text-xl">Audio de la conversacion</h2>
-                                @if (!$grabacion)
-                                    <p>Esta evaluación aún no tiene asociada una grabación.</p>
-                                    <br>
-                                    <form action="{{ route('evaluacions.grabacion', [$evaluacionfinal->id]) }}" method="post" enctype="multipart/form-data">
-                                        @csrf
-                                        <input type="hidden" name="evaluacionid" value="{{ $evaluacionfinal->id }}">
-                                        Elegir una grabación para subir:
-                                        <input type="file" name="grabacion" id="grabacion">
-                                        <button type="submit"  class="mt-5 inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                            Guardar Grabacion
-                                        </button>
-                                    </form>
-                                @else
-                                    <audio controls>
-                                        <source src="{{ asset('storage/uploads/' . $grabacion->nombre) }}" type="audio/mpeg">
+
+                                @if(count($grabaciones) > 0)
+                                    <audio src="" controls id="reproductor">
+{{--                                        <source src="{{ asset('storage/uploads/' . $grabacion_activa->nombre) }}" type="audio/mpeg">--}}
                                         Your browser does not support the audio element.
                                     </audio>
-                                    <form action="{{ route('evaluacions.eliminar_grabacion', [$evaluacionfinal->id]) }}" method="post" onsubmit="return confirm('¿Seguro que quieres eliminar la grabación? ESTA ACCIÓN ES IRREVERSIBLE!');">
-                                        @method('DELETE')
+                                @else
+                                    <i class="text-gray-500">Sin grabación.</i>
+                                @endif
+
+                                <hr class="my-3">
+
+                                @if(count($grabaciones) > 0)
+                                <h2 class="font-bold text-md">Grabaciones:</h2>
+                                <div class="">
+                                    <form class="flex space-x-2" action="{{ route('evaluacions.eliminar_grabacion', [$evaluacionfinal->id]) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar la grabación? ESTA ACCIÓN ES IRREVERSIBLE!');">
+                                        @method("DELETE")
                                         @csrf
-                                        <button type="submit" class="ml-4 mt-5 inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                            Eliminar Grabacion
+
+                                        <select name="grabacionActiva" id="grabacionActiva" class="w-2/4 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+                                            @foreach($grabaciones->all() as $posicion => $grabacion)
+                                                <option class="grabacion" value="{{ $posicion . "_" . $grabacion->id }}">Grabación {{ $posicion + 1 }}</option>
+                                            @endforeach
+                                        </select>
+                                        <script src="{{ asset('js/scripts.js') }}"></script>
+                                        <script>
+                                            grabaciones = [
+                                                    @foreach($grabaciones->all() as $grabacion)
+                                                ["{{ asset('storage/uploads/' . $grabacion->nombre) }}"],
+                                                @endforeach
+                                            ];
+                                            reproductor();
+                                            function reproductor() {
+                                                $('#reproductor')[0].src = grabaciones[0];
+                                            }
+                                            $('#grabacionActiva').change(function () {
+                                                $('#reproductor')[0].src = grabaciones[$("#grabacionActiva").val().substring(0, $("#grabacionActiva").val().indexOf("_"))]
+                                            });
+                                        </script>
+
+                                        <div class="w-2/4 text-right">
+
+                                            <button class="items-center px-2 py-1.5 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                </svg>
+                                            </button>
+
+
+                                        </div>
+                                    </form>
+
+                                </div>
+                                @endif
+
+
+                                <h2 class="font-bold text-md mt-2">Agregar nueva:</h2>
+                                <div class="flex space-x-2">
+                                    <form  class="flex" action="{{ route('evaluacions.grabacion', [$evaluacionfinal->id]) }}" method="post" enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="hidden" name="evaluacionid" value="{{ $evaluacionfinal->id }}">
+                                        <input class="w-4/5" type="file" name="grabacion" id="grabacion" accept=".mp3,.wav,.ogg,.m4a">
+                                        <button type="submit"  class="w-1/5 items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                            Subir
                                         </button>
                                     </form>
-                                @endif
+                                </div>
+
+
+                                {{--                                @if (!$grabacion)--}}
+                                {{--                                    <form  class="flex" action="{{ route('evaluacions.grabacion', [$evaluacionfinal->id]) }}" method="post" enctype="multipart/form-data">--}}
+                                {{--                                        @csrf--}}
+                                {{--                                        <input type="hidden" name="evaluacionid" value="{{ $evaluacionfinal->id }}">--}}
+                                {{--                                        <input class="w-4/5" type="file" name="grabacion" id="grabacion">--}}
+                                {{--                                        <button type="submit"  class="w-1/5 items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-700 hover:bg-green-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">--}}
+                                {{--                                            Subir--}}
+                                {{--                                        </button>--}}
+                                {{--                                    </form>--}}
+                                {{--                                @else--}}
+                                {{--                                    <audio controls>--}}
+                                {{--                                        <source src="{{ asset('storage/uploads/' . $grabacion->nombre) }}" type="audio/mpeg">--}}
+                                {{--                                        Your browser does not support the audio element.--}}
+                                {{--                                    </audio>--}}
+                                {{--                                    <form action="{{ route('evaluacions.eliminar_grabacion', [$evaluacionfinal->id]) }}" method="post" onsubmit="return confirm('¿Seguro que quieres eliminar la grabación? ESTA ACCIÓN ES IRREVERSIBLE!');">--}}
+                                {{--                                        @method('DELETE')--}}
+                                {{--                                        @csrf--}}
+                                {{--                                        <button type="submit" class="ml-4 mt-5 inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-700 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">--}}
+                                {{--                                            Eliminar Grabacion--}}
+                                {{--                                        </button>--}}
+                                {{--                                    </form>--}}
+                                {{--                                @endif--}}
 
                             </div>
 

@@ -18,7 +18,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 6
+ * @version 7
  */
 
 class EvaluacionController extends Controller
@@ -39,13 +39,12 @@ class EvaluacionController extends Controller
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
         $estados = Estado::all();
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
-        $grabacion = null;
         $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         if ($pauta == 2) {
-            $grabacion = Grabacion::where('evaluacion_id', $evaluacionid)->first();
-            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion', 'historial'));
+            $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
+            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'historial'));
         }
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabacion', 'historial'));
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial'));
     }
 
     public function indexNotify($evaluacionid)
