@@ -9,6 +9,8 @@ class Notificacion extends Model
 {
     use HasFactory;
 
+    protected $dateFormat = 'd-m-Y H:i:s';
+
     public function evaluacion()
     {
         return $this->belongsTo(Evaluacion::class);

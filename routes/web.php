@@ -55,6 +55,7 @@ Route::get('/reportes/',[EvaluacionController::class,'reportes'])->name('evaluac
 Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/evaluacion/{evaluacionid}',[EvaluacionController::class,'index'])->name('evaluacions.index')->middleware(['auth:sanctum', 'verified']);
+Route::get('/evaluacion/{evaluacionid}/chat',[EvaluacionController::class,'chat'])->name('evaluacions.chat')->middleware(['auth:sanctum', 'verified']);
 Route::get('/evaluacion/{evaluacionid}/notify',[EvaluacionController::class,'indexNotify'])->name('evaluacions.index.notify')->middleware(['auth:sanctum', 'verified']);
 //Route::get('/evaluacion/{evaluacionid}', PautaWhatsapp::class)->name('digital.index')->middleware(['auth:sanctum', 'verified']);
 Route::post('/evaluacion/{evaluacionid}',[EvaluacionController::class,'guardaeval'])->name('evaluacions.guardaeval')->middleware(['auth:sanctum', 'verified']);

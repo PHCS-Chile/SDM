@@ -35,6 +35,7 @@ class CreateEvaluacionsTable extends Migration
             $table->decimal('pecn', 4, 1)->nullable();
             $table->decimal('pecc', 4, 1)->nullable();
             $table->text('comentario_interno')->nullable();
+            $table->text('comentario_calidad')->nullable();
             $table->string('user_completa')->nullable();
             $table->datetime('fecha_completa')->nullable();
             $table->string('user_supervisor')->nullable();
@@ -47,6 +48,7 @@ class CreateEvaluacionsTable extends Migration
             $table->unsignedBigInteger('estado_id')->nullable();
             $table->unsignedInteger('estado_conversacion')->nullable();
             $table->unsignedInteger('estado_reporte')->nullable();
+            $table->unsignedInteger('nivel_ec')->nullable();// 1 = Error Leve - 2 = Error Medio - 3 = Error Grave
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->timestamps();
         });

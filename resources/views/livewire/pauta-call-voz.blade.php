@@ -42,6 +42,18 @@ Versión 5
                     </div>
                     <small class="text-red-600 font-bold">{{ $errors->first('retroalimentacion') }}</small>
                     <div></div>
+                    @if(Auth::user()->perfil  == 1 && $marca_ici == 0)
+                        <div>
+                            <label for="comentario_calidad" class="block text-sm font-medium text-gray-700">
+                                Comentario Calidad
+                            </label>
+                            <div class="mt-1">
+                                <textarea id="comentario_calidad" name="comentario_calidad" wire:model.defer="comentario_calidad" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario de calidad">{{$comentario_calidad}}</textarea>
+                            </div>
+                        </div>
+                        <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
+                    @endif
+                    <div></div>
                     <button type="submit"  wire:click="save" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <!-- Heroicon name: check -->
                         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -102,7 +114,46 @@ Versión 5
             </svg>
             Fecha Modificación: {{$evaluacion->updated_at}}
         </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PENC: {{$evaluacion->penc}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Usuario: {{$evaluacion->pecu}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Negocio: {{$evaluacion->pecn}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Cumplimiento: {{$evaluacion->pecc}}
+        </div>
 
+
+        @if($evaluacion->ici)
+            <div class="mt-2 flex items-center text-sm text-gray-500">
+                <!-- Heroicon name: calendar -->
+                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+                </svg>
+                % de Discrepancia: {{$evaluacion->ici}}
+            </div>
+{{--            <p class="text-gray-500 font-bold">% de Discrepancia: </p>&nbsp <p> {{$evaluacion->ici}}</p>--}}
+        @endif
     </div>
 
     <div class="w-3/4 p-6 bg-gray-50 overflow-hidden shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
@@ -113,7 +164,7 @@ Versión 5
                         <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                             <p class="font-bold text-xl">Gestión 1</p>
                             <div class="mt-4">
-                                <span class="text-gray-700">Motivo del Llamado</span>
+                                <span class="text-gray-700 text-sm">Motivo del Llamado</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="motivo" wire:model.defer="motivo" value="Reclamo" {{ $motivo == "Reclamo" ? 'checked' : '' }}>
@@ -143,7 +194,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('tipogestion1') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="deteccion1" wire:model.lazy="deteccion1" value="Si" {{ $deteccion1 == "Si" ? 'checked' : '' }}>
@@ -157,7 +208,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('deteccion1') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Entrega de información correcta y completa</span>
+                                <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="infocorrecta1" wire:model.lazy="infocorrecta1" value="Si" {{ $infocorrecta1 == "Si" ? 'checked' : '' }}>
@@ -171,7 +222,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta1') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
+                                <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="gestiona1" wire:model.lazy="gestiona1" value="Si" {{ $gestiona1 == "Si" ? 'checked' : '' }}>
@@ -216,7 +267,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('tipogestion2') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="deteccion2" wire:model.lazy="deteccion2" wire:change="xgestion2" value="Si" {{ $deteccion2 == "Si" ? 'checked' : '' }}>
@@ -230,7 +281,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('deteccion2') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Entrega de información correcta y completa</span>
+                                <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="infocorrecta2" wire:model.lazy="infocorrecta2" wire:change="xgestion2" value="Si" {{ $infocorrecta2 == "Si" ? 'checked' : '' }}>
@@ -244,7 +295,7 @@ Versión 5
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta2') }}</small>
                             <div class="mt-4">
-                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
+                                <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
                                 <div class="mt-2 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="gestiona2" wire:model.lazy="gestiona2" wire:change="xgestion2" value="Si" {{ $gestiona2 == "Si" ? 'checked' : '' }}>
@@ -288,9 +339,9 @@ Versión 5
                                 </select>
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('tipogestion3') }}</small>
-                            <div class="mt-4">
-                                <span class="text-gray-700">Detección de necesidades/sondeo/analisis/revisión</span>
-                                <div class="mt-2 text-sm">
+                            <div class="mt-2">
+                                <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
+                                <div class="mt-1 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="deteccion3" wire:model.lazy="deteccion3" wire:change="xgestion3" value="Si" {{ $deteccion3 == "Si" ? 'checked' : '' }}>
                                         <p class="ml-2">Sí</p>
@@ -302,9 +353,9 @@ Versión 5
                                 </div>
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('deteccion3') }}</small>
-                            <div class="mt-4">
-                                <span class="text-gray-700">Entrega de información correcta y completa</span>
-                                <div class="mt-2 text-sm">
+                            <div class="mt-1">
+                                <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
+                                <div class="mt-1 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="infocorrecta3" wire:model.lazy="infocorrecta3" wire:change="xgestion3" value="Si" {{ $infocorrecta3 == "Si" ? 'checked' : '' }}>
                                         <p class="ml-2">Sí</p>
@@ -316,9 +367,9 @@ Versión 5
                                 </div>
                             </div>
                             <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta3') }}</small>
-                            <div class="mt-4">
-                                <span class="text-gray-700">Gestiona según proced. en sistema</span>
-                                <div class="mt-2 text-sm">
+                            <div class="mt-1">
+                                <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
+                                <div class="mt-1 text-sm">
                                     <label class="inline-flex items-center">
                                         <input type="radio" class="form-radio" name="gestiona3" wire:model.lazy="gestiona3" wire:change="xgestion3" value="Si" {{ $gestiona3 == "Si" ? 'checked' : '' }}>
                                         <p class="ml-2">Sí</p>
@@ -358,7 +409,7 @@ Versión 5
                                     <p class="font-bold text-xl">Atributos PENC</p>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">1 - Protocolo de Saludo y Despedida - ({{$saludo1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="saludo2" name="saludo2" wire:model.defer="saludo2" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
@@ -387,7 +438,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">2 - Disposición para la atención - ({{$disposicion1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="disposicion2" name="disposicion2" wire:model.defer="disposicion2" wire:click="xdisposicion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$disposicion2}}>
@@ -408,7 +459,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">3 - Cordialidad y reducción de conflicto - ({{$cordialidad1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="cordialidad2" name="cordialidad2" wire:model.defer="cordialidad2" wire:click="xcordialidad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
@@ -445,7 +496,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">4 - Manejo de Silencios - ({{$manejosilencios1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="manejosilencios2" name="manejosilencios2" wire:model.defer="manejosilencios2" wire:click="xmanejosilencios" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
@@ -474,7 +525,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">5 - Seguridad y Dominio en la conversación con el Cliente - ({{$seguridad1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="seguridad2" name="seguridad2" wire:model.defer="seguridad2" wire:click="xseguridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
@@ -513,7 +564,7 @@ Versión 5
 
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">6 - Comunicación simple y empática - ({{$comunicacion1}})</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="comunicacion2" name="comunicacion2" wire:model.defer="comunicacion2" wire:click="xcomunicacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$comunicacion2}}>
@@ -544,7 +595,7 @@ Versión 5
                                         <legend class="text-base font-medium text-gray-900">7 - Educar al Cliente en Canales de Autotención - ({{$educacliente1}})</legend>
                                         <div class="hidden mt-4">
                                             <span class="text-gray-700">Educar al Cliente Padre</span>
-                                            <div class="mt-2 text-sm">
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="educacliente1" wire:model.defer="educacliente1" value="Si" {{ $educacliente1 == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Si</p>
@@ -560,7 +611,7 @@ Versión 5
                                             </div>
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('educacliente1') }}</small>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="educacliente2" name="educacliente2" wire:model.defer="educacliente2" wire:click="xeducacliente" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$educacliente2}}>
@@ -591,7 +642,7 @@ Versión 5
                                         <legend class="text-base font-medium text-gray-900">8 - Aseguramiento - ({{$aseguramiento1}})</legend>
                                         <div class="hidden mt-4">
                                             <span class="text-gray-700">Aseguramiento Padre</span>
-                                            <div class="mt-2 text-sm">
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="aseguramiento1" wire:model.defer="aseguramiento1" value="Si" {{ $aseguramiento1 == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Si</p>
@@ -607,7 +658,7 @@ Versión 5
                                             </div>
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('aseguramiento1') }}</small>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="aseguramiento2" name="aseguramiento2" wire:model.defer="aseguramiento2" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
@@ -654,7 +705,7 @@ Versión 5
                                         <legend class="text-base font-medium text-gray-900">9 - Ofrecimiento Comercial - ({{$ofrecimientocomercial1}})</legend>
                                         <div class="hidden mt-4">
                                             <span class="text-gray-700">Ofrecimiento Comercial Padre</span>
-                                            <div class="mt-2 text-sm">
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="ofrecimientocomercial1" wire:model.defer="ofrecimientocomercial1" value="Si" {{ $ofrecimientocomercial1 == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Si</p>
@@ -671,7 +722,7 @@ Versión 5
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('ofrecimientocomercial1') }}</small>
 
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="ofrecimientocomercial2" name="ofrecimientocomercial2" wire:model.defer="ofrecimientocomercial2" wire:click="xofrecimientocomercial" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimientocomercial2}}>
@@ -755,7 +806,7 @@ Versión 5
                                         <legend class="text-base font-medium text-gray-900">10 - Frases de Enganche y Argumentación - ({{$frasesenganche1}})</legend>
                                         <div class="hidden mt-4">
                                             <span class="text-gray-700">Ofrecimiento Padre</span>
-                                            <div class="mt-2 text-sm">
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="frasesenganche1" wire:model.defer="frasesenganche1" value="Si" {{ $frasesenganche1 == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Si</p>
@@ -771,7 +822,7 @@ Versión 5
                                             </div>
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('frasesenganche1') }}</small>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="frasesenganche2" name="frasesenganche2" wire:model.defer="frasesenganche2" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche2}}>
@@ -807,7 +858,7 @@ Versión 5
                                     <p class="font-bold text-xl">Atributos PEC</p>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">Usuario</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="pecu_deteccion" name="pecu_deteccion" wire:model.lazy="pecu_deteccion" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_deteccion}}>
@@ -861,7 +912,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">Negocio</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="pecn_nosondea" name="pecn_nosondea" wire:model.defer="pecn_nosondea" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_nosondea}}>
@@ -930,7 +981,7 @@ Versión 5
                                     </fieldset>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">Cumplimiento</legend>
-                                        <div class="mt-4 space-y-4">
+                                        <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="pecc_niegaescalamiento" name="pecc_niegaescalamiento" wire:model.defer="pecc_niegaescalamiento" wire:change="xatributospec" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_niegaescalamiento}}>
@@ -1016,8 +1067,8 @@ Versión 5
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('otro_ruidoenllamada') }}</small>
                                         <div class="mt-4">
-                                            <span class="text-gray-700">Uso de frases tipo o scripts para la comunicación</span>
-                                            <div class="mt-2 text-sm">
+                                            <span class="text-gray-700 text-sm">Uso de frases tipo o scripts para la comunicación</span>
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="otro_frasesyscripts" wire:model.lazy="otro_frasesyscripts" value="Si" {{ $otro_frasesyscripts == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Sí</p>
@@ -1042,8 +1093,8 @@ Versión 5
                                         </div>
                                         <small class="text-red-600 font-bold">{{ $errors->first('otro_tiponegocio') }}</small>
                                         <div class="mt-4">
-                                            <span class="text-gray-700">Ofrecimiento de más de una Línea</span>
-                                            <div class="mt-2 text-sm">
+                                            <span class="text-gray-700 text-sm">Ofrecimiento de más de una Línea</span>
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="otro_ofrecimientomultilinea" wire:model.lazy="otro_ofrecimientomultilinea" value="Si" {{ $otro_ofrecimientomultilinea == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Sí</p>
@@ -1056,8 +1107,8 @@ Versión 5
                                             <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientomultilinea') }}</small>
                                         </div>
                                         <div class="mt-4">
-                                            <span class="text-gray-700">Ofrecimiento de equipo</span>
-                                            <div class="mt-2 text-sm">
+                                            <span class="text-gray-700 text-sm">Ofrecimiento de equipo</span>
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="otro_ofrecimientoequipo" wire:model.lazy="otro_ofrecimientoequipo" value="Si" {{ $otro_ofrecimientoequipo == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Sí</p>
@@ -1070,8 +1121,8 @@ Versión 5
                                             <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientoequipo') }}</small>
                                         </div>
                                         <div class="mt-4">
-                                            <span class="text-gray-700">Ofrecimiento de accesorios</span>
-                                            <div class="mt-2 text-sm">
+                                            <span class="text-gray-700 text-sm">Ofrecimiento de accesorios</span>
+                                            <div class="mt-1 text-sm">
                                                 <label class="inline-flex items-center">
                                                     <input type="radio" class="form-radio" name="otro_ofrecimientoaccesorio" wire:model.lazy="otro_ofrecimientoaccesorio" value="Si" {{ $otro_ofrecimientoaccesorio == "Si" ? 'checked' : '' }}>
                                                     <p class="ml-2">Sí</p>

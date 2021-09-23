@@ -34,6 +34,7 @@ abstract class PautaBase extends Component
     public $marca_ici = 0;
     public $gestion2 = "";
     public $marca_ec = 0;
+    public $comentario_calidad = '';
 
 
     public function cargarEvaluacion($evaluacionid=null)
@@ -58,6 +59,7 @@ abstract class PautaBase extends Component
         }
         $respuestas = $this->evaluacion->respuestas->where('origen_id','1');
         /* Cargar información obtenida en el controlador */
+        $this->comentario_calidad = $this->evaluacion->comentario_calidad;
         foreach ($respuestas as $respuesta){
             if ($respuesta->atributo->name_categoria == "Memo") {
                 $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
@@ -101,9 +103,11 @@ abstract class PautaBase extends Component
     {
         $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
         $suma = 0;
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->get();
+        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id',1)->get();
+        $atributosNoMemo = 0;
         foreach ($respuestas as $respuesta) {
             if ($respuesta->atributo->name_categoria != "Memo") {
+                $atributosNoMemo ++;
                 if ($respuesta->respuesta_text != $this->{$respuesta->atributo->name_interno}) {
                     $suma += 100;
                 }
@@ -111,10 +115,12 @@ abstract class PautaBase extends Component
             $respuesta->origen_id = Respuesta::ICI;
             $respuesta->save();
         }
-        $atributosNoMemo = count($respuestas->atributos->where('name_categoria', "<>", "Memo")->all());
+
+        //$atributosNoMemo = count($respuestas->atributo->where('name_categoria', "<>", "Memo")->all());
         $this->evaluacion->ici = $suma / $atributosNoMemo; /* TOTAL ATRIBUTOS NO MEMO? */
         $this->evaluacion->user_ici = Auth::user()->id;
-        $this->evaluacion->fecha_ici = now();//->format('d-m-Y H:i:s');
+        $this->evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
+        $this->evaluacion->comentario_calidad = $this->comentario_calidad;
         $this->evaluacion->save();
         $this->save();
     }
@@ -262,7 +268,7 @@ abstract class PautaBase extends Component
 
         if($this->evaluacion->estado_id == 1){
             $this->evaluacion->user_completa = Auth::user()->name;
-            $this->evaluacion->fecha_completa = now();//->format('d-m-Y H:i:s');
+            $this->evaluacion->fecha_completa = now()->format('d-m-Y H:i:s');
         }
         if(is_null($this->evaluacion->user_id)){
             $this->evaluacion->user_id = Auth::user()->id;
@@ -270,9 +276,22 @@ abstract class PautaBase extends Component
 
         if(Auth::user()->perfil == 1){
             $this->evaluacion->user_supervisor = Auth::user()->name;
-            $this->evaluacion->fecha_supervision = now();//->format('d-m-Y H:i:s');
+            $this->evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
             Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 5]);
             $this->evaluacion->estado_id = 5;
+            if($pecu == 0){
+                if($pecn == 0 || $pecc == 0){
+                    $this->evaluacion->nivel_ec = 3;
+                }else{
+                    $this->evaluacion->nivel_ec = 2;
+                }
+            }else{
+                if($pecn == 0 && $pecc == 0){
+                    $this->evaluacion->nivel_ec = 2;
+                }else{
+                    $this->evaluacion->nivel_ec = 1;
+                }
+            }
         }else{
             if($this->marca_ec == 1){
                 Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);
@@ -285,6 +304,7 @@ abstract class PautaBase extends Component
         if ($this->evaluacion->estado_id == 3) {
             Notificacion::notificar($this->evaluacion->id);
         }
+        $this->evaluacion->comentario_calidad = $this->comentario_calidad;
         $this->evaluacion->save();
     }
 

@@ -119,6 +119,7 @@ class PautaCallVoz extends PautaBase
     public $resolucion2 = '';
     public $resolucion3 = '';
     public $resolucion4 = '';
+    public $grabacioncheck = 0;
 
 
     // FUNCIONES ESPECÍFICAS DEL BACKEND DE CALL VOZ
@@ -150,6 +151,9 @@ class PautaCallVoz extends PautaBase
             'otro_frasesyscripts' => 'required'
         ]);
         $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
+        if($this->grabacion){
+            $this->grabacioncheck = 1;
+        }
     }
 
     /**
@@ -208,7 +212,6 @@ class PautaCallVoz extends PautaBase
         $this->guardarRespuestas([187, 188, 189, 190], 'infocorrecta');
         $this->guardarRespuestas([191, 192, 193, 194], 'gestiona');
         $this->guardarRespuestas([195, 196, 197, 198], 'resolucion');
-
 
     }
 

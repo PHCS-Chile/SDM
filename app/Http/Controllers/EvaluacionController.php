@@ -47,6 +47,13 @@ class EvaluacionController extends Controller
         return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial'));
     }
 
+    public function chat($evaluacionid){
+        $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
+        $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
+        $chat = $evaluacionfinal->image_path;
+        return view('evaluacions.chat',compact( 'evaluacionfinal',  'chat', 'pauta'));
+    }
+
     public function indexNotify($evaluacionid)
     {
         $notificacion = Notificacion::where('evaluacion_id', $evaluacionid)->where('activa', true)->first();

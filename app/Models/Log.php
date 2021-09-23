@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
 class Log extends Model
 {
     use HasFactory;
+    protected $dateFormat = 'd-m-Y H:i:s';
 
     const PAUTA_MODIFICAR = 1;
     const PAUTA_CALIDAD = 2;

@@ -17,7 +17,7 @@ class User extends Authenticatable
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
-
+    protected $dateFormat = 'd-m-Y H:i:s';
     /**
      * The attributes that are mass assignable.
      *

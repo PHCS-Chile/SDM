@@ -69,35 +69,35 @@ Versión 2
 
             <tr class="
             @foreach($evaluacionescompletas as $evaluacioncompleta)
-            @if($evaluacioncompleta->rut_ejecutivo == $evaluacion->rut_ejecutivo)
-                bg-yellow-50
-@if($filtroNoRecorridos == 1)
-                hidden
-@endif
+                @if($evaluacioncompleta->rut_ejecutivo == $evaluacion->rut_ejecutivo)
+                    bg-yellow-50
+                @if($filtroNoRecorridos == 1)
+                    hidden
+                @endif
             @endif
             @endforeach
                 ">
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                       {{$evaluacion->id}}
                     </span>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado->id == 2) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                       {{$evaluacion->estado->name}}
                     </span>
 
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado_conversacion == 8) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                       {{$grabacionestados->firstWhere('id', $evaluacion->estado_conversacion)->name}}
                     </span>
 
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_fecha_{{ $evaluacion->id }}')">
                         <!-- Heroicon name: currency-dollar -->
-                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentC   olor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                         </svg>
                          <span id="ctc_fecha_{{ $evaluacion->id }}" class="text-gray-500">{{$evaluacion->fecha_grabacion}}</span>
@@ -109,7 +109,7 @@ Versión 2
                         <p>Fecha copiada al portapapeles.</p>
                     </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_movil_{{ $evaluacion->id }}')">
                         <!-- Heroicon name: currency-dollar -->
                         <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -125,7 +125,7 @@ Versión 2
                     </div>
                 </td>
 
-                <td class="px-6 py-4 whitespace-nowrap">
+                <td class="px-6 py-1 whitespace-nowrap">
                     <button class="mt-2 flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_connid_{{ $evaluacion->id }}')">
                         <!-- Heroicon name: currency-dollar -->
                         <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
@@ -141,7 +141,7 @@ Versión 2
                         <p>ConnID copiado al portapapeles.</p>
                     </div>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="px-6 py-1 whitespace-nowrap text-right text-sm font-medium">
                     <a class="inline-flex items-center h-8 px-2 m-2 text-sm text-indigo-100 transition-colors duration-150 bg-green-700 rounded focus:shadow-outline hover:bg-green-900" href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -149,7 +149,8 @@ Versión 2
                         </svg>
                     </a>
                 </td>
-                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                <td class="px-6 py-1 whitespace-nowrap text-right text-sm font-medium inline-flex">
+
                     <form method="post" action="{{ route('evaluacions.grabacion_no_evaluable', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la grabación como NO EVALUABLE. Está de acuerdo?')">
                         @csrf
                         @method('DELETE')
@@ -159,16 +160,17 @@ Versión 2
                             </svg>
                         </button>
                     </form>
-                    <form method="post" action="{{ route('evaluacions.sin_grabacion', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la evaluación como SIN GRABACIÓN. Está de acuerdo?')">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center h-8 px-2 m-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 9 ? 'disabled' : '' }}>
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
-                        </button>
-                    </form>
-
+                    @if($evaluacion->estado_conversacion == 7 || $evaluacion->estado_conversacion == 9 || $evaluacion->estado_conversacion == 10)
+                        <form method="post" action="{{ route('evaluacions.sin_grabacion', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la evaluación como SIN GRABACIÓN. Está de acuerdo?')">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center h-8 px-2 m-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 9 ? 'disabled' : '' }}>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </form>
+                    @endif
                 </td>
 
             </tr>
