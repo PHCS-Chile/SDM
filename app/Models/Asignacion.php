@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Asignacion
  * @package App\Models
- * @version 1 (25/06/2021)
+ * @version 2
  */
 class Asignacion extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
+    protected $dateFormat = 'd-m-Y H:i:s';
 
     public function getIncompletasAttribute(){
         return $this->evaluacions->where('estado_id','1');

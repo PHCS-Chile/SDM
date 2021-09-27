@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * Class EvaluacionFactory
  * @package Database\Factories
- * @version 3
+ * @version 4
  */
 class EvaluacionFactory extends Factory
 {
@@ -42,7 +42,7 @@ class EvaluacionFactory extends Factory
             $pecc = $this->faker->numberBetween(0, 100);
             $user_id = $this->faker->numberBetween(1, 5);
             $user_completa = User::find($user_id)->name;
-            $fecha_completa = $this->faker->dateTimeBetween('-1 years');
+            $fecha_completa = $this->faker->dateTimeBetween('-1 years')->format('d-m-Y H:i:s');
             $image_path = "";
             for ($i = 0; $i < $this->faker->numberBetween(2, 20); ++$i) {
                 $image_path .= crearBurbuja($this->faker->realText($this->faker->numberBetween(10, 40)), $i % 2 == 0);
@@ -51,7 +51,7 @@ class EvaluacionFactory extends Factory
         return [
             'movil' => '9' . $this->faker->randomNumber(8),
             'connid' => $this->faker->md5,
-            'fecha_grabacion' => $this->faker->dateTimeBetween('-1 years'),
+            'fecha_grabacion' => $this->faker->dateTimeBetween('-1 years')->format('d-m-Y H:i:s'),
             'nombre_ejecutivo' => $this->faker->firstName . ' ' .$this->faker->lastName . ' ' . $this->faker->lastName,
             'rut_ejecutivo' => $this->faker->randomNumber(8),
             'nombre_supervisor' => $supervisor,

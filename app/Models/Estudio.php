@@ -8,12 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Estudio
  * @package App\Models
- * @version 1 (25/06/2021)
+ * @version 2
  */
 class Estudio extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+    protected $dateFormat = 'd-m-Y H:i:s';
 
     public function servicios()
     {

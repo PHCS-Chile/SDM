@@ -5,9 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Agente
+ * @package App\Models
+ * @version 2
+ */
 class Agente extends Model
 {
     protected $guarded = ['id'];
+    protected $dateFormat = 'd-m-Y H:i:s';
 
     use HasFactory;
 
