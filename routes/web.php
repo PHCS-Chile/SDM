@@ -50,7 +50,9 @@ Route::get('/asignacion/{asignacionid}/{rutejecutivo}',[AsignacionController::cl
 Route::get('/asignacion_voz/{asignacionid}',[AsignacionController::class,'EjecutivoEvaluacionesCallVoz'])->name('asignacions.ejecutivoevaluacionescallvoz')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/reporte/{evaluacionid}',[EvaluacionController::class,'reporte'])->name('evaluacions.reporte')->middleware(['auth:sanctum', 'verified']);
-Route::get('/reportes/',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes')->middleware(['auth:sanctum', 'verified']);
+//Route::get('/reportes/',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes')->middleware(['auth:sanctum', 'verified']);
+Route::get('/reportes',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes')->middleware(['auth:sanctum', 'verified']);
+Route::post('/reportes',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes_filtrado')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:sanctum', 'verified']);
 

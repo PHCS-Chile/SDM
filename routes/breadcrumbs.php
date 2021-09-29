@@ -7,6 +7,12 @@ Breadcrumbs::for('inicio', function (BreadcrumbTrail $trail) {
     $trail->push('Inicio', route('dashboard'));
 });
 
+Breadcrumbs::for('reportes', function (BreadcrumbTrail $trail, $mercadoSeleccionado) {
+    $trail->parent('inicio');
+    $trail->push('Reportes', route('evaluacions.reportes'));
+    $trail->push('ARREGLAR ESTO');
+});
+
 Breadcrumbs::for('asignaciones', function (BreadcrumbTrail $trail, $estudio, $periodo) {
     $trail->parent('inicio');
     $trail->push(sprintf("%s (%s)", $estudio->name, $periodo->name), route('asignacions.index', [$estudio->id, $periodo->periodo_id]));

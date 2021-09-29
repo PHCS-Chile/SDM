@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * Class EvaluacionFactory
  * @package Database\Factories
- * @version 4
+ * @version 5
  */
 class EvaluacionFactory extends Factory
 {
@@ -75,6 +75,7 @@ class EvaluacionFactory extends Factory
             'fecha_ici' => NULL,
             'user_ici' => NULL,
             'estado_conversacion' => 7,
+            'estado_reporte' => $this->faker->randomElement([11, 11, 11, 11, 11, 11, 11, 12, 13, 14]),
         ];
     }
 }

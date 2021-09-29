@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Agente;
+use App\Models\Asignacion;
 use App\Models\Estudio;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
@@ -18,7 +20,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 7
+ * @version 8
  */
 
 class EvaluacionController extends Controller
@@ -91,16 +93,90 @@ class EvaluacionController extends Controller
         return back()->with("status", $message);
     }
 
-    public function reportes()
+//    public function reportes()
+//    {
+//        $mercados = Agente::distinct()->get('mercado');
+//        return $this->reportesMercado($mercados->first()->mercado);
+//    }
+
+    public function reportes(Request $request)
     {
-        $evaluaciones = Evaluacion::all();
+        $periodos = Periodo::where('visible', 1)->get();
+        $periodo_0 = new Periodo();
+        $periodo_0->id = 0;
+        $periodo_0->name = "Todos";
+        $periodos->prepend($periodo_0);
+        $periodoSeleccionado = intval(!empty($request->filter) ? $request->periodo : $periodos->last()->id);
+
+        $mercados = collect([
+            ['id' => '0', 'name' => 'Mixto'],
+            ['id' => 'Hogar', 'name' => 'Hogar'],
+            ['id' => 'Movil', 'name' => 'Movil']
+        ]);
+        $mercadoSeleccionado = !empty($request->filter) ? $request->mercado : '0';
+
         $estudios = Estudio::all();
-        $periodos = Periodo::all();
+        $estudio_0 = new Estudio();
+        $estudio_0->id = 0;
+        $estudio_0->name = "Todos";
+        $estudios->prepend($estudio_0);
+        $estudioSeleccionado = intval(!empty($request->filter) ? $request->estudio : 0);
+
         $servicios = Servicio::all();
-        $estados = Estado::all();
-        return view('evaluacions.reportes', compact(
-            'evaluaciones', 'estudios', 'periodos', 'servicios', 'estados'
+        $servicio_0 = new Servicio();
+        $servicio_0->id = 0;
+        $servicio_0->name = "Todos";
+        $servicios->prepend($servicio_0);
+        $servicioSeleccionado = intval(!empty($request->filter) ? $request->servicio : 0);
+
+//        dd($periodoSeleccionado);
+        $evaluaciones = Evaluacion::whereIn('estado_reporte', [12, 13, 14])
+            ->when($periodoSeleccionado !== 0, function ($query) use ($periodoSeleccionado) {
+                return $query->whereIn('asignacion_id', Asignacion::where('periodo_id', $periodoSeleccionado)->get()->pluck('id')->all());
+            })
+            ->when($mercadoSeleccionado !== '0', function ($query) use ($mercadoSeleccionado) {
+                return $query->whereIn(
+                    'asignacion_id',
+                    Asignacion::whereIn(
+                        'agente_id',
+                        Agente::where('mercado', $mercadoSeleccionado)->get()->pluck('id')->all()
+                    )->get()->pluck('id')->all()
+                );
+            })
+            ->when($mercadoSeleccionado === '0', function ($query) use ($mercadoSeleccionado) {
+                return $query->whereIn(
+                    'asignacion_id',
+                    Asignacion::whereIn(
+                        'agente_id',
+                        Agente::where('mercado', '<>', 'Temp')->get()->pluck('id')->all()
+                    )->get()->pluck('id')->all()
+                );
+            })
+            ->when($estudioSeleccionado !== 0, function ($query) use ($estudioSeleccionado) {
+                return $query->whereIn('asignacion_id', Asignacion::where('estudio_id', $estudioSeleccionado)->get()->pluck('id')->all());
+            })
+            ->when($servicioSeleccionado !== 0, function ($query) use ($servicioSeleccionado) {
+                return $query->whereIn(
+                    'asignacion_id',
+                    Asignacion::whereIn(
+                        'agente_id',
+                        Agente::where('servicio_id', $servicioSeleccionado)->get()->pluck('id')->all()
+                    )->get()->pluck('id')->all()
+                );
+            })
+            ->get();
+        return view('evaluacions.reportes_mercado', compact(
+            'periodos', 'periodoSeleccionado', 'mercados', 'mercadoSeleccionado', 'estudios',
+            'estudioSeleccionado', 'servicios', 'servicioSeleccionado', 'evaluaciones'
         ));
+    }
+
+    public function reporteCambiarEstado(Request $request, $mercadoSeleccionado)
+    {
+        $evaluacion = Evaluacion::find($request->evaluacion_id);
+        $evaluacion->estado_reporte = $request->estado_destino;
+        $evaluacion->save();
+        return redirect(route('evaluacions.reportes_mercado', $mercadoSeleccionado))->with('status', 'Se ha marcado la evaluación ' . $request->evaluacion_id . ' como ' . ($request->estado_destino == 13 ? 'REVISADA' : 'ENVIADA') . '.');
     }
 
 }

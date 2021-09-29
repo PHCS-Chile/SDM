@@ -1,6 +1,6 @@
 {{--
 Plantilla: evaluacions/reportes
-Versión 1
+Versión 2
 --}}
 
 <x-app-layout>
@@ -105,7 +105,27 @@ Versión 1
     {{-- Contenido TODO: Revisar consistencia de tags HTML --}}
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
 
-        @livewire('reportes')
+        <div class="w-full max-w-sm py-6">
+            <div class="flex items-center">
+                <div class="md:w-1/3">
+                    <label for="mercados" class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4">Mercados</label>
+                </div>
+                <div class="md:w-2/3">
+                    <select id="mercados" name="mercados" class="mt-1 block w-auto py-2 pl-2 pr-7 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                    <option disabled selected>Elegir mercado...</option>
+                    @foreach($mercados as $mercado)
+                        <option value="{{ $mercado->mercado }}">{{ $mercado->mercado }}</option>
+                    @endforeach
+                    </select>
+                </div>
+            </div>
+        </div>
+        <script src="{{ asset('js/scripts.js') }}"></script>
+        <script>
+            $('#mercados').change(function () {
+                window.location.href = '{{ url('reportes') }}/' + $('#mercados').val();
+            });
+        </script>
 
     @endif
 </x-app-layout>

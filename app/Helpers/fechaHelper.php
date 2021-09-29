@@ -2,7 +2,7 @@
 /*
  * Ayudas para manejo de fechas en español.
  * Si esto puede ser escrito utilizando sólo funciones date de PHP, tanto mejor.
- * @version 3
+ * @version 4
  */
 
 if (! function_exists('mesEspanol')) {
@@ -17,6 +17,22 @@ if (! function_exists('mesEspanol')) {
         $meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
             'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
         return $meses[$mes - 1];
+    }
+}
+
+if (! function_exists('mesEspanolCorto')) {
+    /**
+     * Devuelve el nombre en español de un mes, según su posición en el año, como un string de 3 letras.
+     *
+     * @param $mes
+     * @return string
+     */
+    function mesEspanolCorto($mes)
+    {
+        $mes = intval($mes);
+        $meses = ['ene', 'feb', 'mar', 'abr', 'may', 'jun',
+            'jul', 'ago', 'sep', 'oct', 'nov', 'dic'];
+        return ucfirst($meses[$mes - 1]);
     }
 }
 
@@ -123,5 +139,20 @@ if (! function_exists('diferenciaFechas')) {
             $msg = 'recién';
         }
         return $msg;
+    }
+}
+
+if (! function_exists('formatoFecha')) {
+
+    function formatoFecha(string $datetime)
+    {
+        $re = '/^(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+).(\d+)$/m';
+        $substDia = '$3';
+        $dia = preg_replace($re, $substDia, $datetime);
+        $substMes = '$2';
+        $mes = mesEspanolCorto(preg_replace($re, $substMes, $datetime));
+        $substResto = ', $1 ($4:$5)';
+        $resto = preg_replace($re, $substResto, $datetime);
+        return $dia . "-" . $mes . $resto;
     }
 }
