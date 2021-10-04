@@ -292,6 +292,11 @@ abstract class PautaBase extends Component
                     $this->evaluacion->nivel_ec = 1;
                 }
             }
+            if($this->evaluacion->nivel_ec > 1){
+                if($this->evaluacion->estado_reporte !== NULL){
+                    $this->evaluacion->estado_reporte = 11;
+                }
+            }
         }else{
             if($this->marca_ec == 1){
                 Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);

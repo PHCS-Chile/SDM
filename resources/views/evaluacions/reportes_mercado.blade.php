@@ -156,10 +156,10 @@ Versión 2
                     </thead>
                     <tbody>
                     <tr>
-                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">12</td>
-                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">2</td>
-                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">13</td>
-                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">1</td>
+                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_id',3)->count()}}</td>
+                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_id',5)->count()}}</td>
+                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_reporte',11)->count()}}</td>
+                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_reporte',12)->count()}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -191,20 +191,20 @@ Versión 2
         <div class="bg-white px-10">
             <nav class="tabs flex flex-col sm:flex-row">
                 <button data-target="panel-1" class="tab active text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Pendientes ({{ $evaluaciones->where('estado_reporte', 12)->count() }})
+                    Pendientes ({{ $evaluaciones->where('estado_id', 3)->count() }})
                 </button>
                 <button data-target="panel-2" class="tab ext-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Revisados Para Enviar ({{ $evaluaciones->where('estado_reporte', 13)->count() }})
+                    Revisados Para Enviar ({{ $evaluaciones->where('estado_reporte', 11)->count() }})
                 </button>
                 <button data-target="panel-3" class="tab text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Revisados Enviados ({{ $evaluaciones->where('estado_reporte', 14)->count() }})
+                    Revisados Enviados ({{ $evaluaciones->where('estado_reporte', 12)->count() }})
                 </button>
             </nav>
         </div>
 
         <div id="panels" class="px-10">
 
-            @foreach([1 => 12, 2 => 13, 3 => 14] as $panel => $estadoReporte)
+            @foreach([1 => 3, 2 => 11, 3 => 12] as $panel => $estadoReporte)
 
             <div class="panel-{{ $panel }} tab-content {{ $panel == 1 ? 'active' : '' }} pt-5 pb-14">
                 <div class="align-middle inline-block min-w-full">
