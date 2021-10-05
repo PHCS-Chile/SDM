@@ -9,8 +9,7 @@ Breadcrumbs::for('inicio', function (BreadcrumbTrail $trail) {
 
 Breadcrumbs::for('reportes', function (BreadcrumbTrail $trail, $mercadoSeleccionado) {
     $trail->parent('inicio');
-    $trail->push('Reportes', route('evaluacions.reportes'));
-    $trail->push('ARREGLAR ESTO');
+    $trail->push('Reportes');
 });
 
 Breadcrumbs::for('asignaciones', function (BreadcrumbTrail $trail, $estudio, $periodo) {

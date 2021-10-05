@@ -53,6 +53,7 @@ Route::get('/reporte/{evaluacionid}',[EvaluacionController::class,'reporte'])->n
 //Route::get('/reportes/',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes')->middleware(['auth:sanctum', 'verified']);
 Route::get('/reportes',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes')->middleware(['auth:sanctum', 'verified']);
 Route::post('/reportes',[EvaluacionController::class,'reportes'])->name('evaluacions.reportes_filtrado')->middleware(['auth:sanctum', 'verified']);
+Route::post('/reportes/crear', [EvaluacionController::class, 'crearReporte'])->name('evaluacions.crear_reporte')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:sanctum', 'verified']);
 

@@ -1,6 +1,6 @@
 {{--
 Plantilla: evaluacions/reportes_mercado (nombre temporal)
-Versión 2
+Versión 3
 --}}
 
 <x-app-layout>
@@ -95,10 +95,12 @@ Versión 2
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
 
     <form class="w-full py-6 px-10" method="POST" action="{{ route('evaluacions.reportes_filtrado') }}">
+
         <div class="block">
 
             @csrf
             <input type="hidden" name="filter" value="1">
+            <input id="panel_activo" type="hidden" name="panel_activo" value="{{ empty($panelActivo) ? 1 : $panelActivo }}">
 
             <div class="inline-block mb-2">
                 <label for="periodo" class="block text-gray-500 font-bold mb-1 md:mb-0 pr-4">Periodo</label>
@@ -158,8 +160,8 @@ Versión 2
                     <tr>
                         <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_id',3)->count()}}</td>
                         <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_id',5)->count()}}</td>
-                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_reporte',11)->count()}}</td>
                         <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_reporte',12)->count()}}</td>
+                        <td class="text-gray-600 font-bold text-center text-lg pl-3 py-1 whitespace-nowrap">{{$evaluaciones->where('estado_reporte',13)->count()}}</td>
                     </tr>
                     </tbody>
                 </table>
@@ -190,23 +192,23 @@ Versión 2
     <div class="w-full max-w-sm py-6 contents">
         <div class="bg-white px-10">
             <nav class="tabs flex flex-col sm:flex-row">
-                <button data-target="panel-1" class="tab active text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Pendientes ({{ $evaluaciones->where('estado_id', 3)->count() }})
+                <button data-target="panel-1" id="tab_1" class="tab {{ $panelActivo == 1 ? 'active' : '' }} text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
+                    Pendientes ({{ $evaluaciones->where('estado_reporte', 11)->count() }})
                 </button>
-                <button data-target="panel-2" class="tab ext-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Revisados Para Enviar ({{ $evaluaciones->where('estado_reporte', 11)->count() }})
+                <button data-target="panel-2" id="tab_2" class="tab {{ $panelActivo == 2 ? 'active' : '' }} ext-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
+                    Revisados Para Enviar ({{ $evaluaciones->where('estado_reporte', 12)->count() }})
                 </button>
-                <button data-target="panel-3" class="tab text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
-                    Revisados Enviados ({{ $evaluaciones->where('estado_reporte', 12)->count() }})
+                <button data-target="panel-3" id="tab_3" class="tab {{ $panelActivo == 3 ? 'active' : '' }} text-gray-600 py-4 px-6 block hover:text-blue-500 focus:outline-none">
+                    Revisados Enviados ({{ $evaluaciones->where('estado_reporte', 13)->count() }})
                 </button>
             </nav>
         </div>
 
         <div id="panels" class="px-10">
 
-            @foreach([1 => 3, 2 => 11, 3 => 12] as $panel => $estadoReporte)
+            @foreach([1 => 11, 2 => 12, 3 => 13] as $panel => $estadoReporte)
 
-            <div class="panel-{{ $panel }} tab-content {{ $panel == 1 ? 'active' : '' }} pt-5 pb-14">
+            <div class="panel-{{ $panel }} tab-content {{ $panel == $panelActivo ? 'active' : '' }} pt-5 pb-14">
                 <div class="align-middle inline-block min-w-full">
                     <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -215,24 +217,17 @@ Versión 2
                                 <th scope="col" class="pl-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Id
                                 </th>
-                                <th scope="col" class="pl-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Periodo
-                                </th>
-                                <th scope="col" class="pl-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Estudio
-                                </th>
-                                <th scope="col" class="pl-3 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Mercado
-                                </th>
                                 <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Agente
                                 </th>
                                 <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Estado
                                 </th>
+                                @if($panel == 3)
                                 <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Reporte
                                 </th>
+                                @endif
                                 <th scope="col" class="pl-4 py-1 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Fecha conversación
                                 </th>
@@ -254,21 +249,6 @@ Versión 2
                                             {{ $evaluacion->id }}
                                         </div>
                                     </td>
-                                    <td class="pl-3 py-1 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">
-                                            {{ $evaluacion->asignacion->periodo_id }}
-                                        </div>
-                                    </td>
-                                    <td class="pl-3 py-1 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">
-                                            {{ $evaluacion->asignacion->estudio_id }}
-                                        </div>
-                                    </td>
-                                    <td class="pl-3 py-1 whitespace-nowrap">
-                                        <div class="text-sm text-gray-900">
-                                            {{ $evaluacion->asignacion->agente->mercado }}
-                                        </div>
-                                    </td>
                                     <td class="pl-4 py-1 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
                                             {{ $evaluacion->asignacion->agente->name }}
@@ -279,11 +259,15 @@ Versión 2
                                             {{ $evaluacion->estado->name }}
                                         </div>
                                     </td>
+                                    @if($panel == 3)
                                     <td class="pl-4 py-1 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
-                                            {{ $evaluacion->estado_reporte }}
+                                            <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-200 text-gray-800">
+                                                {!! ucfirst($evaluacion->reportes->first()->etiqueta) ?: '<i style="color: gray">ID: ' . $evaluacion->reportes->first()->id . '</i>' !!}
+                                            </span>
                                         </div>
                                     </td>
+                                    @endif
                                     <td class="pl-4 py-1 whitespace-nowrap">
                                         <div class="text-sm text-gray-900">
                                             {{ formatoFecha($evaluacion->fecha_grabacion) }}
@@ -306,37 +290,45 @@ Versión 2
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                             </svg>
                                         </a>
-
-                                        @if($panel == 1)
-                                            <form action="" method="POST" onsubmit="return confirm('Está a punto de marcar la evaluación como REVISADA. Está de acuerdo?')">
-                                            @csrf
-                                            <input type="hidden" name="evaluacion_id" value="{{ $evaluacion->id }}">
-                                            <input type="hidden" name="estado_destino" value="13">
-                                            <button type="submit" class="inline-flex items-center h-6 px-1 m-0.5 text-sm text-green-500 border border-green-500 transition-colors duration-150 bg-transparent rounded focus:shadow-outline hover:text-white hover:bg-green-500" href="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                </svg> Revisar
-                                            </button>
-                                            </form>
-                                        @elseif($panel == 2)
-                                            <form action="" method="POST" onsubmit="return confirm('Está a punto de marcar la evaluación como ENVIADA. Está de acuerdo?')">
-                                                @csrf
-                                                <input type="hidden" name="evaluacion_id" value="{{ $evaluacion->id }}">
-                                                <input type="hidden" name="estado_destino" value="14">
-                                                <button type="submit" class="inline-flex items-center h-6 px-1 m-0.5 text-sm text-green-500 border border-green-500 transition-colors duration-150 bg-transparent rounded focus:shadow-outline hover:text-white hover:bg-green-500" href="">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                                                    </svg> Enviar
-                                                </button>
-                                            </form>
-                                        @endif
                                     </td>
                                 </tr>
                                 @endif
                             @endforeach
                             </tbody>
                         </table>
+
                     </div>
+                    @if($panel == 2)
+                        <form class="text-right" action="{{ route('evaluacions.crear_reporte') }}" method="POST" onsubmit="return confirm('Está seguro que desea crear un reporte a partir de estas evaluaciones?')">
+                            @csrf
+                            <input type="hidden" name="evaluaciones" value="{{ implode(",", $evaluaciones->where('estado_reporte', 12)->pluck('id')->all()) }}">
+                            <div class="flex flex-row-reverse content-evenly text-right mt-2">
+                                @if($todoFiltrado)
+                                <button type="submit" class="ml-1 inline-flex items-center px-2 py-1 text-sm text-green-500 border border-green-500 transition-colors duration-150 bg-transparent rounded focus:shadow-outline hover:text-white hover:bg-green-500">
+                                @else
+                                <button type="" class="cursor-not-allowed ml-1 inline-flex items-center px-2 py-1 text-sm text-gray-400 border border-gray-300 transition-colors duration-150 bg-transparent rounded focus:shadow-outline hover:bg-gray-100" disabled>
+                                @endif
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                    </svg> Crear Reporte
+                                </button>
+                                <label for="etiqueta" class="sr-only">Etiqueta</label>
+                                @if($todoFiltrado)
+                                <input autocomplete="off" placeholder="Etiqueta (opcional)..." type="text" name="etiqueta" id="etiqueta" class="placeholder-gray-300 text-md inline-flex align-middle border py-1 border-gray-300 bg-white px-5 rounded-lg text-xs-sm focus:outline-none">
+                                @else
+                                <input autocomplete="off" placeholder="Etiqueta (opcional)..." type="text" name="etiqueta" id="etiqueta" class="cursor-not-allowed placeholder-gray-300 text-md inline-flex align-middle border py-1 border-gray-300 bg-white px-5 rounded-lg text-xs-sm focus:outline-none" disabled>
+                                @endif
+                            </div>
+                            <div class="content-evenly text-right mt-2">
+                                @if(!$todoFiltrado)
+                                <p class="text-red-500 text-xs italic">No ha filtrado por todos los criterios.</p>
+                                @endif
+                                @if($evaluaciones->where('estado_reporte', 12)->count() == 0)
+                                <p class="text-red-500 text-xs italic">No hay evaluaciones en la lista.</p>
+                                @endif
+                            </div>
+                        </form>
+                    @endif
                 </div>
             </div>
 
@@ -366,6 +358,7 @@ Versión 2
 
             // activate new tabs and panel
             event.target.classList.add('active');
+            $('#panel_activo').val(event.target.id.substring(4));
             let classString = event.target.getAttribute('data-target');
             console.log(classString);
             document.getElementById('panels').getElementsByClassName(classString)[0].classList.add("active");

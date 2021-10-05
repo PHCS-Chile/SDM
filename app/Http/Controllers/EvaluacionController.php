@@ -10,6 +10,7 @@ use App\Models\Grabacion;
 use App\Models\Log;
 use App\Models\Notificacion;
 use App\Models\Periodo;
+use App\Models\Reporte;
 use App\Models\Respuesta;
 use App\Models\Estado;
 use App\Models\Escala;
@@ -20,7 +21,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 8
+ * @version 9
  */
 
 class EvaluacionController extends Controller
@@ -122,15 +123,17 @@ class EvaluacionController extends Controller
         $estudios->prepend($estudio_0);
         $estudioSeleccionado = intval(!empty($request->filter) ? $request->estudio : 0);
 
-        $servicios = Servicio::all();
+        $servicios = $estudioSeleccionado === 0 ? Servicio::all() : Servicio::where('estudio_id', $estudioSeleccionado)->get();
         $servicio_0 = new Servicio();
         $servicio_0->id = 0;
         $servicio_0->name = "Todos";
         $servicios->prepend($servicio_0);
         $servicioSeleccionado = intval(!empty($request->filter) ? $request->servicio : 0);
+        $todoFiltrado = $periodoSeleccionado !== 0 && $mercadoSeleccionado !== '0' && $estudioSeleccionado !== 0 && $servicioSeleccionado !== 0;
+//        dd($periodoSeleccionado, $mercadoSeleccionado, $estudioSeleccionado, $servicioSeleccionado, $todoFiltrado);
 
 //        dd($periodoSeleccionado);
-        $evaluaciones = Evaluacion::whereIn('estado_reporte', [12, 13, 14])
+        $evaluaciones = Evaluacion::whereIn('estado_reporte', [11, 12, 13])
             ->when($periodoSeleccionado !== 0, function ($query) use ($periodoSeleccionado) {
                 return $query->whereIn('asignacion_id', Asignacion::where('periodo_id', $periodoSeleccionado)->get()->pluck('id')->all());
             })
@@ -165,9 +168,10 @@ class EvaluacionController extends Controller
                 );
             })
             ->get();
+        $panelActivo = empty($request->panel_activo) ? 1 : $request->panel_activo;
         return view('evaluacions.reportes_mercado', compact(
             'periodos', 'periodoSeleccionado', 'mercados', 'mercadoSeleccionado', 'estudios',
-            'estudioSeleccionado', 'servicios', 'servicioSeleccionado', 'evaluaciones'
+            'estudioSeleccionado', 'servicios', 'servicioSeleccionado', 'evaluaciones', 'panelActivo', 'todoFiltrado'
         ));
     }
 
@@ -177,6 +181,25 @@ class EvaluacionController extends Controller
         $evaluacion->estado_reporte = $request->estado_destino;
         $evaluacion->save();
         return redirect(route('evaluacions.reportes_mercado', $mercadoSeleccionado))->with('status', 'Se ha marcado la evaluación ' . $request->evaluacion_id . ' como ' . ($request->estado_destino == 13 ? 'REVISADA' : 'ENVIADA') . '.');
+    }
+
+    public function crearReporte(Request $request)
+    {
+        $evaluaciones = explode(",", $request->evaluaciones);
+        if(count($evaluaciones) > 0) {
+            $reporte = new Reporte();
+            $reporte->etiqueta = $request->etiqueta ?: "";
+            $reporte->user_id = Auth::user()->id;
+            $reporte->save();
+            foreach($evaluaciones as $evaluacion_id) {
+                $evaluacion = Evaluacion::find($evaluacion_id);
+                $evaluacion->estado_reporte = 13;
+                $evaluacion->save();
+                $reporte->evaluaciones()->attach($evaluacion_id);
+            }
+            return back()->with('status', 'Reporte creado con éxito.');
+        }
+        return back()->with('error', 'No se ha podido crear el reporte.');
     }
 
 }

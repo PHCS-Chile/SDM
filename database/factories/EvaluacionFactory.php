@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 /**
  * Class EvaluacionFactory
  * @package Database\Factories
- * @version 5
+ * @version 6
  */
 class EvaluacionFactory extends Factory
 {
@@ -35,7 +35,16 @@ class EvaluacionFactory extends Factory
         $fecha_completa = NULL;
         $estado_id = $this->faker->numberBetween(1, 6);
         $image_path = NULL;
+        $estado_reporte = NULL;
+        $nivel_ec = NULL;
         if ($estado_id > 1 && $estado_id < 6 ) {
+            if ($estado_id == 3) {
+                $estado_reporte = 11;
+                $nivel_ec = $this->faker->randomElement([1, 2, 3]);
+                if ($nivel_ec >= 2) {
+                    $estado_reporte = 12;
+                }
+            }
             $penc = $this->faker->numberBetween(0, 100);
             $pecu = $this->faker->numberBetween(0, 100);
             $pecn = $this->faker->numberBetween(0, 100);
@@ -75,7 +84,8 @@ class EvaluacionFactory extends Factory
             'fecha_ici' => NULL,
             'user_ici' => NULL,
             'estado_conversacion' => 7,
-            'estado_reporte' => $this->faker->randomElement([11, 11, 11, 11, 11, 11, 11, 12, 13, 14]),
+            'estado_reporte' => $estado_reporte,
+            'nivel_ec' => $nivel_ec,
         ];
     }
 }

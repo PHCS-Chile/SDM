@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Evaluacion
  * @package App\Models
- * @version 2 (25/06/2021)
+ * @version 3
  */
 class Evaluacion extends Model
 {
@@ -40,6 +40,11 @@ class Evaluacion extends Model
     public function estaCompleta()
     {
         return $this->estado_id > 1 && $this->estado_id < 6;
+    }
+
+    public function reportes()
+    {
+        return $this->belongsToMany(Reporte::class);
     }
 
 
