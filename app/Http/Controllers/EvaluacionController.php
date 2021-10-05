@@ -21,7 +21,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 9
+ * @version 9.1
  */
 
 class EvaluacionController extends Controller
@@ -112,7 +112,7 @@ class EvaluacionController extends Controller
         $mercados = collect([
             ['id' => '0', 'name' => 'Mixto'],
             ['id' => 'Hogar', 'name' => 'Hogar'],
-            ['id' => 'Movil', 'name' => 'Movil']
+            ['id' => 'Móvil', 'name' => 'Móvil']
         ]);
         $mercadoSeleccionado = !empty($request->filter) ? $request->mercado : '0';
 
@@ -129,10 +129,8 @@ class EvaluacionController extends Controller
         $servicio_0->name = "Todos";
         $servicios->prepend($servicio_0);
         $servicioSeleccionado = intval(!empty($request->filter) ? $request->servicio : 0);
-        $todoFiltrado = $periodoSeleccionado !== 0 && $mercadoSeleccionado !== '0' && $estudioSeleccionado !== 0 && $servicioSeleccionado !== 0;
-//        dd($periodoSeleccionado, $mercadoSeleccionado, $estudioSeleccionado, $servicioSeleccionado, $todoFiltrado);
+        $todoFiltrado = $periodoSeleccionado !== 0 && $estudioSeleccionado !== 0 && $servicioSeleccionado !== 0;
 
-//        dd($periodoSeleccionado);
         $evaluaciones = Evaluacion::whereIn('estado_reporte', [11, 12, 13])
             ->when($periodoSeleccionado !== 0, function ($query) use ($periodoSeleccionado) {
                 return $query->whereIn('asignacion_id', Asignacion::where('periodo_id', $periodoSeleccionado)->get()->pluck('id')->all());
