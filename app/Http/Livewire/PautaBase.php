@@ -292,15 +292,16 @@ abstract class PautaBase extends Component
                     $this->evaluacion->nivel_ec = 1;
                 }
             }
-            if($this->evaluacion->nivel_ec > 1){
-                if($this->evaluacion->estado_reporte !== NULL){
-                    $this->evaluacion->estado_reporte = 11;
-                }
+            if($this->evaluacion->nivel_ec > 1 && $this->evaluacion->estado_reporte == 11){
+                $this->evaluacion->estado_reporte = 12;
             }
         }else{
             if($this->marca_ec == 1){
                 Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);
                 $this->evaluacion->estado_id = 3;
+                if($this->evaluacion->estado_reporte !== NULL){
+                    $this->evaluacion->estado_reporte = 11;
+                }
             }else{
                 Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 2]);
                 $this->evaluacion->estado_id = 2;
