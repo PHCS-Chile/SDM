@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SubirGrabacionRequest extends FormRequest
+class GuardarLinkRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,15 @@ class SubirGrabacionRequest extends FormRequest
     public function rules()
     {
         return [
-            'grabacion' => 'required|mimes:mp3,wav,ogg,mp4a'
+            'url' => 'required',
         ];
     }
 
     public function messages()
     {
         return [
-            'grabacion.mimes' => 'El archivo debe tener un formato de audio permitido (MP3, WAV, OGG o M4A).',
-            'grabacion.required' => 'Se debe seleccionar un archivo antes de intentar subirlo.',
+            'url.required' => 'Se debe escribir una URL en el campo de texto antes de guardarla.',
         ];
     }
+
 }

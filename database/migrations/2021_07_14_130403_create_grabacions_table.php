@@ -18,6 +18,7 @@ class CreateGrabacionsTable extends Migration
             $table->unsignedBigInteger('evaluacion_id');
             $table->string('nombre');
             $table->integer('tamano');
+            $table->string('url')->nullable();
             $table->timestamps();
             $table->foreign('evaluacion_id')->references('id')->on('evaluacions');
         });

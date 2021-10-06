@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\GuardarLinkRequest;
 use App\Http\Requests\SubirGrabacionRequest;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
@@ -13,13 +14,34 @@ use Illuminate\Support\Facades\Storage;
  * Class GrabacionController
  *
  * @package App\Http\Controllers
- * @version 3
+ * @version 4
  */
 class GrabacionController extends Controller
 {
+
+    public function guardarLink(GuardarLinkRequest $request)
+    {
+        //dd($request);
+        $grabacion = new Grabacion;
+        $grabacion->evaluacion_id = $request->evaluacionid;
+        $grabacion->tamano = 0;
+        $grabacion->nombre = "";
+        $grabacion->url = substr($request->url, 0, 7) == "http://" ? $request->url : "http://" . $request->url;
+        $grabacion->save();
+        return back()->with('success','Se ha guardado el link externo a la grabación.');
+    }
+
+    public function borrarLink(Request $request, $evaluacion_id)
+    {
+//        dd($request, $evaluacion_id);
+        $grabacion = Grabacion::where('evaluacion_id', $evaluacion_id)->where('url', '!=', NULL)->first();
+        $grabacion->delete();
+        return back()->with('message', 'Vínculo externo eliminado con éxito!');
+    }
+
     public function subir(SubirGrabacionRequest $request)
     {
-//        dd($request);
+
         $grabacion = new Grabacion;
         $evaluacion = Evaluacion::find($request->evaluacionid);
         if ($request->file()) {
