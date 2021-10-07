@@ -21,7 +21,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 9.1
+ * @version 10
  */
 
 class EvaluacionController extends Controller
@@ -59,6 +59,9 @@ class EvaluacionController extends Controller
 
     public function indexNotify($evaluacionid)
     {
+        if(Auth::user()->perfil != 1) {
+            abort(403);
+        }
         $notificacion = Notificacion::where('evaluacion_id', $evaluacionid)->where('activa', true)->first();
         if ($notificacion) {
             $notificacion->leida = true;

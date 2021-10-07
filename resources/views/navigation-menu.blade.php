@@ -1,6 +1,6 @@
 {{--
 Plantilla: navigation-menu
-Versión 2
+Versión 3
 --}}
 
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow">
@@ -195,6 +195,7 @@ Versión 2
                 </div>
 
                 {{-- Notificaciones--}}
+                @if(Auth::user()->perfil == 1)
                 <div class="ml-3 relative">
                     <x-jet-dropdown align="right" width="96">
                         <x-slot name="trigger">
@@ -214,26 +215,28 @@ Versión 2
                                 Notificaciones
                             </div>
 
-                            @if(Notificacion::where('activa', true)->where('leida', false)->count() > 0)
-                                @foreach(Notificacion::where('activa', true)->where('leida', false)->get() as $notificacion)
-                                    <x-jet-dropdown-link href="{{ route('evaluacions.index.notify', [$notificacion->evaluacion->id]) }}">
-                                        <div class="inline-block">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                                            </svg>
-                                        </div>
-                                        <div class="inline-block">
-                                            <strong>Evaluación pendiente de revisión</strong><br>
-                                            <div class="-mt-1">{{ $notificacion->evaluacion->asignacion->agente->name }}</div>
-                                            <div class="-mt-1 text-gray-400">{{ ucfirst(diferenciaFechas($notificacion->created_at)) }}</div>
-                                        </div>
-                                    </x-jet-dropdown-link>
-                                @endforeach
-                            @else
-                                <div class="block px-4 py-2 text-sm text-gray-500 text-center">
-                                    <i>No hay notificaciones.</i>
-                                </div>
-                            @endif
+
+                                @if(Notificacion::where('activa', true)->where('leida', false)->count() > 0)
+                                    @foreach(Notificacion::where('activa', true)->where('leida', false)->get() as $notificacion)
+                                        <x-jet-dropdown-link href="{{ route('evaluacions.index.notify', [$notificacion->evaluacion->id]) }}">
+                                            <div class="inline-block">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                                </svg>
+                                            </div>
+                                            <div class="inline-block">
+                                                <strong>Evaluación pendiente de revisión</strong><br>
+                                                <div class="-mt-1">{{ $notificacion->evaluacion->asignacion->agente->name }}</div>
+                                                <div class="-mt-1 text-gray-400">{{ ucfirst(diferenciaFechas($notificacion->created_at)) }}</div>
+                                            </div>
+                                        </x-jet-dropdown-link>
+                                    @endforeach
+                                @else
+                                    <div class="block px-4 py-2 text-sm text-gray-500 text-center">
+                                        <i>No hay notificaciones.</i>
+                                    </div>
+                                @endif
+
 
 
                             <x-jet-dropdown-link href="{{ route('usuario.notificaciones') }}" class="text-center">
@@ -244,6 +247,7 @@ Versión 2
                     </x-jet-dropdown>
 
                 </div>
+                @endif
 
             </div>
 

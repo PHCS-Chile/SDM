@@ -1,6 +1,6 @@
 {{--
 Plantilla: dashboard
-Versión 2
+Versión 3
 --}}
 
 <x-app-layout>
@@ -32,7 +32,7 @@ Versión 2
                             </div>
 
 
-
+                            @if(Auth::user()->perfil == 1)
                             <div class="col-span-12 sm:col-span-6 md:col-span-3">
                                 <a href="{{ route('usuario.notificaciones') }}">
                                     <div class="flex flex-row bg-white shadow-sm rounded p-4 hover:bg-opacity-50 hover:shadow-md transition">
@@ -48,6 +48,7 @@ Versión 2
                                     </div>
                                 </a>
                             </div>
+                            @endif
 
                             <div class="col-span-12 sm:col-span-6 md:col-span-3">
                                 <a href="#">
