@@ -26,7 +26,12 @@ class GrabacionController extends Controller
         $grabacion->evaluacion_id = $request->evaluacionid;
         $grabacion->tamano = 0;
         $grabacion->nombre = "";
-        $grabacion->url = substr($request->url, 0, 7) == "http://" ? $request->url : "http://" . $request->url;
+        if(substr($request->url, 0, 8) == "https://"){
+            $grabacion->url = $request->url;
+        }else{
+            $grabacion->url = substr($request->url, 0, 7) == "http://" ? $request->url : "http://" . $request->url;
+        }
+
         $grabacion->save();
         return back()->with('success','Se ha guardado el link externo a la grabación.');
     }
