@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class Evaluacion
  * @package App\Models
- * @version 3
+ * @version 4
  */
 class Evaluacion extends Model
 {
@@ -45,6 +45,11 @@ class Evaluacion extends Model
     public function reportes()
     {
         return $this->belongsToMany(Reporte::class);
+    }
+
+    public function bloqueo()
+    {
+        return $this->hasMany(Bloqueo::class);
     }
 
 

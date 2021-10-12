@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Agente;
 use App\Models\Asignacion;
+use App\Models\Bloqueo;
 use App\Models\Estudio;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
@@ -15,13 +16,14 @@ use App\Models\Respuesta;
 use App\Models\Estado;
 use App\Models\Escala;
 use App\Models\Servicio;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Auth;
 
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 10
+ * @version 11
  */
 
 class EvaluacionController extends Controller
@@ -39,15 +41,42 @@ class EvaluacionController extends Controller
     }
 
     public function index($evaluacionid){
+        $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacionid)->orderBy('id', 'DESC')->first();
+        // Caso no loah bloqueo
+        if ($bloqueo === NULL) {
+            $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
+        } else {
+            if (plazoCumplido($bloqueo->created_at, 120)) {
+                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
+            } elseif (!$bloqueo->activo) {
+                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
+            } else {
+                if ($bloqueo->user_id != Auth::user()->id) {
+                    return back()->withErrors(['msg' => 'La evaluación se encuentra bloqueada por ' . User::find($bloqueo->user_id)->name]);
+                }
+
+            }
+        }
+
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
         $estados = Estado::all();
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
         $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         if ($pauta == 2) {
             $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
-            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'historial'));
+            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'historial', 'bloqueo'));
         }
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial'));
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial', 'bloqueo'));
+    }
+
+    public function atrasDesbloqueando(Request $request, $evaluacion_id)
+    {
+        $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacion_id)->orderBy('id', 'DESC')->first();
+        if (Auth::user()->id == $bloqueo->user_id) {
+            $bloqueo->activo = false;
+            $bloqueo->save();
+        }
+        return redirect($request->url);
     }
 
     public function chat($evaluacionid){

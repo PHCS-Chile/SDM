@@ -1,6 +1,6 @@
 {{--
 Plantilla: Evaluaciones (plantilla general)
-Versión 3
+Versión 4
 --}}
 <x-app-layout>
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css" >
@@ -108,12 +108,16 @@ Versión 3
                 <!-- This example requires Tailwind CSS v2.0+ -->
                 <div class="lg:flex lg:items-center lg:justify-between">
                     <div class="flex-1 min-w-0">
-                        <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
-                            Monitoreo - {{$evaluacionfinal->asignacion->agente->servicio->name}} {{$evaluacionfinal->asignacion->agente->habilidad}}
-                            <a href="{{ route('asignacions.ejecutivoevaluaciones', [$evaluacionfinal->asignacion->id, $evaluacionfinal->rut_ejecutivo]) }}" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                <i class="fas fa-arrow-left fa-fw fa-lg mr-2"></i> Volver a Base del Agente
-                            </a>
-                        </h2>
+                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                            <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+                                Monitoreo - {{$evaluacionfinal->asignacion->agente->servicio->name}} {{$evaluacionfinal->asignacion->agente->habilidad}}
+                                <button type="submit" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+    {{--                            <a href="{{ route('asignacions.ejecutivoevaluaciones', [$evaluacionfinal->asignacion->id, $evaluacionfinal->rut_ejecutivo]) }}" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">--}}
+                                    <i class="fas fa-arrow-left fa-fw fa-lg mr-2"></i> Volver a Base del Agente
+                                </button>
+                            </h2>
+                        </form>
                         <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:mt-0 sm:space-x-6">
                             <div class="mt-2 flex items-center text-sm text-gray-500">
                                 <!-- Heroicon name: briefcase -->
@@ -229,6 +233,7 @@ Versión 3
                                     </div>
                                 </form>
                             @endif
+                            <span class="text-right w-full -mb-4 text-gray-800 text-xs">Bloqueada para <strong>{{ App\Models\User::find($bloqueo->user_id)->name }}</strong> hasta las <strong>{{ $bloqueo->created_at->add(new DateInterval('PT120M'))->format('H:i') }}</strong></span>
                         </div>
                     </div>
 

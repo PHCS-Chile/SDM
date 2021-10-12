@@ -2,7 +2,7 @@
 /*
  * Ayudas para manejo de fechas en español.
  * Si esto puede ser escrito utilizando sólo funciones date de PHP, tanto mejor.
- * @version 4
+ * @version 5
  */
 
 if (! function_exists('mesEspanol')) {
@@ -140,6 +140,23 @@ if (! function_exists('diferenciaFechas')) {
         }
         return $msg;
     }
+
+    function plazoCumplido(String $datetime, $minutos): string
+    {
+        $date = new DateTime($datetime, new DateTimeZone('America/Santiago'));
+        $now = new DateTime("now", new DateTimeZone('America/Santiago') );
+        $interval = date_diff($date, $now);
+        $elapsed = $interval->i;
+        $elapsed += $interval->h * 60;
+        $elapsed += $interval->d * 60 * 24;
+        $elapsed += $interval->m * 60 * 24 * 30;
+        $elapsed += $interval->y * 60 * 24 * 30 * 12;
+        if ($minutos < $elapsed) {
+            return true;
+        }
+        return false;
+    }
+
 }
 
 if (! function_exists('formatoFecha')) {

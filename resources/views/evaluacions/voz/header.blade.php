@@ -1,6 +1,6 @@
 {{--
 Plantilla: Header resumen para Call Voz
-Versión 4
+Versión 5
 --}}
 @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
@@ -235,12 +235,15 @@ Versión 4
                             <div class="w-1/4 text-right">
                                 <div class="flex flex-col">
                                     <div class="w-px-150 p-0.5">
-                                        <a href="{{ route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacionfinal->asignacion->id]) }}" role="button" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                                            </svg>
-                                            Volver a Base del Agente
-                                        </a>
+                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                                                </svg>
+                                                Volver a Base del Agente
+                                            </button>
+                                        </form>
                                     </div>
                                     <div class="w-px-150 p-0.5">
                                         <button class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
@@ -282,6 +285,7 @@ Versión 4
                                 </div>
                             </div>
                         </div>
+                        <div class="align-baseline text-right w-full -mb-4 text-gray-800 text-xs">Bloqueada para <strong>{{ App\Models\User::find($bloqueo->user_id)->name }}</strong> hasta las <strong>{{ $bloqueo->created_at->add(new DateInterval('PT120M'))->format('H:i') }}</strong></div>
                     </div>
 
                 </div>
