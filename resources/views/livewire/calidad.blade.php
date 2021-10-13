@@ -30,7 +30,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{$this->promedioici($usuario->id)}}
+                                        {{number_format($this->promedioici($usuario->id),1)}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -103,6 +103,9 @@
                                 </div>
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Nivel EC
+                            </th>
+                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                 Fecha Evaluacion
                             </th>
                             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -143,7 +146,12 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{$evaluacion->fecha_completa}}
+                                        {{$evaluacion->nivel_ec}}
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <div class="text-sm text-gray-900">
+                                        {{date('d-m-Y H:i', strtotime($evaluacion->fecha_completa))}}
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
@@ -153,7 +161,9 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-900">
-                                        {{$evaluacion->fecha_ici}}
+                                        @if($evaluacion->fecha_ici)
+                                            {{date('d-m-Y H:i', strtotime($evaluacion->fecha_ici))}}
+                                        @endif
                                     </div>
                                 </td>
 

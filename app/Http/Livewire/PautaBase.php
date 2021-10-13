@@ -101,7 +101,7 @@ abstract class PautaBase extends Component
      */
     public function ici()
     {
-        $this->validate(array_merge($this->rules1, $this->rules2, $this->rules3));
+        $this->validate($this->rules);
         $suma = 0;
         $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id',1)->get();
         $atributosNoMemo = 0;
@@ -299,7 +299,7 @@ abstract class PautaBase extends Component
             if($this->marca_ec == 1){
                 Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);
                 $this->evaluacion->estado_id = 3;
-                if($this->evaluacion->estado_reporte !== NULL){
+                if($this->evaluacion->estado_reporte == NULL){
                     $this->evaluacion->estado_reporte = 11;
                 }
             }else{

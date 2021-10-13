@@ -20,7 +20,7 @@ class CreateEvaluacionsTable extends Migration
         Schema::create('evaluacions', function (Blueprint $table) {
             $table->id();
             $table->string('movil')->nullable();
-            $table->string('connid')->nullable();
+            $table->text('connid')->nullable();
             $table->datetime('fecha_grabacion')->nullable();
             $table->string('nombre_ejecutivo')->nullable();
             $table->string('rut_ejecutivo')->nullable();
@@ -36,6 +36,7 @@ class CreateEvaluacionsTable extends Migration
             $table->decimal('pecc', 4, 1)->nullable();
             $table->text('comentario_interno')->nullable();
             $table->text('comentario_calidad')->nullable();
+            $table->text('respuesta_ejecutivo')->nullable();
             $table->string('user_completa')->nullable();
             $table->datetime('fecha_completa')->nullable();
             $table->string('user_supervisor')->nullable();
@@ -43,6 +44,14 @@ class CreateEvaluacionsTable extends Migration
             $table->decimal('ici', 4, 1)->nullable();
             $table->datetime('fecha_ici')->nullable();
             $table->string('user_ici')->nullable();
+            $table->decimal('c_penc', 4, 1)->nullable();
+            $table->decimal('c_pec', 4, 1)->nullable();
+            $table->decimal('c_pecu', 4, 1)->nullable();
+            $table->decimal('c_pecn', 4, 1)->nullable();
+            $table->decimal('c_pecc', 4, 1)->nullable();
+            $table->decimal('c_fcr', 4, 1)->nullable();
+            $table->datetime('fecha_subida')->nullable();
+            $table->datetime('fecha_evaluacion_centro')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->unsignedBigInteger('asignacion_id')->nullable();
             $table->unsignedBigInteger('estado_id')->nullable();

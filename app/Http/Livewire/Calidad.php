@@ -55,7 +55,7 @@ class Calidad extends Component
         }
 
         return view('livewire.calidad', [
-            'evaluaciones' => $evaluaciones->paginate(40),
+            'evaluaciones' => $evaluaciones->orderBy('fecha_completa','desc')->paginate(40),
         ]);
     }
 }

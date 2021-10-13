@@ -27,7 +27,7 @@ class PautaController extends Controller
     {
         $evaluacion = Evaluacion::find($evaluacionid);
         /* Si tiene ICI */
-        if ($evaluacion->respuestas->max('origen_id') == Respuesta::ICI) {
+        if ($evaluacion->fecha_ici) {
             /* Se eliminan los origen_id = 1 (respuestas con discrepancia) */
             Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::PH)->delete();
             $respuestas = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::ICI)->get();
@@ -41,6 +41,7 @@ class PautaController extends Controller
             $evaluacion->user_ici = null;
             $evaluacion->fecha_ici = null;
             $evaluacion->save();
+
         }
         return redirect(route('evaluacions.index', [$evaluacionid]))->with("status", "Se borro ICI correctamente");
 

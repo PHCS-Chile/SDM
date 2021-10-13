@@ -121,7 +121,7 @@ class PautaDigital extends PautaBase
         $this->gestiones = Escala::where('grupo_id',1)->get();
         $this->resoluciones = Escala::where('grupo_id',2)->get();
         /* Reglas de validación */
-        $this->rules1 = [
+        $this->agregarValidaciones([
             'motivo' => 'required',
             'gestion1' => 'required',
             'deteccion1' => 'required',
@@ -129,7 +129,7 @@ class PautaDigital extends PautaBase
             'procedimiento1' => 'required',
             'resolucion1' => 'required',
             'retroalimentacion' => 'required',
-        ];
+        ]);
     }
 
     public function xpersonalizacion(){
@@ -258,23 +258,23 @@ class PautaDigital extends PautaBase
         }
 
         if($this->gestion2 != "" or $this->deteccion2 != "" or $this->infocorrecta2 != "" or $this->procedimiento2 != "" or $this->resolucion2 != ""){
-            $this->rules2 = [
+            $this->agregarValidaciones([
                 'gestion2' => 'required',
                 'deteccion2' => 'required',
                 'infocorrecta2' => 'required',
                 'procedimiento2' => 'required',
                 'resolucion2' => 'required',
-            ];
+            ]);
         }
 
         if($this->gestion3 != "" or $this->deteccion3 != "" or $this->infocorrecta3 != "" or $this->procedimiento3 != "" or $this->resolucion3 != ""){
-            $this->rules3 = [
+            $this->agregarValidaciones([
                 'gestion3' => 'required',
                 'deteccion3' => 'required',
                 'infocorrecta3' => 'required',
                 'procedimiento3' => 'required',
                 'resolucion3' => 'required',
-            ];
+            ]);
         }
 
         return view('livewire.pauta-digital');
