@@ -163,6 +163,7 @@ if (! function_exists('formatoFecha')) {
 
     function formatoFecha(string $datetime)
     {
+
         $re = '/^(\d+)-(\d+)-(\d+) (\d+):(\d+):(\d+).(\d+)$/m';
         $substDia = '$3';
         $dia = preg_replace($re, $substDia, $datetime);

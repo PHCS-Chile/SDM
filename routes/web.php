@@ -4,6 +4,7 @@ use App\Http\Controllers\DevController;
 use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\GrabacionController;
 use App\Http\Controllers\PautaController;
+use App\Http\Controllers\SupervisionController;
 use App\Http\Controllers\UserEventController;
 use App\Models\Evaluacion;
 use Illuminate\Support\Facades\Route;
@@ -75,3 +76,6 @@ Route::delete('evaluacion/{evaluacionid}/sin_grabacion', [PautaController::class
 
 Route::get('perfil/{perfil}', [DevController::class, 'cambiarPerfil'])->name('perfil')->middleware(['auth:sanctum', 'verified']);
 Route::get('usuario/notificaciones', [UserEventController::class, 'notificaciones'])->name('usuario.notificaciones')->middleware(['auth:sanctum', 'verified']);
+
+Route::get('supervision/bloqueos', [SupervisionController::class, 'bloqueos'])->name('supervision.bloqueos')->middleware(['auth:sanctum', 'verified']);
+Route::post('supervision/bloqueos', [SupervisionController::class, 'desbloquear'])->name('supervision.desbloquear')->middleware(['auth:sanctum', 'verified']);

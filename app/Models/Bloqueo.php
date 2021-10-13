@@ -11,6 +11,16 @@ class Bloqueo extends Model
 
     protected $dateFormat = 'd-m-Y H:i:s';
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function evaluacion()
+    {
+        return $this->belongsTo(Evaluacion::class);
+    }
+
     public static function nuevo($user_id, $evaluacion_id, $tipo): Bloqueo
     {
         $bloqueo = new Bloqueo();
