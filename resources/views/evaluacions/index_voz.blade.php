@@ -10,32 +10,10 @@ Versión 2
         }
 
         function CopyToClipboard(containerid) {
-            if (document.selection) {
-                var range;
-                range = document.body.createTextRange();
-                range.moveToElementText(document.getElementById(containerid));
-                range.select().createTextRange();
-                document.execCommand("copy");
-                document.selection.empty();
-                document.getElementById(containerid + "_alert").style.display = "flex";
-                setTimeout(function() {
-                    esconderAlerta(containerid);
-                }, 1000);
-            } else if (window.getSelection) {
-                range = document.createRange();
-                range.selectNode(document.getElementById(containerid));
-                window.getSelection().addRange(range);
-                document.execCommand("copy");
-                if (window.getSelection().empty) {  // Chrome
-                    window.getSelection().empty();
-                } else if (window.getSelection().removeAllRanges) {  // Firefox
-                    window.getSelection().removeAllRanges();
-                }
-                document.getElementById(containerid + "_alert").style.display = "flex";
-                setTimeout(function() {
-                    esconderAlerta(containerid);
-                }, 1000);
-            }
+            document.getElementById(containerid + "_alert").style.display = "flex";
+            setTimeout(function() {
+                esconderAlerta(containerid);
+            }, 1000);
         }
 
     </script>

@@ -20,6 +20,7 @@ mix.js('resources/js/app.js', 'public/js')
 
 mix.scripts([
     'resources/js/jquery-3.6.0.min.js',
+    'resources/js/clipboard.js',
     'resources/js/app.js'
 ], 'public/js/scripts.js');
 

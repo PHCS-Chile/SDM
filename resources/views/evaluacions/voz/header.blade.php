@@ -1,9 +1,10 @@
 {{--
 Plantilla: Header resumen para Call Voz
-Versión 5
+Versión 6
 --}}
 @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
+    <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
     <div class="p-6">
         <div class=" p-5 bg-white  shadow-xl sm:rounded-lg ">
             <div class="md:grid md:grid-cols-1 md:gap-6">
@@ -35,7 +36,8 @@ Versión 5
                                         Centro/Habilidad: {{$evaluacionfinal->asignacion->agente->servicio->name}} - {{$evaluacionfinal->asignacion->agente->habilidad}}
                                     </div>
                                     <div class="block">
-                                        <button class="mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_movil')">
+                                        <input id="ctc_movil" value="{{$evaluacionfinal->movil}}" class="sr-only">
+                                        <button class="ctc mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_movil" onclick="CopyToClipboard('ctc_movil')">
                                             <!-- Heroicon name: location-marker -->
                                             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -50,7 +52,8 @@ Versión 5
                                         </div>
                                     </div>
                                     <div class="block">
-                                        <button class="mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" onclick="CopyToClipboard('ctc_connid')">
+                                        <input id="ctc_connid" value="{{$evaluacionfinal->connid}}" class="sr-only">
+                                        <button class="ctc mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_connid" onclick="CopyToClipboard('ctc_connid')">
                                             <!-- Heroicon name: currency-dollar -->
                                             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
@@ -375,6 +378,8 @@ Versión 5
             modal.classList.toggle('pointer-events-none')
             body.classList.toggle('modal-active')
         }
+
+        new ClipboardJS('.ctc');
 
     </script>
 
