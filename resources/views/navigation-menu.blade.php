@@ -55,6 +55,12 @@ Versión 4
                     @endif
 
                     @if(Auth::user()->perfil == 1)
+                        <x-jet-nav-link href="{{ route('avances.index') }}" :active="request()->routeIs('avances.index')">
+                            {{ __('Avances') }}
+                        </x-jet-nav-link>
+                    @endif
+
+                    @if(Auth::user()->perfil == 1)
                         <x-jet-nav-link href="{{ route('evaluacions.reportes') }}" :active="request()->routeIs('evaluacions.reportes')">
                             {{ __('Reportes') }}
                         </x-jet-nav-link>
