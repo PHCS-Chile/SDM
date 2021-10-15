@@ -14,7 +14,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 3
+ * @version 4
  */
 class PautaCallVoz extends PautaBase
 {
@@ -134,6 +134,15 @@ class PautaCallVoz extends PautaBase
         $this->ruidos = Escala::where('grupo_id',4)->get();
         $this->tiposnegocio = Escala::where('grupo_id',5)->get();
         $this->pecresponsables = Escala::where('grupo_id',3)->get();
+
+        /* Tipos de atributo al guardar */
+        $this->tiposRespuesta = [
+            PautaBase::$RESPUESTA_CHECK => [98, 99, 100, 102, 103, 105, 106, 107, 108, 110, 111, 112, 114, 115, 116, 117, 119, 120, 121, 123, 124, 125, 127, 128, 129, 130, 131, 133, 134, 135, 136, 137, 138, 139, 140, 141, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152, 153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165],
+            PautaBase::$RESPUESTA_OPCIONES => [166, 168, 171, 180, 181, 182, 195, 196, 197, 198, 179],
+            PautaBase::$RESPUESTA_SI_NO => [169, 172, 173, 174, 183, 184, 185, 186, 187, 188, 189, 190, 191, 192, 193, 194],
+            PautaBase::$RESPUESTA_OTROS => [94, 95, 199, 200],
+        ];
+
         /* Reglas de validación */
         $this->agregarValidaciones([
             'motivo' => 'required',

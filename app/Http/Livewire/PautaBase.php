@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 5
+ * @version 6
  */
 abstract class PautaBase extends Component
 {
@@ -35,6 +35,12 @@ abstract class PautaBase extends Component
     public $gestion2 = "";
     public $marca_ec = 0;
     public $comentario_calidad = '';
+    public $tiposRespuesta = [];
+
+    public static $RESPUESTA_SI_NO = 1;
+    public static $RESPUESTA_CHECK = 2;
+    public static $RESPUESTA_OPCIONES = 3;
+    public static $RESPUESTA_OTROS = 4;
 
 
     public function cargarEvaluacion($evaluacionid=null)
@@ -193,16 +199,12 @@ abstract class PautaBase extends Component
      */
     public function save()
     {
-//        dd($this->rules);
         if (!empty($this->rules)) {
             $this->validate($this->rules);
         }
         $this->cargarEvaluacion($this->evaluacion->id);
-        //$detalles = ['antes' => $this->respuestasArreglo()];
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
-        //$detalles['despues'] = $this->respuestasArreglo();
-        //$this->guardarEnHistorial(Log::PAUTA_MODIFICAR, $detalles);
         $this->configurarCalculoDePuntajes();
         return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
     }
@@ -397,11 +399,192 @@ abstract class PautaBase extends Component
         }
         if (isset($valores['int'])) {
             $respuesta->respuesta_int = $valores['int'];
+        } else {
+            foreach ($this->tiposRespuesta as $tipo => $idsAtributo) {
+                if(in_array($idAtributo, $idsAtributo)) {
+                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, $valores['text'], $idAtributo);
+                }
+            }
         }
         if (isset($valores['memo'])) {
             $respuesta->respuesta_memo = $valores['memo'];
         }
         $respuesta->save();
     }
+
+    public function crearRespuestaInt($tipo, $respuesta, $idAtributo)
+    {
+        if ($tipo == PautaBase::$RESPUESTA_CHECK) {
+            return $respuesta == "checked" ? 1 : 0;
+        } elseif ($tipo == PautaBase::$RESPUESTA_SI_NO) {
+            return $respuesta == "Si" ? 1 : 0;
+        } elseif ($tipo == PautaBase::$RESPUESTA_OPCIONES) {
+            $respuestaInt = 0;
+            for ($i = 0; $i < count($this->opciones[$idAtributo]); ++$i) {
+                if ($this->opciones[$idAtributo][$i] == $respuesta) {
+                    $respuestaInt = $i + 1;
+                }
+            }
+            return $respuestaInt;
+        } elseif ($tipo == PautaBase::$RESPUESTA_OTROS) {
+            return $respuesta != "" ? 1 : 0;
+        }
+        return NULL;
+    }
+
+    public $opciones = [
+        166 => [
+            "Falta de Formación Agente",
+            "Uso Incorrecto de Herramientas/Procedimientos",
+            "Faltas a la Ética",
+            "Falta a la capacidad de análisis",
+            "Actitud Profesional y/o Habilidades Blandas",
+            "No conoce cambios al procedimiento",
+            "Otro"
+        ],
+        168 => [
+            "Sin Observaciones",
+            "Ruido Ambiente",
+            "Intermitencias",
+            "Audio degradado o ecos",
+            "Alta latencia"
+        ],
+        171 => [
+            "No aplica",
+            "Portabilidad",
+            "Línea Adicional",
+            "Migración PP a SS",
+            "Servicios Hogar",
+            "Cambio de equipo"
+        ],
+        180 => [
+            "Bolsas, Servicios VAS o Servicios Restringidos",
+            "Beneficios Club Entel",
+            "Bloqueo por Robo o Perdida",
+            "Cambio de Equipo",
+            "Cambio de Plan o Condiciones comerciales",
+            "Campaña o Cross-selling",
+            "Canales de Atención",
+            "Carga Manual",
+            "Condiciones Comerciales de Planes, Servicios y Equipo",
+            "Consultas 727",
+            "Contingencia de Servicios",
+            "Estado de Deuda o Reposición",
+            "Explicación de Boleta o Tráfico",
+            "Facturación o Solicitudes Asociadas",
+            "Funciones o Configuración de Equipo",
+            "Nursery",
+            "Objeción de Cobros",
+            "Comunicación o Redes",
+            "Renuncia o Retención",
+            "Roaming o LDI",
+            "Saldo o Cargo en ORGA",
+            "Seguimiento de Negocios",
+            "Servicio Técnico de Equipos",
+            "Venta de Productos y Servicios",
+            "Otras Consultas o Requerimientos",
+            "Medios de Pago o Recarga",
+            "Seguros y Asistencias"
+        ],
+        181 => [
+            "Bolsas, Servicios VAS o Servicios Restringidos",
+            "Beneficios Club Entel",
+            "Bloqueo por Robo o Perdida",
+            "Cambio de Equipo",
+            "Cambio de Plan o Condiciones comerciales",
+            "Campaña o Cross-selling",
+            "Canales de Atención",
+            "Carga Manual",
+            "Condiciones Comerciales de Planes, Servicios y Equipo",
+            "Consultas 727",
+            "Contingencia de Servicios",
+            "Estado de Deuda o Reposición",
+            "Explicación de Boleta o Tráfico",
+            "Facturación o Solicitudes Asociadas",
+            "Funciones o Configuración de Equipo",
+            "Nursery",
+            "Objeción de Cobros",
+            "Comunicación o Redes",
+            "Renuncia o Retención",
+            "Roaming o LDI",
+            "Saldo o Cargo en ORGA",
+            "Seguimiento de Negocios",
+            "Servicio Técnico de Equipos",
+            "Venta de Productos y Servicios",
+            "Otras Consultas o Requerimientos",
+            "Medios de Pago o Recarga",
+            "Seguros y Asistencias"
+        ],
+        182 => [
+            "Bolsas, Servicios VAS o Servicios Restringidos",
+            "Beneficios Club Entel",
+            "Bloqueo por Robo o Perdida",
+            "Cambio de Equipo",
+            "Cambio de Plan o Condiciones comerciales",
+            "Campaña o Cross-selling",
+            "Canales de Atención",
+            "Carga Manual",
+            "Condiciones Comerciales de Planes, Servicios y Equipo",
+            "Consultas 727",
+            "Contingencia de Servicios",
+            "Estado de Deuda o Reposición",
+            "Explicación de Boleta o Tráfico",
+            "Facturación o Solicitudes Asociadas",
+            "Funciones o Configuración de Equipo",
+            "Nursery",
+            "Objeción de Cobros",
+            "Comunicación o Redes",
+            "Renuncia o Retención",
+            "Roaming o LDI",
+            "Saldo o Cargo en ORGA",
+            "Seguimiento de Negocios",
+            "Servicio Técnico de Equipos",
+            "Venta de Productos y Servicios",
+            "Otras Consultas o Requerimientos",
+            "Medios de Pago o Recarga",
+            "Seguros y Asistencias"
+        ],
+        195 => [
+            "Si",
+            "No, por pasos operacionales fuera de línea",
+            "No, por derivación a otro canal",
+            "No, por responsabilidad del Ejecutivo",
+            "No, por contingencias",
+            "No, por otro motivo",
+            "No, Cliente no continua con la atención"
+        ],
+        196 => [
+            "Si",
+            "No, por pasos operacionales fuera de línea",
+            "No, por derivación a otro canal",
+            "No, por responsabilidad del Ejecutivo",
+            "No, por contingencias",
+            "No, por otro motivo",
+            "No, Cliente no continua con la atención"
+        ],
+        197 => [
+            "Si",
+            "No, por pasos operacionales fuera de línea",
+            "No, por derivación a otro canal",
+            "No, por responsabilidad del Ejecutivo",
+            "No, por contingencias",
+            "No, por otro motivo",
+            "No, Cliente no continua con la atención"
+        ],
+        198 => [
+            "Si",
+            "No, por pasos operacionales fuera de línea",
+            "No, por derivación a otro canal",
+            "No, por responsabilidad del Ejecutivo",
+            "No, por contingencias",
+            "No, por otro motivo",
+            "No, Cliente no continua con la atención"
+        ],
+        179 => [
+            "Reclamo",
+            "Consulta",
+            "Requerimiento"
+        ]
+    ];
 
 }
