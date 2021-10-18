@@ -348,8 +348,13 @@ abstract class PautaBase extends Component
             $noAplica = [$noAplica];
         }
         for ($i = 0; $i < count($idsAtributo); ++$i) {
-            if (($i + 1) !== $resumen && !in_array($i + 1, $noAplica)) {
-                $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
+            if (($i + 1) !== $resumen) {
+                if ($noAplica !== false) {
+                    if (!in_array($i + 1, $noAplica)) {
+                        $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
+                    }
+                }
+
             }
         }
         /* Se generan los booleanos de verificación para verificar la presencia de chequeados y de "no aplica" */
