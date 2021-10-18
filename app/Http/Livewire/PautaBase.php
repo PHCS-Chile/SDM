@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 7
+ * @version 8
  */
 abstract class PautaBase extends Component
 {
@@ -344,13 +344,17 @@ abstract class PautaBase extends Component
     {
         /* Se carga en un arreglo auxiliar los atributos que no sean ni "resumen" ni "no aplica" */
         $atributosRegulares = [];
+        if (is_integer($noAplica)) {
+            $noAplica = [$noAplica];
+        }
         for ($i = 0; $i < count($idsAtributo); ++$i) {
-            if (($i + 1) !== $resumen && ($i + 1) !== $noAplica) {
+            if (($i + 1) !== $resumen && !in_array($i + 1, $noAplica)) {
                 $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
             }
         }
         /* Se generan los booleanos de verificación para verificar la presencia de chequeados y de "no aplica" */
         $hayChequeados = false;
+        $noAplicaMarcado = false;
         if ($noAplica !== false) {
             if (!is_array($noAplica)) {
                 $noAplica = [$noAplica];
@@ -376,7 +380,9 @@ abstract class PautaBase extends Component
         }
         /* Se resuelve el guardado del padre y no aplica, dependiendo del caso */
         if ($noAplica !== false) {
-            $this->guardarRespuesta($idsAtributo[$noAplica - 1], ['text' => $this->{$nombreFamilia . $noAplica}]);
+            foreach ($noAplica as $campo) {
+                $this->guardarRespuesta($idsAtributo[$campo - 1], ['text' => $this->{$nombreFamilia . $campo}]);
+            }
         }
         if ($resumen !== false) {
             if ($noAplicaMarcado) {
