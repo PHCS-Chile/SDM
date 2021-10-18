@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 6
+ * @version 7
  */
 abstract class PautaBase extends Component
 {
@@ -323,19 +323,22 @@ abstract class PautaBase extends Component
     /**
      * Guarda un batch de respuestas que comparten el mismo "nombre de familia". Los atributos en las pautas
      * se tienden a agrupar por temática indexada del 1 al n (donde n es la cantidad de atributos de la familia).
-     * Permite además indicar si uno de los atributos es resumen o anula las demás respuestas (no aplica).
-     * Por ejemplo, si se desea guardar los atributos con id 1, 5, 30 y 100, teniéndose como resumen el 5 y
-     * como "no aplica" el 100, para la familia de atributos "atributo" se deberá llamar a la función de la
+     * Permite además indicar si uno de los atributos es resumen o si uno o más anulan las demás respuestas (no aplica).
+     * Por ejemplo, si se desea guardar los atributos con id 1, 5, 30, 42 y 100, teniéndose como resumen el 5 y
+     * como "no aplica" el 42 y el 100, para la familia de atributos "atributo" se deberá llamar a la función de la
      * siguiente manera:
      *
-     *      guardarRespuestas([1, 5, 30, 100], "atributo", 2, 4);
-     *      // Donde 2 y 4 representan al correlativo de la familia (van desde 1 hasta n)
+     *      guardarRespuestas([1, 5, 30, 42, 100], "atributo", 2, [3, 4]);
+     *      // Donde 2, 3 y 4 representan al correlativo de la familia (van desde 1 hasta n)
+     *
+     * NOTA: El atributo "no aplica" puede recibir un entero en lugar de un arreglo para los casos en los que solo
+     *       exista 1 campo "No aplica".
      *
      *
      * @param $idsAtributo  array Lista de atributos del grupo
      * @param $nombreFamilia string Nombre que comparten los atributos del grupo
      * @param $resumen bool|int Posición del atributo "resumen" (de 1 a n)
-     * @param $noAplica bool|int Posición del atributo "no aplica" (de 1 a n)
+     * @param $noAplica bool|int|array Posiciones de los atributos "no aplica" (de 1 a n), en un arreglo
      */
     public function guardarRespuestas(array $idsAtributo, string $nombreFamilia, $resumen=false, $noAplica=false)
     {
@@ -348,7 +351,17 @@ abstract class PautaBase extends Component
         }
         /* Se generan los booleanos de verificación para verificar la presencia de chequeados y de "no aplica" */
         $hayChequeados = false;
-        $noAplicaMarcado = $noAplica !== false && $this->{$nombreFamilia . $noAplica} == "checked";
+        if ($noAplica !== false) {
+            if (!is_array($noAplica)) {
+                $noAplica = [$noAplica];
+            }
+            foreach ($noAplica as $campo) {
+                if ($this->{$nombreFamilia . $campo} == "checked") {
+                    $noAplicaMarcado = true;
+                    break;
+                }
+            }
+        }
 
         /* Se guardan los atributos "regulares" (ni "resumen" ni "no aplica") */
         foreach ($atributosRegulares as $idAtributo => $nombreAtributo) {
@@ -405,7 +418,7 @@ abstract class PautaBase extends Component
         } else {
             foreach ($this->tiposRespuesta as $tipo => $idsAtributo) {
                 if(in_array($idAtributo, $idsAtributo)) {
-                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, $valores['text'], $idAtributo);
+                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, !empty($valores['text'] ) ?: "", $idAtributo);
                 }
             }
         }
@@ -426,6 +439,7 @@ abstract class PautaBase extends Component
             for ($i = 0; $i < count($this->opciones[$idAtributo]); ++$i) {
                 if ($this->opciones[$idAtributo][$i] == $respuesta) {
                     $respuestaInt = $i + 1;
+                    break;
                 }
             }
             return $respuestaInt;

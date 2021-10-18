@@ -14,7 +14,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 4
+ * @version 5
  */
 class PautaCallVoz extends PautaBase
 {
@@ -176,10 +176,10 @@ class PautaCallVoz extends PautaBase
         $this->guardarRespuestas([109, 110, 111, 112], 'manejosilencios', 1);
         $this->guardarRespuestas([113, 114, 115, 116, 117], 'seguridad', 1);
         $this->guardarRespuestas([118, 119, 120, 121], 'comunicacion', 1);
-        $this->guardarRespuestas([122, 123, 124, 125], 'educacliente', 1);
-        $this->guardarRespuestas([126, 127, 128, 129, 130, 131], 'aseguramiento', 1);
-        $this->guardarRespuestas([132, 133, 134, 135, 136, 137, 138, 139, 140, 141], 'ofrecimientocomercial', 1);
-        $this->guardarRespuestas([142, 143, 144, 145], 'frasesenganche', 1);
+        $this->guardarRespuestas([122, 123, 124, 125], 'educacliente', 1, [3, 4]);
+        $this->guardarRespuestas([126, 127, 128, 129, 130, 131], 'aseguramiento', 1, [3, 4, 5, 6]);
+        $this->guardarRespuestas([132, 133, 134, 135, 136, 137, 138, 139, 140, 141], 'ofrecimientocomercial', 1, [4, 5, 6, 7, 8, 9, 10]);
+        $this->guardarRespuestas([142, 143, 144, 145], 'frasesenganche', 1, 4);
 
         // Errores críticos
         $this->guardarRespuesta(146, ['text' => $this->pecu_deteccion]);
