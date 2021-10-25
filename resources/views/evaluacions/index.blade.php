@@ -110,10 +110,10 @@ Versión 4
                     <div class="flex-1 min-w-0">
                         <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
                             <input type="hidden" name="url" value="{{ url()->previous() }}">
+                            <input type="hidden" name="formulario" value="1">
                             <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
                                 Monitoreo - {{$evaluacionfinal->asignacion->agente->servicio->name}} {{$evaluacionfinal->asignacion->agente->habilidad}}
                                 <button type="submit" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-    {{--                            <a href="{{ route('asignacions.ejecutivoevaluaciones', [$evaluacionfinal->asignacion->id, $evaluacionfinal->rut_ejecutivo]) }}" role="button" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">--}}
                                     <i class="fas fa-arrow-left fa-fw fa-lg mr-2"></i> Volver a Base del Agente
                                 </button>
                             </h2>

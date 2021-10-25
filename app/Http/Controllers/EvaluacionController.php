@@ -72,11 +72,22 @@ class EvaluacionController extends Controller
     public function atrasDesbloqueando(Request $request, $evaluacion_id)
     {
         $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacion_id)->orderBy('id', 'DESC')->first();
+        $evaluacion = Evaluacion::where('id',$evaluacion_id)->first();
         if (Auth::user()->id == $bloqueo->user_id) {
             $bloqueo->activo = false;
             $bloqueo->save();
         }
-        return redirect($request->url);
+        // Botones "Volver" del Evaluador y Supervisor segun pauta
+        if($request->formulario == 1){return redirect()->route('asignacions.ejecutivoevaluaciones', [$evaluacion->asignacion_id, $evaluacion->rut_ejecutivo]);}
+        if($request->formulario == 2){return redirect()->route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion_id]);}
+
+        // Botones "Volver" solo para el Supervisor
+        if($request->formulario == 3){return redirect()->route('calidad.index');}
+        if($request->formulario == 4){return redirect()->route('evaluacions.reportes');}
+        if($request->formulario == 5){return redirect()->route('avances.index');}
+        
+
+        
     }
 
     public function chat($evaluacionid){

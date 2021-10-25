@@ -235,56 +235,109 @@ Versión 6
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="w-1/4 text-right">
+                            
                                 <div class="flex flex-col">
-                                    <div class="w-px-150 p-0.5">
-                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
-                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
-                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
-                                                </svg>
-                                                Volver a Base del Agente
-                                            </button>
-                                        </form>
-                                    </div>
-                                    <div class="w-px-150 p-0.5">
-                                        <button class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            Historial
-                                        </button>
-                                    </div>
-
-                                    <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
-                                        @csrf
+                                    <div>
                                         @if(Auth::user()->perfil  == 1)
-                                            <div class="w-px-150 p-0.5">
-                                                <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
-                                                    <!-- Heroicon name: check -->
-
-                                                    <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-                                                    </svg>
-                                                    Descartar Evaluación
-                                                </button>
+                                        <div class="inline-flex gap-1 items-center">                                            
+                                            <div class="text-xs">Volver:</div>
+                                            <div class="w-px-150 pb-0.5">
+                                                <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                                    <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                    <input type="hidden" name="formulario" value="2">
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                        Base Agente
+                                                    </button>
+                                                </form>
+                                            </div>                                            
+                                            <div class="w-px-150 pb-0.5">
+                                                <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                                    <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                    <input type="hidden" name="formulario" value="3">
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                        Calidad
+                                                    </button>
+                                                </form>
                                             </div>
-                                        @endif
-                                        @if(Auth::user()->perfil  == 2)
-                                            @if($evaluacionfinal->estado_id > 1)
-                                                <div class="w-px-150 p-0.5">
-                                                    <button type="submit" name="enviarRevision" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
-                                                        <!-- Heroicon name: check -->
-                                                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            <div class="w-px-150 pb-0.5">
+                                                <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                                    <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                    <input type="hidden" name="formulario" value="4">
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                        Reportes
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            <div class="w-px-150 pb-0.5">
+                                                <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                                    <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                    <input type="hidden" name="formulario" value="5">
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                        Avances
+                                                    </button>
+                                                </form>
+                                            </div>                                            
+                                        </div>
+                                        @else                                            
+                                            <div class="w-px-150 p-0.5">
+                                                <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
+                                                    <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                    <input type="hidden" name="formulario" value="2">
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                                                         </svg>
-                                                        Enviar a Revisión
+                                                        Volver a Base del Agente
+                                                    </button>
+                                                </form>
+                                            </div>                                        
+                                        @endif
+                                        
+                                        <div class="flex flex-row space-x-2 w-80 mt-4 items-center text-center">
+                                            <span class="bg-gray-300 h-px flex-row t-2 top-2"></span>
+                                        </div>
+
+                                        <div class="w-px-150 pb-0.5">
+                                            <button class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                </svg>
+                                                Historial
+                                            </button>
+                                        </div>
+
+                                        <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
+                                            @csrf
+                                            @if(Auth::user()->perfil  == 1)
+                                                <div class="w-px-150 pb-0.5">
+                                                    <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                        <!-- Heroicon name: check -->
+
+                                                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                        </svg>
+                                                        Descartar Evaluación
                                                     </button>
                                                 </div>
                                             @endif
-                                        @endif
-                                    </form>
+                                            @if(Auth::user()->perfil  == 2)
+                                                @if($evaluacionfinal->estado_id > 1)
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <button type="submit" name="enviarRevision" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                                            <!-- Heroicon name: check -->
+                                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                            </svg>
+                                                            Enviar a Revisión
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                            @endif
+                                        </form>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>

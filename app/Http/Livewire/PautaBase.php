@@ -353,6 +353,8 @@ abstract class PautaBase extends Component
                     if (!in_array($i + 1, $noAplica)) {
                         $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
                     }
+                }else{
+                    $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
                 }
 
             }
@@ -390,6 +392,7 @@ abstract class PautaBase extends Component
             }
         }
         if ($resumen !== false) {
+            
             if ($noAplicaMarcado) {
                 $this->guardarRespuesta($idsAtributo[$resumen - 1], ['text' => 'No Aplica', 'int' => -1]);
             } elseif ($hayChequeados) {
