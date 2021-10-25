@@ -18,7 +18,7 @@ Versión 6
 
                                     <div class="flex-1 w-4/4 bg-red sm:rounded-lg">
                                         <h2 class="text-xl font-bold leading-7 text-gray-900 sm:text-xl sm:truncate">
-                                            Monitoreo - {{$evaluacionfinal->asignacion->agente->habilidad}}
+                                            Monitoreo - {{$evaluacionfinal->asignacion->agente->servicio->name . " " . $evaluacionfinal->asignacion->agente->habilidad}}
                                         </h2>
                                     </div>
                                     <div class="mt-1 flex items-center text-xs text-gray-500">
@@ -235,28 +235,28 @@ Versión 6
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="w-1/4 text-right">
-                            
+
                                 <div class="flex flex-col">
                                     <div>
                                         @if(Auth::user()->perfil  == 1)
-                                        <div class="inline-flex gap-1 items-center">                                            
+                                        <div class="inline-flex gap-1 items-center">
                                             <div class="text-xs">Volver:</div>
                                             <div class="w-px-150 pb-0.5">
                                                 <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
                                                     <input type="hidden" name="url" value="{{ url()->previous() }}">
                                                     <input type="hidden" name="formulario" value="2">
-                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                         Base Agente
                                                     </button>
                                                 </form>
-                                            </div>                                            
+                                            </div>
                                             <div class="w-px-150 pb-0.5">
                                                 <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
                                                     <input type="hidden" name="url" value="{{ url()->previous() }}">
                                                     <input type="hidden" name="formulario" value="3">
-                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                         Calidad
                                                     </button>
                                                 </form>
@@ -274,13 +274,13 @@ Versión 6
                                                 <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
                                                     <input type="hidden" name="url" value="{{ url()->previous() }}">
                                                     <input type="hidden" name="formulario" value="5">
-                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">                                                    
+                                                    <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                         Avances
                                                     </button>
                                                 </form>
-                                            </div>                                            
+                                            </div>
                                         </div>
-                                        @else                                            
+                                        @else
                                             <div class="w-px-150 p-0.5">
                                                 <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacionfinal->id) }}" method="GET">
                                                     <input type="hidden" name="url" value="{{ url()->previous() }}">
@@ -292,9 +292,9 @@ Versión 6
                                                         Volver a Base del Agente
                                                     </button>
                                                 </form>
-                                            </div>                                        
+                                            </div>
                                         @endif
-                                        
+
                                         <div class="flex flex-row space-x-2 w-80 mt-4 items-center text-center">
                                             <span class="bg-gray-300 h-px flex-row t-2 top-2"></span>
                                         </div>

@@ -392,7 +392,7 @@ abstract class PautaBase extends Component
             }
         }
         if ($resumen !== false) {
-            
+
             if ($noAplicaMarcado) {
                 $this->guardarRespuesta($idsAtributo[$resumen - 1], ['text' => 'No Aplica', 'int' => -1]);
             } elseif ($hayChequeados) {
@@ -432,7 +432,7 @@ abstract class PautaBase extends Component
         } else {
             foreach ($this->tiposRespuesta as $tipo => $idsAtributo) {
                 if(in_array($idAtributo, $idsAtributo)) {
-                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, !empty($valores['text'] ) ?: "", $idAtributo);
+                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, !empty($valores['text']) ? $valores['text'] : '' , $idAtributo);
                 }
             }
         }
