@@ -66,6 +66,10 @@ class EvaluacionController extends Controller
             $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
             return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'historial', 'bloqueo'));
         }
+        if ($pauta == 3) {
+            $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
+            return view('evaluacions.index_ventas',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'historial', 'bloqueo'));
+        }
         return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial', 'bloqueo'));
     }
 
@@ -85,9 +89,9 @@ class EvaluacionController extends Controller
         if($request->formulario == 3){return redirect()->route('calidad.index');}
         if($request->formulario == 4){return redirect()->route('evaluacions.reportes');}
         if($request->formulario == 5){return redirect()->route('avances.index');}
-        
 
-        
+
+
     }
 
     public function chat($evaluacionid){

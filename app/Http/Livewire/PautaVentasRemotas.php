@@ -2,11 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Escala;
+use App\Models\Evaluacion;
+use App\Models\Grabacion;
+use App\Models\Respuesta;
+use Auth;
 use Livewire\Component;
+use App\Http\Livewire\PautaBase;
 
-class PautaVentasRemotas extends Component
+class PautaVentasRemotas extends PautaBase
 {
-
+    public $grabacion;
     public $presentacion1 = '';
     public $presentacion2 = '';
     public $presentacion3 = '';
@@ -120,6 +126,35 @@ class PautaVentasRemotas extends Component
     public $descripcion_caso = '';
     public $respuesta_ejecutivo = '';
 
+    public function inicializar()
+    {
+        /* Reglas de validación */
+        $this->agregarValidaciones([
+            'despedida1' => 'required',
+            'retroalimentacion' => 'required',
+        ]);
+        $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
+        if($this->grabacion){
+            $this->grabacioncheck = 1;
+        }
+    }
+
+    public function guardar()
+    {
+
+
+    }
+
+    /**
+     * Implementación de método abstracto para ejecutar en el contexto del "save".
+     *
+     * @return mixed|void
+     */
+    public function configurarCalculoDePuntajes()
+    {
+
+
+    }
 
     public function render()
     {
