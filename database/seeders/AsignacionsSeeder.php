@@ -27,6 +27,7 @@ class AsignacionsSeeder extends Seeder
                 $preset = ['periodo_id' => $periodo, 'agente_id'  => $agente];
                 Asignacion::factory()->digital()->create($preset);
                 Asignacion::factory()->callVoz()->create($preset);
+                Asignacion::factory()->ventaRemota()->create($preset);
             }
         }
     }
