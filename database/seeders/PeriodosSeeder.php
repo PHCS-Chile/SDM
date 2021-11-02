@@ -19,7 +19,7 @@ class PeriodosSeeder extends Seeder
      */
     public function run()
     {
-        $mesInicial = 7;
+        $mesInicial = 10;
         $anoInicial = 2021;
         $periodos = crearPeriodos($mesInicial, $anoInicial);
         foreach ($periodos as $periodo) {
