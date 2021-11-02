@@ -14,7 +14,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 6
+ * @version 7
  */
 class PautaCallVoz extends PautaBase
 {
@@ -248,14 +248,13 @@ class PautaCallVoz extends PautaBase
             142 => 15,  // frasesenganche
             132 => 15,  // ofrecimiento comercial OJOOO
         ];
-
+        $this->calcularPENC($ponderadores);
         $atributosCriticos = [
             'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
             'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
             'pecc' => ['niegaescalamiento', 'omiteinformacion', 'infoconfidencial', 'cierrenegocios', 'novalidadatos', 'despacho'],
         ];
-        $this->calcularPuntajes($ponderadores, $atributosCriticos);
-
+        $this->calcularPEC($atributosCriticos);
     }
 
     /**

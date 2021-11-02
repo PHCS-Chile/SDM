@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Ventas Remotas
-Versión 2
+Versión 3
 --}}
 <div class="flex space-x-4 pt-6 px-6">
     <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
@@ -1000,7 +1000,7 @@ Versión 2
                                             </div>
                                         </fieldset>
                                         <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">16 - Despedida e información de cierre - ({{$scripts1}})</legend>
+                                            <legend class="text-base font-medium text-gray-900">16 - Despedida e información de cierre - ({{$despedida1}})</legend>
                                             <div class="mt-4">
                                                 <span class="text-gray-700 text-sm">Despedida e información de cierre</span>
                                                 <div class="mt-1 text-sm">

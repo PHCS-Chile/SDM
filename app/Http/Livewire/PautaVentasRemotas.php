@@ -10,6 +10,11 @@ use App\Models\Respuesta;
 use Auth;
 use Livewire\Component;
 
+/**
+ * Class PautaVentasRemotas
+ * @package App\Http\Livewire
+ * @version 3
+ */
 class PautaVentasRemotas extends PautaBase
 {
     public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables, $motivos, $grabacion;
@@ -176,7 +181,7 @@ class PautaVentasRemotas extends PautaBase
         $this->guardarRespuestas([262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275], 'validacion', 1);
         $this->guardarRespuestas([276, 277, 278, 279, 280, 281, 282], 'despacho', 1);
         $this->guardarRespuestas([283, 284, 285, 286, 287], 'scripts', 1);
-        $this->guardarRespuestas([288], 'despedida', 1);
+        $this->guardarRespuesta(288, ['text' => $this->despedida1]);
         $this->guardarRespuestas([289, 290, 291, 292, 293, 294, 295], 'atencion', 1);
         $this->guardarRespuestas([296, 297, 298, 299, 300, 301], 'lenguaje', 1);
         $this->guardarRespuestas([302, 303, 304], 'claridad', 1);
@@ -202,32 +207,32 @@ class PautaVentasRemotas extends PautaBase
             201 => 1, // presentacion
             204 => 1, // frasesenganche
             207 => 1, // personalizacion
-            210 => 1, // deteccion
-            214 => 1, // evaluacion
-            220 => 1, // mejoralternativa
-            223 => 1, // argumentacion
-            227 => 1, // condiciones
-            236 => 1, // promociones
-            244 => 1, // facturacion
-            250 => 1, // cargos
-            257 => 1, // equipos
-            262 => 1, // validacion
-            276 => 1, // despacho
-            283 => 1, // scripts
+            210 => 8, // deteccion
+            214 => 16, // evaluacion
+            220 => 8, // mejoralternativa
+            223 => 4, // argumentacion
+            227 => 16, // condiciones
+            236 => 8, // promociones
+            244 => 8, // facturacion
+            250 => 4, // cargos
+            257 => 4, // equipos
+            262 => 8, // validacion
+            276 => 16, // despacho
+            283 => 2, // scripts
             288 => 1, // despedida
-            289 => 1, // atencion
-            296 => 1, // lenguaje
-            302 => 1, // claridad
-            305 => 1, // dominio
-
+            289 => 4, // atencion
+            296 => 4, // lenguaje
+            302 => 8, // claridad
+            305 => 4, // dominio
         ];
-
-//        $atributosCriticos = [
-//            'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
-//            'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
-//            'pecc' => ['niegaescalamiento', 'omiteinformacion', 'infoconfidencial', 'cierrenegocios', 'novalidadatos', 'despacho'],
-//        ];
-//        $this->calcularPuntajes($ponderadores, $atributosCriticos);
+        $this->calcularPENC($ponderadores);
+        $atributosCriticos = [
+            'deteccion4', 'evaluacion4', 'evaluacion5', 'evaluacion6', 'argumentacion3', 'argumentacion4',
+            'condiciones8', 'condiciones9', 'promociones5', 'promociones6', 'promociones7', 'facturacion5',
+            'facturacion6', 'cargos6', 'cargos7', 'equipos5', 'validacion13', 'validacion14', 'despacho5',
+            'despacho6', 'despacho7', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'atencion7'
+        ];
+        $this->calcularPECSimple($atributosCriticos);
     }
 
     public function render()

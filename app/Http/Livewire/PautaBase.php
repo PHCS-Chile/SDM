@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 9
+ * @version 10
  */
 abstract class PautaBase extends Component
 {
@@ -220,6 +220,7 @@ abstract class PautaBase extends Component
         $this->guardar();
         $this->cargarEvaluacion($this->evaluacion->id);
         $this->configurarCalculoDePuntajes();
+        $this->modificarEstados();
         return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
     }
 
@@ -248,40 +249,66 @@ abstract class PautaBase extends Component
         return $arreglo;
     }
 
-    public function calcularPuntajes($ponderadores, $atributosCriticos, $errorescriticos = Null)
+    public function calcularPENC($ponderadores)
     {
-        $penc = 0;
-        $pec = 0;
-        $pecu = 100;
-        $pecn = 100;
-        $pecc = 100;
-
-        $sumatotal = 100;
+        $sumatotal = 0;
         $suma = 0;
 
         foreach ($ponderadores as $atributo_id => $ponderador) {
             $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributo_id);
+            $sumatotal += $ponderador;
             if ($respuesta->respuesta_int < 0) {
                 $sumatotal -= $ponderador;
-            } elseif ($respuesta->respuesta_int > 0) {
+            }
+            if ($respuesta->respuesta_int > 0) {
                 $suma += $ponderador;
             }
         }
-        $penc = ($suma / $sumatotal) * 100;
+        $this->evaluacion->penc = ($suma / $sumatotal) * 100;
+    }
+
+    public function calcularPECSimple($atributosCriticos)
+    {
+        $suma = 0;
+        foreach ($atributosCriticos as $atributo) {
+            if ($this->{$atributo} != "checked") {
+                $suma++;
+            }
+        }
+        $this->evaluacion->pecu = ($suma / count($atributosCriticos)) * 100;
+
+    }
+
+    public function calcularPEC($atributosCriticos)
+    {
+        $puntajes = [];
         foreach ($atributosCriticos as $tipo => $atributos) {
+            $puntajes[$tipo] = 100;
             foreach ($atributos as $atributo) {
                 if ($this->{$tipo . "_" . $atributo} == 'checked') {
-                    ${$tipo} = 0;
+                    $puntajes[$tipo] = 0;
                     break;
                 }
             }
-            $this->evaluacion->{$tipo} = ${$tipo};
+            $this->evaluacion->{$tipo} = $puntajes[$tipo];
+            if($this->evaluacion->pecu == 0){
+                if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
+                    $this->evaluacion->nivel_ec = 3;
+                }else{
+                    $this->evaluacion->nivel_ec = 2;
+                }
+            }else{
+                if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
+                    $this->evaluacion->nivel_ec = 2;
+                }else{
+                    $this->evaluacion->nivel_ec = 1;
+                }
+            }
         }
-        $this->evaluacion->penc = $penc;
-        $this->evaluacion->pecu = $pecu;
-        $this->evaluacion->pecn = $pecn;
-        $this->evaluacion->pecc = $pecc;
+    }
 
+    public function modificarEstados()
+    {
         if($this->evaluacion->estado_id == 1){
             $this->evaluacion->user_completa = Auth::user()->name;
             $this->evaluacion->fecha_completa = now()->format('d-m-Y H:i:s');
@@ -295,19 +322,7 @@ abstract class PautaBase extends Component
             $this->evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
             Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 5]);
             $this->evaluacion->estado_id = 5;
-            if($pecu == 0){
-                if($pecn == 0 || $pecc == 0){
-                    $this->evaluacion->nivel_ec = 3;
-                }else{
-                    $this->evaluacion->nivel_ec = 2;
-                }
-            }else{
-                if($pecn == 0 && $pecc == 0){
-                    $this->evaluacion->nivel_ec = 2;
-                }else{
-                    $this->evaluacion->nivel_ec = 1;
-                }
-            }
+
             if($this->evaluacion->nivel_ec > 1 && $this->evaluacion->estado_reporte == 11){
                 $this->evaluacion->estado_reporte = 12;
             }

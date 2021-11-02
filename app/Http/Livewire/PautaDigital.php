@@ -12,7 +12,7 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaDigital
  * @package App\Http\Livewire
- * @version 6
+ * @version 7
  */
 class PautaDigital extends PautaBase
 {
@@ -231,12 +231,13 @@ class PautaDigital extends PautaBase
             42 => 10,
             47 => 10,
         ];
+        $this->calcularPENC($ponderadores);
          $atributosCriticos = [
             'pecu' => ['deteccion', 'infocorrecta', 'procedimiento', 'pocoprofesional', 'manipulacliente', 'cierreinteraccion', 'provocacierre'],
             'pecn' => ['beneficio', 'fraude', 'nosondea', 'tipificacion', 'factibilidad', 'otragestion'],
             'pecc' => ['infoconfidencial', 'novalidadatos', 'cierre', 'infoerronea'],
         ];
-        $this->calcularPuntajes($ponderadores, $atributosCriticos);
+        $this->calcularPEC($atributosCriticos);
 
     }
 
