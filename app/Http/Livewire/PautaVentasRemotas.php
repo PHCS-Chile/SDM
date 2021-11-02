@@ -2,17 +2,17 @@
 
 namespace App\Http\Livewire;
 
+use App\Http\Livewire\PautaBase;
 use App\Models\Escala;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
 use App\Models\Respuesta;
 use Auth;
 use Livewire\Component;
-use App\Http\Livewire\PautaBase;
 
 class PautaVentasRemotas extends PautaBase
 {
-    public $grabacion;
+    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables, $motivos, $grabacion;
     public $presentacion1 = '';
     public $presentacion2 = '';
     public $presentacion3 = '';
@@ -128,6 +128,26 @@ class PautaVentasRemotas extends PautaBase
 
     public function inicializar()
     {
+        $escalas = [
+            ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => []],
+            ['grupo_id' => 2, 'nombre' => 'resoluciones', 'opciones' => []],
+            ['grupo_id' => 3, 'nombre' => 'pecresponsables', 'opciones' => []],
+            ['grupo_id' => 4, 'nombre' => 'ruidos', 'opciones' => []],
+            ['grupo_id' => 5, 'nombre' => 'tiposnegocio', 'opciones' => []],
+            ['grupo_id' => 6, 'nombre' => 'motivos', 'opciones' => []],
+        ];
+        $this->cargarEscalas($escalas, False);
+
+
+        /* Tipos de atributo al guardar */
+        $this->tiposRespuesta = [
+            PautaBase::$RESPUESTA_CHECK => [202, 203, 205, 206, 208, 209, 211, 212, 213, 215, 216, 217, 218, 219, 221, 222, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 243, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255, 256, 258, 259, 260, 261, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 277, 278, 279, 280, 281, 282, 284, 285, 286, 287, 290, 291, 292, 293, 294, 295, 297, 298, 299, 300, 301, 303, 304, 306, 307, 308],
+            PautaBase::$RESPUESTA_OPCIONES => [],
+            PautaBase::$RESPUESTA_SI_NO => [288],
+            PautaBase::$RESPUESTA_OTROS => [309, 310, 311, 312],
+        ];
+
+
         /* Reglas de validación */
         $this->agregarValidaciones([
             'despedida1' => 'required',
@@ -141,6 +161,31 @@ class PautaVentasRemotas extends PautaBase
 
     public function guardar()
     {
+        $this->guardarRespuestas([201, 202, 203], 'presentacion', 1);
+        $this->guardarRespuestas([204, 205, 206], 'frasesenganche', 1);
+        $this->guardarRespuestas([207, 208, 209], 'personalizacion', 1);
+        $this->guardarRespuestas([210, 211, 212, 213], 'deteccion', 1, 2);
+        $this->guardarRespuestas([214, 215, 216, 217, 218, 219], 'evaluacion', 1);
+        $this->guardarRespuestas([220, 221, 222], 'mejoralternativa', 1, 2);
+        $this->guardarRespuestas([223, 224, 225, 226], 'argumentacion', 1);
+        $this->guardarRespuestas([227, 228, 229, 230, 231, 232, 233, 234, 235], 'condiciones', 1);
+        $this->guardarRespuestas([236, 237, 238, 239, 240, 241, 242, 243], 'promociones', 1, 2);
+        $this->guardarRespuestas([244, 245, 246, 247, 248, 249], 'facturacion', 1);
+        $this->guardarRespuestas([250, 251, 252, 253, 254, 255, 256], 'cargos', 1, 2);
+        $this->guardarRespuestas([257, 258, 259, 260, 261], 'equipos', 1, 2);
+        $this->guardarRespuestas([262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275], 'validacion', 1);
+        $this->guardarRespuestas([276, 277, 278, 279, 280, 281, 282], 'despacho', 1);
+        $this->guardarRespuestas([283, 284, 285, 286, 287], 'scripts', 1);
+        $this->guardarRespuestas([288], 'despedida', 1);
+        $this->guardarRespuestas([289, 290, 291, 292, 293, 294, 295], 'atencion', 1);
+        $this->guardarRespuestas([296, 297, 298, 299, 300, 301], 'lenguaje', 1);
+        $this->guardarRespuestas([302, 303, 304], 'claridad', 1);
+        $this->guardarRespuestas([305, 306, 307, 308], 'dominio', 1);
+
+        $this->guardarRespuesta(309, ['memo' => $this->retroalimentacion]);
+        $this->guardarRespuesta(310, ['memo' => $this->comentario_interno]);
+        $this->guardarRespuesta(311, ['memo' => $this->descripcion_caso]);
+        $this->guardarRespuesta(312, ['memo' => $this->respuesta_ejecutivo]);
 
 
     }
@@ -153,11 +198,136 @@ class PautaVentasRemotas extends PautaBase
     public function configurarCalculoDePuntajes()
     {
 
+        $ponderadores = [
+            201 => 1, // presentacion
+            204 => 1, // frasesenganche
+            207 => 1, // personalizacion
+            210 => 1, // deteccion
+            214 => 1, // evaluacion
+            220 => 1, // mejoralternativa
+            223 => 1, // argumentacion
+            227 => 1, // condiciones
+            236 => 1, // promociones
+            244 => 1, // facturacion
+            250 => 1, // cargos
+            257 => 1, // equipos
+            262 => 1, // validacion
+            276 => 1, // despacho
+            283 => 1, // scripts
+            288 => 1, // despedida
+            289 => 1, // atencion
+            296 => 1, // lenguaje
+            302 => 1, // claridad
+            305 => 1, // dominio
 
+        ];
+
+//        $atributosCriticos = [
+//            'pecu' => ['deteccion', 'gestionincorrecta', 'noresuelve', 'atenciongrosera', 'pocoprofesional', 'manipulacliente'],
+//            'pecn' => ['nosondea', 'descalificaentel', 'beneficiofueraproc', 'fraude', 'noliberalinea', 'factibilidad', 'notipificasistema', 'otragestion'],
+//            'pecc' => ['niegaescalamiento', 'omiteinformacion', 'infoconfidencial', 'cierrenegocios', 'novalidadatos', 'despacho'],
+//        ];
+//        $this->calcularPuntajes($ponderadores, $atributosCriticos);
     }
 
     public function render()
     {
         return view('livewire.pauta-ventas-remotas');
     }
+
+    public function xpresentacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3],1,'presentacion');
+    }
+
+    public function xfrasesenganche()
+    {
+        $this->validarCamposNoAplica([], [2, 3],1,'frasesenganche');
+    }
+
+    public function xpersonalizacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3],1,'personalizacion');
+    }
+
+    public function xdeteccion()
+    {
+        $this->validarCamposNoAplica([2], [3, 4],1,'deteccion');
+    }
+
+    public function xevaluacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6],1,'evaluacion');
+    }
+
+    public function xmejoralternativa()
+    {
+        $this->validarCamposNoAplica([2], [3],1,'mejoralternativa');
+    }
+
+    public function xargumentacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4],1,'argumentacion');
+    }
+
+    public function xcondiciones()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9],1,'condiciones');
+    }
+
+    public function xpromociones()
+    {
+        $this->validarCamposNoAplica([2], [3, 4, 5, 6, 7, 8],1,'promociones');
+    }
+
+    public function xfacturacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6],1,'facturacion');
+    }
+
+    public function xcargos()
+    {
+        $this->validarCamposNoAplica([2], [3, 4, 5, 6, 7],1,'cargos');
+    }
+
+    public function xequipos()
+    {
+        $this->validarCamposNoAplica([2], [3, 4, 5],1,'equipos');
+    }
+
+    public function xvalidacion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14],1,'validacion');
+    }
+
+    public function xdespacho()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7],1,'despacho');
+    }
+
+    public function xscripts()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5],1,'scripts');
+    }
+
+    public function xatencion()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7],1,'atencion');
+    }
+
+    public function xlenguaje()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5, 6],1,'lenguaje');
+    }
+
+    public function xclaridad()
+    {
+        $this->validarCamposNoAplica([], [2, 3],1,'claridad');
+    }
+
+    public function xdominio()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4],1,'dominio');
+    }
+
 }

@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Ventas Remotas
-Versión 1
+Versión 2
 --}}
 <div class="flex space-x-4 pt-6 px-6">
     <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
@@ -97,14 +97,14 @@ Versión 1
         </div>
         <div class="mt-2 flex items-center text-sm text-gray-500">
             <!-- Heroicon name: calendar -->
-            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
             PENC: {{$evaluacion->penc}}
         </div>
         <div class="mt-2 flex items-center text-sm text-gray-500">
             <!-- Heroicon name: calendar -->
-            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
             PEC: {{$evaluacion->pec}}
@@ -114,7 +114,7 @@ Versión 1
         @if($evaluacion->ici)
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
-                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
                 % de Discrepancia: {{$evaluacion->ici}}
@@ -350,7 +350,7 @@ Versión 1
                                             <div class="mt-2 space-y-2">
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
-                                                        <input id="argumentacion2" name="argumentacion2" wire:model.defer="argumentacion2" wire:click="xargumentacion2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$argumentacion2}}>
+                                                        <input id="argumentacion2" name="argumentacion2" wire:model.defer="argumentacion2" wire:click="xargumentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$argumentacion2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
                                                         <label for="argumentacion2" class="font-medium text-gray-700">Ejecutivo usa argumentos no comprobados</label>
@@ -1026,59 +1026,7 @@ Versión 1
                                 <div class="px-4 py-5 bg-blue-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Habilidades Blandas</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">10 - Facturación - ({{$facturacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion2" name="facturacion2" wire:model.defer="facturacion2" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion2" class="font-medium text-gray-700">No Indica/gestiona medio de notificación</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion3" name="facturacion3" wire:model.defer="facturacion3" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion3" class="font-medium text-gray-700">No Informa el cargo proporcional en boleta</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion4" name="facturacion4" wire:model.defer="facturacion4" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion4" class="font-medium text-gray-700">No Indica ciclo de facturación y fecha de vencimiento</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion5" name="facturacion5" wire:model.defer="facturacion5" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion5" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion6" name="facturacion6" wire:model.defer="facturacion6" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion6" class="font-medium text-red-600">Ingresa erróneamente en sistema datos para la fact.</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
                                         <fieldset>
                                             <legend class="text-base font-medium text-gray-900">17 - Atención Respetuosa - ({{$atencion1}})</legend>
                                             <div class="mt-2 space-y-2">

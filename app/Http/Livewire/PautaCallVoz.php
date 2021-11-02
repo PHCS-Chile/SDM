@@ -14,11 +14,11 @@ use App\Http\Livewire\PautaBase;
 /**
  * Class PautaCallVoz
  * @package App\Http\Livewire
- * @version 5
+ * @version 6
  */
 class PautaCallVoz extends PautaBase
 {
-    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables, $grabacion;
+    public $gestiones, $resoluciones, $ruidos, $tiposnegocio, $pecresponsables, $motivos, $grabacion;
     public $saludo1 = '';
     public $saludo2 = '';
     public $saludo3 = '';
@@ -129,11 +129,16 @@ class PautaCallVoz extends PautaBase
      */
     public function inicializar()
     {
-        $this->gestiones = Escala::where('grupo_id',1)->get();
-        $this->resoluciones = Escala::where('grupo_id',2)->get();
-        $this->ruidos = Escala::where('grupo_id',4)->get();
-        $this->tiposnegocio = Escala::where('grupo_id',5)->get();
-        $this->pecresponsables = Escala::where('grupo_id',3)->get();
+        $escalas = [
+            ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => [180, 181, 182]],
+            ['grupo_id' => 2, 'nombre' => 'resoluciones', 'opciones' => [195, 196, 197, 198]],
+            ['grupo_id' => 3, 'nombre' => 'pecresponsables', 'opciones' => [166]],
+            ['grupo_id' => 4, 'nombre' => 'ruidos', 'opciones' => [168]],
+            ['grupo_id' => 5, 'nombre' => 'tiposnegocio', 'opciones' => [171]],
+            ['grupo_id' => 6, 'nombre' => 'motivos', 'opciones' => [179]],
+        ];
+        $this->cargarEscalas($escalas);
+
 
         /* Tipos de atributo al guardar */
         $this->tiposRespuesta = [

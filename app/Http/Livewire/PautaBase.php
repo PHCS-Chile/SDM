@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 8
+ * @version 9
  */
 abstract class PautaBase extends Component
 {
@@ -41,6 +41,8 @@ abstract class PautaBase extends Component
     public static $RESPUESTA_CHECK = 2;
     public static $RESPUESTA_OPCIONES = 3;
     public static $RESPUESTA_OTROS = 4;
+
+    public $opciones = [];
 
 
     public function cargarEvaluacion($evaluacionid=null)
@@ -97,6 +99,18 @@ abstract class PautaBase extends Component
     {
         foreach ($campos as $campo => $regla) {
             unset($this->rules[$campo]);
+        }
+    }
+
+    public function cargarEscalas($escalas, $cargarOpciones = True)
+    {
+        foreach ($escalas as $escala) {
+            $this->{$escala['nombre']} = Escala::where('grupo_id',$escala['grupo_id'])->orderBy('value', 'ASC')->get();
+            if ($cargarOpciones) {
+                foreach ($escala['opciones'] as $opcion) {
+                    $this->opciones[$opcion] = $this->{$escala['nombre']}->pluck('name')->all();
+                }
+            }
         }
     }
 
@@ -462,160 +476,5 @@ abstract class PautaBase extends Component
         }
         return NULL;
     }
-
-    public $opciones = [
-        166 => [
-            "Falta de Formación Agente",
-            "Uso Incorrecto de Herramientas/Procedimientos",
-            "Faltas a la Ética",
-            "Falta a la capacidad de análisis",
-            "Actitud Profesional y/o Habilidades Blandas",
-            "No conoce cambios al procedimiento",
-            "Otro"
-        ],
-        168 => [
-            "Sin Observaciones",
-            "Ruido Ambiente",
-            "Intermitencias",
-            "Audio degradado o ecos",
-            "Alta latencia"
-        ],
-        171 => [
-            "No aplica",
-            "Portabilidad",
-            "Línea Adicional",
-            "Migración PP a SS",
-            "Servicios Hogar",
-            "Cambio de equipo"
-        ],
-        180 => [
-            "Bolsas, Servicios VAS o Servicios Restringidos",
-            "Beneficios Club Entel",
-            "Bloqueo por Robo o Perdida",
-            "Cambio de Equipo",
-            "Cambio de Plan o Condiciones comerciales",
-            "Campaña o Cross-selling",
-            "Canales de Atención",
-            "Carga Manual",
-            "Condiciones Comerciales de Planes, Servicios y Equipo",
-            "Consultas 727",
-            "Contingencia de Servicios",
-            "Estado de Deuda o Reposición",
-            "Explicación de Boleta o Tráfico",
-            "Facturación o Solicitudes Asociadas",
-            "Funciones o Configuración de Equipo",
-            "Nursery",
-            "Objeción de Cobros",
-            "Comunicación o Redes",
-            "Renuncia o Retención",
-            "Roaming o LDI",
-            "Saldo o Cargo en ORGA",
-            "Seguimiento de Negocios",
-            "Servicio Técnico de Equipos",
-            "Venta de Productos y Servicios",
-            "Otras Consultas o Requerimientos",
-            "Medios de Pago o Recarga",
-            "Seguros y Asistencias"
-        ],
-        181 => [
-            "Bolsas, Servicios VAS o Servicios Restringidos",
-            "Beneficios Club Entel",
-            "Bloqueo por Robo o Perdida",
-            "Cambio de Equipo",
-            "Cambio de Plan o Condiciones comerciales",
-            "Campaña o Cross-selling",
-            "Canales de Atención",
-            "Carga Manual",
-            "Condiciones Comerciales de Planes, Servicios y Equipo",
-            "Consultas 727",
-            "Contingencia de Servicios",
-            "Estado de Deuda o Reposición",
-            "Explicación de Boleta o Tráfico",
-            "Facturación o Solicitudes Asociadas",
-            "Funciones o Configuración de Equipo",
-            "Nursery",
-            "Objeción de Cobros",
-            "Comunicación o Redes",
-            "Renuncia o Retención",
-            "Roaming o LDI",
-            "Saldo o Cargo en ORGA",
-            "Seguimiento de Negocios",
-            "Servicio Técnico de Equipos",
-            "Venta de Productos y Servicios",
-            "Otras Consultas o Requerimientos",
-            "Medios de Pago o Recarga",
-            "Seguros y Asistencias"
-        ],
-        182 => [
-            "Bolsas, Servicios VAS o Servicios Restringidos",
-            "Beneficios Club Entel",
-            "Bloqueo por Robo o Perdida",
-            "Cambio de Equipo",
-            "Cambio de Plan o Condiciones comerciales",
-            "Campaña o Cross-selling",
-            "Canales de Atención",
-            "Carga Manual",
-            "Condiciones Comerciales de Planes, Servicios y Equipo",
-            "Consultas 727",
-            "Contingencia de Servicios",
-            "Estado de Deuda o Reposición",
-            "Explicación de Boleta o Tráfico",
-            "Facturación o Solicitudes Asociadas",
-            "Funciones o Configuración de Equipo",
-            "Nursery",
-            "Objeción de Cobros",
-            "Comunicación o Redes",
-            "Renuncia o Retención",
-            "Roaming o LDI",
-            "Saldo o Cargo en ORGA",
-            "Seguimiento de Negocios",
-            "Servicio Técnico de Equipos",
-            "Venta de Productos y Servicios",
-            "Otras Consultas o Requerimientos",
-            "Medios de Pago o Recarga",
-            "Seguros y Asistencias"
-        ],
-        195 => [
-            "Si",
-            "No, por pasos operacionales fuera de línea",
-            "No, por derivación a otro canal",
-            "No, por responsabilidad del Ejecutivo",
-            "No, por contingencias",
-            "No, por otro motivo",
-            "No, Cliente no continua con la atención"
-        ],
-        196 => [
-            "Si",
-            "No, por pasos operacionales fuera de línea",
-            "No, por derivación a otro canal",
-            "No, por responsabilidad del Ejecutivo",
-            "No, por contingencias",
-            "No, por otro motivo",
-            "No, Cliente no continua con la atención"
-        ],
-        197 => [
-            "Si",
-            "No, por pasos operacionales fuera de línea",
-            "No, por derivación a otro canal",
-            "No, por responsabilidad del Ejecutivo",
-            "No, por contingencias",
-            "No, por otro motivo",
-            "No, Cliente no continua con la atención"
-        ],
-        198 => [
-            "Si",
-            "No, por pasos operacionales fuera de línea",
-            "No, por derivación a otro canal",
-            "No, por responsabilidad del Ejecutivo",
-            "No, por contingencias",
-            "No, por otro motivo",
-            "No, Cliente no continua con la atención"
-        ],
-        179 => [
-            "Reclamo",
-            "Consulta",
-            "Requerimiento"
-        ]
-    ];
 
 }
