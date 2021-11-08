@@ -27,6 +27,9 @@ class AtributosSeeder extends Seeder
         Atributo::destroy(167);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(170);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(175);  /* Evita problemas con IDs en versiones iniciales */
+        Atributo::destroy(243);  /* Evita problemas con IDs en versiones iniciales */
+        Atributo::destroy(311);  /* Evita problemas con IDs en versiones iniciales */
+        Atributo::destroy(312);  /* Evita problemas con IDs en versiones iniciales */
     }
 
     /*
@@ -303,6 +306,7 @@ class AtributosSeeder extends Seeder
         ['name' => 'No realiza ofrecimiento de equipo según campaña', 'name_interno' => 'promociones5', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => 1, 'id_primario' => 236, 'name_categoria' => 'PEC'],
         ['name' => 'Omite o Entrega información incorrecta que afectara al cliente', 'name_interno' => 'promociones6', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => 1, 'id_primario' => 236, 'name_categoria' => 'PEC'],
         ['name' => 'Ingresa erróneamente en sistema oferta entregada', 'name_interno' => 'promociones7', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => 1, 'id_primario' => 236, 'name_categoria' => 'PEC'],
+        // Atributo 243 (no existe)
         ['name' => 'Negocio Rechazado posterior al audio', 'name_interno' => 'promociones8', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 236, 'name_categoria' => 'PENC'],
         ['name' => 'Facturación', 'name_interno' => 'facturacion1', 'pauta_id' => 3, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
         ['name' => 'No Indica/gestiona medio de notificación', 'name_interno' => 'facturacion2', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 244, 'name_categoria' => 'PENC'],
@@ -371,10 +375,21 @@ class AtributosSeeder extends Seeder
         ['name' => 'Falta de seguridad al responder preguntas', 'name_interno' => 'dominio4', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 305, 'name_categoria' => 'PENC'],
         ['name' => 'Retroalimentacion', 'name_interno' => 'retroalimentacion', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
         ['name' => 'Comentario Interno', 'name_interno' => 'comentario_interno', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        // Atributo 311 y 312 (no existe)
         ['name' => 'Descripción del Caso', 'name_interno' => 'descripcion_caso', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
         ['name' => 'Respuesta del Ejecutivo', 'name_interno' => 'respuesta_ejecutivo', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        
+        ['name' => 'No informa Canales de postventa consulta/reclamo', 'name_interno' => 'despedida2', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 288, 'name_categoria' => 'PENC'],
+        ['name' => 'No informa canales de reagendamiento de visita', 'name_interno' => 'despedida3', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 288, 'name_categoria' => 'PENC'],
+        ['name' => 'No indica pasos para ingresar a hbo max', 'name_interno' => 'despedida4', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 288, 'name_categoria' => 'PENC'],
+        ['name' => 'No se despide de manera cordial', 'name_interno' => 'despedida5', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 288, 'name_categoria' => 'PENC'],
+        ['name' => 'Rebate de Objeciones', 'name_interno' => 'objeciones1', 'pauta_id' => 3, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'No Aplica', 'name_interno' => 'objeciones2', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 317, 'name_categoria' => 'PENC'],
+        ['name' => 'El ejecutivo usa argumento no comprobados', 'name_interno' => 'objeciones3', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 317, 'name_categoria' => 'PENC'],
+        ['name' => 'No se despide de manera cordial', 'name_interno' => 'objeciones4', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 317, 'name_categoria' => 'PENC'],
+        ['name' => 'Manipula información o procedimiento para concretar venta', 'name_interno' => 'objeciones5', 'pauta_id' => 3, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 317, 'name_categoria' => 'PENC'],
 
-
+        
     ];
 
 }

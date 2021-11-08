@@ -15,22 +15,6 @@ Versión 3
                         <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno">{{$comentario_interno}}</textarea>
                     </div>
                 </div>
-                <div>
-                    <label for="descripcion_caso" class="block text-sm font-medium text-gray-700">
-                        Descripción del Caso
-                    </label>
-                    <div class="mt-1">
-                        <textarea id="descripcion_caso" name="descripcion_caso" wire:model.defer="descripcion_caso" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso">{{$descripcion_caso}}</textarea>
-                    </div>
-                </div>
-                <div>
-                    <label for="respuesta_ejecutivo" class="block text-sm font-medium text-gray-700">
-                        Respuesta del Ejecutivo
-                    </label>
-                    <div class="mt-1">
-                        <textarea id="respuesta_ejecutivo" name="respuesta_ejecutivo" wire:model.defer="respuesta_ejecutivo" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la Respuesta del Ejecutivo">{{$respuesta_ejecutivo}}</textarea>
-                    </div>
-                </div>
                 <small class="text-red-600 font-bold">{{ $errors->first('respuesta_ejecutivo') }}</small>
                 <div>
                     <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
@@ -107,7 +91,7 @@ Versión 3
             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
-            PEC: {{$evaluacion->pec}}
+            PEC: {{$evaluacion->pecu}}
         </div>
 
 
@@ -231,7 +215,7 @@ Versión 3
                                                         <input id="deteccion2" name="deteccion2" wire:model.defer="deteccion2" wire:click="xdeteccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$deteccion2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="deteccion2" class="font-medium text-gray-700">No Aplica</label>
+                                                        <label for="deteccion2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start">
@@ -332,7 +316,7 @@ Versión 3
                                                         <input id="mejoralternativa2" name="mejoralternativa2" wire:model.defer="mejoralternativa2" wire:click="xmejoralternativa" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$mejoralternativa2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="mejoralternativa2" class="font-medium text-gray-700">No Aplica</label>
+                                                        <label for="mejoralternativa2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
                                                 </div>
                                                 <div class="flex items-start">
@@ -370,6 +354,43 @@ Versión 3
                                                     </div>
                                                     <div class="ml-3 text-sm">
                                                         <label for="argumentacion4" class="font-medium text-red-600">Manipula información o procedimiento para concretar venta</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <legend class="text-base font-medium text-gray-900">8 - Rebate de Objeciones - ({{$objeciones1}})</legend>
+                                            <div class="mt-2 space-y-2">
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="objeciones2" name="objeciones2" wire:model.defer="objeciones2" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones2}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="objeciones2" class="font-medium text-yellow-500">No Aplica</label>
+                                                    </div>
+                                                </div>   
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="objeciones3" name="objeciones3" wire:model.defer="objeciones3" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones3}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="objeciones3" class="font-medium text-gray-700">El ejecutivo usa argumento no comprobados</label>
+                                                    </div>
+                                                </div>                                             
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="objeciones4" name="objeciones4" wire:model.defer="objeciones4" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones4}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="objeciones4" class="font-medium text-red-600">No rebate objeciones</label>
+                                                    </div>
+                                                </div>
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="objeciones5" name="objeciones5" wire:model.defer="objeciones5" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones5}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="objeciones5" class="font-medium text-red-600">Manipula información o procedimiento para concretar venta</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -492,7 +513,7 @@ Versión 3
                                                         <input id="promociones2" name="promociones2" wire:model.defer="promociones2" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="promociones2" class="font-medium text-gray-700">No Aplica</label>
+                                                        <label for="promociones2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -546,16 +567,7 @@ Versión 3
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones8" name="promociones8" wire:model.defer="promociones8" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones8}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones8" class="font-medium text-gray-700">Negocio Rechazado posterior al audio</label>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            
                                         </fieldset>
                                     </div>
                                 </div>
@@ -645,7 +657,7 @@ Versión 3
                                                         <input id="cargos2" name="cargos2" wire:model.defer="cargos2" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="cargos2" class="font-medium text-gray-700">No Aplica</label>
+                                                        <label for="cargos2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -725,7 +737,7 @@ Versión 3
                                                         <input id="equipos2" name="equipos2" wire:model.defer="equipos2" wire:click="xequipos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$equipos2}}>
                                                     </div>
                                                     <div class="ml-3 text-sm">
-                                                        <label for="equipos2" class="font-medium text-gray-700">No Aplica</label>
+                                                        <label for="equipos2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -1001,19 +1013,45 @@ Versión 3
                                         </fieldset>
                                         <fieldset>
                                             <legend class="text-base font-medium text-gray-900">16 - Despedida e información de cierre - ({{$despedida1}})</legend>
-                                            <div class="mt-4">
-                                                <span class="text-gray-700 text-sm">Despedida e información de cierre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="despedida1" wire:model.lazy="despedida1" value="Si" {{ $despedida1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="despedida1" wire:model.lazy="despedida1" value="No" {{ $despedida1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
+                                            <div class="mt-2 space-y-2">
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="despedida2" name="despedida2" wire:model.defer="despedida2" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida2}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="despedida2" class="font-medium text-gray-700">No informa Canales de postventa consulta/reclamo</label>
+                                                    </div>
                                                 </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('despedida1') }}</small>
+                                            </div>
+                                            <div class="mt-2 space-y-2">
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="despedida3" name="despedida3" wire:model.defer="despedida3" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida3}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="despedida3" class="font-medium text-gray-700">No informa canales de reagendamiento de visita</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 space-y-2">
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="despedida4" name="despedida4" wire:model.defer="despedida4" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida4}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="despedida4" class="font-medium text-gray-700">No indica pasos para ingresar a hbo max</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mt-2 space-y-2">
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="despedida5" name="despedida5" wire:model.defer="despedida5" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida5}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="despedida5" class="font-medium text-gray-700">No se despide de manera cordial</label>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </fieldset>
                                     </div>

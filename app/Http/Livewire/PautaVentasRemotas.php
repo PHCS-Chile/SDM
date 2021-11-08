@@ -44,6 +44,11 @@ class PautaVentasRemotas extends PautaBase
     public $argumentacion2 = '';
     public $argumentacion3 = '';
     public $argumentacion4 = '';
+    public $objeciones1 = '';
+    public $objeciones2 = '';
+    public $objeciones3 = '';
+    public $objeciones4 = '';
+    public $objeciones5 = '';
     public $condiciones1 = '';
     public $condiciones2 = '';
     public $condiciones3 = '';
@@ -60,7 +65,6 @@ class PautaVentasRemotas extends PautaBase
     public $promociones5 = '';
     public $promociones6 = '';
     public $promociones7 = '';
-    public $promociones8 = '';
     public $facturacion1 = '';
     public $facturacion2 = '';
     public $facturacion3 = '';
@@ -106,6 +110,10 @@ class PautaVentasRemotas extends PautaBase
     public $scripts4 = '';
     public $scripts5 = '';
     public $despedida1 = '';
+    public $despedida2 = '';
+    public $despedida3 = '';
+    public $despedida4 = '';
+    public $despedida5 = '';
     public $atencion1 = '';
     public $atencion2 = '';
     public $atencion3 = '';
@@ -128,34 +136,20 @@ class PautaVentasRemotas extends PautaBase
     public $dominio4 = '';
     public $retroalimentacion = '';
     public $comentario_interno = '';
-    public $descripcion_caso = '';
-    public $respuesta_ejecutivo = '';
 
     public function inicializar()
     {
-        $escalas = [
-            ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => []],
-            ['grupo_id' => 2, 'nombre' => 'resoluciones', 'opciones' => []],
-            ['grupo_id' => 3, 'nombre' => 'pecresponsables', 'opciones' => []],
-            ['grupo_id' => 4, 'nombre' => 'ruidos', 'opciones' => []],
-            ['grupo_id' => 5, 'nombre' => 'tiposnegocio', 'opciones' => []],
-            ['grupo_id' => 6, 'nombre' => 'motivos', 'opciones' => []],
-        ];
-        $this->cargarEscalas($escalas, False);
-
-
+        
         /* Tipos de atributo al guardar */
         $this->tiposRespuesta = [
-            PautaBase::$RESPUESTA_CHECK => [202, 203, 205, 206, 208, 209, 211, 212, 213, 215, 216, 217, 218, 219, 221, 222, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 243, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255, 256, 258, 259, 260, 261, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 277, 278, 279, 280, 281, 282, 284, 285, 286, 287, 290, 291, 292, 293, 294, 295, 297, 298, 299, 300, 301, 303, 304, 306, 307, 308],
+            PautaBase::$RESPUESTA_CHECK => [202, 203, 205, 206, 208, 209, 211, 212, 213, 215, 216, 217, 218, 219, 221, 222, 224, 225, 226, 228, 229, 230, 231, 232, 233, 234, 235, 237, 238, 239, 240, 241, 242, 245, 246, 247, 248, 249, 251, 252, 253, 254, 255, 256, 258, 259, 260, 261, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275, 277, 278, 279, 280, 281, 282, 284, 285, 286, 287, 290, 291, 292, 293, 294, 295, 297, 298, 299, 300, 301, 303, 304, 306, 307, 308, 313, 314, 315, 316, 318, 319, 320, 321],
             PautaBase::$RESPUESTA_OPCIONES => [],
-            PautaBase::$RESPUESTA_SI_NO => [288],
-            PautaBase::$RESPUESTA_OTROS => [309, 310, 311, 312],
+            PautaBase::$RESPUESTA_OTROS => [309, 310],
         ];
 
 
         /* Reglas de validación */
         $this->agregarValidaciones([
-            'despedida1' => 'required',
             'retroalimentacion' => 'required',
         ]);
         $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
@@ -174,24 +168,22 @@ class PautaVentasRemotas extends PautaBase
         $this->guardarRespuestas([220, 221, 222], 'mejoralternativa', 1, 2);
         $this->guardarRespuestas([223, 224, 225, 226], 'argumentacion', 1);
         $this->guardarRespuestas([227, 228, 229, 230, 231, 232, 233, 234, 235], 'condiciones', 1);
-        $this->guardarRespuestas([236, 237, 238, 239, 240, 241, 242, 243], 'promociones', 1, 2);
+        $this->guardarRespuestas([236, 237, 238, 239, 240, 241, 242], 'promociones', 1, 2);
         $this->guardarRespuestas([244, 245, 246, 247, 248, 249], 'facturacion', 1);
         $this->guardarRespuestas([250, 251, 252, 253, 254, 255, 256], 'cargos', 1, 2);
         $this->guardarRespuestas([257, 258, 259, 260, 261], 'equipos', 1, 2);
         $this->guardarRespuestas([262, 263, 264, 265, 266, 267, 268, 269, 270, 271, 272, 273, 274, 275], 'validacion', 1);
         $this->guardarRespuestas([276, 277, 278, 279, 280, 281, 282], 'despacho', 1);
         $this->guardarRespuestas([283, 284, 285, 286, 287], 'scripts', 1);
-        $this->guardarRespuesta(288, ['text' => $this->despedida1]);
+        $this->guardarRespuestas([288, 313, 314, 315, 316], 'despedida', 1);        
         $this->guardarRespuestas([289, 290, 291, 292, 293, 294, 295], 'atencion', 1);
         $this->guardarRespuestas([296, 297, 298, 299, 300, 301], 'lenguaje', 1);
         $this->guardarRespuestas([302, 303, 304], 'claridad', 1);
         $this->guardarRespuestas([305, 306, 307, 308], 'dominio', 1);
+        $this->guardarRespuestas([317, 318, 319, 320, 321], 'objeciones', 1);
 
         $this->guardarRespuesta(309, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(310, ['memo' => $this->comentario_interno]);
-        $this->guardarRespuesta(311, ['memo' => $this->descripcion_caso]);
-        $this->guardarRespuesta(312, ['memo' => $this->respuesta_ejecutivo]);
-
 
     }
 
@@ -224,13 +216,14 @@ class PautaVentasRemotas extends PautaBase
             296 => 4, // lenguaje
             302 => 8, // claridad
             305 => 4, // dominio
+            317 => 4, // objeciones
         ];
         $this->calcularPENC($ponderadores);
         $atributosCriticos = [
             'deteccion4', 'evaluacion4', 'evaluacion5', 'evaluacion6', 'argumentacion3', 'argumentacion4',
             'condiciones8', 'condiciones9', 'promociones5', 'promociones6', 'promociones7', 'facturacion5',
             'facturacion6', 'cargos6', 'cargos7', 'equipos5', 'validacion13', 'validacion14', 'despacho5',
-            'despacho6', 'despacho7', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'atencion7'
+            'despacho6', 'despacho7', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'atencion7', 'objeciones4', 'objeciones5'
         ];
         $this->calcularPECSimple($atributosCriticos);
     }
@@ -275,6 +268,11 @@ class PautaVentasRemotas extends PautaBase
         $this->validarCamposNoAplica([], [2, 3, 4],1,'argumentacion');
     }
 
+    public function xobjeciones()
+    {
+        $this->validarCamposNoAplica([2], [3, 4, 5],1,'objeciones');
+    }
+
     public function xcondiciones()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9],1,'condiciones');
@@ -282,7 +280,7 @@ class PautaVentasRemotas extends PautaBase
 
     public function xpromociones()
     {
-        $this->validarCamposNoAplica([2], [3, 4, 5, 6, 7, 8],1,'promociones');
+        $this->validarCamposNoAplica([2], [3, 4, 5, 6, 7],1,'promociones');
     }
 
     public function xfacturacion()
@@ -293,6 +291,11 @@ class PautaVentasRemotas extends PautaBase
     public function xcargos()
     {
         $this->validarCamposNoAplica([2], [3, 4, 5, 6, 7],1,'cargos');
+    }
+
+    public function xdespedida()
+    {
+        $this->validarCamposNoAplica([], [2, 3, 4, 5],1,'despedida');
     }
 
     public function xequipos()
