@@ -123,7 +123,7 @@ abstract class PautaBase extends Component
     {
         $this->validate($this->rules);
         $suma = 0;
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id',1)->get();
+        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id', Respuesta::PH)->get();
         $atributosNoMemo = 0;
         foreach ($respuestas as $respuesta) {
             if ($respuesta->atributo->name_categoria != "Memo") {
@@ -322,6 +322,7 @@ abstract class PautaBase extends Component
             $this->evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
             Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 5]);
             $this->evaluacion->estado_id = 5;
+            Notificacion::limpiarNotificaciones($this->evaluacion->id);
 
             if($this->evaluacion->nivel_ec > 1 && $this->evaluacion->estado_reporte == 11){
                 $this->evaluacion->estado_reporte = 12;

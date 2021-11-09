@@ -10,15 +10,17 @@
 <script>
     // Apertura de los modales
     var modalActivo = "";
-    var openmodal = document.querySelectorAll('.modal-open')
+    var openmodal = document.querySelectorAll('.modal-open');
     for (var i = 0; i < openmodal.length; i++) {
         openmodal[i].addEventListener('click', function(event){
             event.preventDefault()
             if (modalActivo === "") {
                 var id = event.currentTarget.getAttribute("modal-target")
-                abrirModal(id)
+                abrirModal(id);
+                modalActivo = id;
             } else {
-                cerrarModal()
+                cerrarModal();
+                modalActivo = "";
             }
 
         })

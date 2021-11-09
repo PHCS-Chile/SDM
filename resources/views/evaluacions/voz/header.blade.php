@@ -1,6 +1,6 @@
 {{--
 Plantilla: Header resumen para Call Voz
-Versión 7
+Versión 8
 --}}
 @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
     <data></data>
@@ -300,7 +300,7 @@ Versión 7
                                         </div>
 
                                         <div class="w-px-150 pb-0.5">
-                                            <button class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                            <button modal-target="historial" class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
@@ -308,11 +308,11 @@ Versión 7
                                             </button>
                                         </div>
                                         <div class="w-px-150 p-0.5">
-                                            <button modal-target="historial2" class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                            <button class="cursor-not-allowed disabled:bg-gray-400 disabled:opacity-50 disabled modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-gray-400" disabled>
                                                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                 </svg>
-                                                Historial2
+                                                Respuestas del centro
                                             </button>
                                         </div>
 
@@ -352,7 +352,7 @@ Versión 7
                         @if($evaluacionfinal->user_completa)
                         <div class="align-baseline text-left w-full -mb-4 text-gray-800 text-xs">Evaluada por <strong>{{ $evaluacionfinal->user_completa }}</strong> el <strong>{{ date('d-m-Y H:i', strtotime($evaluacionfinal->fecha_completa)) }}</strong></div>
                         @endif
-                        <div class="align-baseline text-right w-full -mb-4 text-gray-800 text-xs">Bloqueada para <strong>{{ App\Models\User::find($bloqueo->user_id)->name }}</strong> hasta las <strong>{{ $bloqueo->created_at->add(new DateInterval('PT120M'))->format('H:i') }}</strong></div>
+                        <div class="align-baseline text-right w-full -mb-4 text-gray-800 text-xs">Bloqueada para <strong>{{ App\Models\User::find($bloqueo->user_id)->name }}</strong> hasta las <strong>{{ $bloqueo->created_at->add(new DateInterval('PT' . \App\Models\Bloqueo::DURACION . 'M'))->format('H:i') }}</strong></div>
                     </div>
 
                 </div>
@@ -362,8 +362,9 @@ Versión 7
     </div>
 
     <!-- Modal -->
-    @include('evaluacions.voz.modal_historial')
-    @include('evaluacions.voz.modal_historial2')
+    @include('evaluacions.voz.modal_historial', ['modal' => $modales[1]])
+{{--    @include('evaluacions.voz.modal_centro', ['modal' => $modales[0]])--}}
+
 
     <!-- Inicializacion de campos 'copy to clipboard' -->
     <script>

@@ -19,13 +19,13 @@
                 </div>
             </div>
             <!--Body-->
-            @if(count($modal['cambios']) > 0)
-                @foreach($modal['cambios'] as $cambio)
-                    <p><strong>{{ \App\Models\User::find($cambio->user_id)->name }}</strong>: {{ $cambio->detalle }}</p>
+            @if(count($modal['respuestas']) > 0)
+                @foreach($modal['respuestas'] as $respuesta)
+                    <p><strong>{{ $respuesta->atributo->name }}</strong>: {{ $respuesta->respuesta_text }}</p>
                 @endforeach
             @else
-                <p><i class="text-gray-500">Sin cambios.</i></p>
-            @endif
+                <p><i class="text-gray-500">Sin respuestas del centro.</i></p>
+        @endif
 
         <!--Footer-->
             <div class="flex justify-end pt-2">
