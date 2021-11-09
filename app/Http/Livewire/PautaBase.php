@@ -249,6 +249,25 @@ abstract class PautaBase extends Component
         return $arreglo;
     }
 
+    public function buscarBrechas($atributosPEC)
+    {
+        foreach($atributosPEC as $atributoPEC) {
+            if ($this->{$atributosPEC->name_interno} == "checked") {
+                $respuestaCentro = Respuesta::where('origen_id',3)
+                    ->where('evaluacion_id', $this->evaluacion->id)
+                    ->where('atributo_id', $atributoPEC->id)
+                    ->orderBy('id', 'DESC')->first();
+                if($respuestaCentro) {
+                    if ($respuestaCentro->respuesta_int == 0) {
+                        $this->marca_ec = 1;
+                        return;
+                    }
+                }
+            }
+        }
+        $this->marca_ec = 0;
+    }
+
     public function calcularPENC($ponderadores)
     {
         $sumatotal = 0;

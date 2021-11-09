@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Atributo;
 use App\Models\Escala;
 use App\Models\Evaluacion;
 use App\Models\Grabacion;
@@ -407,20 +408,26 @@ class PautaCallVoz extends PautaBase
             }
         }
 
-        $errorescriticos = [146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165];
-        $marca_ec = 0;
-        $respuestascentro = $this->evaluacion->respuestas->where('origen_id',3);
-        foreach ($respuestascentro as $respuesta){
-            foreach($errorescriticos as $atributo_id){
-                if($respuesta->atributo_id == $atributo_id){
-                    if($respuesta->respuesta_int == 0 && $this->{$respuesta->atributo->name_interno} == 'checked'){
-                        $marca_ec = 1;
-                        break;
-                    }
-                }
-            }
-        }
-        $this->marca_ec = $marca_ec;
+        // Buscar ocurrencia de errores críticos
+        $atributosPEC = Atributo::where('pauta_id', 2)
+            ->whereIn('name_categoria', ['PEC NEG', 'PEC UF', 'PEC CUMP'])->get();
+        $this->buscarBrechas($atributosPEC);
+
+//
+//        $errorescriticos = [146,147,148,149,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165];
+//        $marca_ec = 0;
+//        $respuestascentro = $this->evaluacion->respuestas->where('origen_id',3);
+//        foreach ($respuestascentro as $respuesta){
+//            foreach($errorescriticos as $atributo_id){
+//                if($respuesta->atributo_id == $atributo_id){
+//                    if($respuesta->respuesta_int == 0 && $this->{$respuesta->atributo->name_interno} == 'checked'){
+//                        $marca_ec = 1;
+//                        break;
+//                    }
+//                }
+//            }
+//        }
+//        $this->marca_ec = $marca_ec;
 
         if ($hayMarcado) {
             $this->agregarValidaciones(['pec_responsable' => 'required']);
