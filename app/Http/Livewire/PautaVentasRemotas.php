@@ -226,7 +226,25 @@ class PautaVentasRemotas extends PautaBase
             'facturacion6', 'cargos6', 'cargos7', 'equipos5', 'validacion13', 'validacion14', 'despacho5',
             'despacho6', 'despacho7', 'scripts2', 'scripts3', 'scripts4', 'scripts5', 'atencion7', 'objeciones4', 'objeciones5'
         ];
-        $this->calcularPECSimple($atributosCriticos);
+        $atributosCriticosLeves = [
+            'deteccion4', 'evaluacion4',
+            'promociones5',
+            'validacion13', 'despacho5',
+            'scripts5', 'objeciones4'
+        ];
+        $atributosCriticosIntermedios = [
+            'evaluacion5', 'argumentacion3',
+            'condiciones8', 'facturacion5',
+            'cargos6', 'equipos5',
+            'despacho7', 'scripts3', 'scripts4',
+        ];
+        $atributosCriticosGraves = [
+            'evaluacion6', 'argumentacion4',
+            'condiciones9', 'promociones6', 'promociones7',
+            'facturacion6', 'cargos7', 'validacion14',
+            'despacho6', 'scripts2', 'atencion7', 'objeciones5'
+        ];
+        $this->calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves);
 
         // Buscar ocurrencia de errores críticos
         $atributosPEC = Atributo::where('pauta_id', 3)

@@ -28,14 +28,14 @@ Versión 3
                 <div></div>
 
                 <div>
-                    <label for="comentario_interno" class="block text-sm font-medium text-gray-700">
+                    <label for="comentario_calidad" class="block text-sm font-medium text-gray-700">
                         Comentario Calidad
                     </label>
                     <div class="mt-1">
-                        <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario de calidad">{{$comentario_interno}}</textarea>
+                        <textarea id="comentario_calidad" name="comentario_calidad" wire:model.defer="comentario_calidad" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario de calidad">{{$comentario_calidad}}</textarea>
                     </div>
                 </div>
-                <small class="text-red-600 font-bold">{{ $errors->first('comentario_interno') }}</small>
+                <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
                 <button type="submit"  wire:click="save" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <!-- Heroicon name: check -->
                     <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -43,7 +43,7 @@ Versión 3
                     </svg>
                     Guardar
                 </button>
-
+                @if(Auth::user()->perfil  == 1 && $marca_ici == 0)
                 <button type="submit"  wire:click="ici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <!-- Heroicon name: check -->
                     <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -51,6 +51,7 @@ Versión 3
                     </svg>
                     Discrepancia
                 </button>
+                @endif
                 <div wire:loading>
                     Guardando...
                 </div>
@@ -368,7 +369,7 @@ Versión 3
                                                     <div class="ml-3 text-sm">
                                                         <label for="objeciones2" class="font-medium text-yellow-500">No Aplica</label>
                                                     </div>
-                                                </div>   
+                                                </div>
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="objeciones3" name="objeciones3" wire:model.defer="objeciones3" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones3}}>
@@ -376,7 +377,7 @@ Versión 3
                                                     <div class="ml-3 text-sm">
                                                         <label for="objeciones3" class="font-medium text-gray-700">El ejecutivo usa argumento no comprobados</label>
                                                     </div>
-                                                </div>                                             
+                                                </div>
                                                 <div class="flex items-start">
                                                     <div class="flex items-center h-5">
                                                         <input id="objeciones4" name="objeciones4" wire:model.defer="objeciones4" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones4}}>
@@ -567,7 +568,7 @@ Versión 3
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </fieldset>
                                     </div>
                                 </div>

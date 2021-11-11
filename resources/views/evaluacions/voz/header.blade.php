@@ -362,8 +362,8 @@ Versión 8
     </div>
 
     <!-- Modal -->
-    @include('evaluacions.voz.modal_historial', ['modal' => $modales[1]])
-{{--    @include('evaluacions.voz.modal_centro', ['modal' => $modales[0]])--}}
+    {{--    @include('evaluacions.voz.modal_historial', ['modal' => $modales[1]])
+        @include('evaluacions.voz.modal_centro', ['modal' => $modales[0]])--}}
 
 
     <!-- Inicializacion de campos 'copy to clipboard' -->

@@ -252,7 +252,7 @@ abstract class PautaBase extends Component
     public function buscarBrechas($atributosPEC)
     {
         foreach($atributosPEC as $atributoPEC) {
-            if ($this->{$atributosPEC->name_interno} == "checked") {
+            if ($this->{$atributoPEC->name_interno} == "checked") {
                 $respuestaCentro = Respuesta::where('origen_id',3)
                     ->where('evaluacion_id', $this->evaluacion->id)
                     ->where('atributo_id', $atributoPEC->id)
@@ -286,7 +286,7 @@ abstract class PautaBase extends Component
         $this->evaluacion->penc = ($suma / $sumatotal) * 100;
     }
 
-    public function calcularPECSimple($atributosCriticos)
+    public function calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves)
     {
         $suma = 0;
         foreach ($atributosCriticos as $atributo) {
@@ -294,6 +294,23 @@ abstract class PautaBase extends Component
                 $suma++;
             }
         }
+
+        foreach ($atributosCriticosLeves as $atributo) {
+            if ($this->{$atributo} == "checked") {
+                $this->evaluacion->nivel_ec = 1;
+            }
+        }
+        foreach ($atributosCriticosIntermedios as $atributo) {
+            if ($this->{$atributo} == "checked") {
+                $this->evaluacion->nivel_ec = 2;
+            }
+        }
+        foreach ($atributosCriticosGraves as $atributo) {
+            if ($this->{$atributo} == "checked") {
+                $this->evaluacion->nivel_ec = 3;
+            }
+        }
+
         $this->evaluacion->pecu = ($suma / count($atributosCriticos)) * 100;
 
     }
@@ -310,18 +327,18 @@ abstract class PautaBase extends Component
                 }
             }
             $this->evaluacion->{$tipo} = $puntajes[$tipo];
-            if($this->evaluacion->pecu == 0){
-                if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
-                    $this->evaluacion->nivel_ec = 3;
-                }else{
-                    $this->evaluacion->nivel_ec = 2;
-                }
+        }
+        if($this->evaluacion->pecu == 0){
+            if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
+                $this->evaluacion->nivel_ec = 3;
             }else{
-                if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
-                    $this->evaluacion->nivel_ec = 2;
-                }else{
-                    $this->evaluacion->nivel_ec = 1;
-                }
+                $this->evaluacion->nivel_ec = 2;
+            }
+        }else{
+            if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
+                $this->evaluacion->nivel_ec = 2;
+            }else{
+                $this->evaluacion->nivel_ec = 1;
             }
         }
     }
