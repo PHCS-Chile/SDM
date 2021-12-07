@@ -481,6 +481,10 @@ class PautaCallVoz extends PautaBase
             $this->agregarValidaciones($campos);
         } else {
             $this->quitarValidaciones($campos);
+            $this->deteccion2 = '';
+            $this->infocorrecta2 = '';
+            $this->gestiona2 = '';
+            $this->resolucion2 = '';
         }
     }
 
@@ -493,10 +497,14 @@ class PautaCallVoz extends PautaBase
             'gestiona3' => 'required',
             'resolucion3' => 'required',
         ];
-        if ($this->tipogestion2 != '') {
+        if ($this->tipogestion3 != '') {
             $this->agregarValidaciones($campos);
         } else {
             $this->quitarValidaciones($campos);
+            $this->deteccion3 = '';
+            $this->infocorrecta3 = '';
+            $this->gestiona3 = '';
+            $this->resolucion3 = '';
         }
     }
 
