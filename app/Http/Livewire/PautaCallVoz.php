@@ -167,6 +167,7 @@ class PautaCallVoz extends PautaBase
         ]);
         $this->agregarValidaciones([
             'descripcion_caso' => 'required',
+            'respuesta_ejecutivo' => 'required',
             'otro_tiponegocio' => 'required',
             'otro_ruidoenllamada' => 'required',
             'otro_frasesyscripts' => 'required'
