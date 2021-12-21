@@ -138,7 +138,7 @@ class PautaCallVoz extends PautaBase
     {
         $escalas = [
             ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => [180, 181, 182]],
-            ['grupo_id' => 2, 'nombre' => 'resoluciones', 'opciones' => [195, 196, 197, 198]],
+            ['grupo_id' => 7, 'nombre' => 'resoluciones', 'opciones' => [195, 196, 197, 198]],
             ['grupo_id' => 3, 'nombre' => 'pecresponsables', 'opciones' => [166]],
             ['grupo_id' => 4, 'nombre' => 'ruidos', 'opciones' => [168]],
             ['grupo_id' => 5, 'nombre' => 'tiposnegocio', 'opciones' => [171]],
@@ -507,6 +507,9 @@ class PautaCallVoz extends PautaBase
             $this->gestiona3 = '';
             $this->resolucion3 = '';
         }
+    }
+    public function xresolucion1(){
+        $this->resolucion4 = $this->resolucion1;
     }
 
 }
