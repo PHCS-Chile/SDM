@@ -20,7 +20,7 @@ use Livewire\Component;
  * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
  *
  * @package App\Http\Livewire
- * @version 10
+ * @version 11
  */
 abstract class PautaBase extends Component
 {
@@ -356,9 +356,7 @@ abstract class PautaBase extends Component
         if(Auth::user()->perfil == 1){
             $this->evaluacion->user_supervisor = Auth::user()->name;
             $this->evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
-            Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 5]);
-            $this->evaluacion->estado_id = 5;
-            Notificacion::limpiarNotificaciones($this->evaluacion->id);
+            $this->evaluacion->cambiarEstado(5);
 
             if($this->evaluacion->nivel_ec > 1 && $this->evaluacion->estado_reporte == 11){
                 $this->evaluacion->estado_reporte = 12;
@@ -368,18 +366,13 @@ abstract class PautaBase extends Component
             }
         }else{
             if($this->marca_ec == 1){
-                Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 3]);
-                $this->evaluacion->estado_id = 3;
+                $this->evaluacion->cambiarEstado(3);
                 if($this->evaluacion->estado_reporte == NULL){
                     $this->evaluacion->estado_reporte = 11;
                 }
             }else{
-                Log::log($this->evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$this->evaluacion->estado_id, 2]);
-                $this->evaluacion->estado_id = 2;
+                $this->evaluacion->cambiarEstado(2);
             }
-        }
-        if ($this->evaluacion->estado_id == 3) {
-            Notificacion::notificar($this->evaluacion->id);
         }
         $this->evaluacion->comentario_calidad = $this->comentario_calidad;
         $this->evaluacion->save();

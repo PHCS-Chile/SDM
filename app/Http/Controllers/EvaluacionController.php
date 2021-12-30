@@ -23,7 +23,7 @@ use Auth;
 /**
  * Class EvaluacionController
  * @package App\Http\Controllers
- * @version 12
+ * @version 13
  */
 
 class EvaluacionController extends Controller
@@ -135,21 +135,14 @@ class EvaluacionController extends Controller
             $evaluacion->user_id = Auth::user()->id;
             $message = "El chat se guardo correctamente";
         } elseif ($request->has('form3')) {
-            Log::log($evaluacion->id, Log::ACCION_CAMBIO_ESTADO, [$evaluacion->estado_id, $request->cambioestado]);
-            $evaluacion->estado_id = $request->cambioestado;
-            if(Auth::user()->perfil == 1 && $evaluacion->estado_id == 5) {
-                Notificacion::limpiarNotificaciones($evaluacion->id);
-            }
+            $evaluacion->cambiarEstado($request->cambioestado);
             $message = "El estado se cambio correctamente";
         } elseif ($request->has('descartarEval')) {
-            $evaluacion->estado_id = 6;
+            $evaluacion->cambiarEstado(6);
             $message = "La evaluación se descarto correctamente";
         } elseif ($request->has('enviarRevision')) {
-            $evaluacion->estado_id = 3;
+            $evaluacion->cambiarEstado(3);
             $message = "La evaluación se envió a Revisión";
-        }
-        if ($evaluacion->estado_id == 3) {
-            Notificacion::notificar($evaluacionid);
         }
         $evaluacion->save();
         return back()->with("status", $message);

@@ -4,13 +4,14 @@ namespace Database\Factories;
 
 use App\Models\Asignacion;
 use App\Models\Evaluacion;
+use App\Models\Notificacion;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
  * Class EvaluacionFactory
  * @package Database\Factories
- * @version 6
+ * @version 7
  */
 class EvaluacionFactory extends Factory
 {

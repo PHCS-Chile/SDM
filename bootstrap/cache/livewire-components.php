@@ -10,4 +10,5 @@
   'pauta-digital' => 'App\\Http\\Livewire\\PautaDigital',
   'pauta-ventas-remotas' => 'App\\Http\\Livewire\\PautaVentasRemotas',
   'reportes' => 'App\\Http\\Livewire\\Reportes',
+  'vinculos' => 'App\\Http\\Livewire\\Vinculos',
 );
