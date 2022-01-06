@@ -66,6 +66,12 @@ Versión 5
                         </x-jet-nav-link>
                     @endif
 
+                    @if(Auth::user()->perfil == 2)
+                        <x-jet-nav-link href="{{ route('mis-evaluaciones.index') }}" :active="request()->routeIs('mis-evaluaciones.index')">
+                            {{ __('Mis Evaluaciones') }}
+                        </x-jet-nav-link>
+                    @endif
+
                     @if(Auth::user()->perfil == 1)
                         <div class="hidden sm:flex sm:items-center sm:ml-6">
                             <x-jet-dropdown align="right" width="48">

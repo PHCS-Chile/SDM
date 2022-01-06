@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AsignacionController;
 use App\Http\Livewire\Calidad;
 use App\Http\Livewire\Avances;
+use App\Http\Livewire\MisEvaluaciones;
 
 /*
 |--------------------------------------------------------------------------
@@ -59,6 +60,7 @@ Route::post('/reportes/crear', [EvaluacionController::class, 'crearReporte'])->n
 
 Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/avances',Avances::class)->name('avances.index')->middleware(['auth:sanctum', 'verified']);
+Route::get('/misevaluaciones',MisEvaluaciones::class)->name('mis-evaluaciones.index')->middleware(['auth:sanctum', 'verified']);
 
 Route::get('/evaluacion/{evaluacionid}',[EvaluacionController::class,'index'])->name('evaluacions.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/evaluacion/{evaluacionid}/chat',[EvaluacionController::class,'chat'])->name('evaluacions.chat')->middleware(['auth:sanctum', 'verified']);

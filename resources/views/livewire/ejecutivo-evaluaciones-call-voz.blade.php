@@ -30,6 +30,9 @@ Versión 3
                 </div>
             </th>
             <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                Evaluador
+            </th>
+            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 <p>Estado Grabación</p>
                 <div class="col-span-6 sm:col-span-3">
 
@@ -91,6 +94,11 @@ Versión 3
                       {{$evaluacion->estado->name}}
                     </span>
 
+                </td>
+                <td class="px-6 py-1 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                      {{$evaluacion->user_completa}}
+                    </span>
                 </td>
                 <td class="px-6 py-1 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado_conversacion == 8) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
