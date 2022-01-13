@@ -199,7 +199,9 @@ abstract class PautaBase extends Component
             foreach ($correlativosNormales as $correlativo) {
                 $this->{$familia . $correlativo} = "";
             }
-            $this->{$familia . $correlativoPadre} = "No Aplica";
+            if ($correlativoPadre) {
+                $this->{$familia . $correlativoPadre} = "No Aplica";
+            }
         } else if ($this->hayCasillaMarcada($correlativosNormales, $familia)) {
             $this->{$familia . $correlativoPadre} = "No";
         } else {
