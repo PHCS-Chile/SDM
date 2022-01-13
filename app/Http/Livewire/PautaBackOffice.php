@@ -174,20 +174,20 @@ class PautaBackOffice extends PautaBase
     {
 
         $ponderadores = [
-            328 => 8,    // saludo
-            331 => 8,   // manejosilencios
-            335 => 15,  // expresionoral
-            339 => 10,  // seguridad
-            344 => 5,   // claridad
-            348 => 4,   // cordialidad
-            353 => 5,   // antecedentes
-            365 => 15,  // infocompleta
-            374 => 15,  // infocorrecta
-            383 => 15,  // gestiona
-            389 => 15,  // documentacion
-            396 => 15,  // pecc_protocolosubtel
-            402 => 15,  // procedimientos
-            411 => 15,  // protocoloplataforma
+            328 => 4,    // saludo
+            331 => 2,   // manejosilencios
+            335 => 4,  // expresionoral
+            339 => 6,  // seguridad
+            344 => 6,   // claridad
+            348 => 8,   // cordialidad
+            353 => 10,   // antecedentes
+            365 => 10,  // infocompleta
+            374 => 10,  // infocorrecta
+            383 => 10,  // gestiona
+            389 => 10,  // documentacion
+            396 => 5,  // pecc_protocolosubtel
+            402 => 10,  // procedimientos
+            411 => 5,  // protocoloplataforma
         ];
         $this->calcularPENC($ponderadores);
         $atributosCriticos = [
