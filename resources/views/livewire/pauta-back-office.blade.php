@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Back Office
-Versión 5
+Versión 2
 --}}
 <div class="flex space-x-4 pt-6 px-6">
     <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
@@ -119,6 +119,27 @@ Versión 5
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
             PENC: {{$evaluacion->penc}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Usuario: {{$evaluacion->pecu}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Negocio: {{$evaluacion->pecn}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Cumplimiento: {{$evaluacion->pecc}}
         </div>
 
         @if($evaluacion->ici)
@@ -877,7 +898,7 @@ Versión 5
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">15 - Claridad para comunicarse y expresar ideas</legend>
+                                        <legend class="text-base font-medium text-gray-900">15 - Caracterización de la Interacción</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">

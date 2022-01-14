@@ -345,6 +345,34 @@ abstract class PautaBase extends Component
         }
     }
 
+    public function calcularPECPadres($atributosCriticos)
+    {
+        $puntajes = [];
+        foreach ($atributosCriticos as $tipo => $atributos) {
+            $puntajes[$tipo] = 100;
+            foreach ($atributos as $atributo) {
+                if ($this->{$tipo . "_" . $atributo} == 'No') {
+                    $puntajes[$tipo] = 0;
+                    break;
+                }
+            }
+            $this->evaluacion->{$tipo} = $puntajes[$tipo];
+        }
+        if($this->evaluacion->pecu == 0){
+            if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
+                $this->evaluacion->nivel_ec = 3;
+            }else{
+                $this->evaluacion->nivel_ec = 2;
+            }
+        }else{
+            if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
+                $this->evaluacion->nivel_ec = 2;
+            }else{
+                $this->evaluacion->nivel_ec = 1;
+            }
+        }
+    }
+
     public function modificarEstados()
     {
         if($this->evaluacion->estado_id == 1){

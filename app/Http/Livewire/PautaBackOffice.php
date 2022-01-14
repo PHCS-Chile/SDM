@@ -167,7 +167,8 @@ class PautaBackOffice extends PautaBase
 
         $this->guardarRespuesta(424, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(425, ['memo' => $this->comentario_interno]);
-
+        //$this->guardarRespuesta(426, ['memo' => $this->descripcion_caso]);
+        //$this->guardarRespuesta(427, ['memo' => $this->respuesta_ejecutivo]);
     }
 
     public function configurarCalculoDePuntajes()
@@ -195,8 +196,30 @@ class PautaBackOffice extends PautaBase
             'pecn' => ['documentacion1', 'procedimientos1'],
             'pecc' => ['protocolosubtel1'],
         ];
-        $this->calcularPEC($atributosCriticos);
+        $this->calcularPECPadres($atributosCriticos);
     }
+
+     public function xatributospec()
+    {
+        $atriobutosPEC = [
+            'pecu' => ['antecedentes1', 'infocompleta1', 'infocorrecta1', 'gestiona1', 'protocoloplataforma1'],
+            'pecn' => ['documentacion1', 'procedimientos1'],
+            'pecc' => ['protocolosubtel1'],
+        ];
+        $hayMarcado = false;
+        foreach ($atriobutosPEC as $tipo => $atributos) {
+            foreach ($atributos as $atributo) {
+                if ($this->{$tipo . "_" . $atributo} == 'checked') {
+                    $hayMarcado = true;
+                    break;
+                }
+            }
+            if ($hayMarcado) {
+                break;
+            }
+        }
+    }
+
 
     public function xsaludo()
     {
@@ -238,49 +261,49 @@ class PautaBackOffice extends PautaBase
     public function xantecedentes()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], 1, "pecu_antecedentes");
-
+        $this->xatributospec();
     }
 
     public function xinfocompleta()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9], 1, "pecu_infocompleta");
-
+        $this->xatributospec();
     }
 
     public function xinfocorrecta()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9], 1, "pecu_infocorrecta");
-
+        $this->xatributospec();
     }
 
     public function xgestiona()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6], 1, "pecu_gestiona");
-
+        $this->xatributospec();
     }
 
     public function xdocumentacion()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7], 1, "pecn_documentacion");
-
+        $this->xatributospec();
     }
 
     public function xprotocolosubtel()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6], 1, "pecc_protocolosubtel");
-
+        $this->xatributospec();
     }
 
     public function xprocedimientos()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5, 6, 7, 8, 9], 1, "pecn_procedimientos");
-
+        $this->xatributospec();
     }
 
     public function xprotocoloplataforma()
     {
         $this->validarCamposNoAplica([], [2, 3, 4, 5], 1, "pecu_protocoloplataforma");
-
+        $this->xatributospec();
     }
 
 }
