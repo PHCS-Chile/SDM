@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 /**
  * Class AtributosSeeder
  * @package Database\Seeders
- * @version 3
+ * @version 4
  */
 class AtributosSeeder extends Seeder
 {
@@ -23,6 +23,7 @@ class AtributosSeeder extends Seeder
         DB::table('atributos')->insert($this->atributos1);
         DB::table('atributos')->insert($this->atributos2);
         DB::table('atributos')->insert($this->atributos3);
+        DB::table('atributos')->insert($this->atributos4);
         Atributo::destroy(72);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(96);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(167);  /* Evita problemas con IDs en versiones iniciales */
@@ -499,7 +500,83 @@ class AtributosSeeder extends Seeder
         ['name' => 'Comentario Interno', 'name_interno' => 'comentario_interno', 'pauta_id' => 4, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
     public $atributos4 = [
-
+        // Atributos nuevos Pauta retenciones - 426 a 501
+        ['name' => 'Cumple con Scripts de saludo y despedida', 'name_interno' => 'saludo1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'No agradece el tiempo de espera durante la transferencia desde el front', 'name_interno' => 'saludo2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 426, 'name_categoria' => 'PENC'],
+        ['name' => 'No realiza la presentación según script', 'name_interno' => 'saludo3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 426, 'name_categoria' => 'PENC'],
+        ['name' => 'No realiza la despedida según script', 'name_interno' => 'saludo4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 426, 'name_categoria' => 'PENC'],
+        ['name' => 'Maneja los silencios y/o tiempos de espera', 'name_interno' => 'manejosilencios1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'Deja al cliente en espera sin retomar antes de 30 segundos', 'name_interno' => 'manejosilencios2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 430, 'name_categoria' => 'PENC'],
+        ['name' => 'No informa previamente al cliente que necesita dejarlo en espera', 'name_interno' => 'manejosilencios3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 430, 'name_categoria' => 'PENC'],
+        ['name' => 'No Agradece la espera en caso de Hold/Mute extendido', 'name_interno' => 'manejosilencios4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 430, 'name_categoria' => 'PENC'],
+        ['name' => 'Su expresión oral es acorde a la atención de clientes', 'name_interno' => 'expresionoral1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'Errores en el vocabulario utilizado (semántica)', 'name_interno' => 'expresionoral2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 434, 'name_categoria' => 'PENC'],
+        ['name' => 'Faltas en la modulación y/o adaptación del ritmo ', 'name_interno' => 'expresionoral3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 434, 'name_categoria' => 'PENC'],
+        ['name' => 'Utiliza muletillas en exceso y/o es poco formal', 'name_interno' => 'expresionoral4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 434, 'name_categoria' => 'PENC'],
+        ['name' => 'Demuestra seguridad y buen manejo de la información', 'name_interno' => 'seguridad1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante la explicación de antecedentes y/o cond. comerciales', 'name_interno' => 'seguridad2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 438, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante la argumentación para retener', 'name_interno' => 'seguridad3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 438, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante el acuerdo de cierre o pasos operacionales', 'name_interno' => 'seguridad4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 438, 'name_categoria' => 'PENC'],
+        ['name' => 'Claridad para comunicarse y expresar ideas', 'name_interno' => 'claridad1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante la explicación de antecedentes y/o cond. comerciales', 'name_interno' => 'claridad2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 442, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante la argumentación para retener', 'name_interno' => 'claridad3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 442, 'name_categoria' => 'PENC'],
+        ['name' => 'Falla durante el acuerdo de cierre o pasos operacionales', 'name_interno' => 'claridad4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 442, 'name_categoria' => 'PENC'],
+        ['name' => 'Es Cordial y demuestra preocupación por el Cliente', 'name_interno' => 'cordialidad1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
+        ['name' => 'Es cortante, irónico o poco amable con el cliente', 'name_interno' => 'cordialidad2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 446, 'name_categoria' => 'PENC'],
+        ['name' => 'No intenta reducir la emocionalidad negativa del cliente', 'name_interno' => 'cordialidad3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 446, 'name_categoria' => 'PENC'],
+        ['name' => 'No retiene información o antecedentes entregados por el cliente', 'name_interno' => 'cordialidad4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 446, 'name_categoria' => 'PENC'],
+        ['name' => 'No confirma que el cliente comprendió la información entregada', 'name_interno' => 'cordialidad5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 446, 'name_categoria' => 'PENC'],
+        ['name' => 'Analiza correctamente los antecedentes', 'name_interno' => 'pecu_antecedentes1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'No valida correctamente las restricciones previas para gestionar', 'name_interno' => 'pecu_antecedentes2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Revisión incorrecta de condiciones comerciales del plan/bolsa/vas', 'name_interno' => 'pecu_antecedentes3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Revisión incorrecta de Nivel de Uso/Consumo y servicios asociados.', 'name_interno' => 'pecu_antecedentes4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Revisión incorrecta del detalle de la información contenida en la boleta', 'name_interno' => 'pecu_antecedentes5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Revisión incorrecta de gestiones anteriores', 'name_interno' => 'pecu_antecedentes6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'No valida o cumple con restricciones a la gestión de Renuncia/Retención', 'name_interno' => 'pecu_antecedentes7', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 451, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Entrega información Completa', 'name_interno' => 'pecu_infocompleta1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la explicación de condiciones comerciales actuales', 'name_interno' => 'pecu_infocompleta2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 458, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la argumentación para retener', 'name_interno' => 'pecu_infocompleta3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 458, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la explicación de desc. o compensaciones', 'name_interno' => 'pecu_infocompleta4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 458, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla sobre las modificaciones comerciales', 'name_interno' => 'pecu_infocompleta5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 458, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante el acuerdo de cierre o resumen final ', 'name_interno' => 'pecu_infocompleta6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 458, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Entrega información Correcta', 'name_interno' => 'pecu_infocorrecta1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la explicación de condiciones comerciales actuales', 'name_interno' => 'pecu_infocorrecta2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 464, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la argumentación para retener', 'name_interno' => 'pecu_infocorrecta3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 464, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la explicación de desc. o compensaciones', 'name_interno' => 'pecu_infocorrecta4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 464, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla sobre las modificaciones comerciales', 'name_interno' => 'pecu_infocorrecta5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 464, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante el acuerdo de cierre o resumen final ', 'name_interno' => 'pecu_infocorrecta6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 464, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Gestiona correctamente en sistema los cambios o solicitudes', 'name_interno' => 'pecu_gestiona1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la generación de descuento o compensaciones', 'name_interno' => 'pecu_gestiona2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 470, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante la modificación comercial ', 'name_interno' => 'pecu_gestiona3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 470, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Falla durante el ingreso de tickets a otras áreas de Entel', 'name_interno' => 'pecu_gestiona4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 470, 'name_categoria' => 'PEC Usuario'],
+        ['name' => 'Cumple los protocolos regulados por Subtel/Sernac', 'name_interno' => 'pecc_protocolosubtel1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'No valida o comprueba RUT del Titular', 'name_interno' => 'pecc_protocolosubtel2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 474, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Realiza gestión con una persona distinta al titular', 'name_interno' => 'pecc_protocolosubtel3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 474, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'No indica reserva de número en caso de renunciar a la línea', 'name_interno' => 'pecc_protocolosubtel4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 474, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Cumple con los procedimientos establecidos por Entel', 'name_interno' => 'pecn_procedimientos1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'Comete fraude al cliente y/o a Entel', 'name_interno' => 'pecn_procedimientos2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'Descalifica o cuestiona a Entel frente al cliente', 'name_interno' => 'pecn_procedimientos3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'Entrega información confidencial ', 'name_interno' => 'pecn_procedimientos4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'No registra ticket de mal ingreso por parte del front', 'name_interno' => 'pecn_procedimientos5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'No registra en sistema de Entel gestiones realizadas', 'name_interno' => 'pecn_procedimientos6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'No utiliza todas las herramientas de retencion disponibles', 'name_interno' => 'pecn_procedimientos7', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'Realiza descuento, carga o beneficio fuera de procedimiento', 'name_interno' => 'pecn_procedimientos8', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'No prioriza las herramientas de retención según procedimiento', 'name_interno' => 'pecn_procedimientos9', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 478, 'name_categoria' => 'PEC Cumplimiento'],
+        ['name' => 'Cumple con los protocolos de la plataforma', 'name_interno' => 'pecu_protocoloplataforma1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Desatiende el llamado o es poco profesional', 'name_interno' => 'pecu_protocoloplataforma2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 487, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Es grosero con el cliente durante la atención', 'name_interno' => 'pecu_protocoloplataforma3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 487, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'No libera la linea una vez finalizada la llamada', 'name_interno' => 'pecu_protocoloplataforma4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 487, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Transfiere o deriva incorrectamente', 'name_interno' => 'pecu_protocoloplataforma5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 487, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'No Realiza callback comprometido', 'name_interno' => 'pecu_protocoloplataforma6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 487, 'name_categoria' => 'PEC Negocio'],
+        ['name' => 'Cliente es retenido o desiste de continuar con la renunciar', 'name_interno' => 'caracterizacion1', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Cliente insatisfecho con Entel', 'name_interno' => 'caracterizacion2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Cliente con oferta de la competencia', 'name_interno' => 'caracterizacion3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Cliente justifica su renuncia por situación económica', 'name_interno' => 'caracterizacion4', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Cliente menciona cambio en sus condiciones de vida y/o uso del servicio', 'name_interno' => 'caracterizacion5', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Cliente no tiene intención de renunciar sino que busca beneficios', 'name_interno' => 'caracterizacion6', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Mal Ingreso en 1° nivel ', 'name_interno' => 'caracterizacion7', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
+        ['name' => 'Retroalimentacion', 'name_interno' => 'retroalimentacion', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Comentario Interno', 'name_interno' => 'comentario_interno', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
 
 }

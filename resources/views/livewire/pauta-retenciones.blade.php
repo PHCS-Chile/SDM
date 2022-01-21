@@ -1,6 +1,6 @@
 {{--
 Plantilla: Pauta Retenciones
-Versión 1
+Versión 2
 --}}
 <div class="flex space-x-4 pt-6 px-6">
     <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
@@ -15,6 +15,7 @@ Versión 1
                         <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno">{{$comentario_interno}}</textarea>
                     </div>
                 </div>
+                <small class="text-red-600 font-bold">{{ $errors->first('comentario_interno') }}</small>
                 <div>
                     <label for="descripcion_caso" class="block text-sm font-medium text-gray-700">
                         Descripción del Caso
@@ -335,190 +336,190 @@ Versión 1
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">7 - Analiza correctamente los antecedentes - ({{$antecedentes1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">7 - Analiza correctamente los antecedentes - ({{$pecu_antecedentes1}})</legend>
 
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes2" name="antecedentes2" wire:model.defer="antecedentes2" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes2}}>
+                                                    <input id="pecu_antecedentes2" name="pecu_antecedentes2" wire:model.defer="pecu_antecedentes2" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes2" class="font-medium text-gray-700">No valida correctamente las restricciones previas para gestionar</label>
+                                                    <label for="pecu_antecedentes2" class="font-medium text-gray-700">No valida correctamente las restricciones previas para gestionar</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes3" name="antecedentes3" wire:model.defer="antecedentes3" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes3}}>
+                                                    <input id="pecu_antecedentes3" name="pecu_antecedentes3" wire:model.defer="pecu_antecedentes3" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes3" class="font-medium text-gray-700">Revisión incorrecta de condiciones comerciales del plan/bolsa/vas</label>
+                                                    <label for="pecu_antecedentes3" class="font-medium text-gray-700">Revisión incorrecta de condiciones comerciales del plan/bolsa/vas</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes4" name="antecedentes4" wire:model.defer="antecedentes4" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes4}}>
+                                                    <input id="pecu_antecedentes4" name="pecu_antecedentes4" wire:model.defer="pecu_antecedentes4" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes4" class="font-medium text-gray-700">Revisión incorrecta de Nivel de Uso/Consumo y servicios asociados.</label>
+                                                    <label for="pecu_antecedentes4" class="font-medium text-gray-700">Revisión incorrecta de Nivel de Uso/Consumo y servicios asociados.</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes5" name="antecedentes5" wire:model.defer="antecedentes5" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes5}}>
+                                                    <input id="pecu_antecedentes5" name="pecu_antecedentes5" wire:model.defer="pecu_antecedentes5" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes5" class="font-medium text-gray-700">Revisión incorrecta del detalle de la información contenida en la boleta</label>
+                                                    <label for="pecu_antecedentes5" class="font-medium text-gray-700">Revisión incorrecta del detalle de la información contenida en la boleta</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes6" name="antecedentes6" wire:model.defer="antecedentes6" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes6}}>
+                                                    <input id="pecu_antecedentes6" name="pecu_antecedentes6" wire:model.defer="pecu_antecedentes6" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes6" class="font-medium text-gray-700">Revisión incorrecta de gestiones anteriores</label>
+                                                    <label for="pecu_antecedentes6" class="font-medium text-gray-700">Revisión incorrecta de gestiones anteriores</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="antecedentes7" name="antecedentes7" wire:model.defer="antecedentes7" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$antecedentes7}}>
+                                                    <input id="pecu_antecedentes7" name="pecu_antecedentes7" wire:model.defer="pecu_antecedentes7" wire:click="xantecedentes" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_antecedentes7}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="antecedentes7" class="font-medium text-gray-700">No valida o cumple con restricciones a la gestión de Renuncia/Retención</label>
+                                                    <label for="pecu_antecedentes7" class="font-medium text-gray-700">No valida o cumple con restricciones a la gestión de Renuncia/Retención</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">8 - Entrega información Completa - ({{$infocompleta1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">8 - Entrega información Completa - ({{$pecu_infocompleta1}})</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocompleta2" name="infocompleta2" wire:model.defer="infocompleta2" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocompleta2}}>
+                                                    <input id="pecu_infocompleta2" name="pecu_infocompleta2" wire:model.defer="pecu_infocompleta2" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocompleta2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocompleta2" class="font-medium text-gray-700">Falla durante la explicación de condiciones comerciales actuales</label>
+                                                    <label for="pecu_infocompleta2" class="font-medium text-gray-700">Falla durante la explicación de condiciones comerciales actuales</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocompleta3" name="infocompleta3" wire:model.defer="infocompleta3" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocompleta3}}>
+                                                    <input id="pecu_infocompleta3" name="pecu_infocompleta3" wire:model.defer="pecu_infocompleta3" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocompleta3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocompleta3" class="font-medium text-gray-700">Falla durante la argumentación para retener</label>
+                                                    <label for="pecu_infocompleta3" class="font-medium text-gray-700">Falla durante la argumentación para retener</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocompleta4" name="infocompleta4" wire:model.defer="infocompleta4" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocompleta4}}>
+                                                    <input id="pecu_infocompleta4" name="pecu_infocompleta4" wire:model.defer="pecu_infocompleta4" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocompleta4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocompleta4" class="font-medium text-gray-700">Falla durante la explicación de desc. o compensaciones</label>
+                                                    <label for="pecu_infocompleta4" class="font-medium text-gray-700">Falla durante la explicación de desc. o compensaciones</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocompleta5" name="infocompleta5" wire:model.defer="infocompleta5" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocompleta5}}>
+                                                    <input id="pecu_infocompleta5" name="pecu_infocompleta5" wire:model.defer="pecu_infocompleta5" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocompleta5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocompleta5" class="font-medium text-gray-700">Falla sobre las modificaciones comerciales</label>
+                                                    <label for="pecu_infocompleta5" class="font-medium text-gray-700">Falla sobre las modificaciones comerciales</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocompleta6" name="infocompleta6" wire:model.defer="infocompleta6" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocompleta6}}>
+                                                    <input id="pecu_infocompleta6" name="pecu_infocompleta6" wire:model.defer="pecu_infocompleta6" wire:click="xinfocompleta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocompleta6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocompleta6" class="font-medium text-gray-700">Falla durante el acuerdo de cierre o resumen final</label>
+                                                    <label for="pecu_infocompleta6" class="font-medium text-gray-700">Falla durante el acuerdo de cierre o resumen final</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">9 - Entrega información Correcta - ({{$infocorrecta1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">9 - Entrega información Correcta - ({{$pecu_infocorrecta1}})</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocorrecta2" name="infocorrecta2" wire:model.defer="infocorrecta2" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocorrecta2}}>
+                                                    <input id="pecu_infocorrecta2" name="pecu_infocorrecta2" wire:model.defer="pecu_infocorrecta2" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocorrecta2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocorrecta2" class="font-medium text-gray-700">Falla durante la explicación de condiciones comerciales actuales</label>
+                                                    <label for="pecu_infocorrecta2" class="font-medium text-gray-700">Falla durante la explicación de condiciones comerciales actuales</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocorrecta3" name="infocorrecta3" wire:model.defer="infocorrecta3" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocorrecta3}}>
+                                                    <input id="pecu_infocorrecta3" name="pecu_infocorrecta3" wire:model.defer="pecu_infocorrecta3" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocorrecta3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocorrecta3" class="font-medium text-gray-700">Falla durante la argumentación para retener</label>
+                                                    <label for="pecu_infocorrecta3" class="font-medium text-gray-700">Falla durante la argumentación para retener</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocorrecta4" name="infocorrecta4" wire:model.defer="infocorrecta4" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocorrecta4}}>
+                                                    <input id="pecu_infocorrecta4" name="pecu_infocorrecta4" wire:model.defer="pecu_infocorrecta4" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocorrecta4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocorrecta4" class="font-medium text-gray-700">Falla durante la explicación de desc. o compensaciones</label>
+                                                    <label for="pecu_infocorrecta4" class="font-medium text-gray-700">Falla durante la explicación de desc. o compensaciones</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocorrecta5" name="infocorrecta5" wire:model.defer="infocorrecta5" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocorrecta5}}>
+                                                    <input id="pecu_infocorrecta5" name="pecu_infocorrecta5" wire:model.defer="pecu_infocorrecta5" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocorrecta5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocorrecta5" class="font-medium text-gray-700">Falla sobre las modificaciones comerciales</label>
+                                                    <label for="pecu_infocorrecta5" class="font-medium text-gray-700">Falla sobre las modificaciones comerciales</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="infocorrecta6" name="infocorrecta6" wire:model.defer="infocorrecta6" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$infocorrecta6}}>
+                                                    <input id="pecu_infocorrecta6" name="pecu_infocorrecta6" wire:model.defer="pecu_infocorrecta6" wire:click="xinfocorrecta" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_infocorrecta6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="infocorrecta6" class="font-medium text-gray-700">Falla durante el acuerdo de cierre o resumen final </label>
+                                                    <label for="pecu_infocorrecta6" class="font-medium text-gray-700">Falla durante el acuerdo de cierre o resumen final </label>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">10 - Gestiona correctamente en sistema los cambios o solicitudes - ({{$gestiona1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">10 - Gestiona correctamente en sistema los cambios o solicitudes - ({{$pecu_gestiona1}})</legend>
 
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="gestiona2" name="gestiona2" wire:model.defer="gestiona2" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestiona2}}>
+                                                    <input id="pecu_gestiona2" name="pecu_gestiona2" wire:model.defer="pecu_gestiona2" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_gestiona2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="gestiona2" class="font-medium text-gray-700">Falla durante la generación de descuento o compensaciones</label>
+                                                    <label for="pecu_gestiona2" class="font-medium text-gray-700">Falla durante la generación de descuento o compensaciones</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="gestiona3" name="gestiona3" wire:model.defer="gestiona3" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestiona3}}>
+                                                    <input id="pecu_gestiona3" name="pecu_gestiona3" wire:model.defer="pecu_gestiona3" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_gestiona3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="gestiona3" class="font-medium text-gray-700">Falla durante la modificación comercial</label>
+                                                    <label for="pecu_gestiona3" class="font-medium text-gray-700">Falla durante la modificación comercial</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="gestiona4" name="gestiona4" wire:model.defer="gestiona4" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestiona4}}>
+                                                    <input id="pecu_gestiona4" name="pecu_gestiona4" wire:model.defer="pecu_gestiona4" wire:click="xgestiona" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_gestiona4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="gestiona4" class="font-medium text-gray-700">Falla durante el ingreso de tickets a otras áreas de Entel</label>
+                                                    <label for="pecu_gestiona4" class="font-medium text-gray-700">Falla durante el ingreso de tickets a otras áreas de Entel</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -531,156 +532,156 @@ Versión 1
                                 <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Atributos PENC 2</p>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">11 - Cumple los protocolos regulados por Subtel/Sernac - ({{$protocolosubtel1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">11 - Cumple los protocolos regulados por Subtel/Sernac - ({{$pecc_protocolosubtel1}})</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocolosubtel2" name="protocolosubtel2" wire:model.defer="protocolosubtel2" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocolosubtel2}}>
+                                                    <input id="pecc_protocolosubtel2" name="pecc_protocolosubtel2" wire:model.defer="pecc_protocolosubtel2" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocolosubtel2" class="font-medium text-gray-700">No valida o comprueba RUT del Titular</label>
+                                                    <label for="pecc_protocolosubtel2" class="font-medium text-gray-700">No valida o comprueba RUT del Titular</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocolosubtel3" name="protocolosubtel3" wire:model.defer="protocolosubtel3" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocolosubtel3}}>
+                                                    <input id="pecc_protocolosubtel3" name="pecc_protocolosubtel3" wire:model.defer="pecc_protocolosubtel3" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocolosubtel3" class="font-medium text-gray-700">Realiza gestión con una persona distinta al titular</label>
+                                                    <label for="pecc_protocolosubtel3" class="font-medium text-gray-700">Realiza gestión con una persona distinta al titular</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocolosubtel4" name="protocolosubtel4" wire:model.defer="protocolosubtel4" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocolosubtel4}}>
+                                                    <input id="pecc_protocolosubtel4" name="pecc_protocolosubtel4" wire:model.defer="pecc_protocolosubtel4" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocolosubtel4" class="font-medium text-gray-700">No indica reserva de número en caso de renunciar a la línea</label>
+                                                    <label for="pecc_protocolosubtel4" class="font-medium text-gray-700">No indica reserva de número en caso de renunciar a la línea</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">12 - Cumple con los procedimientos establecidos por Entel - ({{$procedimientos1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">12 - Cumple con los procedimientos establecidos por Entel - ({{$pecn_procedimientos1}})</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos2" name="procedimientos2" wire:model.defer="procedimientos2" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos2}}>
+                                                    <input id="pecn_procedimientos2" name="pecn_procedimientos2" wire:model.defer="pecn_procedimientos2" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos2" class="font-medium text-gray-700">Comete fraude al cliente y/o a Entel</label>
+                                                    <label for="pecn_procedimientos2" class="font-medium text-gray-700">Comete fraude al cliente y/o a Entel</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos3" name="procedimientos3" wire:model.defer="procedimientos3" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos3}}>
+                                                    <input id="pecn_procedimientos3" name="pecn_procedimientos3" wire:model.defer="pecn_procedimientos3" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos3" class="font-medium text-gray-700">Descalifica o cuestiona a Entel frente al cliente</label>
+                                                    <label for="pecn_procedimientos3" class="font-medium text-gray-700">Descalifica o cuestiona a Entel frente al cliente</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos4" name="procedimientos4" wire:model.defer="procedimientos4" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos4}}>
+                                                    <input id="pecn_procedimientos4" name="pecn_procedimientos4" wire:model.defer="pecn_procedimientos4" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos4" class="font-medium text-gray-700">Entrega información confidencial</label>
+                                                    <label for="pecn_procedimientos4" class="font-medium text-gray-700">Entrega información confidencial</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos5" name="procedimientos5" wire:model.defer="procedimientos5" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos5}}>
+                                                    <input id="pecn_procedimientos5" name="pecn_procedimientos5" wire:model.defer="pecn_procedimientos5" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos5" class="font-medium text-gray-700">No registra ticket de mal ingreso por parte del front</label>
+                                                    <label for="pecn_procedimientos5" class="font-medium text-gray-700">No registra ticket de mal ingreso por parte del front</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos6" name="procedimientos6" wire:model.defer="procedimientos6" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos6}}>
+                                                    <input id="pecn_procedimientos6" name="pecn_procedimientos6" wire:model.defer="pecn_procedimientos6" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos6" class="font-medium text-gray-700">No registra en sistema de Entel gestiones realizadas</label>
+                                                    <label for="pecn_procedimientos6" class="font-medium text-gray-700">No registra en sistema de Entel gestiones realizadas</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos7" name="procedimientos7" wire:model.defer="procedimientos7" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos7}}>
+                                                    <input id="pecn_procedimientos7" name="pecn_procedimientos7" wire:model.defer="pecn_procedimientos7" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos7}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos7" class="font-medium text-gray-700">No utiliza todas las herramientas de retencion disponibles</label>
+                                                    <label for="pecn_procedimientos7" class="font-medium text-gray-700">No utiliza todas las herramientas de retencion disponibles</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos8" name="procedimientos8" wire:model.defer="procedimientos8" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos8}}>
+                                                    <input id="pecn_procedimientos8" name="pecn_procedimientos8" wire:model.defer="pecn_procedimientos8" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos8}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos8" class="font-medium text-gray-700">Realiza descuento, carga o beneficio fuera de procedimiento</label>
+                                                    <label for="pecn_procedimientos8" class="font-medium text-gray-700">Realiza descuento, carga o beneficio fuera de procedimiento</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="procedimientos9" name="procedimientos9" wire:model.defer="procedimientos9" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$procedimientos9}}>
+                                                    <input id="pecn_procedimientos9" name="pecn_procedimientos9" wire:model.defer="pecn_procedimientos9" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos9}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="procedimientos9" class="font-medium text-gray-700">No prioriza las herramientas de retención según procedimiento</label>
+                                                    <label for="pecn_procedimientos9" class="font-medium text-gray-700">No prioriza las herramientas de retención según procedimiento</label>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                     <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">13 - Cumple con los protocolos de la plataforma - ({{$protocoloplataforma1}})</legend>
+                                        <legend class="text-base font-medium text-gray-900">13 - Cumple con los protocolos de la plataforma - ({{$pecu_protocoloplataforma1}})</legend>
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocoloplataforma2" name="protocoloplataforma2" wire:model.defer="protocoloplataforma2" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocoloplataforma2}}>
+                                                    <input id="pecu_protocoloplataforma2" name="pecu_protocoloplataforma2" wire:model.defer="pecu_protocoloplataforma2" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocoloplataforma2" class="font-medium text-gray-700">Desatiende el llamado o es poco profesional</label>
+                                                    <label for="pecu_protocoloplataforma2" class="font-medium text-gray-700">Desatiende el llamado o es poco profesional</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocoloplataforma3" name="protocoloplataforma3" wire:model.defer="protocoloplataforma3" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocoloplataforma3}}>
+                                                    <input id="pecu_protocoloplataforma3" name="pecu_protocoloplataforma3" wire:model.defer="pecu_protocoloplataforma3" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocoloplataforma3" class="font-medium text-gray-700">Es grosero con el cliente durante la atención</label>
+                                                    <label for="pecu_protocoloplataforma3" class="font-medium text-gray-700">Es grosero con el cliente durante la atención</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocoloplataforma4" name="protocoloplataforma4" wire:model.defer="protocoloplataforma4" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocoloplataforma4}}>
+                                                    <input id="pecu_protocoloplataforma4" name="pecu_protocoloplataforma4" wire:model.defer="pecu_protocoloplataforma4" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocoloplataforma4" class="font-medium text-gray-700">No libera la linea una vez finalizada la llamada</label>
+                                                    <label for="pecu_protocoloplataforma4" class="font-medium text-gray-700">No libera la linea una vez finalizada la llamada</label>
                                                 </div>
                                             </div>
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocoloplataforma5" name="protocoloplataforma5" wire:model.defer="protocoloplataforma5" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocoloplataforma5}}>
+                                                    <input id="pecu_protocoloplataforma5" name="pecu_protocoloplataforma5" wire:model.defer="pecu_protocoloplataforma5" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocoloplataforma5" class="font-medium text-gray-700">Transfiere o deriva incorrectamente</label>
+                                                    <label for="pecu_protocoloplataforma5" class="font-medium text-gray-700">Transfiere o deriva incorrectamente</label>
                                                 </div>
                                             </div>
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="protocoloplataforma6" name="protocoloplataforma6" wire:model.defer="protocoloplataforma6" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$protocoloplataforma6}}>
+                                                    <input id="pecu_protocoloplataforma6" name="pecu_protocoloplataforma6" wire:model.defer="pecu_protocoloplataforma6" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
-                                                    <label for="protocoloplataforma6" class="font-medium text-gray-700">No Realiza callback comprometido</label>
+                                                    <label for="pecu_protocoloplataforma6" class="font-medium text-gray-700">No Realiza callback comprometido</label>
                                                 </div>
                                             </div>
                                         </div>

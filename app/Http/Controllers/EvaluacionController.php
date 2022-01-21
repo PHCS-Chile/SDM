@@ -79,6 +79,9 @@ class EvaluacionController extends Controller
         if ($pauta == 4) {
             return view('evaluacions.index_backoffice',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
         }
+        if ($pauta == 5) {
+            return view('evaluacions.index_retenciones',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
+        }
         return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial', 'bloqueo'));
     }
 

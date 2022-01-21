@@ -10,6 +10,7 @@
   'pauta-back-office' => 'App\\Http\\Livewire\\PautaBackOffice',
   'pauta-call-voz' => 'App\\Http\\Livewire\\PautaCallVoz',
   'pauta-digital' => 'App\\Http\\Livewire\\PautaDigital',
+  'pauta-retenciones' => 'App\\Http\\Livewire\\PautaRetenciones',
   'pauta-ventas-remotas' => 'App\\Http\\Livewire\\PautaVentasRemotas',
   'reportes' => 'App\\Http\\Livewire\\Reportes',
   'vinculos' => 'App\\Http\\Livewire\\Vinculos',
