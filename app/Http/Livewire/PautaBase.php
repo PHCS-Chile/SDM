@@ -105,7 +105,7 @@ abstract class PautaBase extends Component
     public function cargarEscalas($escalas, $cargarOpciones = True)
     {
         foreach ($escalas as $escala) {
-            $this->{$escala['nombre']} = Escala::where('grupo_id',$escala['grupo_id'])->orderBy('value', 'ASC')->get();
+            $this->{$escala['nombre']} = Escala::where('grupo_id',$escala['grupo_id'])->where('isActive',1)->orderBy('value', 'ASC')->get();
             if ($cargarOpciones) {
                 foreach ($escala['opciones'] as $opcion) {
                     $this->opciones[$opcion] = $this->{$escala['nombre']}->pluck('name')->all();

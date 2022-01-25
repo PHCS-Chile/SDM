@@ -120,7 +120,28 @@ Versión 2
             </svg>
             PENC: {{$evaluacion->penc}}
         </div>
-
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Usuario: {{$evaluacion->pecu}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Negocio: {{$evaluacion->pecn}}
+        </div>
+        <div class="mt-2 flex items-center text-sm text-gray-500">
+            <!-- Heroicon name: calendar -->
+            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
+            </svg>
+            PEC Cumplimiento: {{$evaluacion->pecc}}
+            {{$evaluacion->sub_estudio}}
+        </div>
         @if($evaluacion->ici)
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
@@ -146,14 +167,16 @@ Versión 2
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">1 - Cumple con Scripts de saludo y despedida - ({{$saludo1}})</legend>
                                         <div class="mt-2 space-y-2">
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="saludo2" name="saludo2" wire:model.defer="saludo2" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
+                                            @if($evaluacion->sub_estudio == 'N2')
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="saludo2" name="saludo2" wire:model.defer="saludo2" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="saludo2" class="font-medium text-gray-700">No agradece el tiempo de espera durante la transferencia desde el front</label>
+                                                    </div>
                                                 </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="saludo2" class="font-medium text-gray-700">No agradece el tiempo de espera durante la transferencia desde el front</label>
-                                                </div>
-                                            </div>
+                                            @endif
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
                                                     <input id="saludo3" name="saludo3" wire:model.defer="saludo3" wire:click="xsaludo" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
@@ -335,6 +358,176 @@ Versión 2
 
                                         </div>
                                     </fieldset>
+                                </div>
+                            </div>
+                             <div class="mt-5 shadow overflow-hidden sm:rounded-md">
+                                <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
+                                    <p class="font-bold text-xl">Errores Criticos que afectan a Entel</p>
+                                    <fieldset>
+                                        <legend class="text-base font-medium text-gray-900">11 - Cumple los protocolos regulados por Subtel/Sernac - ({{$pecc_protocolosubtel1}})</legend>
+                                        <div class="mt-2 space-y-2">
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecc_protocolosubtel2" name="pecc_protocolosubtel2" wire:model.defer="pecc_protocolosubtel2" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel2}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecc_protocolosubtel2" class="font-medium text-gray-700">No valida o comprueba RUT del Titular</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecc_protocolosubtel3" name="pecc_protocolosubtel3" wire:model.defer="pecc_protocolosubtel3" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel3}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecc_protocolosubtel3" class="font-medium text-gray-700">Realiza gestión con una persona distinta al titular</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecc_protocolosubtel4" name="pecc_protocolosubtel4" wire:model.defer="pecc_protocolosubtel4" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel4}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecc_protocolosubtel4" class="font-medium text-gray-700">No indica reserva de número en caso de renunciar a la línea</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <legend class="text-base font-medium text-gray-900">12 - Cumple con los procedimientos establecidos por Entel - ({{$pecn_procedimientos1}})</legend>
+                                        <div class="mt-2 space-y-2">
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos2" name="pecn_procedimientos2" wire:model.defer="pecn_procedimientos2" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos2}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos2" class="font-medium text-gray-700">Comete fraude al cliente y/o a Entel</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos3" name="pecn_procedimientos3" wire:model.defer="pecn_procedimientos3" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos3}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos3" class="font-medium text-gray-700">Descalifica o cuestiona a Entel frente al cliente</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos4" name="pecn_procedimientos4" wire:model.defer="pecn_procedimientos4" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos4}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos4" class="font-medium text-gray-700">Entrega información confidencial</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos5" name="pecn_procedimientos5" wire:model.defer="pecn_procedimientos5" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos5}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos5" class="font-medium text-gray-700">No registra ticket de mal ingreso por parte del front</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos6" name="pecn_procedimientos6" wire:model.defer="pecn_procedimientos6" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos6}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos6" class="font-medium text-gray-700">No registra en sistema de Entel gestiones realizadas</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos7" name="pecn_procedimientos7" wire:model.defer="pecn_procedimientos7" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos7}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos7" class="font-medium text-gray-700">No utiliza todas las herramientas de retencion disponibles</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos8" name="pecn_procedimientos8" wire:model.defer="pecn_procedimientos8" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos8}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos8" class="font-medium text-gray-700">Realiza descuento, carga o beneficio fuera de procedimiento</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecn_procedimientos9" name="pecn_procedimientos9" wire:model.defer="pecn_procedimientos9" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos9}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecn_procedimientos9" class="font-medium text-gray-700">No prioriza las herramientas de retención según procedimiento</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset>
+                                        <legend class="text-base font-medium text-gray-900">13 - Cumple con los protocolos de la plataforma - ({{$pecu_protocoloplataforma1}})</legend>
+                                        <div class="mt-2 space-y-2">
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecu_protocoloplataforma2" name="pecu_protocoloplataforma2" wire:model.defer="pecu_protocoloplataforma2" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma2}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecu_protocoloplataforma2" class="font-medium text-gray-700">Desatiende el llamado o es poco profesional</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecu_protocoloplataforma3" name="pecu_protocoloplataforma3" wire:model.defer="pecu_protocoloplataforma3" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma3}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecu_protocoloplataforma3" class="font-medium text-gray-700">Es grosero con el cliente durante la atención</label>
+                                                </div>
+                                            </div>
+                                            @if($evaluacion->sub_estudio == 'N2')
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="pecu_protocoloplataforma4" name="pecu_protocoloplataforma4" wire:model.defer="pecu_protocoloplataforma4" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma4}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="pecu_protocoloplataforma4" class="font-medium text-gray-700">No libera la linea una vez finalizada la llamada</label>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                            <div class="flex items-start">
+                                                <div class="flex items-center h-5">
+                                                    <input id="pecu_protocoloplataforma5" name="pecu_protocoloplataforma5" wire:model.defer="pecu_protocoloplataforma5" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma5}}>
+                                                </div>
+                                                <div class="ml-3 text-sm">
+                                                    <label for="pecu_protocoloplataforma5" class="font-medium text-gray-700">Transfiere o deriva incorrectamente</label>
+                                                </div>
+                                            </div>
+                                            @if($evaluacion->sub_estudio == 'N3')
+                                                <div class="flex items-start">
+                                                    <div class="flex items-center h-5">
+                                                        <input id="pecu_protocoloplataforma6" name="pecu_protocoloplataforma6" wire:model.defer="pecu_protocoloplataforma6" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma6}}>
+                                                    </div>
+                                                    <div class="ml-3 text-sm">
+                                                        <label for="pecu_protocoloplataforma6" class="font-medium text-gray-700">No Realiza callback comprometido</label>
+                                                    </div>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </fieldset>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-5 md:mt-0 md:col-span-1 ">
+                            <div class="shadow overflow-hidden sm:rounded-md">
+                                <div class="px-4 py-5 bg-blue-50 space-y-6 sm:p-6">
+                                    <p class="font-bold text-xl">Gestiones</p>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">7 - Analiza correctamente los antecedentes - ({{$pecu_antecedentes1}})</legend>
 
@@ -526,166 +719,9 @@ Versión 2
                                     </fieldset>
                                 </div>
                             </div>
-                        </div>
-                        <div class="mt-5 md:mt-0 md:col-span-1 ">
-                            <div class="shadow overflow-hidden sm:rounded-md">
-                                <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
-                                    <p class="font-bold text-xl">Atributos PENC 2</p>
-                                    <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">11 - Cumple los protocolos regulados por Subtel/Sernac - ({{$pecc_protocolosubtel1}})</legend>
-                                        <div class="mt-2 space-y-2">
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecc_protocolosubtel2" name="pecc_protocolosubtel2" wire:model.defer="pecc_protocolosubtel2" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel2}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecc_protocolosubtel2" class="font-medium text-gray-700">No valida o comprueba RUT del Titular</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecc_protocolosubtel3" name="pecc_protocolosubtel3" wire:model.defer="pecc_protocolosubtel3" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel3}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecc_protocolosubtel3" class="font-medium text-gray-700">Realiza gestión con una persona distinta al titular</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecc_protocolosubtel4" name="pecc_protocolosubtel4" wire:model.defer="pecc_protocolosubtel4" wire:click="xprotocolosubtel" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecc_protocolosubtel4}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecc_protocolosubtel4" class="font-medium text-gray-700">No indica reserva de número en caso de renunciar a la línea</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">12 - Cumple con los procedimientos establecidos por Entel - ({{$pecn_procedimientos1}})</legend>
-                                        <div class="mt-2 space-y-2">
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos2" name="pecn_procedimientos2" wire:model.defer="pecn_procedimientos2" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos2}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos2" class="font-medium text-gray-700">Comete fraude al cliente y/o a Entel</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos3" name="pecn_procedimientos3" wire:model.defer="pecn_procedimientos3" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos3}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos3" class="font-medium text-gray-700">Descalifica o cuestiona a Entel frente al cliente</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos4" name="pecn_procedimientos4" wire:model.defer="pecn_procedimientos4" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos4}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos4" class="font-medium text-gray-700">Entrega información confidencial</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos5" name="pecn_procedimientos5" wire:model.defer="pecn_procedimientos5" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos5}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos5" class="font-medium text-gray-700">No registra ticket de mal ingreso por parte del front</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos6" name="pecn_procedimientos6" wire:model.defer="pecn_procedimientos6" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos6}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos6" class="font-medium text-gray-700">No registra en sistema de Entel gestiones realizadas</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos7" name="pecn_procedimientos7" wire:model.defer="pecn_procedimientos7" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos7}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos7" class="font-medium text-gray-700">No utiliza todas las herramientas de retencion disponibles</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos8" name="pecn_procedimientos8" wire:model.defer="pecn_procedimientos8" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos8}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos8" class="font-medium text-gray-700">Realiza descuento, carga o beneficio fuera de procedimiento</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecn_procedimientos9" name="pecn_procedimientos9" wire:model.defer="pecn_procedimientos9" wire:click="xprocedimientos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecn_procedimientos9}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecn_procedimientos9" class="font-medium text-gray-700">No prioriza las herramientas de retención según procedimiento</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
-                                    <fieldset>
-                                        <legend class="text-base font-medium text-gray-900">13 - Cumple con los protocolos de la plataforma - ({{$pecu_protocoloplataforma1}})</legend>
-                                        <div class="mt-2 space-y-2">
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecu_protocoloplataforma2" name="pecu_protocoloplataforma2" wire:model.defer="pecu_protocoloplataforma2" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma2}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecu_protocoloplataforma2" class="font-medium text-gray-700">Desatiende el llamado o es poco profesional</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecu_protocoloplataforma3" name="pecu_protocoloplataforma3" wire:model.defer="pecu_protocoloplataforma3" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma3}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecu_protocoloplataforma3" class="font-medium text-gray-700">Es grosero con el cliente durante la atención</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecu_protocoloplataforma4" name="pecu_protocoloplataforma4" wire:model.defer="pecu_protocoloplataforma4" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma4}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecu_protocoloplataforma4" class="font-medium text-gray-700">No libera la linea una vez finalizada la llamada</label>
-                                                </div>
-                                            </div>
-
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecu_protocoloplataforma5" name="pecu_protocoloplataforma5" wire:model.defer="pecu_protocoloplataforma5" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma5}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecu_protocoloplataforma5" class="font-medium text-gray-700">Transfiere o deriva incorrectamente</label>
-                                                </div>
-                                            </div>
-                                            <div class="flex items-start">
-                                                <div class="flex items-center h-5">
-                                                    <input id="pecu_protocoloplataforma6" name="pecu_protocoloplataforma6" wire:model.defer="pecu_protocoloplataforma6" wire:click="xprotocoloplataforma" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$pecu_protocoloplataforma6}}>
-                                                </div>
-                                                <div class="ml-3 text-sm">
-                                                    <label for="pecu_protocoloplataforma6" class="font-medium text-gray-700">No Realiza callback comprometido</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </fieldset>
+                            <div class="mt-5 shadow overflow-hidden sm:rounded-md">
+                                <div class="px-4 py-5 bg-gray-50 space-y-6 sm:p-6">
+                                    <p class="font-bold text-xl">Caracterización</p>
                                     <fieldset>
                                         <legend class="text-base font-medium text-gray-900">14 - Caracterización de la Interacción</legend>
                                         <div class="mt-2 space-y-2">

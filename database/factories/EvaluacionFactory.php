@@ -38,6 +38,9 @@ class EvaluacionFactory extends Factory
         $image_path = NULL;
         $estado_reporte = NULL;
         $nivel_ec = NULL;
+        $tipo_gestion = $this->faker->randomElement(['Venta', 'No Venta']);
+        $sub_estudio = $this->faker->randomElement(['N2', 'N3']);
+
         if ($estado_id > 1 && $estado_id < 6 ) {
             if ($estado_id == 3) {
                 $estado_reporte = 11;
@@ -87,6 +90,8 @@ class EvaluacionFactory extends Factory
             'estado_conversacion' => 7,
             'estado_reporte' => $estado_reporte,
             'nivel_ec' => $nivel_ec,
+            'tipo_gestion' => $tipo_gestion,
+            'sub_estudio' => $sub_estudio,
         ];
     }
 }

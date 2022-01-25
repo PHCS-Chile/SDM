@@ -130,7 +130,6 @@ class PautaBackOffice extends PautaBase
 
         /* Reglas de validación */
         $this->agregarValidaciones([
-            'comentario_interno' => 'required',
             'retroalimentacion' => 'required',
         ]);
 
