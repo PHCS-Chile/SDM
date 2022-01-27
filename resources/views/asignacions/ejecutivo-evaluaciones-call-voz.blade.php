@@ -44,7 +44,7 @@ Versión 1
         </div>
         <script>
             setTimeout(function(){
-                document.getElementById("session-status").style.opacity=0;
+                document.getElementById("session-status").style.opacity = 0;
                 document.getElementById("session-status").style.display="none";
             }, 3000);
         </script>

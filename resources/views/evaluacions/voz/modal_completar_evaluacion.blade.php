@@ -93,24 +93,6 @@
                         }
                     );
 
-
-
-
-                    {{--$(function() {--}}
-                    {{--    $("#fecha_grabacion-{{ $modal['evaluacion_id'] }}").datepicker({--}}
-                    {{--        formatter: (input, date, instance) => {--}}
-                    {{--            const value = date.toLocaleDateString()--}}
-                    {{--            input.value = 2 // => '1/1/2099'--}}
-                    {{--        },--}}
-                    {{--        changeMonth: true,--}}
-                    {{--        changeYear: true,--}}
-                    {{--        maxDate: new Date(),--}}
-                    {{--        @if($modal['fecha_grabacion'])--}}
-                    {{--            dateSelected: new Date({{ date_format(date_create($modal['fecha_grabacion']), 'Y')  }}, {{ intval(date_format(date_create($modal['fecha_grabacion']), 'm'))-1 }}, {{ date_format(date_create($modal['fecha_grabacion']), 'd') }}),--}}
-                    {{--        @endif--}}
-                    {{--    });--}}
-                    {{--});--}}
-
                     function validarHora(object)
                     {
                         if (object.value > 23)

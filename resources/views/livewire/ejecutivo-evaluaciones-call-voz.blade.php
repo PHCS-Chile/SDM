@@ -6,9 +6,6 @@ Versión 4
 
     <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
     @if($asignacionfinal->estudio_id == 5)
-{{--        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>--}}
-{{--        <link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css" rel="stylesheet" />--}}
-{{--        <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>--}}
         <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
         <script src="https://unpkg.com/js-datepicker"></script>
     @endif
@@ -49,15 +46,15 @@ Versión 4
                 </select>
             </th>
             <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-tighter">
-                <label for="filtroFecha" class="block text-transparent">Fecha Grabación</label>
+                <label for="filtroFecha" class="block text-transparent select-none">Fecha Grabación</label>
                 <input id="filtroFecha" class="border border-gray-300 bg-white py-1 px-1 mt-1 rounded-lg text-xs focus:outline-none" placeholder="Fecha Grabación" wire:model="filtroFecha">
             </th>
             <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-tighter">
-                <label for="searchMovil" class="block text-transparent">Móvil</label>
+                <label for="searchMovil" class="block text-transparent select-none">Móvil</label>
                 <input id="searchMovil" class="w-28 border border-gray-300 bg-white py-1 px-1 mt-1 rounded-lg focus:outline-none" placeholder="Móvil" wire:model="searchMovil">
             </th>
             <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-tighter">
-                <label for="filtroConnid" class="block text-transparent">ConnID</label>
+                <label for="filtroConnid" class="block text-transparent select-none">ConnID</label>
                 <input id="filtroConnid" class="block border border-gray-300 bg-white py-1 px-1 mt-1 rounded-lg text-xs focus:outline-none" placeholder="ConnID" wire:model="filtroConnid">
             </th>
             <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">

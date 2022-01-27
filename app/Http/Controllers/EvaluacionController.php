@@ -278,7 +278,7 @@ class EvaluacionController extends Controller
             }
         }
         if ($request->connid) {
-            $re = '/^[A-Za-z\d ()\-_/.,+ñÑáéíóúÁÉÍÓÚÜü:#èÈ ?=%&–]*$/';
+            $re = '/^[A-Za-z\d \(\)\-\_\/\.\,\+ñÑáéíóúÁÉÍÓÚÜü\:#èÈ \?\=\%\&\–]*$/';
             preg_match($re, $request->connid, $match, PREG_OFFSET_CAPTURE, 0);
             if ($match) {
                 $evaluacion->connid = $request->connid;
