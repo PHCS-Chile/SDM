@@ -500,7 +500,7 @@ class AtributosSeeder extends Seeder
         ['name' => 'Comentario Interno', 'name_interno' => 'comentario_interno', 'pauta_id' => 4, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
     public $atributos4 = [
-        // Atributos nuevos Pauta retenciones - 426 a 501
+        // Atributos nuevos Pauta retenciones - 426 a 503 y 2 atributos que faltaban de la Pauta de Back Office con ID 504 y 505
         ['name' => 'Cumple con Scripts de saludo y despedida', 'name_interno' => 'saludo1', 'pauta_id' => 5, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
         ['name' => 'No agradece el tiempo de espera durante la transferencia desde el front', 'name_interno' => 'saludo2', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 426, 'name_categoria' => 'PENC'],
         ['name' => 'No realiza la presentación según script', 'name_interno' => 'saludo3', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 426, 'name_categoria' => 'PENC'],
@@ -577,6 +577,10 @@ class AtributosSeeder extends Seeder
         ['name' => 'Mal Ingreso en 1° nivel ', 'name_interno' => 'caracterizacion7', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Caracterizacion'],
         ['name' => 'Retroalimentacion', 'name_interno' => 'retroalimentacion', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
         ['name' => 'Comentario Interno', 'name_interno' => 'comentario_interno', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Descripcion del Caso', 'name_interno' => 'descripcion_caso', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Respuesta del Ejecutivo', 'name_interno' => 'respuesta_ejecutivo', 'pauta_id' => 5, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Descripcion del Caso', 'name_interno' => 'descripcion_caso', 'pauta_id' => 4, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
+        ['name' => 'Respuesta del Ejecutivo', 'name_interno' => 'respuesta_ejecutivo', 'pauta_id' => 4, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'Memo'],
     ];
 
 }
