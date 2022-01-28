@@ -95,7 +95,7 @@ Versión 4
                     </span>
                 </td>
                 <td class="px-3 py-1 whitespace-nowrap">
-                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado_conversacion == 8) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full @if($evaluacion->estado_conversacion == 8) bg-green-100 text-green-800 @elseif(in_array($evaluacion->estado_conversacion, [9, 14, 15, 16])) bg-yellow-100 text-yellow-800 @else bg-gray-100 text-gray-800 @endif">
                       {{$grabacionestados->firstWhere('id', $evaluacion->estado_conversacion)->name}}
                     </span>
 
@@ -195,7 +195,7 @@ Versión 4
                             Completar
                         </button>
                     @else
-                        <a class="text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-green-700 bg-gray-50 border border-green-700 hover:bg-green-700 hover:text-white rounded focus:shadow-outline " href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
+                        <a class="text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-white bg-green-600 border border-green-700 hover:bg-green-700 hover:text-white rounded focus:shadow-outline " href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
@@ -205,33 +205,44 @@ Versión 4
                     @endif
                 </td>
                 <td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium inline-flex">
+
                     @if($evaluacion->fecha_grabacion != NULL && $evaluacion->connid != NULL && $evaluacion->movil != NULL)
-                        <form method="post" action="{{ route('evaluacions.grabacion_no_evaluable', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la grabación como NO EVALUABLE. Está de acuerdo?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center px-2 py-1.5 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 10 ? 'disabled' : '' }}>
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                                </svg>
-                            </button>
-                        </form>
-                        @if($evaluacion->estado_conversacion == 7 || $evaluacion->estado_conversacion == 9 || $evaluacion->estado_conversacion == 10)
-                            <form method="post" action="{{ route('evaluacions.sin_grabacion', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la evaluación como SIN GRABACIÓN. Está de acuerdo?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center py-1.5 px-2 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 9 ? 'disabled' : '' }}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                    </svg>
-                                </button>
-                            </form>
-                        @endif
+                    <button modal-target="problemas-grabacion-{{ $evaluacion->id }}" class="font-bold modal-open text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-red-700 bg-gray-50 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
+                        </svg>
+                    </button>
                     @endif
+
+{{--                    @if($evaluacion->fecha_grabacion != NULL && $evaluacion->connid != NULL && $evaluacion->movil != NULL)--}}
+{{--                        <form method="post" action="{{ route('evaluacions.grabacion_no_evaluable', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la grabación como NO EVALUABLE. Está de acuerdo?')">--}}
+{{--                            @csrf--}}
+{{--                            @method('DELETE')--}}
+{{--                            <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center px-2 py-1.5 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 10 ? 'disabled' : '' }}>--}}
+{{--                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
+{{--                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />--}}
+{{--                                </svg>--}}
+{{--                            </button>--}}
+{{--                        </form>--}}
+{{--                        @if($evaluacion->estado_conversacion == 7 || $evaluacion->estado_conversacion == 9 || $evaluacion->estado_conversacion == 10)--}}
+{{--                            <form method="post" action="{{ route('evaluacions.sin_grabacion', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la evaluación como SIN GRABACIÓN. Está de acuerdo?')">--}}
+{{--                                @csrf--}}
+{{--                                @method('DELETE')--}}
+{{--                                <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center py-1.5 px-2 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 9 ? 'disabled' : '' }}>--}}
+{{--                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
+{{--                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />--}}
+{{--                                    </svg>--}}
+{{--                                </button>--}}
+{{--                            </form>--}}
+{{--                        @endif--}}
+{{--                    @endif--}}
                 </td>
 
             </tr>
             @if($evaluacion->fecha_grabacion == NULL || $evaluacion->connid == NULL || $evaluacion->movil == NULL)
                 @include('evaluacions.voz.modal_completar_evaluacion', ['modal' => ['id' => 'completar-evaluacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_completar_evaluacion', 'titulo' => 'Completar datos de la evaluación', 'fecha_grabacion' => $evaluacion->fecha_grabacion, 'movil' => $evaluacion->movil, 'connid' => $evaluacion->connid, 'evaluacion_id' => $evaluacion->id]])
+            @else
+                @include('evaluacions.voz.modal_problemas_grabacion', ['modal' => ['id' => 'problemas-grabacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_problemas_grabacion', 'titulo' => 'Reportar problemas con la grabación', 'evaluacion_id' => $evaluacion->id, 'estado_conversacion' => $evaluacion->estado_conversacion]])
             @endif
 
         @endforeach

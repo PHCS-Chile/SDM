@@ -46,8 +46,8 @@ class EjecutivoEvaluacionesCallVoz extends Component
     public function render()
     {
         return view('livewire.ejecutivo-evaluaciones-call-voz', [
-            'estados' => Estado::where('tipo',1)->get(),
-            'grabacionestados' => Estado::where('tipo',2)->get(),
+            'estados' => Estado::where('tipo', 1)->where('visible', 1)->get(),
+            'grabacionestados' => Estado::where('tipo', 2)->where('visible', 1)->get(),
             'asignacionfinal' => Asignacion::find($this->asignacionid),
             'evaluacionescompletas' => Evaluacion::where('asignacion_id','=',$this->asignacionid)->where('estado_id', '>',1)->where('estado_id', '<',6)->get(),
             'evaluaciones' => Evaluacion::where('asignacion_id','=',$this->asignacionid)

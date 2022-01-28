@@ -83,3 +83,4 @@ Route::get('supervision/bloqueos', [SupervisionController::class, 'bloqueos'])->
 Route::post('supervision/bloqueos', [SupervisionController::class, 'desbloquear'])->name('supervision.desbloquear')->middleware(['auth:sanctum', 'verified']);
 
 Route::post('evaluacion/{evaluacionid}/completar', [EvaluacionController::class, 'completarEvaluacion'])->name('evaluacion.completar')->middleware(['auth:sanctum', 'verified']);
+Route::post('evaluacion/{evaluacionid}/reportar_grabacion', [EvaluacionController::class, 'reportarGrabacion'])->name('evaluacion.reportar_grabacion')->middleware(['auth:sanctum', 'verified']);

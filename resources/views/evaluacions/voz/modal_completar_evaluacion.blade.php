@@ -15,7 +15,7 @@
 
                 <!--Title-->
                 <div class="flex justify-between items-center pb-3">
-                    <p class="text-base font-bold mb-4">{{ $modal['titulo'] }}</p>
+                    <p class="text-base font-bold mb-4 text-2xl">{{ $modal['titulo'] }}</p>
                     <div class="modal-close cursor-pointer z-50">
                         <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
                             <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
@@ -38,13 +38,13 @@
 
                     </div>
                     <div class="w-1/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="fecha_grabacion" id="fecha_grabacion-{{ $modal['evaluacion_id'] }}" type="text" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'd/m/Y') : "" }}">
+                        <input class="bg-gray-50 appearance-none border border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="fecha_grabacion" id="fecha_grabacion-{{ $modal['evaluacion_id'] }}" type="text" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'd/m/Y') : "" }}">
                     </div>
                     <div class="w-1/6">
-                        <input oninput="validarHora(this)" min="0" max="23" class="w-24 bg-gray-200 appearance-none border border-gray-400 rounded py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" name="hora_grabacion" id="hora_grabacion-{{ $modal['evaluacion_id'] }}" type="number" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'H') : "" }}" placeholder="Hora">
+                        <input oninput="validarHora(this)" min="0" max="23" class="w-24 bg-gray-50 appearance-none border border-gray-400 rounded py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" name="hora_grabacion" id="hora_grabacion-{{ $modal['evaluacion_id'] }}" type="number" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'H') : "" }}" placeholder="Hora">
                     </div>
                     <div class="w-1/6">
-                        <input oninput="validarMinutos(this)" min="0" max="60" class="w-24 bg-gray-200 appearance-none border border-gray-400 rounded py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" name="minutos_grabacion" id="minutos_grabacion-{{ $modal['evaluacion_id'] }}" type="number" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'i') : "" }}" placeholder="Min">
+                        <input oninput="validarMinutos(this)" min="0" max="60" class="w-24 bg-gray-50 appearance-none border border-gray-400 rounded py-2 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500" name="minutos_grabacion" id="minutos_grabacion-{{ $modal['evaluacion_id'] }}" type="number" value="{{ $modal['fecha_grabacion'] ? date_format(date_create($modal['fecha_grabacion']), 'i') : "" }}" placeholder="Min">
                     </div>
                 </div>
 
@@ -55,7 +55,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="movil" id="movil" type="number" value="{{ $modal['movil'] }}">
+                        <input class="bg-gray-50 appearance-none border border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="movil" id="movil" type="number" value="{{ $modal['movil'] }}">
                     </div>
                 </div>
 
@@ -66,7 +66,7 @@
                         </label>
                     </div>
                     <div class="md:w-2/3">
-                        <input class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="connid" id="connid" type="text" value="{{ $modal['connid'] }}">
+                        <input class="bg-gray-50 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="connid" id="connid" type="text" value="{{ $modal['connid'] }}">
                     </div>
                 </div>
 

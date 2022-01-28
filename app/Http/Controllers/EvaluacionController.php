@@ -290,7 +290,27 @@ class EvaluacionController extends Controller
         //dd($evaluacion);
         $evaluacion->save();
         return back()->withErrors($errores);
+    }
 
+    public function reportarGrabacion(Request $request)
+    {
+        $evaluacion = Evaluacion::find($request->evaluacion_id);
+        if ($request->problemaGrabacion == "inexistente") {
+            $evaluacion->estado_conversacion = 9;
+        }
+        if ($request->problemaGrabacion == "problema") {
+            if ($request->grabacionNoEvaluable == "duracion") {
+                $evaluacion->estado_conversacion = 14;
+            }
+            elseif ($request->grabacionNoEvaluable == "incompleta") {
+                $evaluacion->estado_conversacion = 15;
+            }
+            elseif ($request->grabacionNoEvaluable == "inaudible") {
+                $evaluacion->estado_conversacion = 16;
+            }
+        }
+        $evaluacion->save();
+        return back();
     }
 
 }
