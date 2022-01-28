@@ -92,8 +92,8 @@ class PautaRetenciones extends PautaBase
     public $caracterizacion3 = '';
     public $caracterizacion4 = '';
     public $caracterizacion5 = '';
+    public $caracterizacion6 = '';
     public $caracterizacion7 = '';
-    public $caracterizacion8 = '';
 
     public $grabacion;
     public $retroalimentacion = '';
@@ -109,13 +109,14 @@ class PautaRetenciones extends PautaBase
             PautaBase::$RESPUESTA_CHECK => [427, 428, 429, 431, 432, 433, 435, 436, 437, 439, 440, 441, 443, 444, 445, 447, 448, 449, 450, 452, 453, 454, 455, 456, 457, 459, 460, 461, 462, 463, 465, 466, 467, 468, 469, 471, 472, 473, 475, 476, 477, 479, 480, 481, 482, 483, 484, 485, 486, 488, 489, 490, 491, 492, 493, 494, 495, 496, 497, 498, 499],
             PautaBase::$RESPUESTA_OPCIONES => [],
             PautaBase::$RESPUESTA_SI_NO => [],
-            PautaBase::$RESPUESTA_OTROS => [500, 501],
+            PautaBase::$RESPUESTA_OTROS => [500, 501, 502, 503],
         ];
 
         /* Reglas de validación */
-        $this->agregarValidaciones([
-            'comentario_interno' => 'required',
+        $this->agregarValidaciones([            
             'retroalimentacion' => 'required',
+            'descripcion_caso' => 'required',
+            'respuesta_ejecutivo' => 'required',
         ]);
 
         $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
@@ -148,6 +149,8 @@ class PautaRetenciones extends PautaBase
 
         $this->guardarRespuesta(500, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(501, ['memo' => $this->comentario_interno]);
+        $this->guardarRespuesta(502, ['memo' => $this->descripcion_caso]);
+        $this->guardarRespuesta(503, ['memo' => $this->respuesta_ejecutivo]);
 
     }
 

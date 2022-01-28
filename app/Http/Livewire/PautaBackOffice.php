@@ -125,12 +125,14 @@ class PautaBackOffice extends PautaBase
             PautaBase::$RESPUESTA_CHECK => [329, 330, 332, 333, 334, 336, 337, 338, 340, 341, 342, 343, 345, 346, 347, 349, 350, 351, 352, 354, 355, 356, 357, 358, 359, 360, 361, 362, 363, 364, 366, 367, 368, 369, 370, 371, 372, 373, 375, 376, 377, 378, 379, 380, 381, 382, 384, 385, 386, 387, 388, 390, 391, 392, 393, 394, 395, 397, 398, 399, 400, 401, 403, 404, 405, 406, 407, 408, 409, 410, 412, 413, 414, 415, 416, 417, 418, 419, 420, 421, 422, 423],
             PautaBase::$RESPUESTA_OPCIONES => [],
             PautaBase::$RESPUESTA_SI_NO => [],
-            PautaBase::$RESPUESTA_OTROS => [424, 425],
+            PautaBase::$RESPUESTA_OTROS => [424, 425, 504, 505],
         ];
 
         /* Reglas de validación */
         $this->agregarValidaciones([
             'retroalimentacion' => 'required',
+            'descripcion_caso' => 'required',
+            'respuesta_ejecutivo' => 'required',
         ]);
 
         $this->grabacion = Grabacion::where('evaluacion_id', $this->evaluacion->id)->first();
@@ -166,8 +168,8 @@ class PautaBackOffice extends PautaBase
 
         $this->guardarRespuesta(424, ['memo' => $this->retroalimentacion]);
         $this->guardarRespuesta(425, ['memo' => $this->comentario_interno]);
-        //$this->guardarRespuesta(426, ['memo' => $this->descripcion_caso]);
-        //$this->guardarRespuesta(427, ['memo' => $this->respuesta_ejecutivo]);
+        $this->guardarRespuesta(504, ['memo' => $this->descripcion_caso]);
+        $this->guardarRespuesta(505, ['memo' => $this->respuesta_ejecutivo]);
     }
 
     public function configurarCalculoDePuntajes()

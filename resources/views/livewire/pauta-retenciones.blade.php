@@ -140,7 +140,6 @@ Versión 2
                 <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
             </svg>
             PEC Cumplimiento: {{$evaluacion->pecc}}
-            {{$evaluacion->sub_estudio}}
         </div>
         @if($evaluacion->ici)
             <div class="mt-2 flex items-center text-sm text-gray-500">
@@ -727,7 +726,7 @@ Versión 2
                                         <div class="mt-2 space-y-2">
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion1" name="caracterizacion1" wire:model.defer="caracterizacion1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion1" name="caracterizacion1" wire:model.defer="caracterizacion1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion1}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion1" class="font-medium text-gray-700">Cliente es retenido o desiste de continuar con la renunciar</label>
@@ -736,7 +735,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion2" name="caracterizacion2" wire:model.defer="caracterizacion2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion2" name="caracterizacion2" wire:model.defer="caracterizacion2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion2}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion2" class="font-medium text-gray-700">Cliente insatisfecho con Entel</label>
@@ -745,7 +744,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion3" name="caracterizacion3" wire:model.defer="caracterizacion3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion3" name="caracterizacion3" wire:model.defer="caracterizacion3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion3}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion3" class="font-medium text-gray-700">Cliente con oferta de la competencia</label>
@@ -754,7 +753,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion4" name="caracterizacion4" wire:model.defer="caracterizacion4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion4" name="caracterizacion4" wire:model.defer="caracterizacion4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion4}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion4" class="font-medium text-gray-700">Cliente justifica su renuncia por situación económica</label>
@@ -763,7 +762,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion5" name="caracterizacion5" wire:model.defer="caracterizacion5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion5" name="caracterizacion5" wire:model.defer="caracterizacion5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion5}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion5" class="font-medium text-gray-700">Cliente menciona cambio en sus condiciones de vida y/o uso del servicio</label>
@@ -772,7 +771,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion6" name="caracterizacion6" wire:model.defer="caracterizacion6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion6" name="caracterizacion6" wire:model.defer="caracterizacion6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion6}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion6" class="font-medium text-gray-700">Cliente no tiene intención de renunciar sino que busca beneficios</label>
@@ -781,7 +780,7 @@ Versión 2
 
                                             <div class="flex items-start">
                                                 <div class="flex items-center h-5">
-                                                    <input id="caracterizacion7" name="caracterizacion7" wire:model.defer="caracterizacion7" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
+                                                    <input id="caracterizacion7" name="caracterizacion7" wire:model.defer="caracterizacion7" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$caracterizacion7}}>
                                                 </div>
                                                 <div class="ml-3 text-sm">
                                                     <label for="caracterizacion7" class="font-medium text-gray-700">Mal Ingreso en 1° nivel</label>
