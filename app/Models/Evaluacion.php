@@ -54,6 +54,16 @@ class Evaluacion extends Model
         return $this->hasMany(Bloqueo::class);
     }
 
+    public function esDummy()
+    {
+        return $this->estaIncompleta() && $this->estado_id == 1 && $this->estado_conversacion == 7;
+    }
+
+    public function estaIncompleta()
+    {
+        return $this->fecha_grabacion == NULL || $this->connid == NULL || $this->movil == NULL;
+    }
+
     public function cambiarEstado($estado)
     {
         Log::log($this->id, Log::ACCION_CAMBIO_ESTADO, [$this->estado_id, $estado]);

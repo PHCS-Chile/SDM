@@ -84,3 +84,6 @@ Route::post('supervision/bloqueos', [SupervisionController::class, 'desbloquear'
 
 Route::post('evaluacion/{evaluacionid}/completar', [EvaluacionController::class, 'completarEvaluacion'])->name('evaluacion.completar')->middleware(['auth:sanctum', 'verified']);
 Route::post('evaluacion/{evaluacionid}/reportar_grabacion', [EvaluacionController::class, 'reportarGrabacion'])->name('evaluacion.reportar_grabacion')->middleware(['auth:sanctum', 'verified']);
+Route::post('evaluacion/{evaluacionid}/cambiar_ejecutivo', [EvaluacionController::class, 'cambiarEjecutivo'])->name('evaluacion.cambiar_ejecutivo')->middleware(['auth:sanctum', 'verified']);
+Route::post('asignacion/{asignacionid}/crear_dummy', [EvaluacionController::class, 'crearDummy'])->name('asignacion.crear_dummy')->middleware(['auth:sanctum', 'verified']);
+Route::delete('evaluacion/{evaluacionid}/eliminar_dummy', [EvaluacionController::class, 'eliminarDummy'])->name('evaluacion.eliminar_dummy')->middleware(['auth:sanctum', 'verified']);

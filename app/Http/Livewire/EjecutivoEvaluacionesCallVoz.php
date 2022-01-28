@@ -29,6 +29,8 @@ class EjecutivoEvaluacionesCallVoz extends Component
     public $filtroNoRecorridos;
     public $estudio;
 
+    public $subestudioDummies;
+
 
     /**
      * Mount

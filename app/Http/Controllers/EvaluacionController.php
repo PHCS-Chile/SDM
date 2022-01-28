@@ -313,4 +313,58 @@ class EvaluacionController extends Controller
         return back();
     }
 
+    public function cambiarEjecutivo(Request $request)
+    {
+        if ($request->nombre_nuevo_ejecutivo) {
+            $evaluacion = Evaluacion::find($request->evaluacion_id);
+            $rutAnterior = $evaluacion->rut_ejecutivo;
+            $nombreAnterior = $evaluacion->nombre_ejecutivo;
+            $evaluacion->nombre_ejecutivo = $request->nombre_nuevo_ejecutivo;
+            $evaluacion->rut_ejecutivo = $request->rut_nuevo_ejecutivo;
+
+            $mensaje = "No se actualizaron los datos del ejecutivo porque no se encontraron cambios.";
+            if ($request->nombre_nuevo_ejecutivo != $nombreAnterior) {
+                $evaluacion->save();
+                if ($request->rut_nuevo_ejecutivo != $rutAnterior) {
+                    $mensaje = "Nombre y RUT del ejecutivo actualizados.";
+                } else {
+                    $mensaje = "Nombre del ejecutivo actualizado.";
+                }
+            } else {
+                if ($request->rut_nuevo_ejecutivo != $rutAnterior) {
+                    $evaluacion->save();
+                    $mensaje = "RUT del ejecutivo actualizado.";
+                }
+            }
+            return back()->with('status', $mensaje);
+        }
+        return back()->withErrors(["El ejecutivo no pudo ser actualizado"]);
+    }
+
+    public function crearDummy(Request $request)
+    {
+        if ($request->subestudioDummies) {
+            $evaluacion = new Evaluacion();
+            $evaluacion->nombre_ejecutivo = "";
+            $evaluacion->rut_ejecutivo = "";
+            $evaluacion->asignacion_id = $request->asignacionid;
+            $evaluacion->estado_id = 1;
+            $evaluacion->sub_estudio = $request->subestudioDummies;
+            $evaluacion->estado_conversacion = 7;
+            $evaluacion->save();
+            return back()->with('status', "Evaluación en blanco con éxito.");
+        }
+        return back()->withErrors(["No se pudo crear la evaluación en blanco."]);
+    }
+
+    public function eliminarDummy(Request $request)
+    {
+        $evaluacion = Evaluacion::find($request->evaluacion_id);
+        if ($evaluacion->esDummy()) {
+            $evaluacion->delete();
+            return back()->with('status', "Evaluación en blanco eliminada con éxito.");
+        }
+        return back()->withErrors(["No se puede eliminar una evaluación que no esté en blanco."]);
+    }
+
 }

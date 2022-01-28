@@ -5,7 +5,7 @@ Versión 4
 <div>
 
     <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
-    @if($asignacionfinal->estudio_id == 5)
+    @if($asignacionfinal->estudio_id == 5 || $asignacionfinal->estudio_id == 4)
         <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
         <script src="https://unpkg.com/js-datepicker"></script>
     @endif
@@ -61,11 +61,13 @@ Versión 4
                 &nbsp;<br>Ejecutivo
             </th>
             <th scope="col" class="text-center px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                &nbsp;<br>VER
+                &nbsp;<br>ACCIONES
             </th>
+            @if (Auth::user()->perfil == 1 && ($estudio == 4 || $estudio == 5))
             <th scope="col" class="text-center px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-                &nbsp;<br>GRABACIÓN
+                &nbsp;<br>SUPERVISIÓN
             </th>
+            @endif
         </tr>
         </thead>
         <tbody class="bg-white divide-y divide-gray-200">
@@ -196,23 +198,42 @@ Versión 4
                             Completar
                         </button>
                     @else
-                        <a class="text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-white bg-green-600 border border-green-700 hover:bg-green-700 hover:text-white rounded focus:shadow-outline " href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
+                        <a class="text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-green-600 border border-green-700 hover:bg-green-700 hover:text-white rounded focus:shadow-outline " href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" disabled>
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                             </svg>
                             Ver
                         </a>
+                        <button modal-target="problemas-grabacion-{{ $evaluacion->id }}" class="font-bold modal-open text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-red-700 bg-gray-50 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
+                            </svg>
+                        </button>
                     @endif
                 </td>
+                @if (Auth::user()->perfil == 1 && ($estudio == 4 || $estudio == 5))
                 <td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium inline-flex">
 
-                    @if($evaluacion->fecha_grabacion != NULL && $evaluacion->connid != NULL && $evaluacion->movil != NULL)
-                    <button modal-target="problemas-grabacion-{{ $evaluacion->id }}" class="font-bold modal-open text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-red-700 bg-gray-50 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
-                        </svg>
-                    </button>
+                    @if($evaluacion->esDummy())
+                        <button modal-target="cambiar-ejecutivo-{{ $evaluacion->id }}" class="modal-open text-xs inline-flex items-center py-1.5 pl-2 pr-1 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-blue-600 border border-blue-700 hover:bg-blue-700 hover:text-white rounded focus:shadow-outline ">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 relative -top-1 -left-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                            </svg>
+                        </button>
+                        <form method="POST" action="{{ route("evaluacion.eliminar_dummy", [$evaluacion->id]) }}" onsubmit="return confirm('Seguro que desea eliminar este Dummy? (acción irreversible)')">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="evaluacion_id" value="{{ $evaluacion->id }}">
+                            <button type="submit" class="text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-red-600 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline ">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </form>
                     @endif
 
 {{--                    @if($evaluacion->fecha_grabacion != NULL && $evaluacion->connid != NULL && $evaluacion->movil != NULL)--}}
@@ -238,10 +259,11 @@ Versión 4
 {{--                        @endif--}}
 {{--                    @endif--}}
                 </td>
-
+                @endif
             </tr>
-            @if($evaluacion->fecha_grabacion == NULL || $evaluacion->connid == NULL || $evaluacion->movil == NULL)
+            @if($evaluacion->estaIncompleta())
                 @include('evaluacions.voz.modal_completar_evaluacion', ['modal' => ['id' => 'completar-evaluacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_completar_evaluacion', 'titulo' => 'Completar datos de la evaluación', 'fecha_grabacion' => $evaluacion->fecha_grabacion, 'movil' => $evaluacion->movil, 'connid' => $evaluacion->connid, 'evaluacion_id' => $evaluacion->id]])
+                @include('evaluacions.voz.modal_cambiar_ejecutivo', ['modal' => ['id' => 'cambiar-ejecutivo-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_cambiar_ejecutivo', 'titulo' => 'Cambiar ejecutivo', 'evaluacion_id' => $evaluacion->id, 'nombre_ejecutivo' => $evaluacion->nombre_ejecutivo, 'rut_ejecutivo' => $evaluacion->rut_ejecutivo]])
             @else
                 @include('evaluacions.voz.modal_problemas_grabacion', ['modal' => ['id' => 'problemas-grabacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_problemas_grabacion', 'titulo' => 'Reportar problemas con la grabación', 'evaluacion_id' => $evaluacion->id, 'estado_conversacion' => $evaluacion->estado_conversacion]])
             @endif
@@ -251,6 +273,36 @@ Versión 4
         <!-- More items... -->
         </tbody>
     </table>
+    @if (Auth::user()->perfil == 1 && ($estudio == 4 || $estudio == 5))
+        <form class="bg-gray-200 p-2 pt-4 border-t flex space-x-2 text-sm justify-end" method="post" action="{{ route('asignacion.crear_dummy', [$asignacionid]) }}">
+            @csrf
+            <input type="hidden" name="asignacion_id" value="{{ $asignacionid }}">
+            <div class="inline-flex items-center">Agregar evaluación vacía para</div>
+            <div class="inline-flex">
+                <label for="subestudioDummies" class="sr-only">Subestudio</label>
+                <select name="subestudioDummies" id="subestudioDummies" class="w-24 border border-gray-300 bg-white py-1 px-1 rounded-lg text-xs focus:outline-none">
+                    @if($estudio == 5)
+                        <option value="N3">N3</option>
+                        <option value="N4">N4</option>
+                    @elseif($estudio == 4)
+                        <option value="MovilHogar">MovilHogar</option>
+                        <option value="Subtel">Subtel</option>
+                        <option value="Tecnico">Tecnico</option>
+                    @endif
+                </select>
+            </div>
+            <div class="inline-flex">
+                <button type="submit" class="text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-green-600 border border-green-700 hover:bg-green-700 hover:text-white rounded focus:shadow-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                </button>
+            </div>
+        </form>
+    @endif
+
+
+
     <script>
         var ctcSeleccionado = 0;
 
