@@ -72,7 +72,7 @@ Versión 4
 
         @foreach($evaluaciones as $evaluacion)
 
-            <tr class="hover:bg-gray-50">
+            <tr id="fila_{{ $evaluacion->id }}" class="hover:bg-gray-50">
                 <td class="px-3 py-1 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                       {{$evaluacion->id}}
@@ -102,7 +102,7 @@ Versión 4
                 </td>
                 <td class="px-3 py-1 whitespace-nowrap">
                     @if($evaluacion->fecha_grabacion == NULL)
-                        <button class="flex items-center text-sm text-yellow-500 bg-yellow-100 hover:bg-yellow-200 rounded-xl p-1 pr-2 shadow-md transition-all focus: border-transparent">
+                        <button id="ctc_fechagrabacion_{{ $evaluacion->id }}_boton" class="flex items-center text-sm text-yellow-500 bg-yellow-100 hover:bg-yellow-200 rounded-xl p-1 pr-2 shadow-md transition-all focus: border-transparent">
                             <!-- Heroicon name: currency-dollar -->
                             <svg xmlns="http://www.w3.org/2000/svg" class="flex-shrink-0 mr-1.5 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -110,6 +110,7 @@ Versión 4
                              <span class="text-gray-500">Por completar</span>
                         </button>
                     @else
+                        <input id="ctc_fecha_{{ $evaluacion->id }}" value="{{$evaluacion->fecha_grabacion}}" class="sr-only">
                         <button class="ctc flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_fecha_{{ $evaluacion->id }}" onclick="CopyToClipboard('ctc_fecha_{{ $evaluacion->id }}')">
                             <!-- Heroicon name: currency-dollar -->
                             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentC   olor" aria-hidden="true">
@@ -137,7 +138,7 @@ Versión 4
                         </button>
                     @else
                         <input id="ctc_movil_{{ $evaluacion->id }}" value="{{$evaluacion->movil}}" class="sr-only">
-                        <button class="ctc flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_movil_{{ $evaluacion->id }}" onclick="CopyToClipboard('ctc_movil_{{ $evaluacion->id }}')">
+                        <button id="ctc_movil_{{ $evaluacion->id }}_boton" class="ctc flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_movil_{{ $evaluacion->id }}" onclick="CopyToClipboard('ctc_movil_{{ $evaluacion->id }}')">
                             <!-- Heroicon name: currency-dollar -->
                             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
@@ -164,7 +165,7 @@ Versión 4
                         </button>
                     @else
                         <input id="ctc_connid_{{ $evaluacion->id }}" value="{{$evaluacion->connid}}" class="sr-only">
-                        <button class="ctc flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_connid_{{ $evaluacion->id }}" onclick="CopyToClipboard('ctc_connid_{{ $evaluacion->id }}')">
+                        <button id="ctc_connid_{{ $evaluacion->id }}_boton" class="ctc flex items-center text-sm text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_connid_{{ $evaluacion->id }}" onclick="CopyToClipboard('ctc_connid_{{ $evaluacion->id }}')">
                             <!-- Heroicon name: currency-dollar -->
                             <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
@@ -251,11 +252,24 @@ Versión 4
         </tbody>
     </table>
     <script>
+        var ctcSeleccionado = 0;
+
+        function seleccionarVisualmente(containerid) {
+            if (ctcSeleccionado > 0) {
+                document.getElementById("fila_" + ctcSeleccionado).classList.remove("bg-green-50");
+                document.getElementById("fila_" + ctcSeleccionado).classList.add("hover:bg-gray-50");
+            }
+            ctcSeleccionado = containerid.substring(containerid.lastIndexOf("_") + 1);
+            document.getElementById("fila_" + ctcSeleccionado).classList.add("bg-green-50");
+            document.getElementById("fila_" + ctcSeleccionado).classList.remove("hover:bg-gray-50");
+        }
+
         function esconderAlerta(containerid) {
             document.getElementById(containerid + "_alert").style.display = "none";
         }
 
         function CopyToClipboard(containerid) {
+            seleccionarVisualmente(containerid);
             document.getElementById(containerid + "_alert").style.display = "flex";
             setTimeout(function() {
                 esconderAlerta(containerid);
