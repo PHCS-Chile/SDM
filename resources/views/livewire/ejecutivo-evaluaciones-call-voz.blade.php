@@ -282,8 +282,8 @@ Versión 4
                 <label for="subestudioDummies" class="sr-only">Subestudio</label>
                 <select name="subestudioDummies" id="subestudioDummies" class="w-24 border border-gray-300 bg-white py-1 px-1 rounded-lg text-xs focus:outline-none">
                     @if($estudio == 5)
+                        <option value="N2">N2</option>
                         <option value="N3">N3</option>
-                        <option value="N4">N4</option>
                     @elseif($estudio == 4)
                         <option value="MovilHogar">MovilHogar</option>
                         <option value="Subtel">Subtel</option>
