@@ -23,15 +23,12 @@ Versión 1
                         </span>
                         <p class="ml-3 font-medium text-white truncate">
                             <span class="md:hidden">Error</span>
-                            <span class="hidden md:inline text-white">
-                                {{ implode('', $errors->all(':message')) }}
-                            </span>
+                            @foreach($errors->all(':message') as $error)
+                                <span class="text-white block ml-12">
+                                    - {{ $error }}
+                                </span>
+                            @endforeach
                         </p>
-                    </div>
-                    <div class="hidden order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
-                        <a href="#" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-red-600 bg-white hover:bg-red-50">
-                            Learn more
-                        </a>
                     </div>
                     <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
                         <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-red-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2">
@@ -46,7 +43,7 @@ Versión 1
             setTimeout(function(){
                 document.getElementById("session-status").style.opacity = 0;
                 document.getElementById("session-status").style.display="none";
-            }, 3000);
+            }, 8000);
         </script>
     @endif
 
@@ -85,7 +82,7 @@ Versión 1
             setTimeout(function(){
                 document.getElementById("session-status").style.opacity = 0;
                 document.getElementById("session-status").style.display = 'none';
-            }, 4000);
+            }, 8000);
         </script>
     @endif
 

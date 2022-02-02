@@ -5,10 +5,10 @@ Versión 4
 <div>
 
     <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
-    @if($asignacionfinal->estudio_id == 5 || $asignacionfinal->estudio_id == 4)
-        <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">
-        <script src="https://unpkg.com/js-datepicker"></script>
-    @endif
+{{--    @if($asignacionfinal->estudio_id == 5 || $asignacionfinal->estudio_id == 4)--}}
+{{--        <link rel="stylesheet" href="https://unpkg.com/js-datepicker/dist/datepicker.min.css">--}}
+{{--        <script src="https://unpkg.com/js-datepicker"></script>--}}
+{{--    @endif--}}
     <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
 

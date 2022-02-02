@@ -262,13 +262,44 @@ class EvaluacionController extends Controller
         $datetime = NULL;
         $errores = [];
         if ($request->fecha_grabacion && $request->hora_grabacion && $request->minutos_grabacion) {
-            if ($request->hora_grabacion >= 0 && $request->hora_grabacion < 24 && $request->minutos_grabacion >= 0 && $request->minutos_grabacion < 24) {
-                $dateArray = explode("/", $request->fecha_grabacion);
-                $datetime = Carbon::create($dateArray[2], $dateArray[1], $dateArray[0], $request->hora_grabacion, $request->minutos_grabacion, 0);
-                $evaluacion->fecha_grabacion = $datetime->format('d-m-Y H:i:s');
-            } else {
-                array_push($errores, "La fecha indicada no es válida.");
+            $correcta = true;
+            // Validar minuto y hora
+            if ($request->hora_grabacion < 0 || $request->hora_grabacion > 23) { /* Hora inválida */
+                array_push($errores, "La hora de grabación debe tener valores entre 0 y 23 (se ingresó '" . $request->hora_grabacion . "').");
+                $correcta = false;
             }
+            if ($request->minutos_grabacion < 0 || $request->minutos_grabacion > 59) { /* Minuto inválido */
+                array_push($errores, "El minuto de grabación debe tener valores entre 0 y 59 (se ingresó '" . $request->minutos_grabacion . "').");
+                $correcta = false;
+            }
+            // Validar fecha
+            $re = '/^(\d{2})\/(\d{2})\/(\d{4})$/m';
+            preg_match($re, $request->fecha_grabacion, $matches, PREG_OFFSET_CAPTURE, 0);
+            if (!$matches) { /* Formato de fecha inválido */
+                array_push($errores, "Formato de fecha inválido (Se acepta únicamente DD/MM/AAAA).");
+                $correcta = false;
+            } else {
+                $ano = $matches[3][0];
+                $mes = $matches[2][0];
+                $dia = $matches[1][0];
+                if ($ano > date("Y") || $ano < 2000) { /* Año inválido */
+                    array_push($errores, "El año de grabación debe tener valores entre 2000 y " . date("Y") . " (se ingresó '" . $ano . "').");
+                    $correcta = false;
+                }
+                if (intval($mes) > 12 || intval($mes) < 1) { /* Mes inválido */
+                    array_push($errores, "El mes de grabación debe tener valores entre 01 y 12 (se ingresó '" . $mes . "').");
+                    $correcta = false;
+                }
+                if (intval($dia) > 31 || intval($dia) < 1) { /* Dia inválido */
+                    array_push($errores, "El día de grabación debe tener valores entre 01 y 31 (se ingresó '" . $dia . "').");
+                    $correcta = false;
+                }
+            }
+            if ($correcta) {
+                $datetime = Carbon::create($ano, $mes, $dia, $request->hora_grabacion, $request->minutos_grabacion, 0);
+                $evaluacion->fecha_grabacion = $datetime->format('d-m-Y H:i:s');
+            }
+
         }
         if ($request->movil) {
             if (is_numeric($request->movil) && strlen($request->movil) == 9) {
