@@ -58,7 +58,13 @@ Versión 4
                 <input id="filtroConnid" class="block border border-gray-300 bg-white py-1 px-1 mt-1 rounded-lg text-xs focus:outline-none" placeholder="ConnID" wire:model="filtroConnid">
             </th>
             <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                &nbsp;<br>Ejecutivo
+                <label for="filtroEjecutivo" class="">Ejecutivo</label>
+                <select id="filtroEjecutivo" name="filtroEjecutivo" autocomplete="" wire:model="filtroEjecutivo" class="mt-1 block w-full py-1 pl-1 pr-6 text-xs border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500">
+                    <option value="Todos">Todos</option>
+                    @foreach($ejecutivos as $ejecutivo)
+                        <option value="{{ $ejecutivo }}">{{ $ejecutivo }}</option>
+                    @endforeach
+                </select>
             </th>
             <th scope="col" class="text-center px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                 &nbsp;<br>ACCIONES

@@ -44,6 +44,17 @@ class Asignacion extends Model
         return $this->agente->servicio->name;
     }
 
+    public function todosLosEjecutivos()
+    {
+        $ejecutivos = [];
+        foreach ($this->evaluacions as $evaluacion) {
+            if ($evaluacion->nombre_ejecutivo && !in_array($evaluacion->nombre_ejecutivo, $ejecutivos)) {
+                array_push($ejecutivos, $evaluacion->nombre_ejecutivo);
+            }
+        }
+        return $ejecutivos;
+    }
+
     public function agente()
     {
         return $this->belongsTo(Agente::class);

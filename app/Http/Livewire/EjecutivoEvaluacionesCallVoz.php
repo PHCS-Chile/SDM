@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Evaluacion;
 use App\Models\Estado;
@@ -27,6 +28,7 @@ class EjecutivoEvaluacionesCallVoz extends Component
     public $filtroConnid;
     public $searchMovil;
     public $filtroNoRecorridos;
+    public $filtroEjecutivo = "Todos";
     public $estudio;
 
     public $subestudioDummies;
@@ -49,6 +51,7 @@ class EjecutivoEvaluacionesCallVoz extends Component
     {
         return view('livewire.ejecutivo-evaluaciones-call-voz', [
             'estados' => Estado::where('tipo', 1)->where('visible', 1)->get(),
+            'ejecutivos' => Asignacion::find($this->asignacionid)->todosLosEjecutivos(),
             'grabacionestados' => Estado::where('tipo', 2)->where('visible', 1)->get(),
             'asignacionfinal' => Asignacion::find($this->asignacionid),
             'evaluacionescompletas' => Evaluacion::where('asignacion_id','=',$this->asignacionid)->where('estado_id', '>',1)->where('estado_id', '<',6)->get(),
@@ -70,6 +73,9 @@ class EjecutivoEvaluacionesCallVoz extends Component
                 })
                 ->when($this->filtroEstadoGrabacion > 0, function ($query) {
                     $query->where('estado_conversacion', $this->filtroEstadoGrabacion);
+                })
+                ->when($this->filtroEjecutivo != "Todos", function ($query) {
+                    $query->where('nombre_ejecutivo', $this->filtroEjecutivo);
                 })
                 ->orderBy('fecha_grabacion', 'desc')->get()
         ]);
