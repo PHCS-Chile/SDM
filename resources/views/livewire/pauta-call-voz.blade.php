@@ -184,9 +184,11 @@ Versión 5
                                 <select id="tipogestion1" name="tipogestion1" wire:model.defer="tipogestion1" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option></option>
                                     @foreach($gestiones as $gestion)
-                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
-                                            {{$gestion->name}}
-                                        </option>
+                                        @if(!in_array($gestion->name, ['Consultas 727', 'Nursery']))
+                                            <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
+                                                {{$gestion->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -257,9 +259,11 @@ Versión 5
                                 <select id="tipogestion2" name="tipogestion2" wire:model.defer="tipogestion2" wire:change="xgestion2" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option></option>
                                     @foreach($gestiones as $gestion)
-                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion2) ? 'selected' : '' }}>
-                                            {{$gestion->name}}
-                                        </option>
+                                        @if(!in_array($gestion->name, ['Consultas 727', 'Nursery']))
+                                            <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
+                                                {{$gestion->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
@@ -330,9 +334,11 @@ Versión 5
                                 <select id="tipogestion3" name="tipogestion3" wire:model.defer="tipogestion3" wire:change="xgestion3" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                     <option></option>
                                     @foreach($gestiones as $gestion)
-                                        <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion3) ? 'selected' : '' }}>
-                                            {{$gestion->name}}
-                                        </option>
+                                        @if(!in_array($gestion->name, ['Consultas 727', 'Nursery']))
+                                            <option value="{{$gestion->name}}" {{ ( $gestion->name == $tipogestion1) ? 'selected' : '' }}>
+                                                {{$gestion->name}}
+                                            </option>
+                                        @endif
                                     @endforeach
                                 </select>
                             </div>
