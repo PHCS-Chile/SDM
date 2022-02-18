@@ -279,6 +279,7 @@ Versión 4
         <!-- More items... -->
         </tbody>
     </table>
+    <div class="px-3 py-2">{{ $evaluaciones->links() }}</div>
     @if (Auth::user()->perfil == 1 && ($estudio == 4 || $estudio == 5))
         <form class="bg-gray-200 p-2 pt-4 border-t flex space-x-2 text-sm justify-end" method="post" action="{{ route('asignacion.crear_dummy', [$asignacionid]) }}">
             @csrf
