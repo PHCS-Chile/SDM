@@ -279,6 +279,7 @@ Versión 4
         <!-- More items... -->
         </tbody>
     </table>
+    <div class="px-3 py-2">{{ $evaluaciones->links() }}</div>
 
     <div wire:loading.delay class="fixed right-3 top-3 z-50 text-yellow-700 shadow-lg bg-yellow-50 border-2 border-yellow-700 font-bold rounded-lg text-md px-5 py-2 text-center inline-flex items-center transition-all ease-in-out">
         <svg class="inline mr-3 w-6 h-6 text-yellow-700 animate-spin" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">

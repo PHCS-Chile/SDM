@@ -10,7 +10,7 @@ use Livewire\Component;
 use App\Models\Evaluacion;
 use App\Models\Estado;
 use App\Models\Asignacion;
-
+use Livewire\WithPagination;
 
 /**
  * Class EjecutivoEvaluacionesCallVoz
@@ -20,7 +20,7 @@ use App\Models\Asignacion;
  */
 class EjecutivoEvaluacionesCallVoz extends Component
 {
-
+    use WithPagination;
     public $asignacionid;
     public $filtroEstado;
     public $filtroEstadoGrabacion;
@@ -77,7 +77,7 @@ class EjecutivoEvaluacionesCallVoz extends Component
                 ->when($this->filtroEjecutivo != "Todos", function ($query) {
                     $query->where('nombre_ejecutivo', $this->filtroEjecutivo);
                 })
-                ->orderBy('fecha_grabacion', 'desc')->get()
+                ->orderBy('fecha_grabacion', 'desc')->paginate(40)
         ]);
     }
 
