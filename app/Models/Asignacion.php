@@ -16,6 +16,26 @@ class Asignacion extends Model
     use HasFactory;
     protected $dateFormat = 'd-m-Y H:i:s';
 
+    public function contarSinConversacion()
+    {
+        $enBlanco = 0;
+        foreach ($this->evaluacions as $evaluacion) {
+            if ($evaluacion->estado_conversacion == Grabacion::NO_RECORRIDA) {
+                ++$enBlanco;
+            } else {
+                $conversacion = Grabacion::where('evaluacion_id', $evaluacion->id)->get();
+                if (!$conversacion) {
+                    ++$enBlanco;
+                }
+            }
+        }
+        return $enBlanco;
+    }
+
+
+
+
+
     public function getIncompletasAttribute(){
         return $this->evaluacions->where('estado_id','1');
     }
@@ -44,15 +64,21 @@ class Asignacion extends Model
         return $this->agente->servicio->name;
     }
 
-    public function todosLosEjecutivos()
+    public function contarEstadosConversacion($estado)
+    {
+        return $this->evaluacions->where('estado_conversacion', $estado)->count();
+    }
+
+    public function ejecutivos()
     {
         $ejecutivos = [];
         foreach ($this->evaluacions as $evaluacion) {
-            if ($evaluacion->nombre_ejecutivo && !in_array($evaluacion->nombre_ejecutivo, $ejecutivos)) {
-                array_push($ejecutivos, $evaluacion->nombre_ejecutivo);
+            if (!in_array($evaluacion->nombre_ejecutivo, $ejecutivos)) {
+                $ejecutivos[] = $evaluacion->nombre_ejecutivo;
             }
         }
         return $ejecutivos;
+
     }
 
     public function agente()

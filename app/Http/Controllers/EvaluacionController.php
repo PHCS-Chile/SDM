@@ -258,7 +258,7 @@ class EvaluacionController extends Controller
 
     public function completarEvaluacion(Request $request)
     {
-        $evaluacion = Evaluacion::find($request->evaluacion_id);
+        $evaluacion = Evaluacion::find($request->modal_evaluacion_id);
         $datetime = NULL;
         $errores = [];
         if ($request->fecha_grabacion && $request->hora_grabacion && $request->minutos_grabacion) {
@@ -325,7 +325,8 @@ class EvaluacionController extends Controller
 
     public function reportarGrabacion(Request $request)
     {
-        $evaluacion = Evaluacion::find($request->evaluacion_id);
+
+        $evaluacion = Evaluacion::find($request->modal_evaluacion_id);
         if ($request->problemaGrabacion == "inexistente") {
             $evaluacion->estado_conversacion = 9;
         }
@@ -346,23 +347,23 @@ class EvaluacionController extends Controller
 
     public function cambiarEjecutivo(Request $request)
     {
-        if ($request->nombre_nuevo_ejecutivo) {
-            $evaluacion = Evaluacion::find($request->evaluacion_id);
+        if ($request->cambiar_ejecutivo_nombre) {
+            $evaluacion = Evaluacion::find($request->modal_evaluacion_id);
             $rutAnterior = $evaluacion->rut_ejecutivo;
             $nombreAnterior = $evaluacion->nombre_ejecutivo;
-            $evaluacion->nombre_ejecutivo = $request->nombre_nuevo_ejecutivo;
-            $evaluacion->rut_ejecutivo = $request->rut_nuevo_ejecutivo;
+            $evaluacion->nombre_ejecutivo = $request->cambiar_ejecutivo_nombre;
+            $evaluacion->rut_ejecutivo = $request->cambiar_ejecutivo_rut;
 
             $mensaje = "No se actualizaron los datos del ejecutivo porque no se encontraron cambios.";
-            if ($request->nombre_nuevo_ejecutivo != $nombreAnterior) {
+            if ($request->cambiar_ejecutivo_nombre != $nombreAnterior) {
                 $evaluacion->save();
-                if ($request->rut_nuevo_ejecutivo != $rutAnterior) {
+                if ($request->cambiar_ejecutivo_rut != $rutAnterior) {
                     $mensaje = "Nombre y RUT del ejecutivo actualizados.";
                 } else {
                     $mensaje = "Nombre del ejecutivo actualizado.";
                 }
             } else {
-                if ($request->rut_nuevo_ejecutivo != $rutAnterior) {
+                if ($request->cambiar_ejecutivo_rut != $rutAnterior) {
                     $evaluacion->save();
                     $mensaje = "RUT del ejecutivo actualizado.";
                 }
@@ -376,7 +377,11 @@ class EvaluacionController extends Controller
     {
         if ($request->subestudioDummies) {
             $evaluacion = new Evaluacion();
-            $evaluacion->nombre_ejecutivo = "";
+            if (isset($request->ejecutivo)) {
+                $evaluacion->nombre_ejecutivo = $request->ejecutivo;
+            } else {
+                $evaluacion->nombre_ejecutivo = "";
+            }
             $evaluacion->rut_ejecutivo = "";
             $evaluacion->asignacion_id = $request->asignacionid;
             $evaluacion->estado_id = 1;

@@ -197,7 +197,7 @@ Versión 4
                 </td>
                 <td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium">
                     @if($evaluacion->fecha_grabacion == NULL || $evaluacion->connid == NULL || $evaluacion->movil == NULL)
-                        <button modal-target="completar-evaluacion-{{ $evaluacion->id }}" class="modal-open text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-blue-700 bg-gray-50 border border-blue-700 hover:bg-blue-700 hover:text-white rounded focus:shadow-outline">
+                        <button  wire:click.prevent="render" wire:click="abrirModalCompletar('completar', {{ $evaluacion->id }})" class="text-xs inline-flex items-center py-1.5 px-2 mx-2 my-0.5 transition-colors duration-150 text-blue-700 bg-gray-50 border border-blue-700 hover:bg-blue-700 hover:text-white rounded focus:shadow-outline">
                             <svg xmlns="http://www.w3.org/2000/svg" class="mr-1 h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                             </svg>
@@ -211,7 +211,7 @@ Versión 4
                             </svg>
                             Ver
                         </a>
-                        <button modal-target="problemas-grabacion-{{ $evaluacion->id }}" class="font-bold modal-open text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-red-700 bg-gray-50 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline">
+                        <button wire:click.prevent="render" wire:click="abrirModalCompletar('reportar_grabacion', {{ $evaluacion->id }})" class="font-bold modal-open text-xs inline-flex items-center py-1.5 px-2 mx-0.5 my-0.5 transition-colors duration-150 text-red-700 bg-gray-50 border border-red-700 hover:bg-red-700 hover:text-white rounded focus:shadow-outline">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />
                             </svg>
@@ -222,7 +222,7 @@ Versión 4
                 <td class="px-3 py-1 whitespace-nowrap text-right text-sm font-medium inline-flex">
 
                     @if($evaluacion->esDummy())
-                        <button modal-target="cambiar-ejecutivo-{{ $evaluacion->id }}" class="modal-open text-xs inline-flex items-center py-1.5 pl-2 pr-1 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-blue-600 border border-blue-700 hover:bg-blue-700 hover:text-white rounded focus:shadow-outline ">
+                        <button wire:click.prevent="render" wire:click="abrirModalCompletar('cambiar_ejecutivo', {{ $evaluacion->id }})" class="text-xs inline-flex items-center py-1.5 pl-2 pr-1 mx-0.5 my-0.5 transition-colors duration-150 text-white bg-blue-600 border border-blue-700 hover:bg-blue-700 hover:text-white rounded focus:shadow-outline ">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                             </svg>
@@ -241,38 +241,9 @@ Versión 4
                             </button>
                         </form>
                     @endif
-
-{{--                    @if($evaluacion->fecha_grabacion != NULL && $evaluacion->connid != NULL && $evaluacion->movil != NULL)--}}
-{{--                        <form method="post" action="{{ route('evaluacions.grabacion_no_evaluable', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la grabación como NO EVALUABLE. Está de acuerdo?')">--}}
-{{--                            @csrf--}}
-{{--                            @method('DELETE')--}}
-{{--                            <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center px-2 py-1.5 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 10 ? 'disabled' : '' }}>--}}
-{{--                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M5 3a2 2 0 00-2 2v1c0 8.284 6.716 15 15 15h1a2 2 0 002-2v-3.28a1 1 0 00-.684-.948l-4.493-1.498a1 1 0 00-1.21.502l-1.13 2.257a11.042 11.042 0 01-5.516-5.517l2.257-1.128a1 1 0 00.502-1.21L9.228 3.683A1 1 0 008.279 3H5z" />--}}
-{{--                                </svg>--}}
-{{--                            </button>--}}
-{{--                        </form>--}}
-{{--                        @if($evaluacion->estado_conversacion == 7 || $evaluacion->estado_conversacion == 9 || $evaluacion->estado_conversacion == 10)--}}
-{{--                            <form method="post" action="{{ route('evaluacions.sin_grabacion', [$evaluacion->id]) }}" onsubmit="return confirm('Está a punto de marcar la evaluación como SIN GRABACIÓN. Está de acuerdo?')">--}}
-{{--                                @csrf--}}
-{{--                                @method('DELETE')--}}
-{{--                                <button type="submit" class="hover:opacity-100 opacity-70 inline-flex items-center py-1.5 px-2 my-0.5 mx-0.5 text-sm text-indigo-100 transition-colors duration-150 bg-red-800 rounded-md focus:shadow-outline disabled:opacity-20" {{ $evaluacion->estado_conversacion == 9 ? 'disabled' : '' }}>--}}
-{{--                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">--}}
-{{--                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />--}}
-{{--                                    </svg>--}}
-{{--                                </button>--}}
-{{--                            </form>--}}
-{{--                        @endif--}}
-{{--                    @endif--}}
                 </td>
                 @endif
             </tr>
-            @if($evaluacion->estaIncompleta())
-                @include('evaluacions.voz.modal_completar_evaluacion', ['modal' => ['id' => 'completar-evaluacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_completar_evaluacion', 'titulo' => 'Completar datos de la evaluación', 'fecha_grabacion' => $evaluacion->fecha_grabacion, 'movil' => $evaluacion->movil, 'connid' => $evaluacion->connid, 'evaluacion_id' => $evaluacion->id]])
-                @include('evaluacions.voz.modal_cambiar_ejecutivo', ['modal' => ['id' => 'cambiar-ejecutivo-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_cambiar_ejecutivo', 'titulo' => 'Cambiar ejecutivo', 'evaluacion_id' => $evaluacion->id, 'nombre_ejecutivo' => $evaluacion->nombre_ejecutivo, 'rut_ejecutivo' => $evaluacion->rut_ejecutivo]])
-            @else
-                @include('evaluacions.voz.modal_problemas_grabacion', ['modal' => ['id' => 'problemas-grabacion-' . $evaluacion->id, 'template' => 'evaluacions.voz.modal_problemas_grabacion', 'titulo' => 'Reportar problemas con la grabación', 'evaluacion_id' => $evaluacion->id, 'estado_conversacion' => $evaluacion->estado_conversacion]])
-            @endif
 
         @endforeach
 
@@ -316,6 +287,280 @@ Versión 4
             </div>
         </form>
     @endif
+
+
+    <div id="modal-completar" class="@if($modalVisible) modal-active @else opacity-0 pointer-events-none @endif transition-all fixed w-full h-full top-0 left-0 flex items-center justify-center">
+        <div class="cambiar_ejecutivo_overlay absolute w-full h-full bg-gray-900 opacity-50"></div>
+        <div class="modal-container bg-white w-11/12 md:max-w-xl mx-auto rounded shadow-lg z-50 overflow-y-auto">
+            <div wire:click.prevent="render" wire:click="cerrarModalCompletar" class="absolute top-0 right-0 cursor-pointer flex flex-col items-center mt-4 mr-4 text-white text-xs z-50">
+                <svg class="fill-current text-white" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                    <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                </svg>
+                <span class="text-xs">(Esc)</span>
+            </div>
+            <!-- Add margin if you want to see some of the overlay behind the modal-->
+            <div class="modal-content py-4 text-left px-6">
+                <form class="w-full" method="POST" action="{{ $modalVisible ? route('evaluacion.' . $datosModal['ruta'] , [$datosModal['id']]) : '#' }}">
+                    {{--            <form class="w-full" method="POST" action="{{ route('evaluacion.cambiar_ejecutivo', [$modal['evaluacion_id']]) }}">--}}
+                    @csrf
+                    <input type="hidden" name="modal_evaluacion_id" value="{{ $modalVisible ? $datosModal['id'] : '' }}">
+
+                    <!--Title-->
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-base font-bold mb-4 text-2xl">{{ $modalVisible ? $datosModal['titulo'] : '' }}</p>
+                        <div wire:click.prevent="render" wire:click="cerrarModalCompletar" class="modal-close cursor-pointer z-50">
+                            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+                                <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    @if(!empty($datosModal['ruta']) && $datosModal['ruta'] == "cambiar_ejecutivo")
+
+                        <div class="flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="cambiar_ejecutivo_nombre">
+                                    Nombre
+                                </label>
+                            </div>
+                            <div class="w-2/3">
+                                <input oninput="validarCambiarEjecutivo()" wire:model.defer="datosModal.nombre" class="bg-gray-50 appearance-none border border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="cambiar_ejecutivo_nombre" id="cambiar_ejecutivo_nombre" type="text">
+                            </div>
+                        </div>
+
+                        <div class="flex md:items-center mb-6">
+                            <div class="w-1/3">
+                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="cambiar_ejecutivo_rut">
+                                    RUT
+                                </label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input oninput="validarCambiarEjecutivo()" wire:model.defer="datosModal.rut" class="bg-gray-50 appearance-none border-2 border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="cambiar_ejecutivo_rut" id="cambiar_ejecutivo_rut" type="text">
+                            </div>
+                        </div>
+
+                    @elseif(!empty($datosModal['ruta']) && $datosModal['ruta'] == "completar")
+
+                        <div class="flex items-center mb-6 space-x-2">
+                            <div class="w-1/3">
+                                <label class="block text-gray-500 font-bold text-right mb-1 pr-2" for="fecha_grabacion">
+                                    Fecha de grabación
+                                </label>
+                            </div>
+                            <div class="w-1/3 relative">
+                                <span class="text-gray-300 absolute left-1 top-0 text-xs">
+                                    Fecha (DD/MM/AAAA)
+                                </span>
+                                <input oninput="validarFecha(this)" wire:model.defer="datosModal.fecha_grabacion" class="bg-gray-50 appearance-none border border-gray-400 rounded w-full pt-4 pb-1 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 placeholder-gray-300" name="fecha_grabacion" id="fecha_grabacion" type="text">
+                            </div>
+                            <div class="w-1/6 relative">
+                                <label class="text-gray-300 absolute left-1 top-0 text-xs" for="hora_grabacion">
+                                    Hora (0-23)
+                                </label>
+                                <input oninput="validarHora(this)" wire:model.defer="datosModal.hora_grabacion" min="0" max="23" class="w-24 bg-gray-50 appearance-none border border-gray-400 rounded pt-4 pb-1 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500 placeholder-gray-300" name="hora_grabacion" id="hora_grabacion" type="number">
+                            </div>
+                            <div class="w-1/6 relative">
+                                <label class="text-gray-300 absolute left-1 top-0 text-xs" for="minutos_grabacion">
+                                    Minuto (0-59)
+                                </label>
+                                <input oninput="validarMinutos(this)" wire:model.defer="datosModal.minutos_grabacion" min="0" max="60" class="w-24 bg-gray-50 appearance-none border border-gray-400 rounded pt-4 pb-1 px-4 text-gray-700 focus:outline-none focus:bg-white focus:border-purple-500 placeholder-gray-300" name="minutos_grabacion" id="minutos_grabacion" type="number">
+                            </div>
+                        </div>
+
+                        <div class="md:flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="movil">
+                                    Móvil
+                                </label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input oninput="validarCompletar()" wire:model.defer="datosModal.movil" class="bg-gray-50 appearance-none border border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="movil" id="movil" type="number">
+                            </div>
+                        </div>
+
+                        <div class="md:flex md:items-center mb-6">
+                            <div class="md:w-1/3">
+                                <label class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4" for="connid">
+                                    ConnID
+                                </label>
+                            </div>
+                            <div class="md:w-2/3">
+                                <input oninput="validarCompletar()" wire:model.defer="datosModal.connid" class="bg-gray-50 appearance-none border border-gray-400 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" name="connid" id="connid" type="text">
+                            </div>
+                        </div>
+
+                    @elseif(!empty($datosModal['ruta']) && $datosModal['ruta'] == "reportar_grabacion")
+
+                        <div>
+                            <div class="form-check">
+                                <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.estadoGrabacion" class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="estadoGrabacion" value="ok" id="sin_problemas">
+                                <label class="form-check-label inline-block text-gray-800" for="sin-problemas">
+                                    La grabación está bien
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.estadoGrabacion" class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="estadoGrabacion" value="inexistente" id="no_existe">
+                                <label class="form-check-label inline-block text-gray-800" for="no-existe">
+                                    No existe
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.estadoGrabacion" class="form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="estadoGrabacion" value="problema" id="no_evaluable" >
+                                <label class="form-check-label inline-block text-gray-800" for="no-evaluable">
+                                    No es posible evaluarla
+                                </label>
+                            </div>
+
+                            <div class="ml-10 mt-4">
+                                <div id="pg_problema_duracion" class="form-check pg @if($datosModal['estadoGrabacion'] !== "problema") hidden @endif">
+                                    <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.problemaGrabacion" class="pg-cb form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="problemaGrabacion" value="duracion" id="problema_duracion">
+                                    <label class="pg-label form-check-label inline-block text-gray-800" for="problema-duracion">
+                                        Duración superior a 30 minutos
+                                    </label>
+                                </div>
+                                <div id="pg_problema_incompleto" class="form-check pg @if($datosModal['estadoGrabacion'] !== "problema") hidden @endif">
+                                    <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.problemaGrabacion" class="pg-cb form-check-input appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="problemaGrabacion" value="incompleta" id="problema_incompleto">
+                                    <label class="pg-label form-check-label inline-block text-gray-800" for="problema-incompleto">
+                                        Está incompleta
+                                    </label>
+                                </div>
+                                <div id="pg_problema_inaudible" class="form-check pg @if($datosModal['estadoGrabacion'] !== "problema") hidden @endif">
+                                    <input onchange="validarReportarGrabacion()" wire:model.defer="datosModal.problemaGrabacion" class="pg-cb form-check-input appearance-none rounded-full h-4 w-4 border focus:outline-none border-gray-300 bg-white checked:bg-blue-600 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="problemaGrabacion" value="inaudible" id="problema-inaudible">
+                                    <label class="pg-label form-check-label inline-block text-gray-800" for="problema-inaudible">
+                                        No se entiende
+                                    </label>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    @endif
+
+                    <!--Footer-->
+                    <div class="space-x-2 flex justify-end pt-2">
+                        <button wire:click.prevent="render" wire:click="cerrarModalCompletar" type="button" class="px-3 bg-red-500 py-1.5 rounded-lg text-white hover:bg-indigo-400">Cancelar</button>
+                        <button id="modal_completar_guardar" type="submit" class="@if($modalOK) guardar-activo @else guardar-inactivo @endif px-3 bg-green-500 py-1.5 rounded-lg text-white hover:bg-green-400" @if(!$modalOK) disabled @endif >Guardar</button>
+                        {{--                    <button id="cambiar_ejecutivo_guardar" type="submit" class="px-3 bg-green-500 py-1.5 rounded-lg text-white hover:bg-green-400 @if($modal['nombre_ejecutivo']) guardar-activo @else guardar-inactivo @endif" @if(!$modal['nombre_ejecutivo']) disabled @endif>Guardar</button>--}}
+                    </div>
+
+
+                </form>
+            </div>
+            <script>
+
+                var cambiarEjecutivoBoton = document.getElementById("modal_completar_guardar");
+
+
+                function desmarcarHijos() {
+                    document.getElementById("problema_duracion").checked = false;
+                    document.getElementById("problema_incompleto").checked = false;
+                    document.getElementById("problema-inaudible").checked = false;
+                }
+
+                function esconderHijos() {
+                    document.getElementById("pg_problema_duracion").classList.add('hidden');
+                    document.getElementById("pg_problema_incompleto").classList.add('hidden');
+                    document.getElementById("pg_problema_inaudible").classList.add('hidden');
+                }
+
+                function mostrarHijos() {
+                    document.getElementById("pg_problema_duracion").classList.remove('hidden');
+                    document.getElementById("pg_problema_incompleto").classList.remove('hidden');
+                    document.getElementById("pg_problema_inaudible").classList.remove('hidden');
+                }
+
+                function validarReportarGrabacion() {
+                    if (document.getElementById("sin_problemas").checked || document.getElementById("no_existe").checked) {
+                        desmarcarHijos();
+                        esconderHijos();
+                        activarGuardarModalCompletar();
+                    } else if (document.getElementById("no_evaluable").checked) {
+                        if (document.getElementById("problema_duracion").checked || document.getElementById("problema_incompleto").checked || document.getElementById("problema-inaudible").checked) {
+                            activarGuardarModalCompletar();
+                        } else {
+                            mostrarHijos();
+                            desactivarGuardarModalCompletar();
+
+                        }
+                    }
+
+                }
+
+                function validarCompletar() {
+                    var completarFecha = document.getElementById("fecha_grabacion");
+                    var completarHora = document.getElementById("hora_grabacion");
+                    var completarMinutos = document.getElementById("minutos_grabacion");
+                    var completarMovil = document.getElementById("movil");
+                    var completarConnid = document.getElementById("connid");
+                    if ((completarFecha.value !== "" && completarHora.value !== "" && completarMinutos.value !== "") || completarMovil.value !== "" || completarConnid.value !== "") {
+                        activarGuardarModalCompletar();
+                    } else {
+                        desactivarGuardarModalCompletar();
+                    }
+                }
+
+                function validarHora(object)
+                {
+                    if (object.value > 23)
+                        object.value = 23
+                    if (object.value < 0)
+                        object.value = 0
+                    validarCompletar();
+                }
+
+                function validarMinutos(object)
+                {
+                    if (object.value > 59)
+                        object.value = 59
+                    if (object.value < 0)
+                        object.value = 0
+                    validarCompletar();
+                }
+
+                function validarFecha(object)
+                {
+                    if (object.value.replace(/^[\d\/]*$/, "").length > 0) {
+                        object.value = object.value.substring(0, object.value.length - 1);
+                    }
+                    validarCompletar();
+                }
+
+                function validarCambiarEjecutivo() {
+                    var cambiarEjecutivoNombre = document.getElementById("cambiar_ejecutivo_nombre");
+                    var cambiarEjecutivoRut = document.getElementById("cambiar_ejecutivo_rut");
+                    if (cambiarEjecutivoNombre.value !== "" || cambiarEjecutivoRut.value !== "") {
+                        activarGuardarModalCompletar();
+                    } else {
+                        desactivarGuardarModalCompletar();
+                    }
+                }
+
+                function activarGuardarModalCompletar() {
+                    cambiarEjecutivoBoton.classList.remove("guardar-inactivo");
+                    cambiarEjecutivoBoton.classList.add("guardar-activo");
+                    cambiarEjecutivoBoton.disabled = false;
+                }
+
+                function desactivarGuardarModalCompletar() {
+                    cambiarEjecutivoBoton.classList.remove("guardar-activo");
+                    cambiarEjecutivoBoton.classList.add("guardar-inactivo");
+                    cambiarEjecutivoBoton.disabled = true;
+                }
+            </script>
+        </div>
+        <style>
+            .guardar-activo {
+                cursor: pointer;
+                opacity: 1;
+            }
+
+            .guardar-inactivo {
+                cursor: not-allowed;
+                opacity: 0.3;
+            }
+        </style>
+
+    </div>
 
 
 

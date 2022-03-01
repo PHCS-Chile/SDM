@@ -46,6 +46,10 @@ class EstadosSeeder extends Seeder
         ['name' => 'No Evaluable - Muy larga', 'visible' => 1, 'tipo' => 2],
         ['name' => 'No Evaluable - Incompleta', 'visible' => 1, 'tipo' => 2],
         ['name' => 'No Evaluable - Inaudible', 'visible' => 1, 'tipo' => 2],
+        // Chats (17-19)
+        ['name' => 'Tiene Chat', 'visible' => 1, 'tipo' => 3],
+        ['name' => 'Sin Chat', 'visible' => 1, 'tipo' => 3],
+        ['name' => 'Chat Descartado', 'visible' => 1, 'tipo' => 3],
     ];
 
 }

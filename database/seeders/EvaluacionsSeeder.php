@@ -29,6 +29,10 @@ class EvaluacionsSeeder extends Seeder
         foreach ($evaluacionesEnRevision as $evaluacion) {
             Notificacion::notificar($evaluacion->id);
         }
+        $asignacion = Asignacion::where('id' ,'>' ,0)->orderBy('id', 'DESC')->first();
+        Evaluacion::factory()->count(50)->create(['asignacion_id' => $asignacion->id]);
+
+
 //        // Asignacion para probar incompletos
 //        $asignacion = new Asignacion();
 //        $asignacion->n_asignacion = 10;

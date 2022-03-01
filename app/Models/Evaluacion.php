@@ -75,6 +75,17 @@ class Evaluacion extends Model
         }
     }
 
+    public function todosLosEjecutivos()
+    {
+        $ejecutivos = [];
+        foreach ($this->evaluacions as $evaluacion) {
+            if ($evaluacion->nombre_ejecutivo && !in_array($evaluacion->nombre_ejecutivo, $ejecutivos)) {
+                array_push($ejecutivos, $evaluacion->nombre_ejecutivo);
+            }
+        }
+        return $ejecutivos;
+    }
+
     protected $casts = [
         'created_at' => 'datetime:d-m-Y H:i:s',
         'updated_at' => 'datetime:d-m-Y H:i:s',

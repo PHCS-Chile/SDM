@@ -1,5 +1,7 @@
 <?php return array (
-  'asignacion-index' => 'App\\Http\\Livewire\\AsignacionIndex',
+  'asignacion-ejecutivo' => 'App\\Http\\Livewire\\AsignacionEjecutivo',
+  'asignaciones-ejecutivo' => 'App\\Http\\Livewire\\AsignacionesEjecutivo',
+  'asignaciones-estudio' => 'App\\Http\\Livewire\\AsignacionesEstudio',
   'avances' => 'App\\Http\\Livewire\\Avances',
   'calidad' => 'App\\Http\\Livewire\\Calidad',
   'cuenta-ejecutivo' => 'App\\Http\\Livewire\\CuentaEjecutivo',
