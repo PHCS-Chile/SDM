@@ -325,19 +325,19 @@ class EvaluacionController extends Controller
 
     public function reportarGrabacion(Request $request)
     {
-
+//        dd($request);
         $evaluacion = Evaluacion::find($request->modal_evaluacion_id);
-        if ($request->problemaGrabacion == "inexistente") {
+        if ($request->estadoGrabacion == "inexistente") {
             $evaluacion->estado_conversacion = 9;
         }
-        if ($request->problemaGrabacion == "problema") {
-            if ($request->grabacionNoEvaluable == "duracion") {
+        if ($request->estadoGrabacion == "problema") {
+            if ($request->problemaGrabacion == "duracion") {
                 $evaluacion->estado_conversacion = 14;
             }
-            elseif ($request->grabacionNoEvaluable == "incompleta") {
+            elseif ($request->problemaGrabacion == "incompleta") {
                 $evaluacion->estado_conversacion = 15;
             }
-            elseif ($request->grabacionNoEvaluable == "inaudible") {
+            elseif ($request->problemaGrabacion == "inaudible") {
                 $evaluacion->estado_conversacion = 16;
             }
         }
