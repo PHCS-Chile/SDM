@@ -39,9 +39,11 @@ class AsignacionesEjecutivo extends Component
         $ejecutivosAgrupados = [];;
         foreach ($this->asignacion->ejecutivos() as $ejecutivo) {
             $evaluacionesEjecutivo = $this->asignacion->evaluacions->where('nombre_ejecutivo', $ejecutivo);
+            $completas = $evaluacionesEjecutivo->wherein('estado_id',['2','3','4','5']);
             $ejecutivosAgrupados[$ejecutivo] = [
                 'nombre' => $ejecutivo,
                 'base' => $evaluacionesEjecutivo->count(),
+                'completas' => $completas->count()
             ];
 
             foreach (Estudio::obtenerEstados($this->asignacion->estudio->id) as $estado) {

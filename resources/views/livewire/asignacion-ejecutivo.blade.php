@@ -267,7 +267,7 @@ Versión 1
                             @csrf
                             <input type="hidden" name="asignacion_id" value="{{ $asignacion->id }}">
                             @if($asignacion->estudio->navegacion == 'ejecutivos')
-                                <input type="hidden" name="ejecutivo" value="{{ $ejecutivo }}">
+                                <input type="hidden" name="ejecutivo" value="{{ urldecode($ejecutivo) }}">
                             @endif
 
                             <div class="inline-flex items-center">Agregar evaluación vacía para</div>

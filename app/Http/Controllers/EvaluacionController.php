@@ -64,13 +64,19 @@ class EvaluacionController extends Controller
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
         $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::CENTRO)->get();
+        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
         if ($pauta != 1) {
             $modales = [
-                ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro],
-                ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial]
+                ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
+                ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
             ];
-            $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
+        }else{
+            $modales = [
+                ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
+
+            ];
         }
+
         if ($pauta == 2) {
             return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
         }
@@ -83,7 +89,7 @@ class EvaluacionController extends Controller
         if ($pauta == 5) {
             return view('evaluacions.index_retenciones',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
         }
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'historial', 'bloqueo'));
+        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'));
     }
 
     public function atrasDesbloqueando(Request $request, $evaluacion_id)
@@ -96,8 +102,15 @@ class EvaluacionController extends Controller
         }
         // Botones "Volver" del Evaluador y Supervisor segun pauta
         if($request->formulario == 1){return redirect()->route('asignacions.ejecutivoevaluaciones', [$evaluacion->asignacion_id, $evaluacion->rut_ejecutivo]);}
-        if($request->formulario == 2){return redirect()->route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion_id]);}
 
+        //if($request->formulario == 2){return redirect()->route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion_id]);}
+        if($request->formulario == 2){
+            if($evaluacion->asignacion->estudio_id == 2 || $evaluacion->asignacion->estudio_id == 3){
+                return redirect()->route('asignacions.ejecutivoevaluacionescallvoz', [$evaluacion->asignacion_id]);
+            }else{
+                return redirect()->route('asignacion.ejecutivo', [$evaluacion->asignacion_id, $evaluacion->nombre_ejecutivo]);
+            }
+        }
         // Botones "Volver" solo para el Supervisor
         if($request->formulario == 3){return redirect()->route('calidad.index');}
         if($request->formulario == 4){return redirect()->route('evaluacions.reportes');}
@@ -133,9 +146,30 @@ class EvaluacionController extends Controller
         $evaluacion = Evaluacion::where('id',$evaluacionid)->first();
         if ($request->has('form1')) {
             //Formulario para pegar el Chat de Whatsapp
-            $evaluacion->image_path = $request->textochatinput;
-            $evaluacion->user_id = Auth::user()->id;
-            $message = "El chat se guardo correctamente";
+            //$evaluacion->image_path = $request->textochatinput;
+            //$evaluacion->user_id = Auth::user()->id;
+
+
+
+            if(strlen($request->textochatinput) > 0)
+            {
+                $grabacion = new Grabacion();
+                $grabacion->evaluacion_id = $evaluacionid;
+                $grabacion->tamano = 0;
+                $grabacion->nombre = "";
+                $grabacion->url = $request->textochatinput;
+                $grabacion->save();
+                $evaluacion = Evaluacion::find($evaluacionid);
+                $evaluacion->estado_conversacion = 17;
+                $evaluacion->user_id = Auth::user()->id;
+                $evaluacion->save();
+                $message = "El chat se guardo correctamente";
+            }else{
+                $message = "No hay ningun chat para guardar";
+            }
+
+
+
         } elseif ($request->has('form3')) {
             $evaluacion->cambiarEstado($request->cambioestado);
             $message = "El estado se cambio correctamente";

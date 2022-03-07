@@ -26,6 +26,9 @@
                                 <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Base
                                 </th>
+                                <th scope="col" class="text-center px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Completas
+                                </th>
                                 @foreach($estadosConversacion as $estado)
                                 <th scope="col" class="text-center bg-blue-100 px-6 py-3 text-left text-xs font-medium text-gray-800 uppercase tracking-wider">
                                     {{ $estado->name }}
@@ -52,6 +55,11 @@
                                 <td class="text-center px-6 py-1 whitespace-nowrap">
                                     <div class="inline-block px-2 text-sm font-semibold rounded-full bg-gray-600 text-white">
                                         {{ $datos['base']  }}
+                                    </div>
+                                </td>
+                                <td class="text-center px-6 py-1 whitespace-nowrap">
+                                    <div class="inline-block px-2 text-sm font-semibold rounded-full bg-gray-600 text-white">
+                                        {{ $datos['completas']  }}
                                     </div>
                                 </td>
                                 @foreach($estadosConversacion as $estado)
