@@ -87,7 +87,14 @@ class EscalasSeeder extends Seeder
         ['id' => 70, 'grupo_id' => 1, 'descripcion' => 'Motivo', 'value' => 31, 'name' => 'Problemas Canales TV / Premium / EntelTV', 'isActive' => 1],
         ['id' => 71, 'grupo_id' => 1, 'descripcion' => 'Motivo', 'value' => 32, 'name' => 'Visitas Técnicas Reparación / Instalación Hogar', 'isActive' => 1],
         ['id' => 72, 'grupo_id' => 1, 'descripcion' => 'Motivo', 'value' => 33, 'name' => 'Traslado de Servicios Hogar', 'isActive' => 1],
-
+        ['id' => 73, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 1, 'name' => 'Si', 'isActive' => 1],
+        ['id' => 74, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 2, 'name' => 'No, por responsabilidad del Ejecutivo', 'isActive' => 1],
+        ['id' => 75, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 3, 'name' => 'No, por pasos operacionales fuera de línea', 'isActive' => 1],
+        ['id' => 76, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 4, 'name' => 'No, por derivación a otro canal', 'isActive' => 1],
+        ['id' => 77, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 5, 'name' => 'No, escalamiento o transferencia a otro ', 'isActive' => 1],
+        ['id' => 78, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 6, 'name' => 'No, por otro motivo', 'isActive' => 1],
+        ['id' => 79, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 7, 'name' => 'No, por contingencias', 'isActive' => 1],
+        ['id' => 80, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 8, 'name' => 'No, Cliente no continua con la atención', 'isActive' => 1],
     ];
 
 }

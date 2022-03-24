@@ -354,9 +354,9 @@ Versión 1
                                                 </label>
                                             </div>
                                             <div class="w-1/3 relative">
-                                <span class="text-gray-300 absolute left-1 top-0 text-xs">
-                                    Fecha (DD/MM/AAAA)
-                                </span>
+                                                <span class="text-gray-300 absolute left-1 top-0 text-xs">
+                                                    Fecha (DD/MM/AAAA)
+                                                </span>
                                                 <input oninput="validarFecha(this)" wire:model.defer="datosModal.fecha_grabacion" class="bg-gray-50 appearance-none border border-gray-400 rounded w-full pt-4 pb-1 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 placeholder-gray-300" name="fecha_grabacion" id="fecha_grabacion" type="text">
                                             </div>
                                             <div class="w-1/6 relative">

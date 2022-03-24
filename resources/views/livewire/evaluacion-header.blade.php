@@ -297,7 +297,7 @@
                                         @endif
                                         <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
                                             @csrf
-                                            @if(Auth::user()->perfil  == 1)
+                                            
                                                 <div class="w-px-150 pb-0.5">
                                                     <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                         <!-- Heroicon name: check -->
@@ -308,7 +308,7 @@
                                                         Descartar Evaluación
                                                     </button>
                                                 </div>
-                                            @endif
+                                            
                                             @if(Auth::user()->perfil  == 2)
                                                 @if($evaluacionfinal->estado_id > 1)
                                                     <div class="w-px-150 pb-0.5">

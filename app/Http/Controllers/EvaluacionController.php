@@ -64,19 +64,12 @@ class EvaluacionController extends Controller
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
         $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::CENTRO)->get();
-        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
-        if ($pauta != 1) {
-            $modales = [
-                ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
-                ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
-            ];
-        }else{
-            $modales = [
-                ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
-
-            ];
-        }
-
+        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();        
+        $modales = [
+            ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
+            ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
+        ];
+        
         if ($pauta == 2) {
             return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
         }
@@ -123,7 +116,8 @@ class EvaluacionController extends Controller
     public function chat($evaluacionid){
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
-        $chat = $evaluacionfinal->image_path;
+        $chat = Grabacion::where('evaluacion_id', $evaluacionfinal->id)->first()->url;
+        //$chat = $evaluacionfinal->image_path;
         return view('evaluacions.chat',compact( 'evaluacionfinal',  'chat', 'pauta'));
     }
 

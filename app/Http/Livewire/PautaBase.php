@@ -288,6 +288,24 @@ abstract class PautaBase extends Component
         $this->evaluacion->penc = ($suma / $sumatotal) * 100;
     }
 
+    public function calcularPF($ponderadoresPF)
+    {
+        $sumatotal = 0;
+        $suma = 0;
+
+        foreach ($ponderadoresPF as $atributo_id => $ponderador) {
+            $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributo_id);
+            $sumatotal += $ponderador;
+            if ($respuesta->respuesta_int < 0) {
+                $sumatotal -= $ponderador;
+            }
+            if ($respuesta->respuesta_int > 0) {
+                $suma += $ponderador;
+            }
+        }
+        $this->evaluacion->pf = ($suma / $sumatotal) * 100;
+    }
+
     public function calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves)
     {
         $suma = 0;
