@@ -28,6 +28,7 @@ class CreateAtributosTable extends Migration
             $table->string('name_categoria');
             $table->integer('ponderador')->nullable()->default(1);
             $table->integer('ponderador_ici')->nullable()->default(1);
+            $table->string('tipo_respuesta')->nullable();
             $table->unsignedBigInteger('pauta_id')->nullable();
             $table->foreign('pauta_id')->references('id')->on('pautas')->onDelete('set null');
             $table->timestamps();
