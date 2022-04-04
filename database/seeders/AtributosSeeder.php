@@ -20,10 +20,14 @@ class AtributosSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('atributos')->insert($this->atributos1);
-        DB::table('atributos')->insert($this->atributos2);
-        DB::table('atributos')->insert($this->atributos3);
-        DB::table('atributos')->insert($this->atributos4);
+        foreach ([1, 2, 3, 4] as $index) {
+            foreach ($this->{'atributos' . $index} as $atributo) {
+                if (!isset($atributo['no_aplica'])) {
+                    $atributo['no_aplica'] = false;
+                }
+                DB::table('atributos')->insert($atributo);
+            }
+        }
         Atributo::destroy(72);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(96);  /* Evita problemas con IDs en versiones iniciales */
         Atributo::destroy(167);  /* Evita problemas con IDs en versiones iniciales */
@@ -170,28 +174,28 @@ class AtributosSeeder extends Seeder
         ['name' => 'Usa tecnicismos', 'name_interno' => 'comunicacion4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 118, 'name_categoria' => 'PENC'],
         ['name' => 'Educar al Cliente en Canales de Autotención', 'name_interno' => 'educacliente1', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
         ['name' => 'No menciona otros canales', 'name_interno' => 'educacliente2', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 122, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Por posible molestia', 'name_interno' => 'educacliente3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 122, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Sin opciones', 'name_interno' => 'educacliente4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 122, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Por posible molestia', 'name_interno' => 'educacliente3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 122, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Sin opciones', 'name_interno' => 'educacliente4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 122, 'name_categoria' => 'PENC'],
         ['name' => 'Aseguramiento', 'name_interno' => 'aseguramiento1', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
-        ['name' => 'No valida información entregada', 'name_interno' => 'aseguramiento2', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A por transfer/Callback', 'name_interno' => 'aseguramiento3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A canal incorrecto', 'name_interno' => 'aseguramiento4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A por posible molestia', 'name_interno' => 'aseguramiento5', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A cliente asegura info', 'name_interno' => 'aseguramiento6', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'No valida información entregada', 'name_interno' => 'aseguramiento2', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A por transfer/Callback', 'name_interno' => 'aseguramiento3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A canal incorrecto', 'name_interno' => 'aseguramiento4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A por posible molestia', 'name_interno' => 'aseguramiento5', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A cliente asegura info', 'name_interno' => 'aseguramiento6', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 126, 'name_categoria' => 'PENC'],
         ['name' => 'Ofrecimiento Comercial', 'name_interno' => 'ofrecimientocomercial1', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
         ['name' => 'No Asesora', 'name_interno' => 'ofrecimientocomercial2', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
         ['name' => 'No Ofrece Acorde', 'name_interno' => 'ofrecimientocomercial3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Plataforma Especialista', 'name_interno' => 'ofrecimientocomercial4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Cliente Indispuesto', 'name_interno' => 'ofrecimientocomercial5', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A No es titular o usuario registrado', 'name_interno' => 'ofrecimientocomercial6', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Sin Factibilidad Comercial', 'name_interno' => 'ofrecimientocomercial7', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Sin Factibilidad Técnica', 'name_interno' => 'ofrecimientocomercial8', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Problemas Técnicos', 'name_interno' => 'ofrecimientocomercial9', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Otros', 'name_interno' => 'ofrecimientocomercial10', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Plataforma Especialista', 'name_interno' => 'ofrecimientocomercial4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Cliente Indispuesto', 'name_interno' => 'ofrecimientocomercial5', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A No es titular o usuario registrado', 'name_interno' => 'ofrecimientocomercial6', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Sin Factibilidad Comercial', 'name_interno' => 'ofrecimientocomercial7', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Sin Factibilidad Técnica', 'name_interno' => 'ofrecimientocomercial8', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Problemas Técnicos', 'name_interno' => 'ofrecimientocomercial9', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Otros', 'name_interno' => 'ofrecimientocomercial10', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 132, 'name_categoria' => 'PENC'],
         ['name' => 'Frases de Enganche y Argumentación ', 'name_interno' => 'frasesenganche1', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => NULL, 'id_primario' => NULL, 'name_categoria' => 'PENC'],
         ['name' => 'No argumenta', 'name_interno' => 'frasesenganche2', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 142, 'name_categoria' => 'PENC'],
         ['name' => 'Usa argumentos erroneos', 'name_interno' => 'frasesenganche3', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 142, 'name_categoria' => 'PENC'],
-        ['name' => 'N/A Sin ofrecimiento comercial', 'name_interno' => 'frasesenganche4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 142, 'name_categoria' => 'PENC'],
+        ['no_aplica' => true, 'name' => 'N/A Sin ofrecimiento comercial', 'name_interno' => 'frasesenganche4', 'pauta_id' => 2, 'check_primario' => NULL, 'check_ec' => NULL, 'id_primario' => 142, 'name_categoria' => 'PENC'],
         ['name' => 'Error grave en la detección de necesidades y en el analisis de la información', 'name_interno' => 'pecu_deteccion', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => 1, 'id_primario' => NULL, 'name_categoria' => 'PEC UF'],
         ['name' => 'Error grave en la gestión por Info incorrecta o incompleta', 'name_interno' => 'pecu_gestionincorrecta', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => 1, 'id_primario' => NULL, 'name_categoria' => 'PEC UF'],
         ['name' => 'Error grave en la gestión por no resolver o resolver de forma errónea', 'name_interno' => 'pecu_noresuelve', 'pauta_id' => 2, 'check_primario' => 1, 'check_ec' => 1, 'id_primario' => NULL, 'name_categoria' => 'PEC UF'],
