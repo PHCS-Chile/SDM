@@ -19,6 +19,51 @@ class Evaluacion extends Model
 
     protected $dateFormat = 'd-m-Y H:i:s';
 
+    const EC_LEVE = 1;
+    const EC_INTERMEDIO = 2;
+    const EC_GRAVE = 3;
+
+
+    /*
+     * $evaluacionfinal->asignacion->agente->servicio->name . " " . $evaluacionfinal->asignacion->agente->habilidad
+     */
+    public static function servicioHabilidad($evaluacion_id, $separador=" - ", $inicio=false)
+    {
+        $evaluacion = Evaluacion::find($evaluacion_id);
+        $servicio_name = $evaluacion->asignacion->agente->servicio->name;
+        $habilidad = $evaluacion->asignacion->agente->habilidad;
+        $salida = $servicio_name . $separador . $habilidad;
+        if ($inicio) {
+            $salida = $inicio . " - " . $salida;
+        }
+        return $salida;
+    }
+
+    public static function habilidad($evaluacion_id)
+    {
+        return Evaluacion::find($evaluacion_id)->asignacion->agente->servicio->name;
+    }
+
+    public function atributos()
+    {
+        return Atributo::where('pauta_id', $this->getPauta()->id)->get();
+    }
+
+    public function respuesta($atributo_id)
+    {
+        return $this->respuestas->firstWhere('atributo_id', $atributo_id);
+    }
+
+    public function getPauta()
+    {
+        return $this->asignacion->estudio->pauta;
+    }
+
+    public function enBlanco()
+    {
+        return $this->estado_id == Estado::EVALUACION_EN_BLANCO || $this->estado_id == Estado::EVALUACION_EN_EVALUACION;
+    }
+
     public function asignacion()
     {
         return $this->belongsTo(Asignacion::class);

@@ -50,6 +50,8 @@ class EstadosSeeder extends Seeder
         ['name' => 'Tiene Chat', 'visible' => 1, 'tipo' => 3],
         ['name' => 'Sin Chat', 'visible' => 1, 'tipo' => 3],
         ['name' => 'Chat Descartado', 'visible' => 1, 'tipo' => 3],
+        // Evaluacion 2: en proceso (20)
+        ['name' => 'En evaluación', 'visible' => 2, 'tipo' => 1],
     ];
 
 }

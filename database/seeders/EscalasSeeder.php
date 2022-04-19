@@ -95,6 +95,9 @@ class EscalasSeeder extends Seeder
         ['id' => 78, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 6, 'name' => 'No, por otro motivo', 'isActive' => 1],
         ['id' => 79, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 7, 'name' => 'No, por contingencias', 'isActive' => 1],
         ['id' => 80, 'grupo_id' => 8, 'descripcion' => 'Resolución en Linea - 2022', 'value' => 8, 'name' => 'No, Cliente no continua con la atención', 'isActive' => 1],
+        ['id' => 81, 'grupo_id' => 9, 'descripcion' => 'Motivo del llamado', 'value' => 1, 'name' => 'Reclamo', 'isActive' => 1],
+        ['id' => 82, 'grupo_id' => 9, 'descripcion' => 'Motivo del llamado', 'value' => 2, 'name' => 'Consulta', 'isActive' => 1],
+        ['id' => 83, 'grupo_id' => 9, 'descripcion' => 'Motivo del llamado', 'value' => 3, 'name' => 'Requerimiento', 'isActive' => 1],
     ];
 
 }

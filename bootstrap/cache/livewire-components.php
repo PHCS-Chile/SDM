@@ -11,6 +11,7 @@
   'mis-evaluaciones' => 'App\\Http\\Livewire\\MisEvaluaciones',
   'notificaciones' => 'App\\Http\\Livewire\\Notificaciones',
   'pauta-back-office' => 'App\\Http\\Livewire\\PautaBackOffice',
+  'pauta-brigida' => 'App\\Http\\Livewire\\PautaBrigida',
   'pauta-call-voz' => 'App\\Http\\Livewire\\PautaCallVoz',
   'pauta-digital' => 'App\\Http\\Livewire\\PautaDigital',
   'pauta-retenciones' => 'App\\Http\\Livewire\\PautaRetenciones',

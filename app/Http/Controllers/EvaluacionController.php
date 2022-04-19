@@ -41,6 +41,71 @@ class EvaluacionController extends Controller
             'gestiones', 'resoluciones'));
     }
 
+    public function crearRespuestas($evaluacion_id)
+    {
+        $evaluacion = Evaluacion::find($evaluacion_id);
+        if ($evaluacion->respuestas->count() != $evaluacion->atributos()->count()) {
+            foreach ($evaluacion->atributos() as $atributo) {
+                if ($evaluacion->respuestas->where('atributo_id', $atributo->id)->count() == 0) {
+                    $respuesta = new Respuesta();
+                    $respuesta->origen_id = 1;
+                    $respuesta->atributo_id = $atributo->id;
+                    $respuesta->evaluacion_id = $evaluacion->id;
+                    if ($atributo->check_primario == 1 && $atributo->check_ec == null) {
+                        $respuesta->respuesta_int = 1;
+                        $respuesta->respuesta_text = "Si";
+                    }
+                    $respuesta->save();
+                }
+            }
+        }
+    }
+
+    public function indexBrigido($evaluacion_id){
+        $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacion_id)->orderBy('id', 'DESC')->first();
+        // Caso no loah bloqueo
+        if ($bloqueo === NULL) {
+            $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacion_id, 1);
+        } else {
+            if (plazoCumplido($bloqueo->created_at, Bloqueo::DURACION)) {
+                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacion_id, 1);
+            } elseif (!$bloqueo->activo) {
+                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacion_id, 1);
+            } else {
+                if ($bloqueo->user_id != Auth::user()->id) {
+                    return back()->withErrors(['msg' => 'La evaluación se encuentra bloqueada por ' . User::find($bloqueo->user_id)->name]);
+                }
+
+            }
+        }
+
+        $this->crearRespuestas($evaluacion_id);
+        $estados = Estado::all();
+        $evaluacion = Evaluacion::find($evaluacion_id);
+        $pauta = $evaluacion->getPauta()->id;
+        $historial = Log::where('evaluacion_id', $evaluacion_id)->get();
+        $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
+        $grabaciones = Grabacion::where('evaluacion_id', $evaluacion_id)->get();
+        $modales = [
+            ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
+            ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
+        ];
+
+        if ($pauta == 2) {
+            return view('evaluacions.index_voz',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
+        }
+        if ($pauta == 3) {
+            return view('evaluacions.index_ventas',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
+        }
+        if ($pauta == 4) {
+            return view('evaluacions.index_backoffice',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
+        }
+        if ($pauta == 5) {
+            return view('evaluacions.index_retenciones',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
+        }
+        return view('evaluacions.index',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'));
+    }
+
     public function index($evaluacionid){
         $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacionid)->orderBy('id', 'DESC')->first();
         // Caso no loah bloqueo
@@ -64,12 +129,12 @@ class EvaluacionController extends Controller
         $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
         $historial = Log::where('evaluacion_id', $evaluacionid)->get();
         $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::CENTRO)->get();
-        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();        
+        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
         $modales = [
             ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
             ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
         ];
-        
+
         if ($pauta == 2) {
             return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
         }
