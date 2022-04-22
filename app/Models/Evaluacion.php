@@ -24,9 +24,6 @@ class Evaluacion extends Model
     const EC_GRAVE = 3;
 
 
-    /*
-     * $evaluacionfinal->asignacion->agente->servicio->name . " " . $evaluacionfinal->asignacion->agente->habilidad
-     */
     public static function servicioHabilidad($evaluacion_id, $separador=" - ", $inicio=false)
     {
         $evaluacion = Evaluacion::find($evaluacion_id);

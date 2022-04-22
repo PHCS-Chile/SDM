@@ -55,7 +55,7 @@ abstract class PautaBrigida extends Component
         foreach ($evaluacion->respuestas as $respuesta) {
             // Respuestas
             if ($respuesta->atributo->tipo_respuesta == 'escala') {
-                $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_int;
+                $arregloRespuestas[$respuesta->atributo_id] = $this->escalaId($respuesta);
             } else {
                 $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_text;
             }
@@ -70,6 +70,26 @@ abstract class PautaBrigida extends Component
         }
         $this->respuestas =  $arregloRespuestas;
         $this->grupos =  $arregloGrupos;
+    }
+
+
+    public function escalaId($respuesta)
+    {
+        if ($respuesta->respuesta_int) {
+            foreach ($this->escalas as $escala) {
+                if (in_array($respuesta->atributo_id, $escala['opciones'])) {
+                    try {
+                        return Escala::where('grupo_id', $escala['grupo_id'])
+                            ->where('value', $respuesta->respuesta_int)
+                            ->first()->id;
+                    } catch (\Exception $e) {
+                        return null;
+                    }
+
+                }
+            }
+        }
+        return null;
     }
 
 
@@ -117,7 +137,7 @@ abstract class PautaBrigida extends Component
         if ($atributo->tipo_respuesta == 'escala') {
             $escala = Escala::find($respuesta_text);
             $respuesta->respuesta_text = $escala->name;
-            $respuesta->respuesta_int = $escala->id;
+            $respuesta->respuesta_int = $escala->value;
         } else if ($atributo->tipo_respuesta == 'memo') {
             $respuesta->respuesta_text = "";
             $respuesta->respuesta_int = ($respuesta_text == "" ? 0 : 1);
