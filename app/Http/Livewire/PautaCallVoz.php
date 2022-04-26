@@ -23,6 +23,9 @@ class PautaCallVoz extends PautaBrigida
         ['grupo_id' => 5, 'nombre' => 'tiposnegocio', 'opciones' => [171]],
         ['grupo_id' => 9, 'nombre' => 'motivos', 'opciones' => [179]],
     ];
+    protected $requeridos = [
+        179, 176, 199, 200, 180, 183, 187, 191, 195
+    ];
 
 
     public function validarExtra()

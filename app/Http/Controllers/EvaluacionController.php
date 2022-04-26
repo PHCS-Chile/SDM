@@ -44,19 +44,19 @@ class EvaluacionController extends Controller
     public function crearRespuestas($evaluacion_id)
     {
         $evaluacion = Evaluacion::find($evaluacion_id);
-        if ($evaluacion->respuestas->count() != $evaluacion->atributos()->count()) {
-            foreach ($evaluacion->atributos() as $atributo) {
-                if ($evaluacion->respuestas->where('atributo_id', $atributo->id)->count() == 0) {
-                    $respuesta = new Respuesta();
-                    $respuesta->origen_id = 1;
-                    $respuesta->atributo_id = $atributo->id;
-                    $respuesta->evaluacion_id = $evaluacion->id;
-                    if ($atributo->check_primario == 1 && $atributo->check_ec == null) {
-                        $respuesta->respuesta_int = 1;
-                        $respuesta->respuesta_text = "Si";
-                    }
-                    $respuesta->save();
+        $respuestas = $evaluacion->respuestas->where('origen_id', 1);
+        foreach ($evaluacion->atributos() as $atributo) {
+            $respuesta = $respuestas->firstWhere('atributo_id', $atributo->id);
+            if (!$respuesta) {
+                $nuevaRespuesta = new Respuesta();
+                $nuevaRespuesta->origen_id = 1;
+                $nuevaRespuesta->atributo_id = $atributo->id;
+                $nuevaRespuesta->evaluacion_id = $evaluacion->id;
+                if ($atributo->check_primario == 1) {
+                    $nuevaRespuesta->respuesta_int = 1;
+                    $nuevaRespuesta->respuesta_text = "Si";
                 }
+                $nuevaRespuesta->save();
             }
         }
     }

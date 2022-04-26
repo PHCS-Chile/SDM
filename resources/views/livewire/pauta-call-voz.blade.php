@@ -507,8 +507,8 @@ Versión 8
 
                                 @include('componentes.formularios.pauta_checkbox', ['titulo' => 'Motivo del Llamado', 'atributo_id' => 179, 'opciones' => $escalas['motivo']['escalas']])
 
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="tipogestion1" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
+                                <div class="col-span-6 sm:col-span-3 @if(in_array(180, $requeridos)) border-l-4 border-red-600 pl-2 @endif">
+                                    <label for="tipogestion1" class="block text-sm @if(in_array(180, $requeridos) && !$respuestas[180]) text-red-600 font-bold @else font-medium text-gray-700 @endif ">Tipo de Gestión @if(in_array(180, $requeridos)) * @endif</label>
                                     <select id="tipogestion1" name="tipogestion1" wire:model="respuestas.180" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                         <option></option>
                                         @foreach($escalas['gestiones']['escalas'] as $escala)

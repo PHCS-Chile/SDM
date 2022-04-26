@@ -39,6 +39,7 @@ abstract class PautaBrigida extends Component
     protected $errorresCriticos;
     protected $template;
     protected $tipoPuntaje;
+    protected $requeridos;
 
     /**
      * Crea una version plana (arreglo) de las respuestas que se sincronizará con la interfaz para el
@@ -60,11 +61,11 @@ abstract class PautaBrigida extends Component
                 $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_text;
             }
             // Grupos
-            if ($respuesta->atributo->id_primario) {
+            if ($respuesta->atributo->id_primario !== NULL) {
                 $arregloGrupos['primarios'][$respuesta->atributo->id_primario][] = $respuesta->atributo->id;
             }
             // No Aplica
-            if ($respuesta->atributo->no_aplica === 1) {
+            if ($respuesta->atributo->no_aplica == 1) {
                 $arregloGrupos['no_aplica'][] = $respuesta->atributo->id;
             }
         }
@@ -110,7 +111,8 @@ abstract class PautaBrigida extends Component
             foreach ($IDsHermanos as $atributo_id) {
                 if ($this->respuestas[$atributo_id] == 'checked') {
                     $algoMarcado = true;
-                    if ($atributo->no_aplica) {
+                    //dd($atributo->no_aplica == 1);
+                    if (in_array($atributo_id, $this->grupos['no_aplica'])) {
                         $noAplicaMarcado = true;
                     }
                 }
@@ -135,9 +137,15 @@ abstract class PautaBrigida extends Component
         $atributo = $respuesta->atributo;
 
         if ($atributo->tipo_respuesta == 'escala') {
-            $escala = Escala::find($respuesta_text);
-            $respuesta->respuesta_text = $escala->name;
-            $respuesta->respuesta_int = $escala->value;
+            if ($respuesta_text) {
+                $escala = Escala::find($respuesta_text);
+                $respuesta->respuesta_text = $escala->name;
+                $respuesta->respuesta_int = $escala->value;
+            } else {
+                $respuesta->respuesta_text = null;
+                $respuesta->respuesta_int = null;
+            }
+
         } else if ($atributo->tipo_respuesta == 'memo') {
             $respuesta->respuesta_text = "";
             $respuesta->respuesta_int = ($respuesta_text == "" ? 0 : 1);
@@ -150,7 +158,7 @@ abstract class PautaBrigida extends Component
                 $respuesta->respuesta_int = 0;
                 $respuesta->respuesta_text = '';
             }
-        } else if ($atributo->tipo_respuesta == 'SiNo' || $atributo->tipo_respuesta == 'SiNoNoaplica') {
+        } else if ($atributo->tipo_respuesta === null || $atributo->tipo_respuesta == 'SiNo' || $atributo->tipo_respuesta == 'SiNoNoaplica') {
             if ($respuesta_text == "Si") {
                 $respuesta->respuesta_int = 1;
             } elseif ($respuesta_text == "No") {
@@ -224,6 +232,7 @@ abstract class PautaBrigida extends Component
 
         return view('livewire.' . $this->template, [
             'escalas' => $pauta->escalas(),
+            'requeridos' => $this->requeridos,
             'grabaciones' => Grabacion::where('evaluacion_id', $this->evaluacion_id)->get(),
             'estados_evaluacion' => Estado::where('tipo', 1)
                 ->where('visible', 1)
