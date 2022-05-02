@@ -239,6 +239,7 @@ abstract class PautaBrigida extends Component
                 ->when($this->evaluacion['estado_id'] == 20, function ($query) {
                 $query->orWhere('id', 20);
             })->get()->all(),
+            'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
         ]);
     }
 

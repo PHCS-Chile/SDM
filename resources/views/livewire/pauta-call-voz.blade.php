@@ -502,73 +502,51 @@ Versión 8
                 <div class="md:grid md:grid-cols-3 md:gap-6">
                     <div class="mt-5 md:mt-0 md:col-span-1 ">
                         <div class="shadow overflow-hidden sm:rounded-md">
-                            <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                            <div class="px-2 py-5 bg-white space-y-6 sm:p-3">
                                 <p class="font-bold text-xl">Gestión 1</p>
 
-                                @include('componentes.formularios.pauta_checkbox', ['titulo' => 'Motivo del Llamado', 'atributo_id' => 179, 'opciones' => $escalas['motivo']['escalas']])
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Motivo del Llamado',
+                                    'atributo_id' => 179,
+                                    'name' => 'motivo',
+                                    'opciones' => $escalas['motivo']['escalas']
+                                ])
 
-                                <div class="col-span-6 sm:col-span-3 @if(in_array(180, $requeridos)) border-l-4 border-red-600 pl-2 @endif">
-                                    <label for="tipogestion1" class="block text-sm @if(in_array(180, $requeridos) && !$respuestas[180]) text-red-600 font-bold @else font-medium text-gray-700 @endif ">Tipo de Gestión @if(in_array(180, $requeridos)) * @endif</label>
-                                    <select id="tipogestion1" name="tipogestion1" wire:model="respuestas.180" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['gestiones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('tipogestion1') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="deteccion1" wire:model="respuestas.183" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="deteccion1" wire:model="respuestas.183" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('deteccion1') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="infocorrecta1" wire:model="respuestas.187" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="infocorrecta1" wire:model="respuestas.187" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta1') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="gestiona1" wire:model="respuestas.191" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="gestiona1" wire:model="respuestas.191" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('gestiona1') }}</small>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="resolucion1" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion1" name="resolucion1" wire:model="respuestas.195" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['resoluciones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('resolucion1') }}</small>
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Tipo de Gestión',
+                                    'atributo_id' => 180,
+                                    'name' => 'tipogestion1',
+                                    'opciones' => $escalas['gestiones']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Detección de necesidades/sondeo/analisis/revisión',
+                                    'atributo_id' => 183,
+                                    'name' => 'deteccion1',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Entrega de información correcta y completa',
+                                    'atributo_id' => 187,
+                                    'name' => 'infocorrecta1',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Gestiona según proced. en sistema',
+                                    'atributo_id' => 191,
+                                    'name' => 'gestiona1',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Ejecutivo Resuelve el problema de origen en línea',
+                                    'atributo_id' => 195,
+                                    'name' => 'resolucion1',
+                                    'opciones' => $escalas['resoluciones']['escalas']
+                                ])
+
                             </div>
                         </div>
                     </div>
@@ -576,68 +554,42 @@ Versión 8
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                                 <p class="font-bold text-xl">Gestión 2</p>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="tipogestion2" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="tipogestion2" name="tipogestion2" wire:model="respuestas.181" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['gestiones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('tipogestion2') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="deteccion2" wire:model="respuestas.184" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="deteccion2" wire:model="respuestas.184" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('deteccion2') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model="respuestas.188" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="infocorrecta2" wire:model="respuestas.188" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta2') }}</small>
-                                <div class="mt-4">
-                                    <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="gestiona2" wire:model="respuestas.192" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="gestiona2" wire:model="respuestas.192" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('gestiona2') }}</small>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="resolucion2" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion2" name="resolucion2" wire:model="respuestas.196" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['resoluciones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('resolucion2') }}</small>
+
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Tipo de Gestión',
+                                    'atributo_id' => 181,
+                                    'name' => 'tipogestion2',
+                                    'opciones' => $escalas['gestiones']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Detección de necesidades/sondeo/analisis/revisión',
+                                    'atributo_id' => 184,
+                                    'name' => 'deteccion2',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Entrega de información correcta y completa',
+                                    'atributo_id' => 188,
+                                    'name' => 'infocorrecta2',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Gestiona según proced. en sistema',
+                                    'atributo_id' => 192,
+                                    'name' => 'gestiona2',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Ejecutivo Resuelve el problema de origen en línea',
+                                    'atributo_id' => 196,
+                                    'name' => 'resolucion2',
+                                    'opciones' => $escalas['resoluciones']['escalas']
+                                ])
+
                             </div>
                         </div>
                     </div>
@@ -645,68 +597,42 @@ Versión 8
                         <div class="shadow overflow-hidden sm:rounded-md">
                             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
                                 <p class="font-bold text-xl">Gestión 3</p>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="tipogestion3" class="block text-sm font-medium text-gray-700">Tipo de Gestión</label>
-                                    <select id="tipogestion3" name="tipogestion3" wire:model="respuestas.182" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['gestiones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('tipogestion3') }}</small>
-                                <div class="mt-2">
-                                    <span class="text-gray-700 text-sm">Detección de necesidades/sondeo/analisis/revisión</span>
-                                    <div class="mt-1 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="deteccion3" wire:model="respuestas.185" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="deteccion3" wire:model="respuestas.185" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('deteccion3') }}</small>
-                                <div class="mt-1">
-                                    <span class="text-gray-700 text-sm">Entrega de información correcta y completa</span>
-                                    <div class="mt-1 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model="respuestas.189" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="infocorrecta3" wire:model="respuestas.189" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('infocorrecta3') }}</small>
-                                <div class="mt-1">
-                                    <span class="text-gray-700 text-sm">Gestiona según proced. en sistema</span>
-                                    <div class="mt-1 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="gestiona3" wire:model="respuestas.193" value="Si">
-                                            <p class="ml-2">Sí</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="gestiona3" wire:model="respuestas.193" value="No">
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('gestiona3') }}</small>
-                                <div class="col-span-6 sm:col-span-3">
-                                    <label for="resolucion3" class="block text-sm font-medium text-gray-700">Ejecutivo Resuelve el problema de origen en línea</label>
-                                    <select id="resolucion3" name="resolucion3" wire:model="resolucion3" autocomplete="respuestas.197" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option></option>
-                                        @foreach($escalas['resoluciones']['escalas'] as $escala)
-                                            <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('resolucion3') }}</small>
+
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Tipo de Gestión',
+                                    'atributo_id' => 182,
+                                    'name' => 'tipogestion3',
+                                    'opciones' => $escalas['gestiones']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Detección de necesidades/sondeo/analisis/revisión',
+                                    'atributo_id' => 185,
+                                    'name' => 'deteccion3',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Entrega de información correcta y completa',
+                                    'atributo_id' => 189,
+                                    'name' => 'infocorrecta3',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_radio', [
+                                    'titulo' => 'Gestiona según proced. en sistema',
+                                    'atributo_id' => 193,
+                                    'name' => 'gestiona3',
+                                    'opciones' => $escalas['booleana']['escalas']
+                                ])
+
+                                @include('componentes.formularios.pauta_select', [
+                                    'titulo' => 'Ejecutivo Resuelve el problema de origen en línea',
+                                    'atributo_id' => 197,
+                                    'name' => 'resolucion3',
+                                    'opciones' => $escalas['resoluciones']['escalas']
+                                ])
+
                             </div>
                         </div>
                     </div>
@@ -721,453 +647,58 @@ Versión 8
                                 <div class="shadow overflow-hidden sm:rounded-md">
                                     <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Atributos PENC</p>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">1 - Protocolo de Saludo y Despedida - ({{ $respuestas[97] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="saludo2" name="saludo2" wire:model="respuestas.98" wire: type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="saludo2" class="font-medium text-gray-700">No hace Bienvenida</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="saludo3" name="saludo3" wire:model="respuestas.99" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="saludo3" class="font-medium text-gray-700">No se despide</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="saludo4" name="saludo4" wire:model="respuestas.100" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="saludo4" class="font-medium text-gray-700">No utiliza contexto</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">2 - Disposición para la atención - ({{ $respuestas[101] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="disposicion2" name="disposicion2" wire:model="respuestas.102" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="disposicion2" class="font-medium text-gray-700">Interrumpe</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="disposicion3" name="disposicion3" wire:model="respuestas.103" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="disposicion3" class="font-medium text-gray-700">No retiene información</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">3 - Cordialidad y reducción de conflicto - ({{ $respuestas[104] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cordialidad2" name="cordialidad2" wire:model="respuestas.105" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cordialidad2" class="font-medium text-gray-700">No muestra interés</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cordialidad3" name="cordialidad3" wire:model="respuestas.106" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cordialidad3" class="font-medium text-gray-700">No reduce conflicto</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cordialidad4" name="cordialidad4" wire:model="respuestas.107" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cordialidad4" class="font-medium text-gray-700">No manifiesta disposición</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cordialidad5" name="cordialidad5" wire:model="respuestas.108" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cordialidad5" class="font-medium text-gray-700">No pide disculpas</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">4 - Manejo de Silencios - ({{ $respuestas[109] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="manejosilencios2" name="manejosilencios2" wire:model="respuestas.110" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="manejosilencios2" class="font-medium text-gray-700">No informa Pausa/Hold</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="manejosilencios3" name="manejosilencios3" wire:model="respuestas.111" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="manejosilencios3" class="font-medium text-gray-700">No interactua</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="manejosilencios4" name="manejosilencios4" wire:model="respuestas.112" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="manejosilencios4" class="font-medium text-gray-700">No agradece espera</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">5 - Seguridad y Dominio en la conversación con el Cliente - ({{ $respuestas[113] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="seguridad2" name="seguridad2" wire:model="respuestas.114" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="seguridad2" class="font-medium text-gray-700">Inseguridad en conocimientos</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="seguridad3" name="seguridad3" wire:model="respuestas.115" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="seguridad3" class="font-medium text-gray-700">Mal manejo de la información</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="seguridad4" name="seguridad4" wire:model="respuestas.116" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="seguridad4" class="font-medium text-gray-700">Se contradice y autocorrige</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="seguridad5" name="seguridad5" wire:model="respuestas.117" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="seguridad5" class="font-medium text-gray-700">No informa el motivo de uso de datos personales</label>
-                                                    </div>
-                                                </div>
 
-                                            </div>
-                                        </fieldset>
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '1 - Protocolo de Saludo y Despedida',
+                                            'padre' => 97,
+                                        ])
 
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">6 - Comunicación simple y empática - ({{ $respuestas[118] }})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="comunicacion2" name="comunicacion2" wire:model="respuestas.119" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="comunicacion2" class="font-medium text-gray-700">Trato cercano y cordial</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="comunicacion3" name="comunicacion3" wire:model="respuestas.120" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="comunicacion3" class="font-medium text-gray-700">Palabras coloquiales</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="comunicacion4" name="comunicacion4" wire:model="respuestas.121" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="comunicacion4" class="font-medium text-gray-700">Usa tecnicismos</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '2 - Disposición para la atención',
+                                            'padre' => 101,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '3 - Cordialidad y reducción de conflicto',
+                                            'padre' => 104,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '4 - Manejo de Silencios',
+                                            'padre' => 109,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '5 - Seguridad y Dominio en la conversación con el Cliente',
+                                            'padre' => 113,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '6 - Comunicación simple y empática',
+                                            'padre' => 118,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '7 - Educar al Cliente en Canales de Autotención',
+                                            'padre' => 122,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '8 - Aseguramiento',
+                                            'padre' => 126,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '9 - Ofrecimiento Comercial',
+                                            'padre' => 132,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '10 - Frases de Enganche y Argumentación',
+                                            'padre' => 142,
+                                        ])
 
 
-
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">7 - Educar al Cliente en Canales de Autotención - ({{ $respuestas[122] }})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Educar al Cliente Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="educacliente1" wire:model="respuestas.122" value="Si">
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="educacliente1" wire:model="respuestas.122" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="educacliente1" wire:model="respuestas.122" value="No Aplica">
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('educacliente1') }}</small>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="educacliente2" name="educacliente2" wire:model="respuestas.123" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="educacliente2" class="font-medium text-gray-700">No menciona otros canales</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="educacliente3" name="educacliente3" wire:model="respuestas.124" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="educacliente3" class="font-medium text-yellow-500">No Aplica - Por posible molestia</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="educacliente4" name="educacliente4" wire:model="respuestas.125" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="educacliente4" class="font-medium text-yellow-500">No Aplica - Sin opciones</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-
-
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">8 - Aseguramiento - ({{ $respuestas[126] }})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Aseguramiento Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="aseguramiento1" wire:model="respuestas.126" value="Si">
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="aseguramiento1" wire:model="respuestas.126" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="aseguramiento1" wire:model="respuestas.126" value="No Aplica">
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('aseguramiento1') }}</small>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="aseguramiento2" name="aseguramiento2" wire:model="respuestas.127" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="aseguramiento2" class="font-medium text-gray-700">No valida información entregada</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="aseguramiento3" name="aseguramiento3" wire:model="respuestas.128" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="aseguramiento3" class="font-medium text-yellow-500">N/A por transfer/Callback</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="aseguramiento4" name="aseguramiento4" wire:model="respuestas.129" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="aseguramiento4" class="font-medium text-yellow-500">N/A canal incorrecto</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="aseguramiento5" name="aseguramiento5" wire:model="respuestas.130" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="aseguramiento5" class="font-medium text-yellow-500">N/A por posible molestia</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="aseguramiento6" name="aseguramiento6" wire:model="respuestas.131" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="aseguramiento6" class="font-medium text-yellow-500">N/A cliente asegura info</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">9 - Ofrecimiento Comercial - ({{ $respuestas[132] }})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Ofrecimiento Comercial Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="ofrecimientocomercial1" wire:model="respuestas.132" value="Si">
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="ofrecimientocomercial1" wire:model="respuestas.132" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="ofrecimientocomercial1" wire:model="respuestas.132" value="No Aplica">
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('ofrecimientocomercial1') }}</small>
-
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial2" name="ofrecimientocomercial2" wire:model="respuestas.133" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial2" class="font-medium text-gray-700">No Asesora</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial3" name="ofrecimientocomercial3" wire:model="respuestas.134" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial3" class="font-medium text-gray-700">No Ofrece Acorde</label>
-                                                    </div>
-                                                </div>
-
-
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial4" name="ofrecimientocomercial4" wire:model="respuestas.135" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial4" class="font-medium text-yellow-500">No Aplica - Plataforma Especialista</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial5" name="ofrecimientocomercial5" wire:model="respuestas.136" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial5" class="font-medium text-yellow-500">No Aplica - Cliente Indispuesto</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial6" name="ofrecimientocomercial6" wire:model="respuestas.137" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial6" class="font-medium text-yellow-500">No Aplica - No es titular o usuario registrado</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial7" name="ofrecimientocomercial7" wire:model="respuestas.138" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial7" class="font-medium text-yellow-500">No Aplica - Sin Factibilidad Comercial</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial8" name="ofrecimientocomercial8" wire:model="respuestas.139" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial8" class="font-medium text-yellow-500">No Aplica - Sin Factibilidad Técnica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial9" name="ofrecimientocomercial9" wire:model="respuestas.140" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial9" class="font-medium text-yellow-500">No Aplica - Problemas Técnicos</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="ofrecimientocomercial10" name="ofrecimientocomercial10" wire:model="respuestas.141" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="ofrecimientocomercial10" class="font-medium text-yellow-500">No Aplica - Otros</label>
-                                                    </div>
-                                                </div>
-
-
-
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">10 - Frases de Enganche y Argumentación - ({{ $respuestas[142] }})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Ofrecimiento Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="frasesenganche1" wire:model="respuestas.142" value="Si">
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="frasesenganche1" wire:model="respuestas.142" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="frasesenganche1" wire:model="respuestas.142" value="No Aplica">
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('frasesenganche1') }}</small>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="frasesenganche2" name="frasesenganche2" wire:model="respuestas.143" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="frasesenganche2" class="font-medium text-gray-700">No argumenta</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="frasesenganche3" name="frasesenganche3" wire:model="respuestas.144" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="frasesenganche3" class="font-medium text-gray-700">Usa argumentos erroneos</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="frasesenganche4" name="frasesenganche4" wire:model="respuestas.145" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="frasesenganche4" class="font-medium text-yellow-500">No Aplica - Sin ofrecimiento comercial</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
                                     </div>
                                 </div>
                             </div>
@@ -1175,194 +706,27 @@ Versión 8
                                 <div class="shadow overflow-hidden sm:rounded-md">
                                     <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Atributos PEC</p>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">Usuario</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_deteccion" name="pecu_deteccion" wire:model="respuestas.146" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_deteccion" class="font-medium text-gray-700">Error grave en la detección de necesidades y en el analisis de la información</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_gestionincorrecta" name="pecu_gestionincorrecta" wire:model="respuestas.147" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_gestionincorrecta" class="font-medium text-gray-700">Error grave en la gestión por Info incorrecta o incompleta</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_noresuelve" name="pecu_noresuelve" wire:model="respuestas.148" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_noresuelve" class="font-medium text-gray-700">Error grave en la gestión por no resolver o resolver de forma errónea</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_atenciongrosera" name="pecu_atenciongrosera" wire:model="respuestas.149" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_atenciongrosera" class="font-medium text-gray-700">Atendió de forma grosera</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_pocoprofesional" name="pecu_pocoprofesional" wire:model="respuestas.150" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_pocoprofesional" class="font-medium text-gray-700">Se desentiende o es poco profesional</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecu_manipulacliente" name="pecu_manipulacliente" wire:model="respuestas.151" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecu_manipulacliente" class="font-medium text-gray-700">Manipula al Cliente para concretar venta</label>
-                                                    </div>
-                                                </div>
 
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">Negocio</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_nosondea" name="pecn_nosondea" wire:model="respuestas.152" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_nosondea" class="font-medium text-gray-700">No sondea motivo de renuncia o no Retiene</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_descalificaentel" name="pecn_descalificaentel" wire:model="respuestas.153" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_descalificaentel" class="font-medium text-gray-700">Descalificó a ENTEL</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_beneficiofueraproc" name="pecn_beneficiofueraproc" wire:model="respuestas.154" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_beneficiofueraproc" class="font-medium text-gray-700">Entrega Beneficio o Excepción comercial fuera de Procedimiento</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_fraude" name="pecn_fraude" wire:model="respuestas.155" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_fraude" class="font-medium text-gray-700">Fraude</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_noliberalinea" name="pecn_noliberalinea" wire:model="respuestas.156" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_noliberalinea" class="font-medium text-gray-700">No libera la línea una vez finalizada la llamada</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_factibilidad" name="pecn_factibilidad" wire:model="respuestas.157" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_factibilidad" class="font-medium text-gray-700">Validación de Factibilidad Técnica y Comercial</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_notipificasistema" name="pecn_notipificasistema" wire:model="respuestas.158" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_notipificasistema" class="font-medium text-gray-700">Ingreso a Sistema</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecn_otragestion" name="pecn_otragestion" wire:model="respuestas.159" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecn_otragestion" class="font-medium text-gray-700">Otra Gestión Indebida</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">Cumplimiento</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_niegaescalamiento" name="pecc_niegaescalamiento" wire:model="respuestas.160" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_niegaescalamiento" class="font-medium text-gray-700">Niega Escalamiento o Ingreso de Reclamo</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_omiteinformacion" name="pecc_omiteinformacion" wire:model="respuestas.161" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_omiteinformacion" class="font-medium text-gray-700">Omite o Indica erróneamente información que es regulada legalmente</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_infoconfidencial" name="pecc_infoconfidencial" wire:model="respuestas.162" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_infoconfidencial" class="font-medium text-gray-700">Entregó información confidencial</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_cierrenegocios" name="pecc_cierrenegocios" wire:model="respuestas.163" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_cierrenegocios" class="font-medium text-gray-700">Cierre de negocios</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_novalidadatos" name="pecc_novalidadatos" wire:model="respuestas.164" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_novalidadatos" class="font-medium text-gray-700">No Valida correctamente los datos personales del cliente</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="pecc_despacho" name="pecc_despacho" wire:model="respuestas.165" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="pecc_despacho" class="font-medium text-gray-700">No coordina correctamente Despacho/Entrega/Instalación</label>
-                                                    </div>
-                                                </div>
+                                        @include('componentes.formularios.pauta_grupo', [
+                                            'titulo' => 'Usuario', 'elementos' => [146, 147, 148, 149, 150, 151],
+                                        ])
 
-                                            </div>
-                                        </fieldset>
+                                        @include('componentes.formularios.pauta_grupo', [
+                                            'titulo' => 'Negocio', 'elementos' => [152, 153, 154, 155, 156, 157, 158, 159],
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo', [
+                                            'titulo' => 'Cumplimiento', 'elementos' => [160, 161, 162, 163, 164, 165],
+                                        ])
+
+
                                         <fieldset>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="pec_responsable" class="block text-sm font-medium text-gray-700">Responsable PEC</label>
-                                                <select id="pec_responsable" name="pec_responsable" wire:model="respuestas.166" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option></option>
-                                                    @foreach($escalas['pecresponsables']['escalas'] as $escala)
-                                                        <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('pec_responsable') }}</small>
+                                            @include('componentes.formularios.pauta_select', [
+                                                'titulo' => 'Responsable PEC',
+                                                'atributo_id' => 166,
+                                                'name' => 'pec_responsable',
+                                                'opciones' => $escalas['pecresponsables']['escalas']
+                                            ])
                                         </fieldset>
                                     </div>
                                 </div>
@@ -1371,82 +735,49 @@ Versión 8
                                     <div class="px-4 py-5 bg-blue-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Caracterización Complementaria</p>
                                         <fieldset>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="otro_ruidoenllamada" class="block text-sm font-medium text-gray-700">Ruidos o problemas de calidad en el audio</label>
-                                                <select id="otro_ruidoenllamada" name="otro_ruidoenllamada" wire:model="respuestas.168" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option></option>
-                                                    @foreach($escalas['ruidos']['escalas'] as $escala)
-                                                        <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('otro_ruidoenllamada') }}</small>
-                                            <div class="mt-4">
-                                                <span class="text-gray-700 text-sm">Uso de frases tipo o scripts para la comunicación</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="otro_frasesyscripts" wire:model="respuestas.169" value="Si">
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="otro_frasesyscripts" wire:model="respuestas.169" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('otro_frasesyscripts') }}</small>
-                                            </div>
-                                            <div class="col-span-6 sm:col-span-3">
-                                                <label for="otro_tiponegocio" class="block text-sm font-medium text-gray-700">Tipo de Negocio</label>
-                                                <select id="otro_tiponegocio" name="otro_tiponegocio" wire:model="respuestas.171" autocomplete="" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                                    <option></option>
-                                                    @foreach($escalas['tiposnegocio']['escalas'] as $escala)
-                                                        <option value="{{ $escala->id }}">{{ $escala->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                            <small class="text-red-600 font-bold">{{ $errors->first('otro_tiponegocio') }}</small>
-                                            <div class="mt-4">
-                                                <span class="text-gray-700 text-sm">Ofrecimiento de más de una Línea</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientomultilinea" wire:model="respuestas.172" value="Si">
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientomultilinea" wire:model="respuestas.172" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientomultilinea') }}</small>
-                                            </div>
-                                            <div class="mt-4">
-                                                <span class="text-gray-700 text-sm">Ofrecimiento de equipo</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientoequipo" wire:model="respuestas.173" value="Si">
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientoequipo" wire:model="respuestas.173" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientoequipo') }}</small>
-                                            </div>
-                                            <div class="mt-4">
-                                                <span class="text-gray-700 text-sm">Ofrecimiento de accesorios</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientoaccesorio" wire:model="respuestas.174" value="Si">
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="otro_ofrecimientoaccesorio" wire:model="respuestas.174" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('otro_ofrecimientoaccesorio') }}</small>
-                                            </div>
+
+                                            @include('componentes.formularios.pauta_select', [
+                                                'titulo' => 'Ruidos o problemas de calidad en el audio',
+                                                'atributo_id' => 168,
+                                                'name' => 'otro_ruidoenllamada',
+                                                'opciones' => $escalas['ruidos']['escalas']
+                                            ])
+
+                                            @include('componentes.formularios.pauta_radio', [
+                                                'titulo' => 'Uso de frases tipo o scripts para la comunicación',
+                                                'atributo_id' => 169,
+                                                'name' => 'otro_frasesyscripts',
+                                                'opciones' => $escalas['booleana']['escalas']
+                                            ])
+
+                                            @include('componentes.formularios.pauta_select', [
+                                                'titulo' => 'Tipo de Negocio',
+                                                'atributo_id' => 171,
+                                                'name' => 'otro_tiponegocio',
+                                                'opciones' => $escalas['tiposnegocio']['escalas']
+                                            ])
+
+                                            @include('componentes.formularios.pauta_radio', [
+                                                'titulo' => 'Ofrecimiento de más de una Línea',
+                                                'atributo_id' => 172,
+                                                'name' => 'otro_ofrecimientomultilinea',
+                                                'opciones' => $escalas['booleana']['escalas']
+                                            ])
+
+                                            @include('componentes.formularios.pauta_radio', [
+                                                'titulo' => 'Ofrecimiento de equipo',
+                                                'atributo_id' => 173,
+                                                'name' => 'otro_ofrecimientoequipo',
+                                                'opciones' => $escalas['booleana']['escalas']
+                                            ])
+
+                                            @include('componentes.formularios.pauta_radio', [
+                                                'titulo' => 'Ofrecimiento de accesorios',
+                                                'atributo_id' => 174,
+                                                'name' => 'otro_ofrecimientoaccesorio',
+                                                'opciones' => $escalas['booleana']['escalas']
+                                            ])
+
                                         </fieldset>
                                     </div>
                                 </div>
@@ -1455,115 +786,52 @@ Versión 8
                                     <div class="pt-4 bg-red-50 space-y-2 sm:p-6">
                                         <p class="font-bold text-xl">Ingresa Reclamos a plataforma Back Office</p>
                                         <fieldset>
-                                            <div>
-                                                <div class="text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="reclamos1" wire:model="respuestas.322" value="Si">
-                                                        <p class="ml-2">Sí</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="reclamos1" wire:model="respuestas.322" value="No">
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="reclamos1" wire:model="respuestas.322" value="No Aplica">
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                                <small class="text-red-600 font-bold">{{ $errors->first('reclamos1') }}</small>
-                                            </div>
-                                            <div class="@if($respuestas[322] == 'No Aplica') hidden @endif">
-                                                <div class="mt-4">
-                                                    <span class="text-gray-700 text-sm">Valida correctamente los datos para derivar correctamente al back</span>
-                                                    <div class="mt-1 text-sm">
-                                                        <label class="inline-flex items-center">
-                                                            <input type="radio" class="form-radio" name="reclamos2" wire:model="respuestas.323" value="Si">
-                                                            <p class="ml-2">Sí</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6">
-                                                            <input type="radio" class="form-radio" name="reclamos2" wire:model="respuestas.323" value="No">
-                                                            <p class="ml-2">No</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6 hidden">
-                                                            <input type="radio" class="form-radio" name="reclamos2" wire:model="respuestas.323" value="No Aplica">
-                                                            <p class="ml-2">No Aplica</p>
-                                                        </label>
-                                                    </div>
-                                                    <small class="text-red-600 font-bold">{{ $errors->first('reclamos2') }}</small>
-                                                </div>
-                                                <div class="mt-1">
-                                                    <span class="text-gray-700 text-sm">Ingresa ticket y observaciones según procedimiento</span>
-                                                    <div class="mt-1 text-sm">
-                                                        <label class="inline-flex items-center">
-                                                            <input type="radio" class="form-radio" name="reclamos3" wire:model="respuestas.324" value="Si">
-                                                            <p class="ml-2">Sí</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6">
-                                                            <input type="radio" class="form-radio" name="reclamos3" wire:model="respuestas.324" value="No">
-                                                            <p class="ml-2">No</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6 hidden">
-                                                            <input type="radio" class="form-radio" name="reclamos3" wire:model="respuestas.324" value="No Aplica">
-                                                            <p class="ml-2">No Aplica</p>
-                                                        </label>
-                                                    </div>
-                                                    <small class="text-red-600 font-bold">{{ $errors->first('reclamos3') }}</small>
-                                                </div>
-                                                <div class="mt-1">
-                                                    <span class="text-gray-700 text-sm">Informa correctamente plazos de respuesta</span>
-                                                    <div class="mt-1 text-sm">
-                                                        <label class="inline-flex items-center">
-                                                            <input type="radio" class="form-radio" name="reclamos4" wire:model="respuestas.325" value="Si">
-                                                            <p class="ml-2">Sí</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6">
-                                                            <input type="radio" class="form-radio" name="reclamos4" wire:model="respuestas.325" value="No">
-                                                            <p class="ml-2">No</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6 hidden">
-                                                            <input type="radio" class="form-radio" name="reclamos4" wire:model="respuestas.325" value="No Aplica">
-                                                            <p class="ml-2">No Aplica</p>
-                                                        </label>
-                                                    </div>
-                                                    <small class="text-red-600 font-bold">{{ $errors->first('reclamos4') }}</small>
-                                                </div>
-                                                <div class="mt-1">
-                                                    <span class="text-gray-700 text-sm">Indica número de reclamo</span>
-                                                    <div class="mt-1 text-sm">
-                                                        <label class="inline-flex items-center">
-                                                            <input type="radio" class="form-radio" name="reclamos5" wire:model="respuestas.326" value="Si">
-                                                            <p class="ml-2">Sí</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6">
-                                                            <input type="radio" class="form-radio" name="reclamos5" wire:model="respuestas.326" value="No">
-                                                            <p class="ml-2">No</p>
-                                                        </label>
-                                                        <label class="inline-flex items-center ml-6 hidden">
-                                                            <input type="radio" class="form-radio" name="reclamos5" wire:model="respuestas.326" value="No Aplica">
-                                                            <p class="ml-2">No Aplica</p>
-                                                        </label>
-                                                    </div>
-                                                    <small class="text-red-600 font-bold">{{ $errors->first('reclamos5') }}</small>
-                                                    <div class="mt-1">
-                                                        <span class="text-gray-700 text-sm">Menciona canales de consulta para el reclamo</span>
-                                                        <div class="mt-1 text-sm">
-                                                            <label class="inline-flex items-center">
-                                                                <input type="radio" class="form-radio" name="reclamos6" wire:model="respuestas.327" value="Si">
-                                                                <p class="ml-2">Sí</p>
-                                                            </label>
-                                                            <label class="inline-flex items-center ml-6">
-                                                                <input type="radio" class="form-radio" name="reclamos6" wire:model="respuestas.327" value="No">
-                                                                <p class="ml-2">No</p>
-                                                            </label>
-                                                            <label class="inline-flex items-center ml-6 hidden">
-                                                                <input type="radio" class="form-radio" name="reclamos6" wire:model="respuestas.327" value="No Aplica">
-                                                                <p class="ml-2">No Aplica</p>
-                                                            </label>
-                                                        </div>
-                                                        <small class="text-red-600 font-bold">{{ $errors->first('reclamos6') }}</small>
 
-                                                    </div>
-                                                </div>
+                                            @include('componentes.formularios.pauta_radio', [
+                                                'titulo' => '',
+                                                'atributo_id' => 322,
+                                                'name' => 'reclamos1',
+                                                'opciones' => $escalas['no_aplica']['escalas']
+                                            ])
+
+
+                                            <div class="@if($respuestas[322] == 'No Aplica') hidden @endif">
+
+                                                @include('componentes.formularios.pauta_radio', [
+                                                    'titulo' => 'Valida correctamente los datos para derivar correctamente al back',
+                                                    'atributo_id' => 323,
+                                                    'name' => 'reclamos2',
+                                                    'opciones' => $escalas['booleana']['escalas']
+                                                ])
+
+                                                @include('componentes.formularios.pauta_radio', [
+                                                    'titulo' => 'Ingresa ticket y observaciones según procedimiento',
+                                                    'atributo_id' => 324,
+                                                    'name' => 'reclamos3',
+                                                    'opciones' => $escalas['booleana']['escalas']
+                                                ])
+
+                                                @include('componentes.formularios.pauta_radio', [
+                                                    'titulo' => 'Informa correctamente plazos de respuesta',
+                                                    'atributo_id' => 325,
+                                                    'name' => 'reclamos4',
+                                                    'opciones' => $escalas['booleana']['escalas']
+                                                ])
+
+                                                @include('componentes.formularios.pauta_radio', [
+                                                    'titulo' => 'Indica número de reclamo',
+                                                    'atributo_id' => 326,
+                                                    'name' => 'reclamos5',
+                                                    'opciones' => $escalas['booleana']['escalas']
+                                                ])
+
+                                                @include('componentes.formularios.pauta_radio', [
+                                                    'titulo' => 'Menciona canales de consulta para el reclamo',
+                                                    'atributo_id' => 327,
+                                                    'name' => 'reclamos6',
+                                                    'opciones' => $escalas['booleana']['escalas']
+                                                ])
+
                                             </div>
                                         </fieldset>
                                     </div>

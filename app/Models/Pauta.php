@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use stdClass;
 
 /**
  * Class Pauta
@@ -26,6 +27,24 @@ class Pauta extends Model
                     'opciones' => $escala['opciones']
                 ];
             }
+
+            $booleanoSi = new stdClass;
+            $booleanoSi->name = "Si";
+            $booleanoSi->id = "Si";
+            $booleanoNo = new stdClass;
+            $booleanoNo->name = "No";
+            $booleanoNo->id = "No";
+            $noAplica = new stdClass;
+            $noAplica->name = "No Aplica";
+            $noAplica->id = "No Aplica";
+            $escalas['booleana'] = [
+                'escalas' => collect([$booleanoSi, $booleanoNo]),
+                'opciones' => []
+            ];
+            $escalas['no_aplica'] = [
+                'escalas' => collect([$booleanoSi, $booleanoNo, $noAplica]),
+                'opciones' => []
+            ];
         }
         return $escalas;
     }
