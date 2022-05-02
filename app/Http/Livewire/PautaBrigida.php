@@ -57,6 +57,8 @@ abstract class PautaBrigida extends Component
             // Respuestas
             if ($respuesta->atributo->tipo_respuesta == 'escala') {
                 $arregloRespuestas[$respuesta->atributo_id] = $this->escalaId($respuesta);
+            } elseif ($respuesta->atributo->name_categoria == 'Memo') {
+                $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_memo;
             } else {
                 $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_text;
             }
@@ -131,11 +133,11 @@ abstract class PautaBrigida extends Component
 
     public function guardarRespuesta($atributo_id, $respuesta_text)
     {
+
         $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion_id)
             ->where('origen_id', 1)
             ->firstWhere('atributo_id', $atributo_id);
         $atributo = $respuesta->atributo;
-
         if ($atributo->tipo_respuesta == 'escala') {
             if ($respuesta_text) {
                 $escala = Escala::find($respuesta_text);
@@ -146,7 +148,7 @@ abstract class PautaBrigida extends Component
                 $respuesta->respuesta_int = null;
             }
 
-        } else if ($atributo->tipo_respuesta == 'memo') {
+        } else if ($atributo->name_categoria == 'Memo') {
             $respuesta->respuesta_text = "";
             $respuesta->respuesta_int = ($respuesta_text == "" ? 0 : 1);
             $respuesta->respuesta_memo = $respuesta_text;
@@ -206,6 +208,19 @@ abstract class PautaBrigida extends Component
         $evaluacion->save();
     }
 
+    public abstract function validarPauta();
+
+    public function pautaEsValida()
+    {
+        $this->validarPauta();
+        foreach ($this->requeridos as $requerido) {
+            if ($this->respuestas[$requerido] === null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     /**
      * Dem Render
@@ -223,12 +238,10 @@ abstract class PautaBrigida extends Component
         if (!$this->evaluacion) {
             $this->evaluacion = $evaluacion->toArray();
         }
-
+        $pauta_ok = $this->pautaEsValida();
         // Validaciones
         $pauta = $evaluacion->getPauta();
-        foreach ($pauta->validaciones() as $campo => $regla) {
-            //$this->rules[$campo] = $regla;
-        }
+
 
         return view('livewire.' . $this->template, [
             'escalas' => $pauta->escalas(),
@@ -240,34 +253,29 @@ abstract class PautaBrigida extends Component
                 $query->orWhere('id', 20);
             })->get()->all(),
             'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
+            'pauta_ok' => $pauta_ok,
         ]);
     }
 
 
-    /**
-     * Agrega validaciones a la pauta.
-     *
-     * @param array $validaciones
-     * @return void
-     */
-    public function agregarValidaciones(array $validaciones)
+    public function agregarValidaciones(array $atributos_id)
     {
-        foreach ($validaciones as $campo => $regla) {
-            $this->rules[$campo] = $regla;
+        foreach ($atributos_id as $atributo_id) {
+            if (!in_array($atributo_id, $this->requeridos)) {
+                $this->requeridos[] = $atributo_id;
+            }
         }
     }
 
 
-    /**
-     * Quita validaciones de la pauta.
-     *
-     * @param $campos
-     * @return void
-     */
-    public function quitarValidaciones($campos)
+
+    public function quitarValidaciones($atributos_id)
     {
-        foreach ($campos as $campo => $regla) {
-            unset($this->rules[$campo]);
+        foreach ($atributos_id as $atributo_id) {
+            $indice = array_search($atributo_id, $this->requeridos);
+            if ($indice !== false) {
+                unset($this->requeridos[$indice]);
+            }
         }
     }
 

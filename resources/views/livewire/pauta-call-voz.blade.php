@@ -352,7 +352,7 @@ Versión 8
         <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                    <div>
+                    <div class="@if(in_array(177, $requeridos) && !$respuestas[177]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
                         <label for="comentario_interno" class="block text-sm font-medium text-gray-700">
                             Comentario Interno
                             <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[177]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
@@ -363,7 +363,7 @@ Versión 8
                             <textarea id="comentario_interno" name="comentario_interno" wire:model.lazy="respuestas.177" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno"></textarea>
                         </div>
                     </div>
-                    <div>
+                    <div class="@if(in_array(199, $requeridos) && !$respuestas[199]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
                         <label for="descripcion_caso" class="block text-sm font-medium text-gray-700">
                             Descripción del Caso
                             <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[199]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
@@ -374,7 +374,7 @@ Versión 8
                             <textarea id="descripcion_caso" name="descripcion_caso" wire:model.lazy="respuestas.199" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso"></textarea>
                         </div>
                     </div>
-                    <div>
+                    <div class="@if(in_array(200, $requeridos) && !$respuestas[200]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
                         <label for="respuesta_ejecutivo" class="block text-sm font-medium text-gray-700">
                             Respuesta del Ejecutivo
                             <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[200]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
@@ -386,7 +386,7 @@ Versión 8
                         </div>
                     </div>
                     <small class="text-red-600 font-bold">{{ $errors->first('respuesta_ejecutivo') }}</small>
-                    <div>
+                    <div class="@if(in_array(176, $requeridos) && !$respuestas[176]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
                         <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
                             Retroalimentación
                             <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[176]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
@@ -412,7 +412,7 @@ Versión 8
                     </div>
                     <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
                     <div></div>
-                    <button wire:click="save" type="submit" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    <button @if($pauta_ok) wire:click="save" @endif type="button" class="@if($pauta_ok) opacity-100 cursor-pointer @else opacity-50 cursor-not-allowed @endif inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                         <!-- Heroicon name: check -->
                         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -846,9 +846,16 @@ Versión 8
         </div>
     </div>
 
-    <div class="fixed @if($evaluacion['estado_id'] == 20) visible opacity-100 @else hidden opacity-0 @endif bottom-1 right-1 bg-yellow-100 border border border-yellow-500 text-yellow-700 px-4 py-1 shadow-lg transition-all">
-        <p class="font-bold text-sm">Tienes progreso autoguardado sin enviar.</p>
-        <p class="text-sm">La evaluación no se marcará como "Completada" hasta que se presione el botón "Guardar".</p>
-    </div>
+    @if ($pauta_ok)
+        <div class="fixed @if($evaluacion['estado_id'] == 20) visible opacity-100 @else hidden opacity-0 @endif bottom-1 right-1 bg-yellow-100 border border border-yellow-500 text-yellow-700 px-4 py-1 shadow-lg transition-all">
+            <p class="font-bold text-sm">Tienes progreso autoguardado sin enviar.</p>
+            <p class="text-sm">La evaluación no se marcará como "Completada" hasta que se presione el botón "Guardar".</p>
+        </div>
+    @else
+        <div class="fixed visible opacity-100 bottom-1 right-1 bg-red-100 border border border-red-500 text-red-700 px-4 py-1 shadow-lg transition-all">
+            <p class="font-bold text-sm">Faltan campos por completar.</p>
+            <p class="text-sm">Complete los campos campos resaltados en rojo antes de Guardar la pauta.</p>
+        </div>
+    @endif
 
 </div>
