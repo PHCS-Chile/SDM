@@ -429,7 +429,7 @@ Versión 8
                             Guardar
                         </button>
                     @endif
-                    @if(Auth::user()->perfil  == 1 && $marca_ici == 0)
+                    @if(Auth::user()->perfil  == 1 && in_array($evaluacion['estado_id'], [2, 3]))
                         <button type="submit"  wire:click="ici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <!-- Heroicon name: check -->
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -502,7 +502,7 @@ Versión 8
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                % de Discrepancia: {{ $evaluacion->ici ?? "No calculado" }}
+                % de Discrepancia: {{ $evaluacion['ici'] ?? "No calculado" }}
             </div>
             {{--            <p class="text-gray-500 font-bold">% de Discrepancia: </p>&nbsp <p> {{$evaluacion->ici}}</p>--}}
         </div>

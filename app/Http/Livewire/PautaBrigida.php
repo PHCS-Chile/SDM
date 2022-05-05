@@ -28,6 +28,8 @@ abstract class PautaBrigida extends Component
     public $respuestas;
     public $grupos;
 
+    public $respuestasO1;
+
     public $rules = [];
     public $rules3 = [];
     public $gestion2 = "";
@@ -51,6 +53,9 @@ abstract class PautaBrigida extends Component
      */
     public function crearArreglosRespuestas($evaluacion)
     {
+        if (Auth::user()->perfil == User::SUPERVISOR) {
+            $this->respuestasO1 = $evaluacion->respuestas;
+        }
         $arregloRespuestas = [];
         $arregloGrupos = ['primarios' => [], 'no_aplica' => []];
         foreach ($evaluacion->respuestas as $respuesta) {
@@ -309,6 +314,23 @@ abstract class PautaBrigida extends Component
         }
     }
 
+    public function haCambiado($respuesta)
+    {
+        $atributo= $respuesta->atributo;
+        if ($atributo->tipo_respuesta == 'escala') {
+            $escala = Escala::find($this->respuestas[$atributo->id]);
+
+            try {
+                return $respuesta->respuesta_int != ($escala === null ? null : $escala->value);
+            } catch (\Exception $e) {
+                dd($respuesta, $atributo, $this->respuestas[$atributo->id], $escala);
+            }
+
+        } elseif ($atributo->name_categoria !== 'Memo') {
+            return $this->respuestas[$atributo->id] != $respuesta->respuesta_text;
+        }
+        return null;
+    }
 
     /**
      * Efectúa un proceso de evaluación de calidad interna
@@ -316,28 +338,30 @@ abstract class PautaBrigida extends Component
      */
     public function ici()
     {
-        $this->validate($this->rules);
-        $suma = 0;
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id', Respuesta::PH)->get();
-        $atributosNoMemo = 0;
-        foreach ($respuestas as $respuesta) {
-            if ($respuesta->atributo->name_categoria != "Memo") {
-                $atributosNoMemo ++;
-                if ($respuesta->respuesta_text != $this->{$respuesta->atributo->name_interno}) {
-                    $suma += 100;
+        if (Auth::user()->perfil == User::SUPERVISOR) {
+            $atributosNoMemo = 0;
+            $suma = 0;
+            foreach ($this->respuestasO1 as $respuesta) {
+                $respuestaO2 = $respuesta->replicate();
+                $respuestaO2->origen_id = Respuesta::ICI;
+                $respuestaO2->save();
+                $cambio = $this->haCambiado($respuesta);
+                if ($cambio !== null) {
+                    ++$atributosNoMemo;
+                    if ($cambio) {
+                        $suma += 100;
+                    }
                 }
             }
-            $respuesta->origen_id = Respuesta::ICI;
-            $respuesta->save();
+            $evaluacion = Evaluacion::find($this->evaluacion_id);
+            //$atributosNoMemo = count($respuestas->atributo->where('name_categoria', "<>", "Memo")->all());
+            $evaluacion->ici = $suma / $atributosNoMemo; /* TOTAL ATRIBUTOS NO MEMO? */
+            $evaluacion->user_ici = Auth::user()->id;
+            $evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
+            $evaluacion->save();
+            $this->save();
         }
 
-        //$atributosNoMemo = count($respuestas->atributo->where('name_categoria', "<>", "Memo")->all());
-        $this->evaluacion->ici = $suma / $atributosNoMemo; /* TOTAL ATRIBUTOS NO MEMO? */
-        $this->evaluacion->user_ici = Auth::user()->id;
-        $this->evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
-        $this->evaluacion->comentario_calidad = $this->comentario_calidad;
-        $this->evaluacion->save();
-        $this->save();
     }
 
 
@@ -346,9 +370,6 @@ abstract class PautaBrigida extends Component
      */
     public function save()
     {
-        if (!empty($this->rules)) {
-            //$this->validate($this->rules);
-        }
         $this->calcularPuntaje();
         $this->actualizarEstados();
         return redirect(route('evaluacions.indexBrigido', ['evaluacionid'=>$this->evaluacion_id]));
