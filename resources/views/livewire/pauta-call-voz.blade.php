@@ -451,49 +451,49 @@ Versión 8
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
-                Fecha Grabación Adjunta: {{ $grabaciones->first() ? $grabacion->created_at : '-'}}
+                Fecha Grabación Adjunta: <strong class="ml-3">{{ $grabaciones->first() ? $grabacion->created_at : '-'}}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
-                Fecha Evaluación: {{ $evaluacion['created_at'] ?? ""}}
+                Fecha Evaluación: <strong class="ml-3">{{ $evaluacion['created_at'] ?? ""}}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
-                Fecha Modificación: {{ $evaluacion['updated_at'] ?? "" }}
+                Fecha Modificación: <strong class="ml-3">{{ $evaluacion['updated_at'] ?? "" }}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                PENC: {{ $evaluacion['penc'] ?? "No calculado" }}
+                PENC: <strong class="ml-3">{{ $evaluacion['penc'] ?? "No calculado" }}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                PEC Usuario: {{ $evaluacion['pecu'] ?? "No calculado" }}
+                PEC Usuario: <strong class="ml-3">{{ $evaluacion['pecu'] ?? "No calculado" }}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                PEC Negocio: {{ $evaluacion['pecn'] ?? "No calculado" }}
+                PEC Negocio: <strong class="ml-3">{{ $evaluacion['pecn'] ?? "No calculado" }}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                PEC Cumplimiento: {{ $evaluacion['pecc'] ?? "No calculado" }}
+                PEC Cumplimiento: <strong class="ml-3">{{ $evaluacion['pecc'] ?? "No calculado" }}</strong>
             </div>
 
 
@@ -502,7 +502,7 @@ Versión 8
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                     <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zM8 7a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zM14 4a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z" />
                 </svg>
-                % de Discrepancia: {{ $evaluacion['ici'] ?? "No calculado" }}
+                Puntaje ICI: <strong class="ml-3">{{ intval($evaluacion['ici'] ?? "No calculado") }}</strong>
             </div>
             {{--            <p class="text-gray-500 font-bold">% de Discrepancia: </p>&nbsp <p> {{$evaluacion->ici}}</p>--}}
         </div>

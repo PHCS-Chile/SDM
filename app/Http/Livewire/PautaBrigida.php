@@ -13,6 +13,8 @@ use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Livewire\Component;
 use Auth;
 
@@ -23,6 +25,7 @@ abstract class PautaBrigida extends Component
     public $modales;
     public $grabaciones;
     public $marca_ici ;
+    public $nivel_ec;
 
     public $evaluacion;
     public $respuestas;
@@ -30,15 +33,8 @@ abstract class PautaBrigida extends Component
 
     public $respuestasO1;
 
-    public $rules = [];
-    public $rules3 = [];
-    public $gestion2 = "";
-    public $comentario_calidad = '';
-
     public $opciones = [];
-    public $autoguardado = [];
 
-    protected $errorresCriticos;
     protected $template;
     protected $tipoPuntaje;
     protected $requeridos;
@@ -81,6 +77,12 @@ abstract class PautaBrigida extends Component
     }
 
 
+    /**
+     * Retorna el ID de la escala asociada a una respuesta.
+     *
+     * @param $respuesta
+     * @return null
+     */
     public function escalaId($respuesta)
     {
         if ($respuesta->respuesta_int) {
@@ -136,6 +138,14 @@ abstract class PautaBrigida extends Component
         }
     }
 
+
+    /**
+     * Guarda una unica respuesta en la base de datos
+     *
+     * @param $atributo_id
+     * @param $respuesta_text
+     * @return void
+     */
     public function guardarRespuesta($atributo_id, $respuesta_text)
     {
 
@@ -213,8 +223,20 @@ abstract class PautaBrigida extends Component
         $evaluacion->save();
     }
 
+
+    /**
+     * Determina el modo en que se valida una pauta.
+     *
+     * @return mixed
+     */
     public abstract function validarPauta();
 
+
+    /**
+     * Determina si la pauta tiene completados los campos definidos como "requeridos".
+     *
+     * @return bool
+     */
     public function pautaEsValida()
     {
         $this->validarPauta();
@@ -263,6 +285,12 @@ abstract class PautaBrigida extends Component
     }
 
 
+    /**
+     * Agrega un ID de atributo como requerido en la pauta.
+     *
+     * @param array $atributos_id
+     * @return void
+     */
     public function agregarValidaciones(array $atributos_id)
     {
         foreach ($atributos_id as $atributo_id) {
@@ -273,7 +301,12 @@ abstract class PautaBrigida extends Component
     }
 
 
-
+    /**
+     * Remueve un ID de atributo como requerido en la pauta.
+     *
+     * @param $atributos_id
+     * @return void
+     */
     public function quitarValidaciones($atributos_id)
     {
         foreach ($atributos_id as $atributo_id) {
@@ -285,18 +318,9 @@ abstract class PautaBrigida extends Component
     }
 
 
-    /**ROFL
-     *
-     * @return void
-     */
-    public function validarExtra()
-    {
-        dd("?");
-    }
-
-
     /**
      * Carga una lista de escalas para ser utilizadas en la interfaz.
+     * TODO: Obsoleta
      *
      * @param $escalas
      * @param $cargarOpciones
@@ -314,6 +338,13 @@ abstract class PautaBrigida extends Component
         }
     }
 
+
+    /**
+     * Determina si una respuesta de la pauta tiene un valor diferente en la interfaz y en la base de datos.
+     *
+     * @param $respuesta
+     * @return bool|null
+     */
     public function haCambiado($respuesta)
     {
         $atributo= $respuesta->atributo;
@@ -334,28 +365,22 @@ abstract class PautaBrigida extends Component
 
     /**
      * Efectúa un proceso de evaluación de calidad interna
-     * TODO: esto requiere generalizacion
      */
     public function ici()
     {
         if (Auth::user()->perfil == User::SUPERVISOR) {
-            $atributosNoMemo = 0;
-            $suma = 0;
+            $puntaje = 100;
             foreach ($this->respuestasO1 as $respuesta) {
                 $respuestaO2 = $respuesta->replicate();
                 $respuestaO2->origen_id = Respuesta::ICI;
                 $respuestaO2->save();
-                $cambio = $this->haCambiado($respuesta);
-                if ($cambio !== null) {
-                    ++$atributosNoMemo;
-                    if ($cambio) {
-                        $suma += 100;
-                    }
+                $this->haCambiado($respuesta);
+                if ($this->haCambiado($respuesta)) {
+                    $puntaje -= $respuesta->atributo->ponderador_ici;
                 }
             }
             $evaluacion = Evaluacion::find($this->evaluacion_id);
-            //$atributosNoMemo = count($respuestas->atributo->where('name_categoria', "<>", "Memo")->all());
-            $evaluacion->ici = $suma / $atributosNoMemo; /* TOTAL ATRIBUTOS NO MEMO? */
+            $evaluacion->ici = max($puntaje, 0); /* TOTAL ATRIBUTOS NO MEMO? */
             $evaluacion->user_ici = Auth::user()->id;
             $evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
             $evaluacion->save();
@@ -367,6 +392,8 @@ abstract class PautaBrigida extends Component
 
     /**
      * Guarda el formulario verificando estado actualizado de la evaluación y las validaciones.
+     *
+     * @return Application|RedirectResponse|Redirector
      */
     public function save()
     {
@@ -376,6 +403,12 @@ abstract class PautaBrigida extends Component
 
     }
 
+
+    /**
+     * Calcula el puntaje luego de completar la pauta.
+     *
+     * @return void
+     */
     public function calcularPuntaje()
     {
         $evaluacion = Evaluacion::find($this->evaluacion_id);
@@ -399,6 +432,15 @@ abstract class PautaBrigida extends Component
     }
 
 
+    /**
+     * Determina el Nivel de Error Crítico.
+     * TODO: Rehacer
+     *
+     * @param $pecc
+     * @param $pecu
+     * @param $pecn
+     * @return int
+     */
     public function calcularNivelEC($pecc, $pecu, $pecn)
     {
         if ($pecu == 0) {
@@ -417,6 +459,7 @@ abstract class PautaBrigida extends Component
 
     /**
      * Guarda cambios en el historial
+     * TODO: Se usa?
      *
      * @param $accion
      * @param $detalles
@@ -435,25 +478,37 @@ abstract class PautaBrigida extends Component
     }
 
 
-    public function buscarBrechas($atributosPEC)
+    /**
+     * TODO: Pendiente
+     *
+     * @param $atributosCriticos
+     * @return boolean
+     */
+    public function hayBrechas($atributosCriticos)
     {
-        foreach($atributosPEC as $atributoPEC) {
-            if ($this->{$atributoPEC->name_interno} == "checked") {
-                $respuestaCentro = Respuesta::where('origen_id',3)
-                    ->where('evaluacion_id', $this->evaluacion->id)
-                    ->where('atributo_id', $atributoPEC->id)
+        foreach($atributosCriticos as $atributo) {
+            if ($this->respuestas[$atributo->id] == "checked") {
+                $respuestaCentro = Respuesta::where('origen_id', 3)
+                    ->where('evaluacion_id', $this->evaluacion_id)
+                    ->where('atributo_id', $atributo->id)
                     ->orderBy('id', 'DESC')->first();
                 if($respuestaCentro) {
                     if ($respuestaCentro->respuesta_int == 0) {
-                        $this->marca_ec = 1;
-                        return;
+                        return true;
                     }
                 }
             }
         }
-        $this->marca_ec = 0;
+        return false;
     }
 
+
+    /**
+     * Calcula el puntaje para atributos No Críticos.
+     *
+     * @param $atributosPENC
+     * @return float|int
+     */
     public function calcularPENC($atributosPENC)
     {
         $sumaPonderadoresAplican = 0;
@@ -474,6 +529,14 @@ abstract class PautaBrigida extends Component
         return 100 * ($sumaPonderadoresMarcados / $sumaPonderadoresAplican);
     }
 
+
+    /**
+     * TODO: Para otras pautas
+     * Calcula el Puntaje Final, utilizando los ponderadores definidos en la base de datos.
+     *
+     * @param $ponderadoresPF
+     * @return void
+     */
     public function calcularPF($ponderadoresPF)
     {
         $sumatotal = 0;
@@ -492,6 +555,17 @@ abstract class PautaBrigida extends Component
         $this->evaluacion->pf = ($suma / $sumatotal) * 100;
     }
 
+
+    /**
+     * PEC Simple
+     * TODO: Esperando generalización (implementación en otras pautas).
+     *
+     * @param $atributosCriticos
+     * @param $atributosCriticosLeves
+     * @param $atributosCriticosIntermedios
+     * @param $atributosCriticosGraves
+     * @return void
+     */
     public function calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves)
     {
         $suma = 0;
@@ -523,7 +597,7 @@ abstract class PautaBrigida extends Component
 
 
     /**
-     * Calcula el puntaje PEC utilizando un arreglo que describe los atributos criticos.
+     * Calcula el puntaje PEC utilizando un arreglo que describe los atributos críticos.
      *
      * @param $atributosCriticos
      * @return void
@@ -541,6 +615,14 @@ abstract class PautaBrigida extends Component
         }
     }
 
+
+    /**
+     * PEC Padres
+     * TODO: Esperando generalización (implementación en otras pautas).
+     *
+     * @param $atributosCriticos
+     * @return void
+     */
     public function calcularPECPadres($atributosCriticos)
     {
         $idPadres = array_keys($this->arregloGrupos['primarios']);
@@ -602,7 +684,7 @@ abstract class PautaBrigida extends Component
                 $evaluacion->estado_reporte = NULL;
             }
         }else{
-            if($evaluacion->fecha_ici){
+            if($this->hayBrechas($evaluacion->atributos()->where('check_ec', 1))){
                 $evaluacion->cambiarEstado(Estado::EVALUACION_ENVIADADA_A_REVISION);
                 if($evaluacion->estado_reporte == NULL){
                     $evaluacion->estado_reporte = Estado::REPORTE_SIN_REPORTE;
