@@ -1,15 +1,9 @@
 {{--
 Plantilla: Pauta Call Voz
-Versión 6
+Versión en esteroides
 --}}
 <div>
-
-    {{--
-Plantilla: Header resumen para Call Voz
-Versión 8
---}}
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
-        <data></data>
         <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
         <div class="p-6">
             <div class=" p-5 bg-white  shadow-xl sm:rounded-lg ">
@@ -109,14 +103,6 @@ Versión 8
                                                                 @endforeach
 
                                                             </select>
-                                                        </div>
-                                                        &nbsp&nbsp
-                                                        <div>
-                                                            <button type="submit" name="form3" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
-                                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
-                                                                </svg>
-                                                            </button>
                                                         </div>
                                                     </div>
                                                 </form>
@@ -412,23 +398,15 @@ Versión 8
                     </div>
                     <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
                     <div></div>
-                    @if($pauta_ok)
-                        <button wire:click="save" type="button" class="opacity-100 cursor-pointer inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <!-- Heroicon name: check -->
-                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            Guardar
-                        </button>
-                    @else
-                        <button type="button" class="opacity-50 cursor-not-allowed inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            <!-- Heroicon name: check -->
-                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
-                            </svg>
-                            Guardar
-                        </button>
-                    @endif
+
+                    <button wire:click="save" type="button" class="opacity-100 disabled:opacity-40 @if(!$pauta_ok) cursor-not-allowed @endif inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none" @if(!$pauta_ok) disabled @endif>
+                        <!-- Heroicon name: check -->
+                        <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                        </svg>
+                        Guardar
+                    </button>
+
                     @if(Auth::user()->perfil  == 1 && in_array($evaluacion['estado_id'], [2, 3]))
                         <button type="submit"  wire:click="ici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                             <!-- Heroicon name: check -->

@@ -54,7 +54,7 @@ abstract class PautaBrigida extends Component
         }
         $arregloRespuestas = [];
         $arregloGrupos = ['primarios' => [], 'no_aplica' => []];
-        foreach ($evaluacion->respuestas as $respuesta) {
+        foreach ($evaluacion->respuestas->where('origen_id', 1) as $respuesta) {
             // Respuestas
             if ($respuesta->atributo->tipo_respuesta == 'escala') {
                 $arregloRespuestas[$respuesta->atributo_id] = $this->escalaId($respuesta);
