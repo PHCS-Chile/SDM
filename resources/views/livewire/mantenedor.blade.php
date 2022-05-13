@@ -25,8 +25,8 @@
                     @foreach($estudios as $estudio)
                     <div class="mt-4">
                         <div class="mt-2 text-sm">
-                            <label class="inline-flex items-center">
-                                <input type="radio" class="form-radio" name="estudio" wire:model="estudio" value="{{ $estudio->id }}">
+                            <label class="@if($estudio->id != 2) opacity-50 @endif inline-flex items-center">
+                                <input type="radio" class="disabled:opacity-50 form-radio" name="estudio" wire:model="estudio" value="{{ $estudio->id }}" @if($estudio->id != 2) disabled @endif>
                                 <p class="ml-2">{{ $estudio->name }}</p>
                             </label>
                         </div>
@@ -54,17 +54,17 @@
                                     Atributo
                                 </th>
                                 <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Ponderador
+                                    Ponderador<br>Puntaje
                                 </th>
                                 <th scope="col" class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Ponderador ICI
+                                    Ponderador<br>Calidad
                                 </th>
                             </tr>
                             </thead>
                             <tbody>
                                 @foreach($atributos['objetos'] as $atributo)
-                                    <tr>
-                                        <td class="px-3 whitespace-nowrap">
+                                    <tr class="group @if($atributo->check_primario == 1) bg-gray-200 @endif">
+                                        <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
                                                     <div class="text-sm font-medium text-gray-900">
@@ -73,7 +73,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-3 whitespace-nowrap">
+                                        <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
                                                     <div class="text-sm font-medium text-gray-900">
@@ -82,7 +82,7 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-3 whitespace-nowrap">
+                                        <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
                                                     <div class="text-sm font-medium text-gray-900">
@@ -91,22 +91,32 @@
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-3 whitespace-nowrap">
+                                        <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
+                                                    @if(isset($atributos['ponderador'][$atributo->id]))
                                                     <div class="text-sm font-medium text-gray-900">
                                                         <label class="sr-only" for="ponderador-{{ $atributo->id }}"></label>
                                                         <input wire:model.lazy="atributos.ponderador.{{ $atributo->id }}" id="ponderador-{{ $atributo->id }}" class="w-20 py-1 border-2 border-gray-300 bg-white px-2 rounded-lg text-xs focus:outline-none" type="number" placeholder="Ej. 1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="@if(in_array($atributo->id, $modificados['ponderador'])) opacity-100 @else opacity-0 @endif inline text-green-500 h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
                                                     </div>
+                                                    @else
+                                                    <div class="text-sm bg-gray-400 font-medium text-gray-900"></div>
+                                                    @endif
                                                 </div>
                                             </div>
                                         </td>
-                                        <td class="px-3 whitespace-nowrap">
+                                        <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
                                                     <div class="text-sm font-medium text-gray-900">
                                                         <label class="sr-only" for="ponderador_ici-{{ $atributo->id }}"></label>
                                                         <input wire:model.lazy="atributos.ponderador_ici.{{ $atributo->id }}" id="ponderador_ici-{{ $atributo->id }}" class="w-20 py-1 border-2 border-gray-300 bg-white px-2 rounded-lg text-xs focus:outline-none" type="number" placeholder="Ej. 1">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="@if(in_array($atributo->id, $modificados['ponderador_ici'])) opacity-100 @else opacity-0 @endif inline text-green-500 h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
+                                                            <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                                                        </svg>
                                                     </div>
                                                 </div>
                                             </div>

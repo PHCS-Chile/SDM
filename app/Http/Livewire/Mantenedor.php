@@ -12,6 +12,8 @@ class Mantenedor extends Component
     public $estudio;
     public $atributos;
 
+    public $modificados = ['ponderador' => [], 'ponderador_ici' => []];
+
 
     public function updatedAtributos($valor, $id)
     {
@@ -21,6 +23,7 @@ class Mantenedor extends Component
         $atributo = Atributo::find($atributoID);
         $atributo->{$columna} = $valor;
         $atributo->save();
+        $this->modificados[$arregloID[0]][] = $atributoID;
     }
 
     public function obtenerAtributos()
@@ -29,19 +32,24 @@ class Mantenedor extends Component
         $this->atributos = [];
         foreach ($atributos as $atributo) {
             $this->atributos['objetos'][$atributo->id] = $atributo;
-            $this->atributos['ponderador'][$atributo->id] = $atributo->ponderador;
-            $this->atributos['ponderador_ici'][$atributo->id] = $atributo->ponderador_ici;
+            if($atributo->ponderador !== NULL) {
+                $this->atributos['ponderador'][$atributo->id] = $atributo->ponderador;
+            }
+            if($atributo->ponderador_ici !== NULL) {
+                $this->atributos['ponderador_ici'][$atributo->id] = $atributo->ponderador_ici;
+            }
         }
     }
 
     public function render()
     {
         if (!$this->estudio) {
-            $this->estudio = 1;
+            $this->estudio = 2;
         }
         $this->obtenerAtributos();
         return view('livewire.mantenedor', [
             'estudios' => Estudio::all(),
+            'modificados' => $this->modificados,
         ]);
     }
 }
