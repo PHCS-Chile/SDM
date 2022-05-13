@@ -85,5 +85,14 @@ class User extends Authenticatable
         return $this->belongsTo(Rol::class);
     }
 
+    public function esSupervisor()
+    {
+        return $this->perfil == 1;
+    }
+
+    public function esAdmin()
+    {
+        return $this->id = 1;
+    }
 
 }

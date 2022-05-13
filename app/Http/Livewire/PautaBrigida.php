@@ -49,7 +49,7 @@ abstract class PautaBrigida extends Component
      */
     public function crearArreglosRespuestas($evaluacion)
     {
-        if (Auth::user()->perfil == User::SUPERVISOR) {
+        if (Auth::user()->perfil == User::SUPERVISOR && !$this->respuestasO1) {
             $this->respuestasO1 = $evaluacion->respuestas;
         }
         $arregloRespuestas = [];

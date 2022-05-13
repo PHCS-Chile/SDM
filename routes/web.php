@@ -3,6 +3,7 @@
 use App\Http\Controllers\DevController;
 use App\Http\Controllers\EvaluacionController;
 use App\Http\Controllers\GrabacionController;
+use App\Http\Controllers\MantenedorController;
 use App\Http\Controllers\PautaController;
 use App\Http\Controllers\SupervisionController;
 use App\Http\Controllers\UserEventController;
@@ -90,3 +91,5 @@ Route::post('evaluacion/{evaluacionid}/reportar_grabacion', [EvaluacionControlle
 Route::post('evaluacion/{evaluacionid}/cambiar_ejecutivo', [EvaluacionController::class, 'cambiarEjecutivo'])->name('evaluacion.cambiar_ejecutivo')->middleware(['auth:sanctum', 'verified']);
 Route::post('asignacion/{asignacionid}/crear_dummy', [EvaluacionController::class, 'crearDummy'])->name('asignacion.crear_dummy')->middleware(['auth:sanctum', 'verified']);
 Route::delete('evaluacion/{evaluacionid}/eliminar_dummy', [EvaluacionController::class, 'eliminarDummy'])->name('evaluacion.eliminar_dummy')->middleware(['auth:sanctum', 'verified']);
+
+Route::get('mantenimiento/ponderadores', [MantenedorController::class, 'ponderadores'])->name('mantener.ponderadores')->middleware(['auth:sanctum', 'verified']);
