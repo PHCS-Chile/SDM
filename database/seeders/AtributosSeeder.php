@@ -237,8 +237,8 @@ class AtributosSeeder extends Seeder
         ['name' => 'NO EXISTE', 'name_interno' => 'noexiste', 'pauta_id' => 1, 'check_primario' => 1, 'check_ec' => 1, 'id_primario' => NULL, 'name_categoria' => 'NO'],
 
         // Atributos Pauta Call Voz, parte 4 (176 > 177)
-        ['pauta_id' => 2, 'name_interno' => 'retroalimentacion', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'memo', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Retroalimentacion', 'no_aplica' => 0],
-        ['pauta_id' => 2, 'name_interno' => 'comentario_interno', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'memo', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Comentario Interno', 'no_aplica' => 0],
+        ['pauta_id' => 2, 'name_interno' => 'retroalimentacion', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'memo', 'ponderador' => NULL, 'ponderador_ici' => NULL, 'name' => 'Retroalimentacion', 'no_aplica' => 0],
+        ['pauta_id' => 2, 'name_interno' => 'comentario_interno', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'memo', 'ponderador' => NULL, 'ponderador_ici' => NULL, 'name' => 'Comentario Interno', 'no_aplica' => 0],
 
         // Atributo Pauta Digital, resagado (178)
         ['name' => 'No informa el motivo de uso de datos personales', 'name_interno' => 'seguridad4', 'pauta_id' => 1, 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => 35, 'name_categoria' => 'PENC', 'tipo_respuesta' => 'check'],
@@ -264,8 +264,8 @@ class AtributosSeeder extends Seeder
         ['pauta_id' => 2, 'name_interno' => 'resolucion2', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión', 'tipo_respuesta' => 'escala', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Ejecutivo Resuelve el problema de origen en línea', 'no_aplica' => 0],
         ['pauta_id' => 2, 'name_interno' => 'resolucion3', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión', 'tipo_respuesta' => 'escala', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Ejecutivo Resuelve el problema de origen en línea', 'no_aplica' => 0],
         ['pauta_id' => 2, 'name_interno' => 'resolucion4', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Gestión', 'tipo_respuesta' => NULL, 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Ejecutivo Resuelve el problema de origen en línea FULL', 'no_aplica' => 0],
-        ['pauta_id' => 2, 'name_interno' => 'descripcion_caso', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'motivo', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Descripción del Caso', 'no_aplica' => 0],
-        ['pauta_id' => 2, 'name_interno' => 'respuesta_ejecutivo', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'motivo', 'ponderador' => NULL, 'ponderador_ici' => 1, 'name' => 'Respuesta del Ejecutivo', 'no_aplica' => 0],
+        ['pauta_id' => 2, 'name_interno' => 'descripcion_caso', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'motivo', 'ponderador' => NULL, 'ponderador_ici' => NULL, 'name' => 'Descripción del Caso', 'no_aplica' => 0],
+        ['pauta_id' => 2, 'name_interno' => 'respuesta_ejecutivo', 'check_primario' => 0, 'check_ec' => 0, 'id_primario' => NULL, 'name_categoria' => 'Memo', 'tipo_respuesta' => 'motivo', 'ponderador' => NULL, 'ponderador_ici' => NULL, 'name' => 'Respuesta del Ejecutivo', 'no_aplica' => 0],
     ];
     public $atributos2 = [
         // Atributos Pauta Ventas Remotas (201 > 312)

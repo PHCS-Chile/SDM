@@ -56,6 +56,10 @@ class EvaluacionController extends Controller
                     $nuevaRespuesta->respuesta_int = 1;
                     $nuevaRespuesta->respuesta_text = "Si";
                 }
+                if ($atributo->tipo_respuesta == 'SiNoNoaplica' && $atributo->no_aplica == 1) {
+                    $nuevaRespuesta->respuesta_int = -1;
+                    $nuevaRespuesta->respuesta_text = "No Aplica";
+                }
                 $nuevaRespuesta->save();
             }
         }

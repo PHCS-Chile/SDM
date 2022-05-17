@@ -50,7 +50,7 @@ abstract class PautaBrigida extends Component
     public function crearArreglosRespuestas($evaluacion)
     {
         if (Auth::user()->perfil == User::SUPERVISOR && !$this->respuestasO1) {
-            $this->respuestasO1 = $evaluacion->respuestas;
+            $this->respuestasO1 = clone $evaluacion->respuestas;
         }
         $arregloRespuestas = [];
         $arregloGrupos = ['primarios' => [], 'no_aplica' => []];
@@ -374,9 +374,10 @@ abstract class PautaBrigida extends Component
                 $respuestaO2 = $respuesta->replicate();
                 $respuestaO2->origen_id = Respuesta::ICI;
                 $respuestaO2->save();
-                $this->haCambiado($respuesta);
                 if ($this->haCambiado($respuesta)) {
-                    $puntaje -= $respuesta->atributo->ponderador_ici;
+                    if ($respuesta->atributo->ponderador_ici !== null) {
+                        $puntaje -= $respuesta->atributo->ponderador_ici;
+                    }
                 }
             }
             $evaluacion = Evaluacion::find($this->evaluacion_id);
@@ -518,7 +519,7 @@ abstract class PautaBrigida extends Component
         foreach ($atributosPENC as $atributo) {
             $respuesta = $this->respuestas[$atributo->id];
             $respuestas[$atributo->id] = $respuesta;
-            $ponderadores[$atributo->id] = $atributo->ponderador;;
+            $ponderadores[$atributo->id] = $atributo->ponderador;
             if ($respuesta != 'No Aplica') {
                 $sumaPonderadoresAplican += intval($atributo->ponderador);
             }
