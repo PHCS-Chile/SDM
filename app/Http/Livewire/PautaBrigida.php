@@ -50,7 +50,7 @@ abstract class PautaBrigida extends Component
     public function crearArreglosRespuestas($evaluacion)
     {
         if (Auth::user()->perfil == User::SUPERVISOR && !$this->respuestasO1) {
-            $this->respuestasO1 = clone $evaluacion->respuestas;
+            $this->respuestasO1 = $evaluacion->respuestas()->get()->keyBy('atributo_id')->toArray();
         }
         $arregloRespuestas = [];
         $arregloGrupos = ['primarios' => [], 'no_aplica' => []];
@@ -345,20 +345,19 @@ abstract class PautaBrigida extends Component
      * @param $respuesta
      * @return bool|null
      */
-    public function haCambiado($respuesta)
+    public function haCambiado($atributo)
     {
-        $atributo= $respuesta->atributo;
         if ($atributo->tipo_respuesta == 'escala') {
             $escala = Escala::find($this->respuestas[$atributo->id]);
 
             try {
-                return $respuesta->respuesta_int != ($escala === null ? null : $escala->value);
+                return $this->respuestasO1[$atributo->id]['respuesta_int'] != ($escala === null ? null : $escala->value);
             } catch (\Exception $e) {
                 dd($respuesta, $atributo, $this->respuestas[$atributo->id], $escala);
             }
 
         } elseif ($atributo->name_categoria !== 'Memo') {
-            return $this->respuestas[$atributo->id] != $respuesta->respuesta_text;
+            return $this->respuestasO1[$atributo->id]['respuesta_text'] != $this->respuestas[$atributo->id];
         }
         return null;
     }
@@ -371,12 +370,18 @@ abstract class PautaBrigida extends Component
         if (Auth::user()->perfil == User::SUPERVISOR) {
             $puntaje = 100;
             foreach ($this->respuestasO1 as $respuesta) {
-                $respuestaO2 = $respuesta->replicate();
+                $atributo = Atributo::find($respuesta['atributo_id']);
+                $respuestaO2 = new Respuesta;
                 $respuestaO2->origen_id = Respuesta::ICI;
+                $respuestaO2->respuesta_int = $respuesta['respuesta_int'];
+                $respuestaO2->respuesta_text = $respuesta['respuesta_text'];
+                $respuestaO2->respuesta_memo = $respuesta['respuesta_memo'];
+                $respuestaO2->atributo_id = $respuesta['atributo_id'];
+                $respuestaO2->evaluacion_id = $respuesta['evaluacion_id'];
                 $respuestaO2->save();
-                if ($this->haCambiado($respuesta)) {
-                    if ($respuesta->atributo->ponderador_ici !== null) {
-                        $puntaje -= $respuesta->atributo->ponderador_ici;
+                if ($this->haCambiado($atributo)) {
+                    if ($atributo->ponderador_ici !== null) {
+                        $puntaje -= $atributo->ponderador_ici;
                     }
                 }
             }

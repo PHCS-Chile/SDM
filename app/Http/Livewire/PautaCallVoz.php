@@ -24,7 +24,7 @@ class PautaCallVoz extends PautaBrigida
         ['grupo_id' => 9, 'nombre' => 'motivos', 'opciones' => [179]],
     ];
     protected $requeridos = [
-        179, 176, 199, 200, 180, 183, 187, 191, 195
+        168, 169, 171, 179, 176, 199, 200, 180, 183, 187, 191, 195
     ];
 
     public function validarPauta()
@@ -58,7 +58,7 @@ class PautaCallVoz extends PautaBrigida
         }
 
         // Tipo de Negocio
-        if ($this->respuestas[171] !== "" and $this->respuestas[171] != 49) {
+        if ($this->respuestas[171] != 49) {
             $this->agregarValidaciones([172, 173, 174]);
         } else {
             $this->quitarValidaciones([172, 173, 174]);
