@@ -281,6 +281,7 @@ abstract class PautaBrigida extends Component
             })->get()->all(),
             'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
             'pauta_ok' => $pauta_ok,
+            'bloqueada' => !$evaluacion->puedeEditar(Auth::user())
         ]);
     }
 

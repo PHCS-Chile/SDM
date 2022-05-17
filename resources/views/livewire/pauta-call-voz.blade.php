@@ -81,7 +81,10 @@ Versión en esteroides
                                                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                                     <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
                                                 </svg>
-                                                <p class="text-gray-500 font-bold">Estado de Evaluación: </p>&nbsp <p> {{ $evaluacion['estado_id'] }}</p>&nbsp&nbsp
+                                                <p class="text-gray-500 font-bold">Estado: </p>&nbsp <p>
+                                                <div class="inline-block px-2 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                    {{ \App\Models\Estado::find($evaluacion['estado_id'])->name }}
+                                                </div>
                                             </div>
 
                                         @endif
@@ -93,16 +96,19 @@ Versión en esteroides
                                                 </svg>
                                                 <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
                                                     @csrf
-                                                    <div class="flex flex-row inline-flex items-center border-1">
-                                                        <h2 class="font-bold text-sm mt-2">Estado:</h2>
+                                                    <div class="flex items-center border-1">
+                                                        <h2 class="mr-2 inline-flex font-bold text-sm mt-2">Estado:</h2>
                                                         {{--                                                <div><p class="text-gray-600 font-bold">Cambia de estado: &nbsp&nbsp</p></div>--}}
-                                                        <div class="text-xs text-gray-500">
-                                                            <select id="cambioestado" wire:model="evaluacion.estado_id" name="cambioestado" class="mt-1 block w-full py-1 px-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs">
+                                                        <div class="inline-flex text-xs text-gray-500">
+                                                            <select id="cambioestado" wire:model="evaluacion.estado_id" name="cambioestado" class="mt-1 w-full py-1 px-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs">
                                                                 @foreach($estados_evaluacion as $estado)
                                                                     <option value="{{ $estado->id }}">{{ $estado->name }}</option>
                                                                 @endforeach
 
                                                             </select>
+{{--                                                            <svg xmlns="http://www.w3.org/2000/svg" class="opacity-100 text-green-500 h-7 w-7 transition-all" viewBox="0 0 20 20" fill="currentColor">--}}
+{{--                                                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />--}}
+{{--                                                            </svg>--}}
                                                         </div>
                                                     </div>
                                                 </form>
@@ -338,68 +344,44 @@ Versión en esteroides
         <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
             <div class="shadow overflow-hidden sm:rounded-md">
                 <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                    <div class="@if(in_array(177, $requeridos) && !$respuestas[177]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
-                        <label for="comentario_interno" class="block text-sm font-medium text-gray-700">
-                            Comentario Interno
-                            <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[177]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="comentario_interno" name="comentario_interno" wire:model.lazy="respuestas.177" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno"></textarea>
-                        </div>
-                    </div>
-                    <div class="@if(in_array(199, $requeridos) && !$respuestas[199]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
-                        <label for="descripcion_caso" class="block text-sm font-medium text-gray-700">
-                            Descripción del Caso
-                            <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[199]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="descripcion_caso" name="descripcion_caso" wire:model.lazy="respuestas.199" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la descripción del caso"></textarea>
-                        </div>
-                    </div>
-                    <div class="@if(in_array(200, $requeridos) && !$respuestas[200]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
-                        <label for="respuesta_ejecutivo" class="block text-sm font-medium text-gray-700">
-                            Respuesta del Ejecutivo
-                            <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[200]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="respuesta_ejecutivo" name="respuesta_ejecutivo" wire:model.lazy="respuestas.200" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la Respuesta del Ejecutivo"></textarea>
-                        </div>
-                    </div>
-                    <small class="text-red-600 font-bold">{{ $errors->first('respuesta_ejecutivo') }}</small>
-                    <div class="@if(in_array(176, $requeridos) && !$respuestas[176]) border-l-4 border-red-600 px-2 bg-red-50 @endif">
-                        <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
-                            Retroalimentación
-                            <svg xmlns="http://www.w3.org/2000/svg" class="@if($respuestas[176]) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="retroalimentacion" name="retroalimentacion" wire:model.lazy="respuestas.176" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la retroalimentación"></textarea>
-                        </div>
-                    </div>
-                    <small class="text-red-600 font-bold">{{ $errors->first('retroalimentacion') }}</small>
-                    <div></div>
-                    <div>
-                        <label for="comentario_calidad" class="block text-sm font-medium text-gray-700">
-                            Comentario Calidad
-                            <svg xmlns="http://www.w3.org/2000/svg" class="@if($evaluacion['comentario_calidad']) opacity-100 @else opacity-0 @endif text-green-500 inline h-5 w-5 transition-all" viewBox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
-                            </svg>
-                        </label>
-                        <div class="mt-1">
-                            <textarea id="comentario_calidad" name="comentario_calidad" wire:model.lazy="evaluacion.comentario_calidad" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario de calidad"></textarea>
-                        </div>
-                    </div>
-                    <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
-                    <div></div>
 
-                    <button wire:click="save" type="button" class="opacity-100 disabled:opacity-40 @if(!$pauta_ok) cursor-not-allowed @endif inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none" @if(!$pauta_ok) disabled @endif>
+                    @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Comentario Interno',
+                        'arreglo' => 'respuestas',
+                        'atributo_id' => 177,
+                        'name' => 'comentario_interno',
+                    ])
+
+                    @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Descripción del Caso',
+                        'arreglo' => 'respuestas',
+                        'atributo_id' => 199,
+                        'name' => 'descripcion_caso',
+                    ])
+
+                    @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Respuesta del Ejecutivo',
+                        'arreglo' => 'respuestas',
+                        'atributo_id' => 200,
+                        'name' => 'respuesta_ejecutivo',
+                    ])
+
+                    @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Retroalimentación',
+                        'arreglo' => 'respuestas',
+                        'atributo_id' => 176,
+                        'name' => 'retroalimentacion',
+                    ])
+
+                    @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Comentario Calidad',
+                        'arreglo' => 'evaluacion',
+                        'atributo_id' => 'comentario_calidad',
+                        'name' => 'comentario_calidad',
+                    ])
+
+
+                    <button wire:click="save" type="button" class="opacity-100 disabled:opacity-40 @if(!$pauta_ok || $bloqueada) cursor-not-allowed @endif inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none" @if(!$pauta_ok || $bloqueada) disabled @endif>
                         <!-- Heroicon name: check -->
                         <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -408,7 +390,7 @@ Versión en esteroides
                     </button>
 
                     @if(Auth::user()->perfil  == 1 && in_array($evaluacion['estado_id'], [2, 3]))
-                        <button type="submit"  wire:click="ici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                        <button type="submit"  wire:click="ici" class="@if($bloqueada) cursor-not-allowed @endif inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"  @if($bloqueada) disabled @endif>
                             <!-- Heroicon name: check -->
                             <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />

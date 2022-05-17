@@ -128,6 +128,15 @@ class Evaluacion extends Model
         return $ejecutivos;
     }
 
+    public function puedeEditar($user)
+    {
+        if ($user->esSupervisor()) {
+            return in_array($this->estado_id, [1, 20, 2, 3]);
+        } else {
+            return in_array($this->estado_id, [1, 20]);
+        }
+    }
+
     protected $casts = [
         'created_at' => 'datetime:d-m-Y H:i:s',
         'updated_at' => 'datetime:d-m-Y H:i:s',
