@@ -48,7 +48,7 @@ Versión 4
             </main>
         </div>
 
-        @include('componentes.modal_init')
+{{--        @include('componentes.modal_init')--}}
         @stack('modals')
 
 

@@ -33,11 +33,51 @@ abstract class PautaBrigida extends Component
 
     public $respuestasO1;
 
+    public $modal = [
+        'id' => null,
+        'contenido' => null,
+        'titulo' => null,
+    ];
+    public $modalesValidos = ['historial', 'centro', 'ici'];
+
     public $opciones = [];
 
     protected $template;
     protected $tipoPuntaje;
     protected $requeridos;
+
+
+    public function abrirModal($modalID)
+    {
+        // Si es un modal valido
+        if (in_array($modalID, $this->modalesValidos)) {
+            if ($modalID == 'historial') {
+                $contenido = Log::where('evaluacion_id', $this->evaluacion_id)->get();
+                $titulo = 'Historial de cambios';
+            } elseif ($modalID == 'centro') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
+                $titulo = 'Respuestas del centro';
+            } elseif ($modalID == 'ici') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::ICI)->get();
+                $titulo = 'Respuestas ICI';
+            }
+            if (isset($contenido, $titulo)) {
+                $this->modal['id'] = $modalID;
+                $this->modal['contenido'] = $contenido;
+                $this->modal['titulo'] = $titulo;
+            }
+
+        }
+    }
+
+    public function cerrarModal()
+    {
+        $this->modal = [
+            'id' => null,
+            'contenido' => null,
+            'titulo' => null,
+        ];
+    }
 
     /**
      * Crea una version plana (arreglo) de las respuestas que se sincronizará con la interfaz para el

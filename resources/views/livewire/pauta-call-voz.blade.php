@@ -4,6 +4,10 @@ Versión en esteroides
 --}}
 <div>
     @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
+
+        <!-- Modal -->
+        @include('componentes.formularios.pauta_modal', ['modal' => $modal])
+
         <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
         <div class="p-6">
             <div class=" p-5 bg-white  shadow-xl sm:rounded-lg ">
@@ -266,7 +270,7 @@ Versión en esteroides
                                             </div>
 
                                             <div class="w-px-150 pb-0.5">
-                                                <button modal-target="historial" class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                <button wire:click="abrirModal('historial')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                     </svg>
@@ -275,11 +279,21 @@ Versión en esteroides
                                             </div>
                                             @if(Auth::user()->perfil  == 1)
                                                 <div class="w-px-150 p-0.5">
-                                                    <button modal-target="respuestas-centro" class="modal-open inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                    <button wire:click="abrirModal('centro')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
                                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
                                                         Respuestas del centro
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            @if(Auth::user()->perfil  == 1)
+                                                <div class="w-px-150 p-0.5">
+                                                    <button wire:click="abrirModal('ici')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        Respuestas ICI
                                                     </button>
                                                 </div>
                                             @endif
@@ -328,9 +342,6 @@ Versión en esteroides
             </div>
         </div>
 
-        <!-- Modal -->
-{{--        @include('evaluacions.voz.modal_historial', ['modal' => $modales[0]])--}}
-        {{--        @include('evaluacions.voz.modal_centro', ['modal' => $modales[1], 'respuestas_ph' => $evaluacionfinal->respuestas])--}}
 
 
     <!-- Inicializacion de campos 'copy to clipboard' -->
