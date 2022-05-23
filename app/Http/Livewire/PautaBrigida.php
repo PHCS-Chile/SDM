@@ -46,37 +46,40 @@ abstract class PautaBrigida extends Component
     protected $tipoPuntaje;
     protected $requeridos;
 
-
-    public function abrirModal($modalID)
+    /**
+     * Dem Render
+     *
+     * @return Application|Factory|View
+     */
+    public function render()
     {
-        // Si es un modal valido
-        if (in_array($modalID, $this->modalesValidos)) {
-            if ($modalID == 'historial') {
-                $contenido = Log::where('evaluacion_id', $this->evaluacion_id)->get();
-                $titulo = 'Historial de cambios';
-            } elseif ($modalID == 'centro') {
-                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
-                $titulo = 'Respuestas del centro';
-            } elseif ($modalID == 'ici') {
-                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::ICI)->get();
-                $titulo = 'Respuestas ICI';
-            }
-            if (isset($contenido, $titulo)) {
-                $this->modal['id'] = $modalID;
-                $this->modal['contenido'] = $contenido;
-                $this->modal['titulo'] = $titulo;
-            }
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
 
+        // Asegurarse que siempre existan los arreglos para el modelo de Livewire
+        if (!$this->respuestas || !$this->grupos) {
+            $this->crearArreglosRespuestas($evaluacion);
         }
-    }
+        if (!$this->evaluacion) {
+            $this->evaluacion = $evaluacion->toArray();
+        }
+        $pauta_ok = $this->pautaEsValida();
+        // Validaciones
+        $pauta = $evaluacion->getPauta();
+//        dd($this->respuestas);
 
-    public function cerrarModal()
-    {
-        $this->modal = [
-            'id' => null,
-            'contenido' => null,
-            'titulo' => null,
-        ];
+        return view('livewire.' . $this->template, [
+            'escalas' => $pauta->escalas(),
+            'requeridos' => $this->requeridos,
+            'grabaciones' => Grabacion::where('evaluacion_id', $this->evaluacion_id)->get(),
+            'estados_evaluacion' => Estado::where('tipo', 1)
+                ->where('visible', 1)
+                ->when($this->evaluacion['estado_id'] == 20, function ($query) {
+                    $query->orWhere('id', 20);
+                })->get()->all(),
+            'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
+            'pauta_ok' => $pauta_ok,
+            'bloqueada' => !$evaluacion->puedeEditar(Auth::user())
+        ]);
     }
 
     /**
@@ -178,6 +181,13 @@ abstract class PautaBrigida extends Component
         }
     }
 
+    public function guardarRespuestas($respuestas)
+    {
+        foreach ($respuestas as $respuesta) {
+            $this->respuestas[$respuesta[0]] = $respuesta[1];
+            $this->guardarRespuesta($respuesta[0], $respuesta[1]);
+        }
+    }
 
     /**
      * Guarda una unica respuesta en la base de datos
@@ -243,8 +253,9 @@ abstract class PautaBrigida extends Component
             $evaluacion = Evaluacion::find($this->evaluacion_id);
             $evaluacion->cambiarEstado(Estado::EVALUACION_EN_EVALUACION);
         }
-
+//        dd($atributo_id, $respuesta_text);
         $this->guardarRespuesta($atributo_id, $respuesta_text);
+        $this->propagarCambio($atributo_id);
         $this->actualizarPadre(Atributo::find($atributo_id));
     }
 
@@ -273,6 +284,14 @@ abstract class PautaBrigida extends Component
 
 
     /**
+     *
+     *
+     * @return mixed
+     */
+    public abstract function propagarCambio($atributo_id);
+
+
+    /**
      * Determina si la pauta tiene completados los campos definidos como "requeridos".
      *
      * @return bool
@@ -289,41 +308,7 @@ abstract class PautaBrigida extends Component
     }
 
 
-    /**
-     * Dem Render
-     *
-     * @return Application|Factory|View
-     */
-    public function render()
-    {
-        $evaluacion = Evaluacion::find($this->evaluacion_id);
 
-        // Asegurarse que siempre existan los arreglos para el modelo de Livewire
-        if (!$this->respuestas || !$this->grupos) {
-            $this->crearArreglosRespuestas($evaluacion);
-        }
-        if (!$this->evaluacion) {
-            $this->evaluacion = $evaluacion->toArray();
-        }
-        $pauta_ok = $this->pautaEsValida();
-        // Validaciones
-        $pauta = $evaluacion->getPauta();
-
-
-        return view('livewire.' . $this->template, [
-            'escalas' => $pauta->escalas(),
-            'requeridos' => $this->requeridos,
-            'grabaciones' => Grabacion::where('evaluacion_id', $this->evaluacion_id)->get(),
-            'estados_evaluacion' => Estado::where('tipo', 1)
-                ->where('visible', 1)
-                ->when($this->evaluacion['estado_id'] == 20, function ($query) {
-                $query->orWhere('id', 20);
-            })->get()->all(),
-            'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
-            'pauta_ok' => $pauta_ok,
-            'bloqueada' => !$evaluacion->puedeEditar(Auth::user())
-        ]);
-    }
 
 
     /**
@@ -741,6 +726,50 @@ abstract class PautaBrigida extends Component
             }
         }
         $evaluacion->save();
+    }
+
+    /**
+     * Abre un modal.
+     *
+     * @param $modalID
+     * @return void
+     */
+    public function abrirModal($modalID)
+    {
+        // Si es un modal valido
+        if (in_array($modalID, $this->modalesValidos)) {
+            if ($modalID == 'historial') {
+                $contenido = Log::where('evaluacion_id', $this->evaluacion_id)->get();
+                $titulo = 'Historial de cambios';
+            } elseif ($modalID == 'centro') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
+                $titulo = 'Respuestas del centro';
+            } elseif ($modalID == 'ici') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::ICI)->get();
+                $titulo = 'Respuestas ICI';
+            }
+            if (isset($contenido, $titulo)) {
+                $this->modal['id'] = $modalID;
+                $this->modal['contenido'] = $contenido;
+                $this->modal['titulo'] = $titulo;
+            }
+
+        }
+    }
+
+
+    /**
+     * Cierra el modal
+     *
+     * @return void
+     */
+    public function cerrarModal()
+    {
+        $this->modal = [
+            'id' => null,
+            'contenido' => null,
+            'titulo' => null,
+        ];
     }
 
 }

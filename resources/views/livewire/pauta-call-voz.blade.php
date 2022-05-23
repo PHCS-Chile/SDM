@@ -547,28 +547,32 @@ Versión en esteroides
                                     'titulo' => 'Detección de necesidades/sondeo/analisis/revisión',
                                     'atributo_id' => 184,
                                     'name' => 'deteccion2',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_radio', [
                                     'titulo' => 'Entrega de información correcta y completa',
                                     'atributo_id' => 188,
                                     'name' => 'infocorrecta2',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_radio', [
                                     'titulo' => 'Gestiona según proced. en sistema',
                                     'atributo_id' => 192,
                                     'name' => 'gestiona2',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_select', [
                                     'titulo' => 'Ejecutivo Resuelve el problema de origen en línea',
                                     'atributo_id' => 196,
                                     'name' => 'resolucion2',
-                                    'opciones' => $escalas['resoluciones']['escalas']
+                                    'opciones' => $escalas['resoluciones']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                             </div>
@@ -590,21 +594,24 @@ Versión en esteroides
                                     'titulo' => 'Detección de necesidades/sondeo/analisis/revisión',
                                     'atributo_id' => 185,
                                     'name' => 'deteccion3',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_radio', [
                                     'titulo' => 'Entrega de información correcta y completa',
                                     'atributo_id' => 189,
                                     'name' => 'infocorrecta3',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_radio', [
                                     'titulo' => 'Gestiona según proced. en sistema',
                                     'atributo_id' => 193,
                                     'name' => 'gestiona3',
-                                    'opciones' => $escalas['booleana']['escalas']
+                                    'opciones' => $escalas['booleana']['escalas'],
+                                    'requiere' => 181,
                                 ])
 
                                 @include('componentes.formularios.pauta_select', [

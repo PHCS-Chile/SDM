@@ -7,8 +7,8 @@
     </span>
     <div class="mt-2 text-sm">
         @foreach($opciones as $posicion => $opcion)
-            <label class="inline-flex items-center @if($posicion > 0) ml-6 @endif @if($bloqueada) opacity-50 @endif">
-                <input type="radio" class="form-radio disabled:opacity-50" name="{{ $name }}" wire:model="respuestas.{{ $atributo_id }}" value="{{ $opcion->id }}" @if($bloqueada) disabled @endif>
+            <label class="inline-flex items-center @if($posicion > 0) ml-6 @endif @if($bloqueada || (isset($requiere) && $respuestas[$requiere] == "")) opacity-50 @endif">
+                <input type="radio" class="form-radio disabled:opacity-50" name="{{ $name }}" wire:model="respuestas.{{ $atributo_id }}" value="{{ $opcion->id }}" @if($bloqueada || (isset($requiere) && $respuestas[$requiere] == "")) disabled @endif>
                 <p class="ml-2">{{ $opcion->name }}</p>
             </label>
         @endforeach

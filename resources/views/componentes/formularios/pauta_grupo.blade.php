@@ -4,7 +4,7 @@
         @foreach($elementos as $elemento)
         <div class="flex items-start">
             <div class="flex items-center h-5">
-                <input id="{{ $atributos[$elemento]->name_interno }}" name="{{ $atributos[$elemento]->name_interno }}" wire:model="respuestas.{{ $elemento }}" wire: type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded disabled:opacity-50" @if($bloqueada) disabled @endif>
+                <input id="{{ $atributos[$elemento]->name_interno }}" name="{{ $atributos[$elemento]->name_interno }}" wire:model="respuestas.{{ $elemento }}" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded disabled:opacity-50" @if($bloqueada) disabled @endif>
             </div>
             <div class="ml-3 text-sm">
                 <label for="saludo2" class="font-medium text-gray-700 @if($bloqueada) opacity-50 @endif">
