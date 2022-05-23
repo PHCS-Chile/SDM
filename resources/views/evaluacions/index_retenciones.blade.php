@@ -110,9 +110,10 @@ Plantilla: Index general de pautas
         </script>
     @endif
 
-    @include('evaluacions.voz.header')
+{{--    @include('evaluacions.voz.header')--}}
 
-    @livewire('pauta-retenciones', ['evaluacionid' => $evaluacionfinal->id])
+{{--    @livewire('pauta-retenciones', ['evaluacionid' => $evaluacionfinal->id])--}}
+    @livewire('pauta-retenciones', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones])
 
 
 </x-app-layout>
