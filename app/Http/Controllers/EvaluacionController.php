@@ -55,10 +55,15 @@ class EvaluacionController extends Controller
                 if ($atributo->tipo_respuesta == 'grupo_padre') {
                     $nuevaRespuesta->respuesta_int = 1;
                     $nuevaRespuesta->respuesta_text = "Si";
-                }
-                if ($atributo->tipo_respuesta == 'booleano_na') {
+                } elseif ($atributo->tipo_respuesta == 'booleano_na') {
                     $nuevaRespuesta->respuesta_int = -1;
                     $nuevaRespuesta->respuesta_text = "No Aplica";
+                } elseif ($atributo->tipo_respuesta == 'grupo_hijo') {
+                    $nuevaRespuesta->respuesta_int = 0;
+                    $nuevaRespuesta->respuesta_text = "No";
+                }  elseif ($atributo->tipo_respuesta == 'check') {
+                    $nuevaRespuesta->respuesta_int = 0;
+                    $nuevaRespuesta->respuesta_text = "";
                 }
                 $nuevaRespuesta->save();
             }

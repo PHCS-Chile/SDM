@@ -11,418 +11,56 @@ Versión 2 (10/06/2021)
                     <div class="shadow overflow-hidden sm:rounded-md">
                         <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                             <p class="font-bold text-xl">Atributos PENC</p>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">1 - Cumple con Scripts de saludo y despedida - ({{$saludo6}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="saludo1" name="saludo1" wire:model.defer="saludo1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="saludo1" class="font-medium text-gray-700">No saluda o indica nombre al iniciar la conversación</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="saludo2" name="saludo2" wire:model.defer="saludo2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="saludo2" class="font-medium text-gray-700">No usa preguntas o frases de conexión inicial</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="saludo3" name="saludo3" wire:model.defer="saludo3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="saludo3" class="font-medium text-gray-700">No Valida contexto indicado previamente</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="saludo4" name="saludo4" wire:model.defer="saludo4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="saludo4" class="font-medium text-gray-700">No se despide y/o realiza de forma poco cordial</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="saludo5" name="saludo5" wire:model.defer="saludo5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$saludo5}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="saludo5" class="font-medium text-gray-700">No agradece contacto al despedirse</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">2 - Se comunica de forma simple y cercana - ({{$frases5}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="frases1" name="frases1" wire:model.defer="frases1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="frases1" class="font-medium text-gray-700">Utiliza frases formales y/o poco cercanas</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="frases2" name="frases2" wire:model.defer="frases2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="frases2" class="font-medium text-gray-700">Utiliza conceptos técnicos</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="frases3" name="frases3" wire:model.defer="frases3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="frases3" class="font-medium text-gray-700">Utiliza frases coloquiales y/o abreviaturas</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="frases4" name="frases4" wire:model.defer="frases4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frases4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="frases4" class="font-medium text-gray-700">Utiliza más de un emoticón por comentario</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">3 - Utiliza Frases de Cordialidad y de reducción de conflicto - ({{$cordialidad5}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="cordialidad1" name="cordialidad1" wire:model.defer="cordialidad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="cordialidad1" class="font-medium text-gray-700">No utiliza frases para expresar disposición para atender</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="cordialidad2" name="cordialidad2" wire:model.defer="cordialidad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="cordialidad2" class="font-medium text-gray-700">No utiliza frases para manifestar interés frente a dificultades</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="cordialidad3" name="cordialidad3" wire:model.defer="cordialidad3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="cordialidad3" class="font-medium text-gray-700">No pide disculpas en caso de reclamos de nuestra responsabilidad</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="cordialidad4" name="cordialidad4" wire:model.defer="cordialidad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cordialidad4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="cordialidad4" class="font-medium text-gray-700">No reduce el conflicto frente a cliente alterados</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">4 - Gestión de información y uso de Plantillas - ({{$gestionplantillas5}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="gestionplantillas1" name="gestionplantillas1" wire:model.defer="gestionplantillas1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="gestionplantillas1" class="font-medium text-gray-700">No Entrega la información de manera ordenada</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="gestionplantillas2" name="gestionplantillas2" wire:model.defer="gestionplantillas2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="gestionplantillas2" class="font-medium text-gray-700">Vuelve a solicitar la misma información mas de una vez</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="gestionplantillas3" name="gestionplantillas3" wire:model.defer="gestionplantillas3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="gestionplantillas3" class="font-medium text-gray-700">Usa plantillas o imágenes en exceso</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="gestionplantillas4" name="gestionplantillas4" wire:model.defer="gestionplantillas4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$gestionplantillas4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="gestionplantillas4" class="font-medium text-gray-700">Usa plantillas o información irrelevantes para la gestión</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">5 - Mantiene una buena redacción y ortografía - ({{$ortografia7}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia1" name="ortografia1" wire:model.defer="ortografia1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia1" class="font-medium text-gray-700">Errores semánticos y/o sintácticos</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia2" name="ortografia2" wire:model.defer="ortografia2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia2" class="font-medium text-gray-700">Mal uso de reglas de puntuación (puntos y coma)</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia3" name="ortografia3" wire:model.defer="ortografia3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia3" class="font-medium text-gray-700">Errores de escrituras y aplicación de reglas ortográficas (español)</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia4" name="ortografia4" wire:model.defer="ortografia4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia4" class="font-medium text-gray-700">Escritura incorrecta de palabras técnicas o de origen extranjero</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia5" name="ortografia5" wire:model.defer="ortografia5" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia5}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia5" class="font-medium text-gray-700">Mal uso del acento diacrítico</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ortografia6" name="ortografia6" wire:model.defer="ortografia6" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ortografia6}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ortografia6" class="font-medium text-gray-700">Uso incorrecto de Mayúsculas/Minúsculas</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '1 - Cumple con Scripts de saludo y despedida',
+                                'padre' => 6,
+                            ])
 
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">6 - Se refiere al Cliente por su nombre - ({{$personalizacion4}})</legend>
-                                <div class="hidden mt-4">
-                                    <span class="text-gray-700">Personalizacion Padre</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="Si" {{ $personalizacion4 == "Si" ? 'checked' : '' }}>
-                                            <p class="ml-2">Si</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="No" {{ $personalizacion4 == "No" ? 'checked' : '' }}>
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="personalizacion4" wire:model.defer="personalizacion4" value="No Aplica" {{ $personalizacion4 == "No Aplica" ? 'checked' : '' }}>
-                                            <p class="ml-2">No Aplica</p>
-                                        </label>
-                                    </div>
-                                    <small class="text-red-600 font-bold">{{ $errors->first('personalizacion4') }}</small>
-                                </div>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="personalizacion1" name="personalizacion1" wire:model.defer="personalizacion1" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="personalizacion1" class="font-medium text-gray-700">No personaliza durante la conversación</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="personalizacion2" name="personalizacion2" wire:model.defer="personalizacion2" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="personalizacion2" class="font-medium text-gray-700">Trata al cliente por un nombre/usuario erróneo</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="personalizacion3" name="personalizacion3" wire:model.defer="personalizacion3" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="personalizacion3" class="font-medium text-yellow-500">No Aplica</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">7 - Proyecta seguridad y dominio de la información - ({{$seguridad3}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="seguridad1" name="seguridad1" wire:model.defer="seguridad1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="seguridad1" class="font-medium text-gray-700">Proyecta inseguridad o falta de conocimientos</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="seguridad2" name="seguridad2" wire:model.defer="seguridad2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="seguridad2" class="font-medium text-gray-700">Se autocorrige o se contradice en la conversación</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="seguridad4" name="seguridad4" wire:model.defer="seguridad4" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$seguridad4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="seguridad4" class="font-medium text-gray-700">No informa el motivo de uso de datos personales</label>
-                                        </div>
-                                    </div>
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '2 - Se comunica de forma simple y cercana',
+                                'padre' => 11,
+                            ])
 
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">8 - Maneja correctamente los tiempos de espera - ({{$manejosilencios4}})</legend>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="manejosilencios1" name="manejosilencios1" wire:model.defer="manejosilencios1" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="manejosilencios1" class="font-medium text-gray-700">No menciona la necesidad de dejar en espera</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="manejosilencios2" name="manejosilencios2" wire:model.defer="manejosilencios2" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="manejosilencios2" class="font-medium text-gray-700">No retoma la conversación en los tiempos definidos</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="manejosilencios3" name="manejosilencios3" wire:model.defer="manejosilencios3" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$manejosilencios3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="manejosilencios3" class="font-medium text-gray-700">No agradece el tiempo de espera</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">9 - Realiza aseguramiento de lo informado - ({{$aseguramiento3}})</legend>
-                                <div class="hidden mt-4">
-                                    <span class="text-gray-700">Aseguramiento Padre</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="Si" {{ $aseguramiento3 == "Si" ? 'checked' : '' }}>
-                                            <p class="ml-2">Si</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="No" {{ $aseguramiento3 == "No" ? 'checked' : '' }}>
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="aseguramiento3" wire:model.defer="aseguramiento3" value="No Aplica" {{ $aseguramiento3 == "No Aplica" ? 'checked' : '' }}>
-                                            <p class="ml-2">No Aplica</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('aseguramiento3') }}</small>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="aseguramiento1" name="aseguramiento1" wire:model.defer="aseguramiento1" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="aseguramiento1" class="font-medium text-gray-700">No realiza aseguramiento de lo informado</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="aseguramiento2" name="aseguramiento2" wire:model.defer="aseguramiento2" wire:click="xaseguramiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$aseguramiento2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="aseguramiento2" class="font-medium text-yellow-500">No Aplica</label>
-                                        </div>
-                                    </div>
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '3 - Utiliza Frases de Cordialidad y de reducción de conflicto',
+                                'padre' => 16,
+                            ])
 
-                                </div>
-                            </fieldset>
-                            <fieldset>
-                                <legend class="text-base font-medium text-gray-900">10 - Ofrece nuevos productos/servicios - ({{$ofrecimiento5}})</legend>
-                                <div class="hidden mt-4">
-                                    <span class="text-gray-700">Ofrecimiento Padre</span>
-                                    <div class="mt-2 text-sm">
-                                        <label class="inline-flex items-center">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="Si" {{ $ofrecimiento5 == "Si" ? 'checked' : '' }}>
-                                            <p class="ml-2">Si</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="No" {{ $ofrecimiento5 == "No" ? 'checked' : '' }}>
-                                            <p class="ml-2">No</p>
-                                        </label>
-                                        <label class="inline-flex items-center ml-6">
-                                            <input type="radio" class="form-radio" name="ofrecimiento5" wire:model.defer="ofrecimiento5" value="No Aplica" {{ $ofrecimiento5 == "No Aplica" ? 'checked' : '' }}>
-                                            <p class="ml-2">No Aplica</p>
-                                        </label>
-                                    </div>
-                                </div>
-                                <small class="text-red-600 font-bold">{{ $errors->first('ofrecimiento5') }}</small>
-                                <div class="mt-4 space-y-4">
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ofrecimiento1" name="ofrecimiento1" wire:model.defer="ofrecimiento1" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento1}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ofrecimiento1" class="font-medium text-gray-700">No realiza ofrecimiento comercial a titular</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ofrecimiento2" name="ofrecimiento2" wire:model.defer="ofrecimiento2" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento2}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ofrecimiento2" class="font-medium text-gray-700">No argumenta o intenta revertir objeciones</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ofrecimiento3" name="ofrecimiento3" wire:model.defer="ofrecimiento3" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento3}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ofrecimiento3" class="font-medium text-gray-700">Realiza ofrecimiento comercial a usuario no autorizado</label>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-start">
-                                        <div class="flex items-center h-5">
-                                            <input id="ofrecimiento4" name="ofrecimiento4" wire:model.defer="ofrecimiento4" wire:click="xofrecimiento" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$ofrecimiento4}}>
-                                        </div>
-                                        <div class="ml-3 text-sm">
-                                            <label for="ofrecimiento4" class="font-medium text-yellow-500">No Aplica</label>
-                                        </div>
-                                    </div>
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '4 - Gestión de información y uso de Plantillas',
+                                'padre' => 21,
+                            ])
 
-                                </div>
-                            </fieldset>
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '5 - Mantiene una buena redacción y ortografía',
+                                'padre' => 28,
+                            ])
+
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '6 - Se refiere al Cliente por su nombre',
+                                'padre' => 32,
+                            ])
+
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '7 - Proyecta seguridad y dominio de la información',
+                                'padre' => 35,
+                            ])
+
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '8 - Maneja correctamente los tiempos de espera',
+                                'padre' => 39,
+                            ])
+
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '9 - Realiza aseguramiento de lo informado',
+                                'padre' => 42,
+                            ])
+
+                            @include('componentes.formularios.pauta_grupo_padre', [
+                                'titulo' => '10 - Ofrece nuevos productos/servicios',
+                                'padre' => 42,
+                            ])
+
                         </div>
                     </div>
                 </div>
@@ -724,7 +362,7 @@ Versión 2 (10/06/2021)
                                     <div>
                                         <button type="submit"  wire:click="ici" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                                             <!-- Heroicon name: check -->
-                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <svg class="-ml-1 mr-2 h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                                             </svg>
                                             Discrepancia %
