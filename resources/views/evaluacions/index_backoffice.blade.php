@@ -111,10 +111,11 @@ Versión 1
         </script>
     @endif
 
-    @include('evaluacions.voz.header')
+{{--    @include('evaluacions.voz.header')--}}
 
-    @livewire('pauta-back-office', ['evaluacionid' => $evaluacionfinal->id])
+{{--    @livewire('pauta-back-office', ['evaluacionid' => $evaluacionfinal->id])--}}
 
+    @livewire('pauta-back-office', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones])
 
 </x-app-layout>
 
