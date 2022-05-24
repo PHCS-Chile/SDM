@@ -101,13 +101,13 @@ abstract class PautaBrigida extends Component
             // Respuestas
             if ($respuesta->atributo->tipo_respuesta == 'escala') {
                 $arregloRespuestas[$respuesta->atributo_id] = $this->escalaId($respuesta);
-            } elseif ($respuesta->atributo->name_categoria == 'Memo') {
+            } elseif ($respuesta->atributo->tipo_respuesta == 'texto') {
                 $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_memo;
             } else {
                 $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_text;
             }
             // Grupos
-            if ($respuesta->atributo->id_primario !== NULL) {
+            if ($respuesta->atributo->tipo_respuesta == 'grupo_hijo') {
                 $arregloGrupos['primarios'][$respuesta->atributo->id_primario][] = $respuesta->atributo->id;
             }
             // No Aplica
@@ -213,11 +213,11 @@ abstract class PautaBrigida extends Component
                 $respuesta->respuesta_int = null;
             }
 
-        } else if ($atributo->name_categoria == 'Memo') {
+        } else if ($atributo->tipo_respuesta == 'texto') {
             $respuesta->respuesta_text = "";
             $respuesta->respuesta_int = ($respuesta_text == "" ? 0 : 1);
             $respuesta->respuesta_memo = $respuesta_text;
-        } else if ($atributo->tipo_respuesta == 'check') {
+        } else if ($atributo->tipo_respuesta == 'check' || $atributo->tipo_respuesta == 'grupo_hijo') {
             if ($respuesta_text == 'checked') {
                 $respuesta->respuesta_int = 1;
                 $respuesta->respuesta_text = $respuesta_text;
@@ -225,7 +225,7 @@ abstract class PautaBrigida extends Component
                 $respuesta->respuesta_int = 0;
                 $respuesta->respuesta_text = '';
             }
-        } else if ($atributo->tipo_respuesta === null || $atributo->tipo_respuesta == 'SiNo' || $atributo->tipo_respuesta == 'SiNoNoaplica') {
+        } else if ($atributo->tipo_respuesta == 'booleano' || $atributo->tipo_respuesta == 'booleano_na' || $atributo->tipo_respuesta == 'grupo_padre') {
             if ($respuesta_text == "Si") {
                 $respuesta->respuesta_int = 1;
             } elseif ($respuesta_text == "No") {
@@ -448,7 +448,7 @@ abstract class PautaBrigida extends Component
             $this->calcularPEC($evaluacion->atributos()->where('check_ec', 1));
         }
         $this->evaluacion['penc'] = $this->calcularPENC(
-            $evaluacion->atributos()->where('check_primario', 1)->where('name_categoria', 'PENC')
+            $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
         );
 
         $evaluacion->penc = $this->evaluacion['penc'];

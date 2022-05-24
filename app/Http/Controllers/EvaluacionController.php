@@ -52,11 +52,11 @@ class EvaluacionController extends Controller
                 $nuevaRespuesta->origen_id = 1;
                 $nuevaRespuesta->atributo_id = $atributo->id;
                 $nuevaRespuesta->evaluacion_id = $evaluacion->id;
-                if ($atributo->check_primario == 1) {
+                if ($atributo->tipo_respuesta == 'grupo_padre') {
                     $nuevaRespuesta->respuesta_int = 1;
                     $nuevaRespuesta->respuesta_text = "Si";
                 }
-                if ($atributo->tipo_respuesta == 'SiNoNoaplica' && $atributo->no_aplica == 1) {
+                if ($atributo->tipo_respuesta == 'booleano_na') {
                     $nuevaRespuesta->respuesta_int = -1;
                     $nuevaRespuesta->respuesta_text = "No Aplica";
                 }
