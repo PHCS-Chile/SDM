@@ -13,15 +13,17 @@ use App\Models\Atributo;
 class PautaBackOffice extends PautaBase
 {
     protected $template = 'pauta-back-office';
-    protected $tipoPuntaje = 'PECPadres';
+    protected $tipoPuntaje = 'ReclamosRetenciones';
     protected $requeridos = [];
 
     public function validarPauta()
     {
 
+    }
+    public function propagarCambio($atributo_id)
+    {
 
     }
-
 
     public function tieneRespuestas($atributos_id, $respuesta): bool
     {

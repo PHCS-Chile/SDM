@@ -117,6 +117,8 @@ class EvaluacionController extends Controller
         $this->crearRespuestas($evaluacion_id);
         $estados = Estado::all();
         $evaluacion = Evaluacion::find($evaluacion_id);
+        $asignacion_id = $evaluacion->asignacion_id;
+        $rut_ejecutivo = $evaluacion->rut_ejecutivo;
         $pauta = $evaluacion->getPauta()->id;
         $historial = Log::where('evaluacion_id', $evaluacion_id)->get();
         $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
@@ -129,7 +131,7 @@ class EvaluacionController extends Controller
 
         if (in_array($pauta, [1, 2, 3, 4, 5])) {
             return view('evaluacions.' . $this->templates[$pauta], compact(
-                'evaluacion_id','estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'
+                'evaluacion_id','estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo', 'asignacion_id', 'rut_ejecutivo'
             ));
         }
         abort(404);

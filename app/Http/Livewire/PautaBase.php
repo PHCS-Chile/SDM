@@ -446,6 +446,10 @@ abstract class PautaBase extends Component
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         if ($this->tipoPuntaje == 'PEC') {
             $this->calcularPEC($evaluacion->atributos()->where('check_ec', 1));
+        } elseif ($this->tipoPuntaje == 'ReclamosRetenciones') {
+            $this->calcularPECPadres($evaluacion->atributos()->where('check_ec', 1));
+            $this->evaluacion['pf'] = $this->calcularPENC($evaluacion->atributos()->where('check_primario', 1));
+            $evaluacion->pf = $this->evaluacion['pf'];
         }
         $this->evaluacion['penc'] = $this->calcularPENC(
             $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
@@ -657,29 +661,13 @@ abstract class PautaBase extends Component
      */
     public function calcularPECPadres($atributosCriticos)
     {
-        $idPadres = array_keys($this->arregloGrupos['primarios']);
-        $puntajes = [];
-        foreach ($atributosCriticos as $tipo => $atributos) {
-            $puntajes[$tipo] = 100;
-            foreach ($atributos as $atributo) {
-                if ($this->{$tipo . "_" . $atributo} == 'No') {
-                    $puntajes[$tipo] = 0;
-                    break;
-                }
-            }
-            $this->evaluacion->{$tipo} = $puntajes[$tipo];
-        }
-        if($this->evaluacion->pecu == 0){
-            if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = Evaluacion::EC_GRAVE;
-            }else{
-                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
-            }
-        }else{
-            if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
-            }else{
-                $this->evaluacion->nivel_ec = Evaluacion::EC_LEVE;
+        $this->evaluacion['pecu'] = 100;
+        $this->evaluacion['pecn'] = 100;
+        $this->evaluacion['pecc'] = 100;
+        foreach ($atributosCriticos as $atributo) {
+            $tipo = substr($atributo->name_interno, 0, strpos($atributo->name_interno, "_"));
+            if ($this->respuestas[$atributo->id] == 'No') {
+                $this->evaluacion[$tipo] = 0;
             }
         }
     }
