@@ -1,42 +1,384 @@
 {{--
 Plantilla: Pauta Ventas Remotas
-Versión 3
 --}}
+
+<div>
+    @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
+
+        <!-- Modal -->
+        @include('componentes.formularios.pauta_modal', ['modal' => $modal])
+
+        <script src="{{ asset('js/clipboard.js') }}" type="text/javascript"></script>
+        <div class="p-6">
+            <div class=" p-5 bg-white  shadow-xl sm:rounded-lg ">
+                <div class="md:grid md:grid-cols-1 md:gap-6">
+
+                    <!-- This example requires Tailwind CSS v2.0+ -->
+                    <div class="lg:flex lg:items-center lg:justify-between">
+                        <div class="flex-1 min-w-0">
+                            <div class="flex">
+                                <div class="w-1/4">
+                                    <div class="flex flex-col">
+
+                                        <div class="flex-1 w-4/4 bg-red sm:rounded-lg">
+                                            <h2 class="text-xl font-bold leading-7 text-gray-900 sm:text-xl sm:truncate">
+                                                {{ \App\Models\Evaluacion::servicioHabilidad($evaluacion_id, " ", "Monitoreo") }}
+                                            </h2>
+                                        </div>
+                                        <div class="mt-1 flex items-center text-xs text-gray-500">
+                                            <!-- Heroicon name: briefcase -->
+                                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M18 8a6 6 0 01-7.743 5.743L10 14l-1 1-1 1H6v2H2v-4l4.257-4.257A6 6 0 1118 8zm-6-4a1 1 0 100 2 2 2 0 012 2 1 1 0 102 0 4 4 0 00-4-4z" clip-rule="evenodd" />
+                                            </svg>
+                                            ID Evaluación: {{ $evaluacion['id'] }}
+                                        </div>
+                                        <div class="hidden mt-1 flex items-center text-xs text-gray-500">
+                                            <!-- Heroicon name: briefcase -->
+                                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z" clip-rule="evenodd" />
+                                            </svg>
+                                            Centro/Habilidad: {{ \App\Models\Evaluacion::servicioHabilidad($evaluacion_id, " - ") }}
+                                        </div>
+                                        <div class="block">
+                                            <input id="ctc_movil" value="{{ $evaluacion['movil'] }}" class="sr-only">
+                                            <button class="ctc mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_movil" onclick="CopyToClipboard('ctc_movil')">
+                                                <!-- Heroicon name: location-marker -->
+                                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                                                </svg>
+                                                Movil:&nbsp; <span id="ctc_movil" class="text-gray-500">{{ $evaluacion['movil'] }}</span>
+                                            </button>
+                                            <div id="ctc_movil_alert" class="transition duration-350 ease-in-out hidden shadow-md rounded-md flex fixed items-center bg-green-500 text-white text-xs px-3 py-3" role="alert">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                                </svg>
+                                                <p>Teléfono copiado al portapapeles.</p>
+                                            </div>
+                                        </div>
+                                        <div class="block">
+                                            <input id="ctc_connid" value="{{ $evaluacion['connid'] }}" class="sr-only">
+                                            <button class="ctc mt-1 flex items-center text-xs text-gray-500 bg-gray-100 hover:bg-gray-200 rounded-xl p-1 shadow-md transition-all focus: border-transparent" data-clipboard-target="#ctc_connid" onclick="CopyToClipboard('ctc_connid')">
+                                                <!-- Heroicon name: currency-dollar -->
+                                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M3 4a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1V4zm2 2V5h1v1H5zM3 13a1 1 0 011-1h3a1 1 0 011 1v3a1 1 0 01-1 1H4a1 1 0 01-1-1v-3zm2 2v-1h1v1H5zM13 3a1 1 0 00-1 1v3a1 1 0 001 1h3a1 1 0 001-1V4a1 1 0 00-1-1h-3zm1 2v1h1V5h-1z" clip-rule="evenodd" />
+                                                    <path d="M11 4a1 1 0 10-2 0v1a1 1 0 002 0V4zM10 7a1 1 0 011 1v1h2a1 1 0 110 2h-3a1 1 0 01-1-1V8a1 1 0 011-1zM16 9a1 1 0 100 2 1 1 0 000-2zM9 13a1 1 0 011-1h1a1 1 0 110 2v2a1 1 0 11-2 0v-3zM7 11a1 1 0 100-2H4a1 1 0 100 2h3zM17 13a1 1 0 01-1 1h-2a1 1 0 110-2h2a1 1 0 011 1zM16 17a1 1 0 100-2h-3a1 1 0 100 2h3z" />
+                                                </svg>
+                                                ConnID:&nbsp; <span id="ctc_connid" class="text-gray-500">{{ Str::limit($evaluacion['connid'],30) }}</span>
+                                            </button>
+                                            <div id="ctc_connid_alert" class="transition duration-350 ease-in-out hidden shadow-md rounded-md flex fixed items-center bg-green-500 text-white text-xs px-3 py-3" role="alert">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                                                </svg>
+                                                <p>CONNID copiado al portapapeles.</p>
+                                            </div>
+                                        </div>
+                                        <div class="mt-1 flex items-center text-xs text-gray-500">
+                                            <!-- Heroicon name: calendar -->
+                                            <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                                            </svg>
+                                            Fecha Grabación: {{ $evaluacion['fecha_grabacion'] }}
+                                        </div>
+                                        @if(Auth::user()->perfil == 2)
+                                            <div class="mt-1 flex items-center text-xs text-gray-500">
+                                                <!-- Heroicon name: calendar -->
+                                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                                <p class="text-gray-500 font-bold">Estado: </p>&nbsp <p>
+                                                <div class="inline-block px-2 text-xs font-semibold rounded-full bg-gray-100 text-gray-800">
+                                                    {{ \App\Models\Estado::find($evaluacion['estado_id'])->name }}
+                                                </div>
+                                            </div>
+
+                                        @endif
+                                        @if(Auth::user()->perfil  == 1)
+                                            <div class="flex items-center text-xs text-gray-500">
+                                                <!-- Heroicon name: calendar -->
+                                                <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                                </svg>
+                                                <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
+                                                    @csrf
+                                                    <div class="flex items-center border-1">
+                                                        <h2 class="mr-2 inline-flex font-bold text-sm mt-2">Estado:</h2>
+                                                        {{--                                                <div><p class="text-gray-600 font-bold">Cambia de estado: &nbsp&nbsp</p></div>--}}
+                                                        <div class="inline-flex text-xs text-gray-500">
+                                                            <select id="cambioestado" wire:model="evaluacion.estado_id" name="cambioestado" class="mt-1 w-full py-1 px-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-xs">
+                                                                @foreach($estados_evaluacion as $estado)
+                                                                    <option value="{{ $estado->id }}">{{ $estado->name }}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                            {{--                                                            <svg xmlns="http://www.w3.org/2000/svg" class="opacity-100 text-green-500 h-7 w-7 transition-all" viewBox="0 0 20 20" fill="currentColor">--}}
+                                                            {{--                                                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />--}}
+                                                            {{--                                                            </svg>--}}
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="w-1/2 px-5 py-1">
+                                    <div class="p-3 border border-solid border-gray-200 rounded-md bg-gray-50 shadow-md">
+                                        <div class="flex">
+                                            <div class="w-2/4">
+                                                <div class="flex flex-col">
+                                                    <h2 class="font-bold text-base">Audio de la conversacion</h2>
+
+                                                    @if(!isset($grabaciones) || count($grabaciones->where('url', NULL)) > 0)
+                                                        <audio src="" controls id="reproductor">
+                                                            {{--                                        <source src="{{ asset('storage/uploads/' . $grabacion_activa->nombre) }}" type="audio/mpeg">--}}
+                                                            Your browser does not support the audio element.
+                                                        </audio>
+                                                    @else
+                                                        <i class="text-gray-500">Sin grabación.</i>
+                                                    @endif
+                                                </div>
+                                                <div class="flex flex-col mt-3">
+                                                    <h3 class="font-bold text-sm">Link externo</h3>
+                                                    @livewire('vinculos', ['evaluacionId' => $evaluacion['id']])
+                                                </div>
+                                            </div>
+
+                                            <div class="w-2/4">
+                                                <div class="flex flex-col">
+                                                    @if(count($grabaciones->where('nombre', '<>', '')) > 0)
+                                                        <h2 class="font-bold text-sm">Grabaciones:</h2>
+                                                        <div class="">
+                                                            <form class="flex space-x-2" action="{{ route('evaluacions.eliminar_grabacion', [$evaluacion['id']]) }}" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar la grabación? ESTA ACCIÓN ES IRREVERSIBLE!');">
+                                                                @method("DELETE")
+                                                                @csrf
+
+                                                                <select name="grabacionActiva" id="grabacionActiva" class="text-sm py-0 w-2/4 border border-gray-300 rounded-md shadow-sm focus:outline-none">
+                                                                    @foreach($grabaciones->all() as $posicion => $grabacion)
+                                                                        <option class="grabacion" value="{{ $posicion . "_" . $grabacion->id }}">Grabación {{ $posicion + 1 }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                                <script src="{{ asset('js/scripts.js') }}"></script>
+                                                                <script>
+                                                                    grabaciones = [
+                                                                            @foreach($grabaciones->all() as $grabacion)
+                                                                        ["{{ asset('storage/uploads/' . $grabacion->nombre) }}"],
+                                                                        @endforeach
+                                                                    ];
+                                                                    reproductor();
+                                                                    function reproductor() {
+                                                                        $('#reproductor')[0].src = grabaciones[0];
+                                                                    }
+                                                                    $('#grabacionActiva').change(function () {
+                                                                        $('#reproductor')[0].src = grabaciones[$("#grabacionActiva").val().substring(0, $("#grabacionActiva").val().indexOf("_"))]
+                                                                    });
+                                                                </script>
+
+                                                                <div class="w-2/4 text-right">
+
+                                                                    <button class="items-center px-2 py-1.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-700 hover:bg-red-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                                        </svg>
+                                                                    </button>
+
+
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    @endif
+
+
+                                                    <h2 class="font-bold text-sm mt-2">Agregar nueva:</h2>
+                                                    <div class="flex flex-row content-evenly">
+                                                        <form  class="flex" action="{{ route('evaluacions.grabacion', [$evaluacion['id']]) }}" method="post" enctype="multipart/form-data">
+                                                            @csrf
+                                                            <input type="hidden" name="evaluacionid" value="{{ $evaluacion['id'] }}">
+                                                            <input class="w-64 inline-flex text-sm py-1" type="file" name="grabacion" id="grabacion" accept=".mp3,.wav,.ogg,.m4a">
+                                                            <button type="submit"  class="inline-flex items-center px-4 py-0 border border-transparent rounded-md shadow-sm text-xs text-white bg-green-700 hover:bg-green-500 focus:outline-none transition-colors duration-150 sm:text-xs font-medium">
+                                                                Subir
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="w-1/4 text-right">
+
+                                    <div class="flex flex-col">
+                                        <div>
+                                            @if(Auth::user()->perfil  == 1)
+                                                <div class="inline-flex gap-1 items-center">
+                                                    <div class="text-xs">Volver:</div>
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacion['id']) }}" method="GET">
+                                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                            <input type="hidden" name="formulario" value="2">
+                                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                                Base Agente
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacion['id']) }}" method="GET">
+                                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                            <input type="hidden" name="formulario" value="3">
+                                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                                Calidad
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacion['id']) }}" method="GET">
+                                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                            <input type="hidden" name="formulario" value="4">
+                                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                                Reportes
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacion['id']) }}" method="GET">
+                                                            <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                            <input type="hidden" name="formulario" value="5">
+                                                            <button type="submit" role="button" class="inline-flex items-center px-2 py-0.5 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                                Avances
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                <div class="w-px-150 p-0.5">
+                                                    <form action="{{ route('evaluacions.atras_desbloqueando', $evaluacion['id']) }}" method="GET">
+                                                        <input type="hidden" name="url" value="{{ url()->previous() }}">
+                                                        <input type="hidden" name="formulario" value="2">
+                                                        <button type="submit" role="button" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                                                            </svg>
+                                                            Volver a Base del Agente
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            @endif
+
+                                            <div class="flex flex-row space-x-2 w-80 mt-4 items-center text-center">
+                                                <span class="bg-gray-300 h-px flex-row t-2 top-2"></span>
+                                            </div>
+
+                                            <div class="w-px-150 pb-0.5">
+                                                <button wire:click="abrirModal('historial')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                    </svg>
+                                                    Historial
+                                                </button>
+                                            </div>
+                                            @if(Auth::user()->perfil  == 1)
+                                                <div class="w-px-150 p-0.5">
+                                                    <button wire:click="abrirModal('centro')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        Respuestas del centro
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            @if(Auth::user()->perfil  == 1)
+                                                <div class="w-px-150 p-0.5">
+                                                    <button wire:click="abrirModal('ici')" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-blue-700 hover:bg-blue-900 focus:outline-none focus:ring-2 focus:ring-offset-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                                        </svg>
+                                                        Respuestas ICI
+                                                    </button>
+                                                </div>
+                                            @endif
+                                            <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
+                                                @csrf
+                                                @if(Auth::user()->perfil  == 1)
+                                                    <div class="w-px-150 pb-0.5">
+                                                        <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                            <!-- Heroicon name: check -->
+
+                                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                            </svg>
+                                                            Descartar Evaluación
+                                                        </button>
+                                                    </div>
+                                                @endif
+                                                @if(Auth::user()->perfil  == 2)
+                                                    @if($evaluacion['estado_id'] > 1)
+                                                        <div class="w-px-150 pb-0.5">
+                                                            <button type="submit" name="enviarRevision" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
+                                                                <!-- Heroicon name: check -->
+                                                                <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                                </svg>
+                                                                Enviar a Revisión
+                                                            </button>
+                                                        </div>
+                                                    @endif
+                                                @endif
+                                            </form>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if($evaluacion['user_completa'])
+                                <div class="align-baseline text-left w-full -mb-4 text-gray-800 text-xs">Evaluada por <strong>{{ $evaluacion['user_completa'] }}</strong> el <strong>{{ date('d-m-Y H:i', strtotime($evaluacion['fecha_completa'])) }}</strong></div>
+                            @endif
+                            <div class="align-baseline text-right w-full -mb-4 text-gray-800 text-xs">Bloqueada para <strong>{{ App\Models\User::find($bloqueo->user_id)->name }}</strong> hasta las <strong>{{ $bloqueo->created_at->add(new DateInterval('PT' . \App\Models\Bloqueo::DURACION . 'M'))->format('H:i') }}</strong></div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
+        <!-- Inicializacion de campos 'copy to clipboard' -->
+        <script>
+            new ClipboardJS('.ctc');
+        </script>
+
+    @endif
+
 <div class="flex space-x-4 pt-6 px-6">
     <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
 
         <div class="shadow overflow-hidden sm:rounded-md">
             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
-                <div>
-                    <label for="comentario_interno" class="block text-sm font-medium text-gray-700">
-                        Comentario Interno
-                    </label>
-                    <div class="mt-1">
-                        <textarea id="comentario_interno" name="comentario_interno" wire:model.defer="comentario_interno" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario interno">{{$comentario_interno}}</textarea>
-                    </div>
-                </div>
-                <small class="text-red-600 font-bold">{{ $errors->first('respuesta_ejecutivo') }}</small>
-                <div>
-                    <label for="retroalimentacion" class="block text-sm font-medium text-gray-700">
-                        Retroalimentación
-                    </label>
-                    <div class="mt-1">
-                        <textarea id="retroalimentacion" name="retroalimentacion" wire:model.defer="retroalimentacion" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí la retroalimentación">{{$retroalimentacion}}</textarea>
-                    </div>
-                </div>
-                <small class="text-red-600 font-bold">{{ $errors->first('retroalimentacion') }}</small>
-                <div></div>
 
-                <div>
-                    <label for="comentario_calidad" class="block text-sm font-medium text-gray-700">
-                        Comentario Calidad
-                    </label>
-                    <div class="mt-1">
-                        <textarea id="comentario_calidad" name="comentario_calidad" wire:model.defer="comentario_calidad" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-48 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Escribe aquí el comentario de calidad">{{$comentario_calidad}}</textarea>
-                    </div>
-                </div>
-                <small class="text-red-600 font-bold">{{ $errors->first('comentario_calidad') }}</small>
-                <button type="submit"  wire:click="save" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                @include('componentes.formularios.pauta_textarea', [
+                    'titulo' => 'Comentario Interno',
+                    'arreglo' => 'respuestas',
+                    'atributo_id' => 310,
+                    'name' => 'comentario_interno',
+                ])
+
+                @include('componentes.formularios.pauta_textarea', [
+                        'titulo' => 'Retroalimentación',
+                        'arreglo' => 'respuestas',
+                        'atributo_id' => 309,
+                        'name' => 'retroalimentacion',
+                    ])
+
+                @include('componentes.formularios.pauta_textarea', [
+                    'titulo' => 'Comentario Calidad',
+                    'arreglo' => 'evaluacion',
+                    'atributo_id' => 'comentario_calidad',
+                    'name' => 'comentario_calidad',
+                ])
+
+              <button type="submit"  wire:click="save" class="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
                     <!-- Heroicon name: check -->
                     <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
@@ -119,69 +461,22 @@ Versión 3
                                 <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Conquistar</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">1 - Presentación del Ejecutivo - ({{$presentacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="presentacion2" name="presentacion2" wire:model.defer="presentacion2" wire:click="xpresentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$presentacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="presentacion2" class="font-medium text-gray-700">No Saluda cordialmente</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="presentacion3" name="presentacion3" wire:model.defer="presentacion3" wire:click="xpresentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$presentacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="presentacion3" class="font-medium text-gray-700">No se identifica frente al Cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">2 - Frases de Enganche y Conexión - ({{$frasesenganche1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="frasesenganche2" name="frasesenganche2" wire:model.defer="frasesenganche2" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="frasesenganche2" class="font-medium text-gray-700">No realiza frase de conexión</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="frasesenganche3" name="frasesenganche3" wire:model.defer="frasesenganche3" wire:click="xfrasesenganche" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$frasesenganche3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="frasesenganche3" class="font-medium text-gray-700">No realiza frase de enganche</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">3 - Personalización - ({{$personalizacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="personalizacion2" name="personalizacion2" wire:model.defer="personalizacion2" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="personalizacion2" class="font-medium text-gray-700">No Personaliza</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="personalizacion3" name="personalizacion3" wire:model.defer="personalizacion3" wire:click="xpersonalizacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$personalizacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="personalizacion3" class="font-medium text-gray-700">Personaliza incorrectamente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '1 - Presentación del Ejecutivo',
+                                            'padre' => 201,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '2 - Frases de Enganche y Conexión',
+                                            'padre' => 204,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '3 - Personalización',
+                                            'padre' => 207,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
@@ -191,97 +486,22 @@ Versión 3
                                 <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Conocer</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">4 - Detección de Necesidades - ({{$deteccion1}})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Detección de Necesidades Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="deteccion1" wire:model.defer="deteccion1" value="Si" {{ $deteccion1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="deteccion1" wire:model.defer="deteccion1" value="No" {{ $deteccion1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="deteccion1" wire:model.defer="deteccion1" value="No Aplica" {{ $deteccion1 == "No Aplica" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="deteccion2" name="deteccion2" wire:model.defer="deteccion2" wire:click="xdeteccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$deteccion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="deteccion2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="deteccion3" name="deteccion3" wire:model.defer="deteccion3" wire:click="xdeteccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$deteccion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="deteccion3" class="font-medium text-gray-700">No Valida las necesidades del Cliente</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="deteccion4" name="deteccion4" wire:model.defer="deteccion4" wire:click="xdeteccion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$deteccion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="deteccion4" class="font-medium text-red-600">No sondea posibilidad de hacer negocio con multilínea</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">5 - Evaluación Comercial / Técnica - ({{$evaluacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="evaluacion2" name="deteccion2" wire:model.defer="evaluacion2" wire:click="xevaluacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$evaluacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="evaluacion2" class="font-medium text-gray-700">No Comprueba Restricciones Comerciales</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="evaluacion3" name="evaluacion3" wire:model.defer="evaluacion3" wire:click="xevaluacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$evaluacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="evaluacion3" class="font-medium text-gray-700">No Comprueba Factibilidad Técnica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="evaluacion4" name="evaluacion4" wire:model.defer="evaluacion4" wire:click="xevaluacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$evaluacion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="evaluacion4" class="font-medium text-red-600">Continua con negocio a pesar que el Cliente no califica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="evaluacion5" name="evaluacion5" wire:model.defer="evaluacion5" wire:click="xevaluacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$evaluacion5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="evaluacion5" class="font-medium text-red-600">Entrega Información confidencial de los sistema de evaluación comercial</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="evaluacion6" name="evaluacion6" wire:model.defer="evaluacion6" wire:click="xevaluacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$evaluacion6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="evaluacion6" class="font-medium text-red-600">Manipula la información para lograr una evaluación positiva en NEC</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '4 - Detección de Necesidade',
+                                            'padre' => 210,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '5 - Evaluación Comercial / Técnica',
+                                            'padre' => 214,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '5 - Evaluación Comercial / Técnica',
+                                            'padre' => 214,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
@@ -292,110 +512,22 @@ Versión 3
                                 <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Convencer</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">6 - Ofrece la mejor alternativa - ({{$mejoralternativa1}})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Mejor Alternativa Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="mejoralternativa1" wire:model.defer="mejoralternativa1" value="Si" {{ $mejoralternativa1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="mejoralternativa1" wire:model.defer="mejoralternativa1" value="No" {{ $mejoralternativa1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="mejoralternativa1" wire:model.defer="mejoralternativa1" value="No Aplica" {{ $mejoralternativa1 == "No Aplica" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="mejoralternativa2" name="mejoralternativa2" wire:model.defer="mejoralternativa2" wire:click="xmejoralternativa" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$mejoralternativa2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="mejoralternativa2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="mejoralternativa3" name="mejoralternativa3" wire:model.defer="mejoralternativa3" wire:click="xmejoralternativa" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$mejoralternativa3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="mejoralternativa3" class="font-medium text-gray-700">No asesorar en la mejor alternativa</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">7 - Argumentación - ({{$argumentacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="argumentacion2" name="argumentacion2" wire:model.defer="argumentacion2" wire:click="xargumentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$argumentacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="argumentacion2" class="font-medium text-gray-700">Ejecutivo usa argumentos no comprobados</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="argumentacion3" name="argumentacion3" wire:model.defer="argumentacion3" wire:click="xargumentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$argumentacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="argumentacion3" class="font-medium text-red-600">Usa argumentos que van en contra de la permanencia</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="argumentacion4" name="argumentacion4" wire:model.defer="argumentacion4" wire:click="xargumentacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$argumentacion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="argumentacion4" class="font-medium text-red-600">Manipula información o procedimiento para concretar venta</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">8 - Rebate de Objeciones - ({{$objeciones1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="objeciones2" name="objeciones2" wire:model.defer="objeciones2" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="objeciones2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="objeciones3" name="objeciones3" wire:model.defer="objeciones3" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="objeciones3" class="font-medium text-gray-700">El ejecutivo usa argumento no comprobados</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="objeciones4" name="objeciones4" wire:model.defer="objeciones4" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="objeciones4" class="font-medium text-red-600">No rebate objeciones</label>
-                                                    </div>
-                                                </div>
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="objeciones5" name="objeciones5" wire:model.defer="objeciones5" wire:click="xobjeciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$objeciones5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="objeciones5" class="font-medium text-red-600">Manipula información o procedimiento para concretar venta</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '6 - Ofrece la mejor alternativa',
+                                            'padre' => 220,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '7 - Argumentación',
+                                            'padre' => 223,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '8 - Rebate de Objeciones',
+                                            'padre' => 317,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
@@ -406,170 +538,17 @@ Versión 3
                                 <div class="px-4 py-5 bg-green-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Concretar</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">8 - Condiciones Especificas del Plan Contratado - ({{$condiciones1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones2" name="condiciones2" wire:model.defer="condiciones2" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones2" class="font-medium text-gray-700">No indica correctamente el cargo fijo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones3" name="condiciones3" wire:model.defer="condiciones3" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones3" class="font-medium text-gray-700">No indica correctamente los minutos incluidos/saldo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones4" name="condiciones4" wire:model.defer="condiciones4" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones4" class="font-medium text-gray-700">No indica correctamente la cuota de datos/velocidad</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones5" name="condiciones5" wire:model.defer="condiciones5" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones5" class="font-medium text-gray-700">No indica correctamente las apps ilimitadas incluidas</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones6" name="condiciones6" wire:model.defer="condiciones6" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones6" class="font-medium text-gray-700">No indica correctamente las restricciones de minutos/mb ilimitados</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones7" name="condiciones7" wire:model.defer="condiciones7" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones7" class="font-medium text-gray-700">No indica correctamente el saldo mínimo para bolsas SMS</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones8" name="condiciones8" wire:model.defer="condiciones8" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones8}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones8" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="condiciones9" name="condiciones9" wire:model.defer="condiciones9" wire:click="xcondiciones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$condiciones9}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="condiciones9" class="font-medium text-red-600">Ingresa erróneamente en sistema plan informado</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">9 - Promociones asociadas al negocio - ({{$promociones1}})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Promociones asociadas al negocio Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="promociones1" wire:model.defer="promociones1" value="Si" {{ $promociones1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="promociones1" wire:model.defer="promociones1" value="No" {{ $promociones1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="promociones1" wire:model.defer="promociones1" value="No Aplica" {{ $promociones1 == "No Aplica" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones2" name="promociones2" wire:model.defer="promociones2" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones3" name="promociones3" wire:model.defer="promociones3" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones3" class="font-medium text-gray-700">Indica erróneamente beneficios asociados</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones4" name="promociones4" wire:model.defer="promociones4" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones4" class="font-medium text-gray-700">Indica erróneamente vigencia</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones5" name="promociones5" wire:model.defer="promociones5" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones5" class="font-medium text-red-600">No realiza ofrecimiento de equipo según campaña</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones6" name="promociones6" wire:model.defer="promociones6" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones6" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="promociones7" name="promociones7" wire:model.defer="promociones7" wire:click="xpromociones" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$promociones7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="promociones7" class="font-medium text-red-600">Ingresa erróneamente en sistema oferta entregada</label>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                        </fieldset>
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '8 - Condiciones Especificas del Plan Contratado',
+                                            'padre' => 227,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '9 - Promociones asociadas al negocio',
+                                            'padre' => 236,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
@@ -580,481 +559,42 @@ Versión 3
                                 <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
                                     <p class="font-bold text-xl">Ingreso de Negocio</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">10 - Facturación - ({{$facturacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion2" name="facturacion2" wire:model.defer="facturacion2" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion2" class="font-medium text-gray-700">No Indica/gestiona medio de notificación</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion3" name="facturacion3" wire:model.defer="facturacion3" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion3" class="font-medium text-gray-700">No Informa el cargo proporcional en boleta</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion4" name="facturacion4" wire:model.defer="facturacion4" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion4" class="font-medium text-gray-700">No Indica ciclo de facturación y fecha de vencimiento</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion5" name="facturacion5" wire:model.defer="facturacion5" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion5" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="facturacion6" name="facturacion6" wire:model.defer="facturacion6" wire:click="xfacturacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$facturacion6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="facturacion6" class="font-medium text-red-600">Ingresa erróneamente en sistema datos para la fact.</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">11 - Cargos de Habilitación - ({{$cargos1}})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Cargos de Habilitación Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="cargos1" wire:model.defer="cargos1" value="Si" {{ $cargos1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="cargos1" wire:model.defer="cargos1" value="No" {{ $cargos1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="cargos1" wire:model.defer="cargos1" value="No Aplica" {{ $cargos1 == "No Aplica" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos2" name="cargos2" wire:model.defer="cargos2" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos3" name="cargos3" wire:model.defer="cargos3" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos3" class="font-medium text-gray-700">Indica erróneamente los cargos de equipo/sim</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos4" name="cargos4" wire:model.defer="cargos4" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos4" class="font-medium text-gray-700">Indica erróneamente los cargos de instalación</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos5" name="cargos5" wire:model.defer="cargos5" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos5" class="font-medium text-gray-700">Indica erróneamente la forma de pago</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos6" name="cargos6" wire:model.defer="cargos6" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos6" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="cargos7" name="cargos7" wire:model.defer="cargos7" wire:click="xcargos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$cargos7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="cargos7" class="font-medium text-red-600">Ingresa erróneamente en sistema los cargos de habilitación</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">12 - Equipo - ({{$equipos1}})</legend>
-                                            <div class="hidden mt-4">
-                                                <span class="text-gray-700">Cargos de Habilitación Padre</span>
-                                                <div class="mt-1 text-sm">
-                                                    <label class="inline-flex items-center">
-                                                        <input type="radio" class="form-radio" name="equipos1" wire:model.defer="equipos1" value="Si" {{ $equipos1 == "Si" ? 'checked' : '' }}>
-                                                        <p class="ml-2">Si</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="equipos1" wire:model.defer="equipos1" value="No" {{ $equipos1 == "No" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No</p>
-                                                    </label>
-                                                    <label class="inline-flex items-center ml-6">
-                                                        <input type="radio" class="form-radio" name="equipos1" wire:model.defer="equipos1" value="No Aplica" {{ $equipos1 == "No Aplica" ? 'checked' : '' }}>
-                                                        <p class="ml-2">No Aplica</p>
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="equipos2" name="equipos2" wire:model.defer="equipos2" wire:click="xequipos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$equipos2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="equipos2" class="font-medium text-yellow-500">No Aplica</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="equipos3" name="equipos3" wire:model.defer="equipos3" wire:click="xequipos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$equipos3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="equipos3" class="font-medium text-gray-700">No informa correctamente el modelo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="equipos4" name="equipos4" wire:model.defer="equipos4" wire:click="xequipos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$equipos4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="equipos4" class="font-medium text-gray-700">No informa correctamente las características</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="equipos5" name="equipos5" wire:model.defer="equipos5" wire:click="xequipos" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$equipos5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="equipos5" class="font-medium text-red-600">Omite o Entrega información incorrecta que afectara al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">13 - Validación de Datos del Cliente - ({{$validacion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion2" name="validacion2" wire:model.defer="validacion2" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion2" class="font-medium text-gray-700">Rut</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion3" name="validacion3" wire:model.defer="validacion3" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion3" class="font-medium text-gray-700">Nombre Completo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion4" name="validacion4" wire:model.defer="validacion4" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion4" class="font-medium text-gray-700">Fecha de Nacimiento</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion5" name="validacion5" wire:model.defer="validacion5" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion5" class="font-medium text-gray-700">Dirección Postal</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion6" name="validacion6" wire:model.defer="validacion6" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion6" class="font-medium text-gray-700">Correo eletrónico</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion7" name="validacion7" wire:model.defer="validacion7" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion7" class="font-medium text-gray-700">Teléfono a portar</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion8" name="validacion8" wire:model.defer="validacion8" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion8}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion8" class="font-medium text-gray-700">Serie CI</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion9" name="validacion9" wire:model.defer="validacion9" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion9}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion9" class="font-medium text-gray-700">Empresa donadora</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion10" name="validacion10" wire:model.defer="validacion10" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion10}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion10" class="font-medium text-gray-700">Imei</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion11" name="validacion11" wire:model.defer="validacion11" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion11}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion11" class="font-medium text-gray-700">Dirección despacho</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion12" name="validacion12" wire:model.defer="validacion12" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion12}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion12" class="font-medium text-gray-700">Dos Teléfono de contacto</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion13" name="validacion13" wire:model.defer="validacion13" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion13}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion13" class="font-medium text-red-600">No valida datos críticos para el negocio</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="validacion14" name="validacion14" wire:model.defer="validacion14" wire:click="xvalidacion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$validacion14}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="validacion14" class="font-medium text-red-600">Ingresa erróneamente en sistema datos personales del cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">14 - Coordinación Despacho/Activación/Instalación - ({{$despacho1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho2" name="despacho2" wire:model.defer="despacho2" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho2" class="font-medium text-gray-700">Indica erróneamente horario de entrega/instalación</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho3" name="despacho3" wire:model.defer="despacho3" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho3" class="font-medium text-gray-700">Informa plazos y procedimiento de portabilidad</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho4" name="despacho4" wire:model.defer="despacho4" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho4" class="font-medium text-gray-700">No indica documentación necesaria</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho5" name="despacho5" wire:model.defer="despacho5" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho5" class="font-medium text-red-600">No valida datos críticos para el negocio</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho6" name="despacho6" wire:model.defer="despacho6" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho6" class="font-medium text-red-600">Ingresa erróneamente en sistema datos personales del cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despacho7" name="despacho7" wire:model.defer="despacho7" wire:click="xdespacho" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despacho7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despacho7" class="font-medium text-red-600">No valida información para entrega de terceros</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">15 - Scripts Obligatorios y legales - ({{$scripts1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="scripts2" name="scripts2" wire:model.defer="scripts2" wire:click="xscripts" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$scripts2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="scripts2" class="font-medium text-red-600">No lee el extracto u omite algún párrafo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="scripts3" name="scripts3" wire:model.defer="scripts3" wire:click="xscripts" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$scripts3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="scripts3" class="font-medium text-red-600">Altera de manera importante el contexto y/o el sentido</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="scripts4" name="scripts4" wire:model.defer="scripts4" wire:click="xscripts" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$scripts4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="scripts4" class="font-medium text-red-600">Lo realiza a una persona distinta al titular</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="scripts5" name="scripts5" wire:model.defer="scripts5" wire:click="xscripts" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$scripts5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="scripts5" class="font-medium text-red-600">No realiza pregunta de aceptación explicita del negocio</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">16 - Despedida e información de cierre - ({{$despedida1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despedida2" name="despedida2" wire:model.defer="despedida2" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despedida2" class="font-medium text-gray-700">No informa Canales de postventa consulta/reclamo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despedida3" name="despedida3" wire:model.defer="despedida3" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despedida3" class="font-medium text-gray-700">No informa canales de reagendamiento de visita</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despedida4" name="despedida4" wire:model.defer="despedida4" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despedida4" class="font-medium text-gray-700">No indica pasos para ingresar a hbo max</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="despedida5" name="despedida5" wire:model.defer="despedida5" wire:click="xdespedida" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$despedida5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="despedida5" class="font-medium text-gray-700">No se despide de manera cordial</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '10 - Facturación',
+                                            'padre' => 244,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '11 - Cargos de Habilitación',
+                                            'padre' => 250,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '12 - Equipo',
+                                            'padre' => 257,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '13 - Validación de Datos del Cliente',
+                                            'padre' => 262,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '14 - Coordinación Despacho/Activación/Instalación',
+                                            'padre' => 276,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '15 - Scripts Obligatorios y legales',
+                                            'padre' => 283,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '16 - Despedida e información de cierre',
+                                            'padre' => 288,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
@@ -1066,178 +606,26 @@ Versión 3
                                     <p class="font-bold text-xl">Habilidades Blandas</p>
                                     <div class="md:grid md:grid-cols-3 md:gap-6">
 
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">17 - Atención Respetuosa - ({{$atencion1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion2" name="atencion2" wire:model.defer="atencion2" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion2" class="font-medium text-gray-700">Irónico</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion3" name="atencion3" wire:model.defer="atencion3" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion3" class="font-medium text-gray-700">Prepotente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion4" name="atencion4" wire:model.defer="atencion4" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion4" class="font-medium text-gray-700">Despectivo - poco profesional</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion5" name="atencion5" wire:model.defer="atencion5" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion5" class="font-medium text-gray-700">Realiza ruidos molestos</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion6" name="atencion6" wire:model.defer="atencion6" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion6" class="font-medium text-gray-700">Interrumpe</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="atencion7" name="atencion7" wire:model.defer="atencion7" wire:click="xatencion" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$atencion7}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="atencion7" class="font-medium text-red-600">Actitud desafiante, conflictiva, despectiva, discriminatoria o arrogante al cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">18 - Fluidez y Lenguaje - ({{$lenguaje1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="lenguaje2" name="lenguaje2" wire:model.defer="lenguaje2" wire:click="xlenguaje" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$lenguaje2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="lenguaje2" class="font-medium text-gray-700">Falta de ritmo</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="lenguaje3" name="lenguaje3" wire:model.defer="lenguaje3" wire:click="xlenguaje" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$lenguaje3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="lenguaje3" class="font-medium text-gray-700">No ajusta volumen de voz</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="lenguaje4" name="lenguaje4" wire:model.defer="lenguaje4" wire:click="xlenguaje" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$lenguaje4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="lenguaje4" class="font-medium text-gray-700">No pronuncia correctamente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="lenguaje5" name="lenguaje5" wire:model.defer="lenguaje5" wire:click="xlenguaje" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$lenguaje5}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="lenguaje5" class="font-medium text-gray-700">No utiliza correctamente el vocabulario/muletillas</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="lenguaje6" name="lenguaje6" wire:model.defer="lenguaje6" wire:click="xlenguaje" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$lenguaje6}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="lenguaje6" class="font-medium text-gray-700">Utiliza tecnicismos</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">19 - Claridad - ({{$claridad1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="claridad2" name="claridad2" wire:model.defer="claridad2" wire:click="xclaridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="claridad2" class="font-medium text-gray-700">No Entrega de información de manera ordenada lógicamente de acuerdo a la campaña. </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="claridad3" name="claridad3" wire:model.defer="claridad3" wire:click="xclaridad" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$claridad3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="claridad3" class="font-medium text-gray-700">Vuelve a solicitar la misma información</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <fieldset>
-                                            <legend class="text-base font-medium text-gray-900">20 - Manejo y Dominio en la conversación - ({{$dominio1}})</legend>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="dominio2" name="dominio2" wire:model.defer="dominio2" wire:click="xdominio" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$dominio2}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="dominio2" class="font-medium text-gray-700">Falta seguridad para vender</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="dominio3" name="dominio3" wire:model.defer="dominio3" wire:click="xdominio" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$dominio3}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="dominio3" class="font-medium text-gray-700">No manifiesta interés ni disposición con el Cliente</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="mt-2 space-y-2">
-                                                <div class="flex items-start">
-                                                    <div class="flex items-center h-5">
-                                                        <input id="dominio4" name="dominio4" wire:model.defer="dominio4" wire:click="xdominio" type="checkbox" value="checked" class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded" {{$dominio4}}>
-                                                    </div>
-                                                    <div class="ml-3 text-sm">
-                                                        <label for="dominio4" class="font-medium text-gray-700">Falta de seguridad al responder preguntas</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '17 - Atención Respetuosa',
+                                            'padre' => 289,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '18 - Fluidez y Lenguaje',
+                                            'padre' => 296,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '19 - Claridad',
+                                            'padre' => 302,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_grupo_padre', [
+                                            'titulo' => '20 - Manejo y Dominio en la conversación',
+                                            'padre' => 305,
+                                        ])
+
                                     </div>
                                 </div>
                             </div>
