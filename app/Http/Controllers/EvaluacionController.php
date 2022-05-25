@@ -226,7 +226,7 @@ class EvaluacionController extends Controller
             $message = "La evaluación se envió a Revisión";
         }
         $evaluacion->save();
-        return back()->with("status", $message);
+        return redirect(route('evaluacions.index', ['evaluacion_id' => $evaluacionid]))->with("status", $message);
     }
 
 //    public function reportes()

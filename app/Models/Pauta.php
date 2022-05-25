@@ -93,8 +93,9 @@ class Pauta extends Model
 
     private $escalasPautas = [
         1 => [
-            ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => []],
-            ['grupo_id' => 8, 'nombre' => 'resoluciones', 'opciones' => []],
+            ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => [49, 50, 51]],
+            ['grupo_id' => 8, 'nombre' => 'resoluciones', 'opciones' => [64, 65, 66]],
+            ['grupo_id' => 9, 'nombre' => 'motivo', 'opciones' => [48]],
         ],
         2 => [
             ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => [180, 181, 182]],

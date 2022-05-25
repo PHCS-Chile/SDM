@@ -55,7 +55,7 @@ class PautaCallVoz extends PautaBase
             }
         }
 
-        // Resoluciones
+        // Gestiones
         if (in_array($atributo_id, [191, 192, 193])) {
             if ($this->tieneRespuestas([191, 192, 193], "No")) {
                 $cambios[] = [148, "checked"];

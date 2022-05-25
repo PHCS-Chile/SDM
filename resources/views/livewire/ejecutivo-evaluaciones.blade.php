@@ -81,7 +81,7 @@ Versión 4
                       {{$evaluacion->id}}
                     </span>
                 </td>
-                
+
                 <td class="px-6 py-4 whitespace-nowrap">
                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full {{ ( $evaluacion->estado->id == 2) ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800' }}">
                       {{$evaluacion->estado->name}}
@@ -113,7 +113,7 @@ Versión 4
                     <div class="text-sm text-gray-900">{{$evaluacion->connid}}</div>
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                    <a href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                    <a href="{{route('evaluacions.index', ['evaluacion_id'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
                 </td>
                 <td>
                     @if(Auth::user()->perfil  == 1)

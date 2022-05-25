@@ -94,9 +94,9 @@ Versión 5
                             <span class="sr-only">Dismiss</span>
                             <!-- Heroicon name: x -->
                             <a href="{{route('asignacions.ejecutivoevaluaciones', ['asignacionid' => $evaluacionfinal->asignacion_id, 'rutejecutivo' => $evaluacionfinal->rut_ejecutivo])}}">
-                            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                            </svg>
+                                <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                </svg>
                             </a>
                         </button>
                     </div>
@@ -105,54 +105,13 @@ Versión 5
         </div>
         <script>
             setTimeout(function(){
-                document.getElementById("session-status").style.opacity=0;
+                document.getElementById("session-status").style.opacity = 0;
                 document.getElementById("session-status").style.display = 'none';
             }, 4000);
         </script>
     @endif
-    @livewire('evaluacion-header', [
-        'bloqueo' => $bloqueo,
-        'modales' => $modales,
-        'evaluacionfinal' => $evaluacionfinal,
-        'estados' => $estados,
-        'grabaciones' => $grabaciones,
-    ])
 
-    @if(Auth::user()->perfil == 1 || Auth::user()->perfil == 2)
-
-    <div class="flex space-x-4 pt-6 px-6">
-        <div class="flex-1 w-1/4 py-8 px-6 bg-white shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
-
-                @if($evaluacionfinal->estado_conversacion > 7)
-                    @foreach($grabaciones->all() as $posicion => $grabacion)
-                        {!!$grabacion->url !!}
-                    @endforeach
-
-                @else
-                    <form action="{{route('evaluacions.guardaeval', $evaluacionfinal->id)}}" method="POST">
-                        @csrf
-                        <p class="text-red-600 font-bold">No hay un Chat ingresado.</p>
-                        Inserta el texto aca y haz click en guardar
-
-                        <div class="mt-1">
-                            <textarea id="textochatinput" name="textochatinput" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border-gray-300 rounded-md" placeholder="Inserta el Texto copiado desde Copycat aquí"></textarea>
-                        </div>
-                        <p class="mt-2 text-sm text-gray-500">
-                            Recuerda que el texto tiene que tener las etiquetas html como por ejemplo < div >
-                        </p>
-                        <button type="submit" name="form1" class="bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                            Guardar
-                        </button>
-
-                    </form>
-                @endif
-
-        </div>
-        <div class="w-3/4 p-6 bg-gray-50 overflow-hidden shadow-xl sm:rounded-lg overflow-y-scroll h-screen">
-            @livewire('pauta-digital', ['evaluacionid' => $evaluacionfinal->id])
-        </div>
-    </div>
-    @endif
+    @livewire('pauta-digital', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones])
 
 
 </x-app-layout>
