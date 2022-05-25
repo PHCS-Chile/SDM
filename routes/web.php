@@ -65,8 +65,7 @@ Route::get('/calidad',Calidad::class)->name('calidad.index')->middleware(['auth:
 Route::get('/avances',Avances::class)->name('avances.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/misevaluaciones',MisEvaluaciones::class)->name('mis-evaluaciones.index')->middleware(['auth:sanctum', 'verified']);
 
-Route::get('/evaluacion/{evaluacionid}',[EvaluacionController::class,'index'])->name('evaluacions.index')->middleware(['auth:sanctum', 'verified']);
-Route::get('/evaluacion_brigida/{evaluacionid}',[EvaluacionController::class,'indexBrigido'])->name('evaluacions.indexBrigido')->middleware(['auth:sanctum', 'verified']);
+Route::get('/evaluacion/{evaluacion_id}',[EvaluacionController::class,'index'])->name('evaluacions.index')->middleware(['auth:sanctum', 'verified']);
 Route::get('/evaluacion/{evaluacionid}/chat',[EvaluacionController::class,'chat'])->name('evaluacions.chat')->middleware(['auth:sanctum', 'verified']);
 Route::get('/evaluacion/{evaluacionid}/notify',[EvaluacionController::class,'indexNotify'])->name('evaluacions.index.notify')->middleware(['auth:sanctum', 'verified']);
 Route::get('/evaluacion/{evaluacionid}/atras',[EvaluacionController::class,'atrasDesbloqueando'])->name('evaluacions.atras_desbloqueando')->middleware(['auth:sanctum', 'verified']);

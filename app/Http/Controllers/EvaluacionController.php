@@ -18,6 +18,10 @@ use App\Models\Escala;
 use App\Models\Servicio;
 use App\Models\User;
 use Carbon\Carbon;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Auth;
 
@@ -30,6 +34,14 @@ use Auth;
 class EvaluacionController extends Controller
 {
 
+    private $templates = [
+        1 => 'index_digital',
+        2 => 'index_voz',
+        3 => 'index_ventas',
+        4 => 'index_backoffice',
+        5 => 'index_retenciones',
+    ];
+
 
     public function reporte($evaluacionid){
         $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
@@ -41,6 +53,13 @@ class EvaluacionController extends Controller
             'gestiones', 'resoluciones'));
     }
 
+
+    /**
+     * Crea respuestas por defecto para una pauta en blanco, segun el tipo de respuesta seteado en la base de datos
+     *
+     * @param $evaluacion_id
+     * @return void
+     */
     public function crearRespuestas($evaluacion_id)
     {
         $evaluacion = Evaluacion::find($evaluacion_id);
@@ -60,7 +79,7 @@ class EvaluacionController extends Controller
                     $nuevaRespuesta->respuesta_text = "No Aplica";
                 } elseif ($atributo->tipo_respuesta == 'grupo_hijo') {
                     $nuevaRespuesta->respuesta_int = 0;
-                    $nuevaRespuesta->respuesta_text = "No";
+                    $nuevaRespuesta->respuesta_text = "";
                 }  elseif ($atributo->tipo_respuesta == 'check') {
                     $nuevaRespuesta->respuesta_int = 0;
                     $nuevaRespuesta->respuesta_text = "";
@@ -70,7 +89,14 @@ class EvaluacionController extends Controller
         }
     }
 
-    public function indexBrigido($evaluacion_id){
+
+    /**
+     * Carga una Pauta para ser mostrada y editada
+     *
+     * @param $evaluacion_id
+     * @return Application|Factory|View|RedirectResponse
+     */
+    public function index($evaluacion_id){
         $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacion_id)->orderBy('id', 'DESC')->first();
         // Caso no loah bloqueo
         if ($bloqueo === NULL) {
@@ -100,64 +126,15 @@ class EvaluacionController extends Controller
             ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
         ];
 
-        if ($pauta == 2) {
-            return view('evaluacions.index_voz',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
+
+        if (in_array($pauta, [1, 2, 3, 4, 5])) {
+            return view('evaluacions.' . $this->templates[$pauta], compact(
+                'evaluacion_id','estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'
+            ));
         }
-        if ($pauta == 3) {
-            return view('evaluacions.index_ventas',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        if ($pauta == 4) {
-            return view('evaluacions.index_backoffice',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        if ($pauta == 5) {
-            return view('evaluacions.index_retenciones',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        return view('evaluacions.index',compact( 'evaluacion_id',  'estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'));
+        abort(404);
     }
 
-    public function index($evaluacionid){
-        $bloqueo = Bloqueo::where('tipo', 1)->where('evaluacion_id', $evaluacionid)->orderBy('id', 'DESC')->first();
-        // Caso no loah bloqueo
-        if ($bloqueo === NULL) {
-            $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
-        } else {
-            if (plazoCumplido($bloqueo->created_at, Bloqueo::DURACION)) {
-                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
-            } elseif (!$bloqueo->activo) {
-                $bloqueo = Bloqueo::nuevo(Auth::user()->id, $evaluacionid, 1);
-            } else {
-                if ($bloqueo->user_id != Auth::user()->id) {
-                    return back()->withErrors(['msg' => 'La evaluación se encuentra bloqueada por ' . User::find($bloqueo->user_id)->name]);
-                }
-
-            }
-        }
-
-        $evaluacionfinal = Evaluacion::where('id',$evaluacionid)->first();
-        $estados = Estado::all();
-        $pauta = $evaluacionfinal->asignacion->estudio->pauta->id;
-        $historial = Log::where('evaluacion_id', $evaluacionid)->get();
-        $respuestasCentro = Respuesta::where('evaluacion_id', $evaluacionid)->where('origen_id', Respuesta::CENTRO)->get();
-        $grabaciones = Grabacion::where('evaluacion_id', $evaluacionid)->get();
-        $modales = [
-            ['id' => 'historial', 'template' => 'evaluacions.voz.modal_historial', 'titulo' => 'Historial de cambios', 'cambios' => $historial],
-            ['id' => 'respuestas-centro', 'template' => 'evaluacions.voz.modal_centro', 'titulo' => 'Respuestas del centro', 'respuestas' => $respuestasCentro]
-        ];
-
-        if ($pauta == 2) {
-            return view('evaluacions.index_voz',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'bloqueo'));
-        }
-        if ($pauta == 3) {
-            return view('evaluacions.index_ventas',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        if ($pauta == 4) {
-            return view('evaluacions.index_backoffice',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        if ($pauta == 5) {
-            return view('evaluacions.index_retenciones',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales','historial', 'bloqueo'));
-        }
-        return view('evaluacions.index',compact( 'evaluacionfinal',  'estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo'));
-    }
 
     public function atrasDesbloqueando(Request $request, $evaluacion_id)
     {

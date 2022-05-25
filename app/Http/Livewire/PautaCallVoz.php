@@ -10,7 +10,7 @@ use App\Models\Atributo;
  * @package App\Http\Livewire
  * @version 8
  */
-class PautaCallVoz extends PautaBrigida
+class PautaCallVoz extends PautaBase
 {
 
     protected $template = 'pauta-call-voz';

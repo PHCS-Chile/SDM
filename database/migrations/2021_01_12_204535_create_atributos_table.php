@@ -18,7 +18,7 @@ class CreateAtributosTable extends Migration
     public function up()
     {
         Schema::create('atributos', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('id')->primary();
             $table->string('name');
             $table->string('name_interno');
             $table->integer('check_primario')->nullable();

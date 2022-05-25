@@ -2,106 +2,356 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Atributo;
 use App\Models\Escala;
+use App\Models\Estado;
 use App\Models\Evaluacion;
+use App\Models\Grabacion;
 use App\Models\Log;
-use App\Models\Notificacion;
 use App\Models\Respuesta;
-use Auth;
-use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Routing\Redirector;
 use Livewire\Component;
+use Auth;
 
-
-/**
- * Class PautaBase
- *
- * Representa el comportamiento base de las pautas. Por ser abstracta, obliga al desarrollador a definir un
- * metodo "inicializar" y uno "guardar" (que se ejecutarán automáticamente en el "mount" y en el "save"
- * respectivamente, asegurando que se realicen además algunas operaciones de sincronizacion no opcionales.
- *
- * @package App\Http\Livewire
- * @version 11
- */
 abstract class PautaBase extends Component
 {
+    public $evaluacion_id;
+    public $bloqueo;
+    public $modales;
+    public $grabaciones;
+    public $marca_ici ;
+    public $nivel_ec;
 
-    /* Variables de instancia mínimas */
     public $evaluacion;
-    public $rules = [];
-    public $rules1 = [];
-    public $rules2 = [];
-    public $rules3 = [];
-    public $marca_ici = 0;
-    public $gestion2 = "";
-    public $marca_ec = 0;
-    public $comentario_calidad = '';
-    public $tiposRespuesta = [];
+    public $respuestas;
+    public $grupos;
 
-    public static $RESPUESTA_SI_NO = 1;
-    public static $RESPUESTA_CHECK = 2;
-    public static $RESPUESTA_OPCIONES = 3;
-    public static $RESPUESTA_OTROS = 4;
+    public $respuestasO1;
+
+    public $modal = [
+        'id' => null,
+        'contenido' => null,
+        'titulo' => null,
+    ];
+    public $modalesValidos = ['historial', 'centro', 'ici'];
 
     public $opciones = [];
 
+    protected $template;
+    protected $tipoPuntaje;
+    protected $requeridos;
 
-    public function cargarEvaluacion($evaluacionid=null)
+    /**
+     * Dem Render
+     *
+     * @return Application|Factory|View
+     */
+    public function render()
     {
-        if ($evaluacionid === null) {
-            $evaluacionid = $this->evaluacion->id;
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+
+        // Asegurarse que siempre existan los arreglos para el modelo de Livewire
+        if (!$this->respuestas || !$this->grupos) {
+            $this->crearArreglosRespuestas($evaluacion);
         }
-        $this->evaluacion = Evaluacion::find($evaluacionid);
+        if (!$this->evaluacion) {
+            $this->evaluacion = $evaluacion->toArray();
+        }
+        $pauta_ok = $this->pautaEsValida();
+        // Validaciones
+        $pauta = $evaluacion->getPauta();
+//        dd($this->respuestas);
+
+        return view('livewire.' . $this->template, [
+            'escalas' => $pauta->escalas(),
+            'requeridos' => $this->requeridos,
+            'grabaciones' => Grabacion::where('evaluacion_id', $this->evaluacion_id)->get(),
+            'estados_evaluacion' => Estado::where('tipo', 1)
+                ->where('visible', 1)
+                ->when($this->evaluacion['estado_id'] == 20, function ($query) {
+                    $query->orWhere('id', 20);
+                })->get()->all(),
+            'atributos' => $evaluacion->atributos()->keyBy('id')->all(),
+            'pauta_ok' => $pauta_ok,
+            'bloqueada' => !$evaluacion->puedeEditar(Auth::user())
+        ]);
     }
 
     /**
-     * Carga info de la base de datos en el controlador y luego llama a la función "inicializar", la que
-     * debe ser implementada en las clases que extiendan de esta.
+     * Crea una version plana (arreglo) de las respuestas que se sincronizará con la interfaz para el
+     * guardado en tiempo real de los cambios. Solo será llamado cuando no se encuentre en memoria este arreglo o
+     * el arreglo de Grupos (complemento a als respuestas que incluye detalles como familias y no_aplica).
      *
-     * @param $evaluacionid    int La id de la evaluación que se cargará
+     * @param $evaluacion
+     * @return void
      */
-    public function mount(int $evaluacionid){
-        /* Obtener info desde la base de datos */
-        $this->cargarEvaluacion($evaluacionid);
-        if($this->evaluacion->fecha_ici){
-            $this->marca_ici = 1;
+    public function crearArreglosRespuestas($evaluacion)
+    {
+        if (Auth::user()->perfil == User::SUPERVISOR && !$this->respuestasO1) {
+            $this->respuestasO1 = $evaluacion->respuestas()->get()->keyBy('atributo_id')->toArray();
         }
-        $respuestas = $this->evaluacion->respuestas->where('origen_id','1');
-        /* Cargar información obtenida en el controlador */
-        $this->comentario_calidad = $this->evaluacion->comentario_calidad;
-        foreach ($respuestas as $respuesta){
-            if ($respuesta->atributo->name_categoria == "Memo") {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_memo;
+        $arregloRespuestas = [];
+        $arregloGrupos = ['primarios' => [], 'no_aplica' => []];
+        foreach ($evaluacion->respuestas->where('origen_id', 1) as $respuesta) {
+            // Respuestas
+            if ($respuesta->atributo->tipo_respuesta == 'escala') {
+                $arregloRespuestas[$respuesta->atributo_id] = $this->escalaId($respuesta);
+            } elseif ($respuesta->atributo->tipo_respuesta == 'texto') {
+                $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_memo;
             } else {
-                $this->{$respuesta->atributo->name_interno} = $respuesta->respuesta_text;
+                $arregloRespuestas[$respuesta->atributo_id] = $respuesta->respuesta_text;
+            }
+            // Grupos
+            if ($respuesta->atributo->tipo_respuesta == 'grupo_hijo') {
+                $arregloGrupos['primarios'][$respuesta->atributo->id_primario][] = $respuesta->atributo->id;
+            }
+            // No Aplica
+            if ($respuesta->atributo->no_aplica == 1) {
+                $arregloGrupos['no_aplica'][] = $respuesta->atributo->id;
             }
         }
-
-        $this->inicializar();
+        $this->respuestas =  $arregloRespuestas;
+        $this->grupos =  $arregloGrupos;
     }
 
 
     /**
-     * Método abstracto para ejecutar en el contexto del "mount".
+     * Retorna el ID de la escala asociada a una respuesta.
+     *
+     * @param $respuesta
+     * @return null
+     */
+    public function escalaId($respuesta)
+    {
+        if ($respuesta->respuesta_int) {
+            foreach ($this->escalas as $escala) {
+                if (in_array($respuesta->atributo_id, $escala['opciones'])) {
+                    try {
+                        return Escala::where('grupo_id', $escala['grupo_id'])
+                            ->where('value', $respuesta->respuesta_int)
+                            ->first()->id;
+                    } catch (\Exception $e) {
+                        return null;
+                    }
+
+                }
+            }
+        }
+        return null;
+    }
+
+
+    /**
+     * Gatilla cambios en grupos al cambiar un campo. Se llama luego de cambiar una respuesta. Esto actualiza los
+     * valores en el padre, segun corresponda.
+     *
+     * @param $atributo
+     * @return void
+     */
+    public function actualizarPadre($atributo)
+    {
+        $algoMarcado = false;
+        $noAplicaMarcado = false;
+        // Tiene padre
+        if ($atributo->id_primario) {
+            $IDsHermanos = $this->grupos['primarios'][$atributo->id_primario];
+            foreach ($IDsHermanos as $atributo_id) {
+                if ($this->respuestas[$atributo_id] == 'checked') {
+                    $algoMarcado = true;
+                    //dd($atributo->no_aplica == 1);
+                    if (in_array($atributo_id, $this->grupos['no_aplica'])) {
+                        $noAplicaMarcado = true;
+                    }
+                }
+            }
+            if ($noAplicaMarcado) {
+                $respuestaTextPadre = "No Aplica";
+            } elseif ($algoMarcado) {
+                $respuestaTextPadre = "No";
+            } else {
+                $respuestaTextPadre = "Si";
+            }
+            $this->respuestas[$atributo->id_primario] = $respuestaTextPadre;
+            $this->guardarRespuesta($atributo->id_primario, $respuestaTextPadre);
+        }
+    }
+
+    public function guardarRespuestas($respuestas)
+    {
+        foreach ($respuestas as $respuesta) {
+            $this->respuestas[$respuesta[0]] = $respuesta[1];
+            $this->guardarRespuesta($respuesta[0], $respuesta[1]);
+        }
+    }
+
+    /**
+     * Guarda una unica respuesta en la base de datos
+     *
+     * @param $atributo_id
+     * @param $respuesta_text
+     * @return void
+     */
+    public function guardarRespuesta($atributo_id, $respuesta_text)
+    {
+
+        $respuesta = Respuesta::where('evaluacion_id', $this->evaluacion_id)
+            ->where('origen_id', 1)
+            ->firstWhere('atributo_id', $atributo_id);
+        $atributo = $respuesta->atributo;
+        if ($atributo->tipo_respuesta == 'escala') {
+            if ($respuesta_text) {
+                $escala = Escala::find($respuesta_text);
+                $respuesta->respuesta_text = $escala->name;
+                $respuesta->respuesta_int = $escala->value;
+            } else {
+                $respuesta->respuesta_text = null;
+                $respuesta->respuesta_int = null;
+            }
+
+        } else if ($atributo->tipo_respuesta == 'texto') {
+            $respuesta->respuesta_text = "";
+            $respuesta->respuesta_int = ($respuesta_text == "" ? 0 : 1);
+            $respuesta->respuesta_memo = $respuesta_text;
+        } else if ($atributo->tipo_respuesta == 'check' || $atributo->tipo_respuesta == 'grupo_hijo') {
+            if ($respuesta_text == 'checked') {
+                $respuesta->respuesta_int = 1;
+                $respuesta->respuesta_text = $respuesta_text;
+            } else {
+                $respuesta->respuesta_int = 0;
+                $respuesta->respuesta_text = '';
+            }
+        } else if ($atributo->tipo_respuesta == 'booleano' || $atributo->tipo_respuesta == 'booleano_na' || $atributo->tipo_respuesta == 'grupo_padre') {
+            if ($respuesta_text == "Si") {
+                $respuesta->respuesta_int = 1;
+            } elseif ($respuesta_text == "No") {
+                $respuesta->respuesta_int = 0;
+            } elseif ($respuesta_text == "No Aplica") {
+                $respuesta->respuesta_int = -1;
+            }
+            $respuesta->respuesta_text = $respuesta_text;
+        }
+        $respuesta->save();
+    }
+
+
+    /**
+     * Función que se llama siempre luego de cambiar un valor de respuesta en la pauta.
+     *
+     * @param $respuesta_text
+     * @param $atributo_id
+     * @return void
+     */
+    public function updatedRespuestas($respuesta_text, $atributo_id)
+    {
+        if ($this->evaluacion['estado_id'] == 1) {
+            $this->evaluacion['estado_id'] = 20;
+            $evaluacion = Evaluacion::find($this->evaluacion_id);
+            $evaluacion->cambiarEstado(Estado::EVALUACION_EN_EVALUACION);
+        }
+//        dd($atributo_id, $respuesta_text);
+        $this->guardarRespuesta($atributo_id, $respuesta_text);
+        $this->propagarCambio($atributo_id);
+        $this->actualizarPadre(Atributo::find($atributo_id));
+    }
+
+
+    /**
+     * Función que se llama siempre luego de cambiar un parámetro de la evaluación en la pauta.
+     *
+     * @param $valor
+     * @param $columna
+     * @return void
+     */
+    public function updatedEvaluacion($valor, $columna)
+    {
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        $evaluacion->{$columna} = $valor;
+        $evaluacion->save();
+    }
+
+
+    /**
+     * Determina el modo en que se valida una pauta.
      *
      * @return mixed
      */
-    public abstract function inicializar();
+    public abstract function validarPauta();
 
 
-    public function agregarValidaciones(array $validaciones)
+    /**
+     *
+     *
+     * @return mixed
+     */
+    public abstract function propagarCambio($atributo_id);
+
+
+    /**
+     * Determina si la pauta tiene completados los campos definidos como "requeridos".
+     *
+     * @return bool
+     */
+    public function pautaEsValida()
     {
-        foreach ($validaciones as $campo => $regla) {
-            $this->rules[$campo] = $regla;
+        $this->validarPauta();
+        foreach ($this->requeridos as $requerido) {
+            if ($this->respuestas[$requerido] === null) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+
+
+
+    /**
+     * Agrega un ID de atributo como requerido en la pauta.
+     *
+     * @param array $atributos_id
+     * @return void
+     */
+    public function agregarValidaciones(array $atributos_id)
+    {
+        foreach ($atributos_id as $atributo_id) {
+            if (!in_array($atributo_id, $this->requeridos)) {
+                $this->requeridos[] = $atributo_id;
+            }
         }
     }
 
-    public function quitarValidaciones($campos)
+
+    /**
+     * Remueve un ID de atributo como requerido en la pauta.
+     *
+     * @param $atributos_id
+     * @return void
+     */
+    public function quitarValidaciones($atributos_id)
     {
-        foreach ($campos as $campo => $regla) {
-            unset($this->rules[$campo]);
+        foreach ($atributos_id as $atributo_id) {
+            $indice = array_search($atributo_id, $this->requeridos);
+            if ($indice !== false) {
+                unset($this->requeridos[$indice]);
+            }
         }
     }
 
+
+    /**
+     * Carga una lista de escalas para ser utilizadas en la interfaz.
+     * TODO: Obsoleta
+     *
+     * @param $escalas
+     * @param $cargarOpciones
+     * @return void
+     */
     public function cargarEscalas($escalas, $cargarOpciones = True)
     {
         foreach ($escalas as $escala) {
@@ -116,116 +366,137 @@ abstract class PautaBase extends Component
 
 
     /**
+     * Determina si una respuesta de la pauta tiene un valor diferente en la interfaz y en la base de datos.
+     *
+     * @param $respuesta
+     * @return bool|null
+     */
+    public function haCambiado($atributo)
+    {
+        if ($atributo->tipo_respuesta == 'escala') {
+            $escala = Escala::find($this->respuestas[$atributo->id]);
+
+            try {
+                return $this->respuestasO1[$atributo->id]['respuesta_int'] != ($escala === null ? null : $escala->value);
+            } catch (\Exception $e) {
+                dd($respuesta, $atributo, $this->respuestas[$atributo->id], $escala);
+            }
+
+        } elseif ($atributo->name_categoria !== 'Memo') {
+            return $this->respuestasO1[$atributo->id]['respuesta_text'] != $this->respuestas[$atributo->id];
+        }
+        return null;
+    }
+
+    /**
      * Efectúa un proceso de evaluación de calidad interna
-     * TODO: esto requiere generalizacion
      */
     public function ici()
     {
-        $this->validate($this->rules);
-        $suma = 0;
-        $respuestas = Respuesta::where('evaluacion_id', $this->evaluacion->id)->where('origen_id', Respuesta::PH)->get();
-        $atributosNoMemo = 0;
-        foreach ($respuestas as $respuesta) {
-            if ($respuesta->atributo->name_categoria != "Memo") {
-                $atributosNoMemo ++;
-                if ($respuesta->respuesta_text != $this->{$respuesta->atributo->name_interno}) {
-                    $suma += 100;
+        if (Auth::user()->perfil == User::SUPERVISOR) {
+            $puntaje = 100;
+            foreach ($this->respuestasO1 as $respuesta) {
+                $atributo = Atributo::find($respuesta['atributo_id']);
+                $respuestaO2 = new Respuesta;
+                $respuestaO2->origen_id = Respuesta::ICI;
+                $respuestaO2->respuesta_int = $respuesta['respuesta_int'];
+                $respuestaO2->respuesta_text = $respuesta['respuesta_text'];
+                $respuestaO2->respuesta_memo = $respuesta['respuesta_memo'];
+                $respuestaO2->atributo_id = $respuesta['atributo_id'];
+                $respuestaO2->evaluacion_id = $respuesta['evaluacion_id'];
+                $respuestaO2->save();
+                if ($this->haCambiado($atributo)) {
+                    if ($atributo->ponderador_ici !== null) {
+                        $puntaje -= $atributo->ponderador_ici;
+                    }
                 }
             }
-            $respuesta->origen_id = Respuesta::ICI;
-            $respuesta->save();
+            $evaluacion = Evaluacion::find($this->evaluacion_id);
+            $evaluacion->ici = max($puntaje, 0); /* TOTAL ATRIBUTOS NO MEMO? */
+            $evaluacion->user_ici = Auth::user()->id;
+            $evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
+            $evaluacion->save();
+            $this->save();
         }
 
-        //$atributosNoMemo = count($respuestas->atributo->where('name_categoria', "<>", "Memo")->all());
-        $this->evaluacion->ici = $suma / $atributosNoMemo; /* TOTAL ATRIBUTOS NO MEMO? */
-        $this->evaluacion->user_ici = Auth::user()->id;
-        $this->evaluacion->fecha_ici = now()->format('d-m-Y H:i:s');
-        $this->evaluacion->comentario_calidad = $this->comentario_calidad;
-        $this->evaluacion->save();
-        $this->save();
-    }
-
-
-    /**
-     * Método abstracto para ejecutar en el contexto del "save".
-     *
-     * @return mixed
-     */
-    public abstract function guardar();
-
-
-    /**
-     * Método abstracto para ejecutar en el contexto del "save".
-     *
-     * @return mixed
-     */
-    public abstract function configurarCalculoDePuntajes();
-
-
-    /**
-     * Determina si hay una casilla marcada en una familia, para los correlativos indicados
-     *
-     * @param $correlativos array Lista de correlativos a verificar
-     * @param $familia string Nombre de la familia de atributos
-     * @return bool True si hay algun atributo marcado, False si no
-     */
-    public function hayCasillaMarcada($correlativos, $familia)
-    {
-        foreach ($correlativos as $correlativo) {
-            if ($this->{$familia . $correlativo} == "checked") {
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    /**
-     * Realiza la validación completa de marcado de casillas en el formulario. Se debe indicar los correlativos
-     * que sean de tipo "no aplica", los campos "normales" y el campo resumen (padre), así como la familia de
-     * atributos. Por ejemplo, si tenemos los atributos: entrada1, entrada2, entrada3, entrada4, entrada5 y entrada6
-     * Y definimos que el "entrada1" es el resumen, que "entrada 5" y "entrada6" son camplos "no aplica" (por lo que
-     * "entrada2", "entrada3" y "entrada4" son campos normales), el llamado a la función quedaría:
-     *      validarCamposNoAplica([5, 6], [2, 3, 4], 1, "entrada");
-     *
-     * @param $correlativosNoAplica array Lista de correlativos de tipo "No Aplica"
-     * @param $correlativosNormales array Lista de correlativos "normales"
-     * @param $correlativoPadre int Correlativo del atributo padre (resumen)
-     * @param $familia string Nombre de la familia de atributos
-     */
-    public function validarCamposNoAplica($correlativosNoAplica, $correlativosNormales, $correlativoPadre, $familia)
-    {
-        if ($this->hayCasillaMarcada($correlativosNoAplica, $familia)) {
-            foreach ($correlativosNormales as $correlativo) {
-                $this->{$familia . $correlativo} = "";
-            }
-            if ($correlativoPadre) {
-                $this->{$familia . $correlativoPadre} = "No Aplica";
-            }
-        } else if ($this->hayCasillaMarcada($correlativosNormales, $familia)) {
-            $this->{$familia . $correlativoPadre} = "No";
-        } else {
-            $this->{$familia . $correlativoPadre} = "Si";
-        }
     }
 
 
     /**
      * Guarda el formulario verificando estado actualizado de la evaluación y las validaciones.
+     *
+     * @return Application|RedirectResponse|Redirector
      */
     public function save()
     {
-        if (!empty($this->rules)) {
-            $this->validate($this->rules);
-        }
-        $this->cargarEvaluacion($this->evaluacion->id);
-        $this->guardar();
-        $this->cargarEvaluacion($this->evaluacion->id);
-        $this->configurarCalculoDePuntajes();
-        $this->modificarEstados();
-        return redirect(route('evaluacions.index', ['evaluacionid' => $this->evaluacion->id]));
+        $this->calcularPuntaje();
+        $this->actualizarEstados();
+        return redirect(route('evaluacions.index', ['evaluacion_id'=>$this->evaluacion_id]));
+
     }
 
+
+    /**
+     * Calcula el puntaje luego de completar la pauta.
+     *
+     * @return void
+     */
+    public function calcularPuntaje()
+    {
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        if ($this->tipoPuntaje == 'PEC') {
+            $this->calcularPEC($evaluacion->atributos()->where('check_ec', 1));
+        }
+        $this->evaluacion['penc'] = $this->calcularPENC(
+            $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
+        );
+
+        $evaluacion->penc = $this->evaluacion['penc'];
+
+        $evaluacion->pecc = $this->evaluacion['pecc'];
+        $evaluacion->pecu = $this->evaluacion['pecu'];
+        $evaluacion->pecn = $this->evaluacion['pecn'];
+        $evaluacion->nivel_ec = $this->calcularNivelEC(
+            $this->evaluacion['pecc'], $this->evaluacion['pecu'], $this->evaluacion['pecn']
+        );
+
+        $evaluacion->save();
+    }
+
+
+    /**
+     * Determina el Nivel de Error Crítico.
+     * TODO: Rehacer
+     *
+     * @param $pecc
+     * @param $pecu
+     * @param $pecn
+     * @return int
+     */
+    public function calcularNivelEC($pecc, $pecu, $pecn)
+    {
+        if ($pecu == 0) {
+            if ($pecc == 0 || $pecn == 0) {
+                return 3;
+            }
+            return 2;
+        } else {
+            if ($pecc == 0 && $pecn == 0) {
+                return 2;
+            }
+        }
+        return 1;
+    }
+
+
+    /**
+     * Guarda cambios en el historial
+     * TODO: Se usa?
+     *
+     * @param $accion
+     * @param $detalles
+     * @return void
+     */
     public function guardarEnHistorial($accion, $detalles)
     {
         if ($detalles['antes'] != $detalles['despues']) {
@@ -238,56 +509,66 @@ abstract class PautaBase extends Component
         }
     }
 
-    public function respuestasArreglo()
-    {
-        $arreglo = [];
-        foreach ($this->evaluacion->respuestas->all() as $respuesta) {
-            $arreglo[$respuesta->atributo_id] = [
-                $respuesta->respuesta_int,
-                $respuesta->respuesta_text,
-                $respuesta->respuesta_memo,
-            ];
-        }
-        return $arreglo;
-    }
 
-    public function buscarBrechas($atributosPEC)
+    /**
+     * TODO: Pendiente
+     *
+     * @param $atributosCriticos
+     * @return boolean
+     */
+    public function hayBrechas($atributosCriticos)
     {
-        foreach($atributosPEC as $atributoPEC) {
-            if ($this->{$atributoPEC->name_interno} == "checked") {
-                $respuestaCentro = Respuesta::where('origen_id',3)
-                    ->where('evaluacion_id', $this->evaluacion->id)
-                    ->where('atributo_id', $atributoPEC->id)
+        foreach($atributosCriticos as $atributo) {
+            if ($this->respuestas[$atributo->id] == "checked") {
+                $respuestaCentro = Respuesta::where('origen_id', 3)
+                    ->where('evaluacion_id', $this->evaluacion_id)
+                    ->where('atributo_id', $atributo->id)
                     ->orderBy('id', 'DESC')->first();
                 if($respuestaCentro) {
                     if ($respuestaCentro->respuesta_int == 0) {
-                        $this->marca_ec = 1;
-                        return;
+                        return true;
                     }
                 }
             }
         }
-        $this->marca_ec = 0;
+        return false;
     }
 
-    public function calcularPENC($ponderadores)
-    {
-        $sumatotal = 0;
-        $suma = 0;
 
-        foreach ($ponderadores as $atributo_id => $ponderador) {
-            $respuesta = $this->evaluacion->respuestas->firstWhere('atributo_id', $atributo_id);
-            $sumatotal += $ponderador;
-            if ($respuesta->respuesta_int < 0) {
-                $sumatotal -= $ponderador;
+    /**
+     * Calcula el puntaje para atributos No Críticos.
+     *
+     * @param $atributosPENC
+     * @return float|int
+     */
+    public function calcularPENC($atributosPENC)
+    {
+        $sumaPonderadoresAplican = 0;
+        $sumaPonderadoresMarcados = 0;
+        $respuestas = [];
+        $ponderadores = [];
+        foreach ($atributosPENC as $atributo) {
+            $respuesta = $this->respuestas[$atributo->id];
+            $respuestas[$atributo->id] = $respuesta;
+            $ponderadores[$atributo->id] = $atributo->ponderador;
+            if ($respuesta != 'No Aplica') {
+                $sumaPonderadoresAplican += intval($atributo->ponderador);
             }
-            if ($respuesta->respuesta_int > 0) {
-                $suma += $ponderador;
+            if ($respuesta == 'Si') {
+                $sumaPonderadoresMarcados += intval($atributo->ponderador);
             }
         }
-        $this->evaluacion->penc = ($suma / $sumatotal) * 100;
+        return 100 * ($sumaPonderadoresMarcados / $sumaPonderadoresAplican);
     }
 
+
+    /**
+     * TODO: Para otras pautas
+     * Calcula el Puntaje Final, utilizando los ponderadores definidos en la base de datos.
+     *
+     * @param $ponderadoresPF
+     * @return void
+     */
     public function calcularPF($ponderadoresPF)
     {
         $sumatotal = 0;
@@ -306,6 +587,17 @@ abstract class PautaBase extends Component
         $this->evaluacion->pf = ($suma / $sumatotal) * 100;
     }
 
+
+    /**
+     * PEC Simple
+     * TODO: Esperando generalización (implementación en otras pautas).
+     *
+     * @param $atributosCriticos
+     * @param $atributosCriticosLeves
+     * @param $atributosCriticosIntermedios
+     * @param $atributosCriticosGraves
+     * @return void
+     */
     public function calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves)
     {
         $suma = 0;
@@ -317,17 +609,17 @@ abstract class PautaBase extends Component
 
         foreach ($atributosCriticosLeves as $atributo) {
             if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = 1;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_LEVE;
             }
         }
         foreach ($atributosCriticosIntermedios as $atributo) {
             if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = 2;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
             }
         }
         foreach ($atributosCriticosGraves as $atributo) {
             if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = 3;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_GRAVE;
             }
         }
 
@@ -335,36 +627,37 @@ abstract class PautaBase extends Component
 
     }
 
+
+    /**
+     * Calcula el puntaje PEC utilizando un arreglo que describe los atributos críticos.
+     *
+     * @param $atributosCriticos
+     * @return void
+     */
     public function calcularPEC($atributosCriticos)
     {
-        $puntajes = [];
-        foreach ($atributosCriticos as $tipo => $atributos) {
-            $puntajes[$tipo] = 100;
-            foreach ($atributos as $atributo) {
-                if ($this->{$tipo . "_" . $atributo} == 'checked') {
-                    $puntajes[$tipo] = 0;
-                    break;
-                }
-            }
-            $this->evaluacion->{$tipo} = $puntajes[$tipo];
-        }
-        if($this->evaluacion->pecu == 0){
-            if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = 3;
-            }else{
-                $this->evaluacion->nivel_ec = 2;
-            }
-        }else{
-            if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = 2;
-            }else{
-                $this->evaluacion->nivel_ec = 1;
+        $this->evaluacion['pecu'] = 100;
+        $this->evaluacion['pecn'] = 100;
+        $this->evaluacion['pecc'] = 100;
+        foreach ($atributosCriticos as $atributo) {
+            $tipo = substr($atributo->name_interno, 0, strpos($atributo->name_interno, "_"));
+            if ($this->respuestas[$atributo->id] == 'checked') {
+                $this->evaluacion[$tipo] = 0;
             }
         }
     }
 
+
+    /**
+     * PEC Padres
+     * TODO: Esperando generalización (implementación en otras pautas).
+     *
+     * @param $atributosCriticos
+     * @return void
+     */
     public function calcularPECPadres($atributosCriticos)
     {
+        $idPadres = array_keys($this->arregloGrupos['primarios']);
         $puntajes = [];
         foreach ($atributosCriticos as $tipo => $atributos) {
             $puntajes[$tipo] = 100;
@@ -378,196 +671,105 @@ abstract class PautaBase extends Component
         }
         if($this->evaluacion->pecu == 0){
             if($this->evaluacion->pecn == 0 || $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = 3;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_GRAVE;
             }else{
-                $this->evaluacion->nivel_ec = 2;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
             }
         }else{
             if($this->evaluacion->pecn == 0 && $this->evaluacion->pecc == 0){
-                $this->evaluacion->nivel_ec = 2;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
             }else{
-                $this->evaluacion->nivel_ec = 1;
+                $this->evaluacion->nivel_ec = Evaluacion::EC_LEVE;
             }
         }
     }
 
-    public function modificarEstados()
+
+    /**
+     * Gestiona posibles cambios de estado en una evaluación al guardar.
+     *
+     * @return void
+     */
+    public function actualizarEstados()
     {
-        if($this->evaluacion->estado_id == 1){
-            $this->evaluacion->user_completa = Auth::user()->name;
-            $this->evaluacion->fecha_completa = now()->format('d-m-Y H:i:s');
-        }
-        if(is_null($this->evaluacion->user_id)){
-            $this->evaluacion->user_id = Auth::user()->id;
-        }
+        $evaluacion = Evaluacion::find($this->evaluacion_id);
 
-        if(Auth::user()->perfil == 1){
-            $this->evaluacion->user_supervisor = Auth::user()->name;
-            $this->evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
-            $this->evaluacion->cambiarEstado(5);
+        // Si tiene estado 1 o 20 guarda a quien completa la evaluación
+        if ($evaluacion->enBlanco()) {
+            $evaluacion->user_completa = Auth::user()->name;
+            $evaluacion->fecha_completa = now()->format('d-m-Y H:i:s');
+        }
+        // Si no tiene usuario vinculado vincula al actual
+        if (is_null($evaluacion->user_id )) {
+            $evaluacion->user_id = Auth::user()->id;
+        }
+        // Si es supervisor
+        if(Auth::user()->perfil == User::SUPERVISOR){
+            $evaluacion->user_supervisor = Auth::user()->name;
+            $evaluacion->fecha_supervision = now()->format('d-m-Y H:i:s');
+            $evaluacion->cambiarEstado(Estado::EVALUACION_COMPLETA_Y_REVISADA);
 
-            if($this->evaluacion->nivel_ec > 1 && $this->evaluacion->estado_reporte == 11){
-                $this->evaluacion->estado_reporte = 12;
+            if($evaluacion->nivel_ec > Evaluacion::EC_LEVE && $evaluacion->estado_reporte == Estado::REPORTE_SIN_REPORTE){
+                $evaluacion->estado_reporte = Estado::REPORTE_REVISADO_PARA_ENVIAR;
             }
-            if($this->evaluacion->nivel_ec == 1 && $this->evaluacion->estado_reporte == 11){
-                $this->evaluacion->estado_reporte = NULL;
+            if($evaluacion->nivel_ec == Evaluacion::EC_LEVE && $evaluacion->estado_reporte == Estado::REPORTE_SIN_REPORTE){
+                $evaluacion->estado_reporte = NULL;
             }
         }else{
-            if($this->marca_ec == 1){
-                $this->evaluacion->cambiarEstado(3);
-                if($this->evaluacion->estado_reporte == NULL){
-                    $this->evaluacion->estado_reporte = 11;
+            if($this->hayBrechas($evaluacion->atributos()->where('check_ec', 1))){
+                $evaluacion->cambiarEstado(Estado::EVALUACION_ENVIADADA_A_REVISION);
+                if($evaluacion->estado_reporte == NULL){
+                    $evaluacion->estado_reporte = Estado::REPORTE_SIN_REPORTE;
                 }
             }else{
-                $this->evaluacion->cambiarEstado(2);
+                $evaluacion->cambiarEstado(Estado::EVALUACION_COMPLETA);
             }
         }
-        $this->evaluacion->comentario_calidad = $this->comentario_calidad;
-        $this->evaluacion->save();
+        $evaluacion->save();
+    }
+
+    /**
+     * Abre un modal.
+     *
+     * @param $modalID
+     * @return void
+     */
+    public function abrirModal($modalID)
+    {
+        // Si es un modal valido
+        if (in_array($modalID, $this->modalesValidos)) {
+            if ($modalID == 'historial') {
+                $contenido = Log::where('evaluacion_id', $this->evaluacion_id)->get();
+                $titulo = 'Historial de cambios';
+            } elseif ($modalID == 'centro') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::CENTRO)->get();
+                $titulo = 'Respuestas del centro';
+            } elseif ($modalID == 'ici') {
+                $contenido = Respuesta::where('evaluacion_id', $this->evaluacion_id)->where('origen_id', Respuesta::ICI)->get();
+                $titulo = 'Respuestas ICI';
+            }
+            if (isset($contenido, $titulo)) {
+                $this->modal['id'] = $modalID;
+                $this->modal['contenido'] = $contenido;
+                $this->modal['titulo'] = $titulo;
+            }
+
+        }
     }
 
 
     /**
-     * Guarda un batch de respuestas que comparten el mismo "nombre de familia". Los atributos en las pautas
-     * se tienden a agrupar por temática indexada del 1 al n (donde n es la cantidad de atributos de la familia).
-     * Permite además indicar si uno de los atributos es resumen o si uno o más anulan las demás respuestas (no aplica).
-     * Por ejemplo, si se desea guardar los atributos con id 1, 5, 30, 42 y 100, teniéndose como resumen el 5 y
-     * como "no aplica" el 42 y el 100, para la familia de atributos "atributo" se deberá llamar a la función de la
-     * siguiente manera:
+     * Cierra el modal
      *
-     *      guardarRespuestas([1, 5, 30, 42, 100], "atributo", 2, [3, 4]);
-     *      // Donde 2, 3 y 4 representan al correlativo de la familia (van desde 1 hasta n)
-     *
-     * NOTA: El atributo "no aplica" puede recibir un entero en lugar de un arreglo para los casos en los que solo
-     *       exista 1 campo "No aplica".
-     *
-     *
-     * @param $idsAtributo  array Lista de atributos del grupo
-     * @param $nombreFamilia string Nombre que comparten los atributos del grupo
-     * @param $resumen bool|int Posición del atributo "resumen" (de 1 a n)
-     * @param $noAplica bool|int|array Posiciones de los atributos "no aplica" (de 1 a n), en un arreglo
+     * @return void
      */
-    public function guardarRespuestas(array $idsAtributo, string $nombreFamilia, $resumen=false, $noAplica=false)
+    public function cerrarModal()
     {
-        /* Se carga en un arreglo auxiliar los atributos que no sean ni "resumen" ni "no aplica" */
-        $atributosRegulares = [];
-        if (is_integer($noAplica)) {
-            $noAplica = [$noAplica];
-        }
-        for ($i = 0; $i < count($idsAtributo); ++$i) {
-            if (($i + 1) !== $resumen) {
-                if ($noAplica !== false) {
-                    if (!in_array($i + 1, $noAplica)) {
-                        $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
-                    }
-                }else{
-                    $atributosRegulares[$idsAtributo[$i]] = $nombreFamilia . ($i + 1);
-                }
-
-            }
-        }
-        /* Se generan los booleanos de verificación para verificar la presencia de chequeados y de "no aplica" */
-        $hayChequeados = false;
-        $noAplicaMarcado = false;
-        if ($noAplica !== false) {
-            if (!is_array($noAplica)) {
-                $noAplica = [$noAplica];
-            }
-            foreach ($noAplica as $campo) {
-                if ($this->{$nombreFamilia . $campo} == "checked") {
-                    $noAplicaMarcado = true;
-                    break;
-                }
-            }
-        }
-
-        /* Se guardan los atributos "regulares" (ni "resumen" ni "no aplica") */
-        foreach ($atributosRegulares as $idAtributo => $nombreAtributo) {
-            if (!$noAplicaMarcado) {
-                $this->guardarRespuesta($idAtributo, ['text' => $this->{$nombreAtributo}]);
-                if ($this->{$nombreAtributo} == "checked") {
-                    $hayChequeados = true;
-                }
-            } else {
-                $this->guardarRespuesta($idAtributo, []);
-            }
-        }
-        /* Se resuelve el guardado del padre y no aplica, dependiendo del caso */
-        if ($noAplica !== false) {
-            foreach ($noAplica as $campo) {
-                $this->guardarRespuesta($idsAtributo[$campo - 1], ['text' => $this->{$nombreFamilia . $campo}]);
-            }
-        }
-        if ($resumen !== false) {
-
-            if ($noAplicaMarcado) {
-                $this->guardarRespuesta($idsAtributo[$resumen - 1], ['text' => 'No Aplica', 'int' => -1]);
-            } elseif ($hayChequeados) {
-                $this->guardarRespuesta($idsAtributo[$resumen - 1], ['text' => 'No', 'int' => 0]);
-            } else {
-                $this->guardarRespuesta($idsAtributo[$resumen - 1], ['text' => 'Si', 'int' => 1]);
-            }
-        }
-    }
-
-    /**
-     * Guarda una única respuesta del formulario. Se debe indicar un arreglo con los valores a guardar, donde
-     * los índices válidos son "text", "int" y "memo" (uno para cada tipo de dato de respuesta).
-     *
-     * @param $idAtributo int ID del atributo a guardar
-     * @param $valores array Valores a guardar
-     */
-    public function guardarRespuesta(int $idAtributo, array $valores)
-    {
-        /* Se verifica la existencia del atributo. Si no existe, se crea. */
-        $respuestasOrigen1 = $this->evaluacion->respuestas->where('origen_id', Respuesta::PH);
-        $respuesta = $respuestasOrigen1->firstWhere('atributo_id', $idAtributo);
-        if ($respuesta === null) {
-            $respuesta = new Respuesta();
-            $respuesta->atributo_id = $idAtributo;
-            $respuesta->evaluacion_id = $this->evaluacion->id;
-            $respuesta->origen_id = Respuesta::PH;
-        }
-        /* Se asigna valor al atributo, dependiendo de los índices que hayan sido entregados. */
-        if (isset($valores['text']) && $valores['text'] != null) {
-            $respuesta->respuesta_text = $valores['text'];
-        } else {
-            $respuesta->respuesta_text = "";
-        }
-        if (isset($valores['int'])) {
-            $respuesta->respuesta_int = $valores['int'];
-        } else {
-            foreach ($this->tiposRespuesta as $tipo => $idsAtributo) {
-                if(in_array($idAtributo, $idsAtributo)) {
-                    $respuesta->respuesta_int = $this->crearRespuestaInt($tipo, !empty($valores['text']) ? $valores['text'] : '' , $idAtributo);
-                }
-            }
-        }
-        if (isset($valores['memo'])) {
-            $respuesta->respuesta_memo = $valores['memo'];
-        }
-        $respuesta->save();
-    }
-
-    public function crearRespuestaInt($tipo, $respuesta, $idAtributo)
-    {
-        if ($tipo == PautaBase::$RESPUESTA_CHECK) {
-            return $respuesta == "checked" ? 1 : 0;
-        } elseif ($tipo == PautaBase::$RESPUESTA_SI_NO) {
-            return $respuesta == "Si" ? 1 : 0;
-        } elseif ($tipo == PautaBase::$RESPUESTA_OPCIONES) {
-            $respuestaInt = 0;
-            for ($i = 0; $i < count($this->opciones[$idAtributo]); ++$i) {
-                if ($this->opciones[$idAtributo][$i] == $respuesta) {
-                    $respuestaInt = $i + 1;
-                    break;
-                }
-            }
-            return $respuestaInt;
-        } elseif ($tipo == PautaBase::$RESPUESTA_OTROS) {
-            return $respuesta != "" ? 1 : 0;
-        }
-        return NULL;
+        $this->modal = [
+            'id' => null,
+            'contenido' => null,
+            'titulo' => null,
+        ];
     }
 
 }
