@@ -15,6 +15,11 @@ class PautaDigital extends PautaBase
 
     protected $template = 'pauta-digital';
     protected $tipoPuntaje = 'PEC';
+    protected $escalas = [
+        ['grupo_id' => 1, 'nombre' => 'gestiones', 'opciones' => [49, 50, 51]],
+        ['grupo_id' => 8, 'nombre' => 'resoluciones', 'opciones' => [64, 65, 66]],
+        ['grupo_id' => 9, 'nombre' => 'motivos', 'opciones' => [48]],
+    ];
     protected $requeridos = [
         48, 49, 52, 56, 60, 64, 94
     ];

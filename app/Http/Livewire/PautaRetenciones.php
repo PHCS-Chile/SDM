@@ -14,15 +14,18 @@ class PautaRetenciones extends PautaBase
 {
 
     protected $template = 'pauta-retenciones';
-    protected $tipoPuntaje = 'PECPadres';
+    protected $tipoPuntaje = 'ReclamosRetenciones';
     protected $requeridos = [];
 
     public function validarPauta()
     {
 
-
     }
 
+    public function propagarCambio($atributo_id)
+    {
+
+    }
 
     public function tieneRespuestas($atributos_id, $respuesta): bool
     {
