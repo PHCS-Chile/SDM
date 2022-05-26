@@ -25,8 +25,8 @@
                     @foreach($estudios as $estudio)
                     <div class="mt-4">
                         <div class="mt-2 text-sm">
-                            <label class="@if($estudio->id != 2) opacity-50 @endif inline-flex items-center">
-                                <input type="radio" class="disabled:opacity-50 form-radio" name="estudio" wire:model="estudio" value="{{ $estudio->id }}" @if($estudio->id != 2) disabled @endif>
+                            <label class="inline-flex items-center">
+                                <input type="radio" class="disabled:opacity-50 form-radio" name="estudio" wire:model="estudio" value="{{ $estudio->id }}">
                                 <p class="ml-2">{{ $estudio->name }}</p>
                             </label>
                         </div>

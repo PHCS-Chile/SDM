@@ -422,7 +422,7 @@ Versión 2
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
-                Fecha Grabación Adjunta: <strong class="ml-3">{{ $grabaciones->first() ? $grabacion->created_at : '-'}}</strong>
+                Fecha Grabación Adjunta: <strong class="ml-3">{{ $grabaciones->first() ? $grabaciones->first()->created_at : '-'}}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
@@ -537,10 +537,18 @@ Versión 2
                                             'titulo' => '11 - Documentación de la respuesta y del cierre',
                                             'padre' => 389,
                                         ])
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '12 - Cumple los protocolos regulados por Subtel/Sernac',
-                                            'padre' => 396,
-                                        ])
+                                        @if($evaluacion['sub_estudio'] == 'MovilHogar' || $evaluacion['sub_estudio'] == 'Tecnico')
+                                            @include('componentes.formularios.pauta_grupo_padre_condicional', [
+                                                'titulo' => '12 - Cumple los protocolos regulados por Subtel/Sernac',
+                                                'padre' => 396,
+                                                'elementos' => [397, 400, 401],
+                                            ])
+                                        @else
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '12 - Cumple los protocolos regulados por Subtel/Sernac',
+                                                'padre' => 396,                                                
+                                            ])
+                                        @endif
                                         @include('componentes.formularios.pauta_grupo_padre', [
                                             'titulo' => '13 - Cumple con los procedimientos establecidos por Entel',
                                             'padre' => 402,

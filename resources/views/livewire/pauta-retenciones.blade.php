@@ -422,7 +422,7 @@ Versión 2
                 <svg class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                 </svg>
-                Fecha Grabación Adjunta: <strong class="ml-3">{{ $grabaciones->first() ? $grabacion->created_at : '-'}}</strong>
+                Fecha Grabación Adjunta: <strong class="ml-3">{{ $grabaciones->first() ? $grabaciones->first()->created_at : '-'}}</strong>
             </div>
             <div class="mt-2 flex items-center text-sm text-gray-500">
                 <!-- Heroicon name: calendar -->
@@ -531,7 +531,7 @@ Versión 2
                                     </div>
                                 </div>
                                 <div class="mt-5 shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-red-50 space-y-6 sm:p-6">
+                                    <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Errores Criticos que afectan a Entel</p>
                                         @include('componentes.formularios.pauta_grupo_padre', [
                                             'titulo' => '11 - Cumple los protocolos regulados por Subtel/Sernac',
@@ -559,7 +559,7 @@ Versión 2
                             </div>
                             <div class="mt-5 md:mt-0 md:col-span-1 ">
                                 <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
+                                    <div class="px-4 py-5 bg-blue-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Gestiones</p>
                                         @include('componentes.formularios.pauta_grupo_padre', [
                                             'titulo' => '7 - Analiza correctamente los antecedentes',
@@ -581,7 +581,7 @@ Versión 2
                                 </div>
                                 <div class="py-3"></div>
                                 <div class="shadow overflow-hidden sm:rounded-md">
-                                    <div class="px-4 py-5 bg-blue-50 space-y-6 sm:p-6">
+                                    <div class="px-4 py-5 bg-gray-50 space-y-6 sm:p-6">
                                         <p class="font-bold text-xl">Caracterización</p>
                                         @include('componentes.formularios.pauta_grupo', [
                                             'titulo' => '15 - Caracterización de la Interacción', 'elementos' => [493, 494, 495, 496, 497, 498, 499]

@@ -434,7 +434,7 @@ Plantilla: Pauta Digital
 
                                 @include('componentes.formularios.pauta_grupo_padre', [
                                     'titulo' => '10 - Ofrece nuevos productos/servicios',
-                                    'padre' => 42,
+                                    'padre' => 47,
                                 ])
 
                             </div>

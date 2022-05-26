@@ -111,10 +111,10 @@ Versión 2
         </script>
     @endif
 
-    @include('evaluacions.voz.header')
+{{--    @include('evaluacions.voz.header')--}}
 
-    @livewire('pauta-ventas-remotas', ['evaluacionid' => $evaluacionfinal->id])
-
+{{--    @livewire('pauta-ventas-remotas', ['evaluacionid' => $evaluacionfinal->id])--}}
+    @livewire('pauta-ventas-remotas', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones])
 
 </x-app-layout>
 

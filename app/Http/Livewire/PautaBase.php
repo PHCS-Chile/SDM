@@ -450,10 +450,23 @@ abstract class PautaBase extends Component
             $this->calcularPECPadres($evaluacion->atributos()->where('check_ec', 1));
             $this->evaluacion['pf'] = $this->calcularPENC($evaluacion->atributos()->where('check_primario', 1));
             $evaluacion->pf = $this->evaluacion['pf'];
+        } elseif ($this->tipoPuntaje == 'VentasRemotas') {
+            $atributosCriticos = $evaluacion->atributos()->where('check_ec', 1);
+            $atributosCriticosLeves = $evaluacion->atributos()->wherein('id', [213, 217, 240, 274, 280, 287, 320]);
+            $atributosCriticosIntermedios = $evaluacion->atributos()->wherein('id', [218, 225, 234, 248, 255, 261, 282, 285, 286]);
+            $atributosCriticosGraves = $evaluacion->atributos()->wherein('id', [219, 226, 235, 241, 242, 249, 256, 275, 281, 284, 295, 321]);
+            $this->calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves);
         }
-        $this->evaluacion['penc'] = $this->calcularPENC(
-            $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
-        );
+        if ($this->tipoPuntaje == 'ReclamosRetenciones'){
+            $this->evaluacion['penc'] = $this->calcularPENC(
+                $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')->where('name_categoria', 'PENC')
+            );
+        }else{
+            $this->evaluacion['penc'] = $this->calcularPENC(
+                $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
+            );
+        }
+        
 
         $evaluacion->penc = $this->evaluacion['penc'];
 
@@ -561,7 +574,7 @@ abstract class PautaBase extends Component
             if ($respuesta == 'Si') {
                 $sumaPonderadoresMarcados += intval($atributo->ponderador);
             }
-        }
+        }        
         return 100 * ($sumaPonderadoresMarcados / $sumaPonderadoresAplican);
     }
 
@@ -606,28 +619,28 @@ abstract class PautaBase extends Component
     {
         $suma = 0;
         foreach ($atributosCriticos as $atributo) {
-            if ($this->{$atributo} != "checked") {
+            if ($this->respuestas[$atributo->id] != 'checked') {
                 $suma++;
             }
         }
-
+//        dd($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves);
         foreach ($atributosCriticosLeves as $atributo) {
-            if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = Evaluacion::EC_LEVE;
+            if ($this->respuestas[$atributo->id] == 'checked') {
+                $this->evaluacion['nivel_ec'] = Evaluacion::EC_LEVE;
             }
         }
         foreach ($atributosCriticosIntermedios as $atributo) {
-            if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = Evaluacion::EC_INTERMEDIO;
+            if ($this->respuestas[$atributo->id] == 'checked') {
+                $this->evaluacion['nivel_ec'] = Evaluacion::EC_INTERMEDIO;
             }
         }
         foreach ($atributosCriticosGraves as $atributo) {
-            if ($this->{$atributo} == "checked") {
-                $this->evaluacion->nivel_ec = Evaluacion::EC_GRAVE;
+            if ($this->respuestas[$atributo->id] == 'checked') {
+                $this->evaluacion['nivel_ec'] = Evaluacion::EC_GRAVE;
             }
         }
 
-        $this->evaluacion->pecu = ($suma / count($atributosCriticos)) * 100;
+        $this->evaluacion['pecu'] = ($suma / count($atributosCriticos)) * 100;
 
     }
 
