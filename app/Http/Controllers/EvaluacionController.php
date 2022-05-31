@@ -223,6 +223,9 @@ class EvaluacionController extends Controller
         } elseif ($request->has('descartarEval')) {
             $evaluacion->cambiarEstado(6);
             $message = "La evaluación se descarto correctamente";
+        } elseif ($request->has('desbloquearEval')) {
+            $evaluacion->cambiarEstado(20);
+            $message = "La evaluación se desbloqueo. Recuerda guardar despues de hacer las modificaciones.";
         } elseif ($request->has('enviarRevision')) {
             $evaluacion->cambiarEstado(3);
             $message = "La evaluación se envió a Revisión";

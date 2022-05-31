@@ -52,13 +52,8 @@ class PautaVentasRemotas extends PautaBase
                 $cambios[] = [253, ""];
                 $cambios[] = [254, ""];
                 $cambios[] = [255, ""];
-                $cambios[] = [256, ""];
-                $cambios[] = [257, ""];
-                $cambios[] = [258, ""];
-                $cambios[] = [259, ""];
-                $cambios[] = [260, ""];
-                $cambios[] = [261, ""];
-            }
+                $cambios[] = [256, ""];               
+            }           
             if ($this->tieneRespuestas([258], "checked")) {
                 $cambios[] = [259, ""];
                 $cambios[] = [260, ""];

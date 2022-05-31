@@ -205,7 +205,7 @@
                                 </td>
 
                                 <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                    <a href="{{route('evaluacions.index', ['evaluacionid'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
+                                    <a href="{{route('evaluacions.index', ['evaluacion_id'=>$evaluacion->id])}}" class="text-indigo-600 hover:text-indigo-900">Ir</a>
                                 </td>
 
                             </tr>

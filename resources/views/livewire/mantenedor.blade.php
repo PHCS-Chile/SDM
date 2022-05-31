@@ -94,7 +94,7 @@
                                         <td class="px-3 whitespace-nowrap group-hover:bg-blue-100">
                                             <div class="flex items-center">
                                                 <div class="">
-                                                    @if(isset($atributos['ponderador'][$atributo->id]))
+                                                    @if(isset($atributos['ponderador'][$atributo->id]) && Auth::user()->id ==1)
                                                     <div class="text-sm font-medium text-gray-900">
                                                         <label class="sr-only" for="ponderador-{{ $atributo->id }}"></label>
                                                         <input wire:model.lazy="atributos.ponderador.{{ $atributo->id }}" id="ponderador-{{ $atributo->id }}" class="w-20 py-1 border-2 border-gray-300 bg-white px-2 rounded-lg text-xs focus:outline-none" type="number" placeholder="Ej. 1">

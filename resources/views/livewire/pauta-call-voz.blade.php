@@ -299,7 +299,7 @@ Versión en esteroides
                                             @endif
                                             <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
                                                 @csrf
-                                                @if(Auth::user()->perfil  == 1)
+                                                
                                                     <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                             <!-- Heroicon name: check -->
@@ -310,6 +310,19 @@ Versión en esteroides
                                                             Descartar Evaluación
                                                         </button>
                                                     </div>
+                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])    
+                                                    @if($evaluacion['estado_id'] == 2 || $evaluacion['estado_id'] == 3)
+                                                     <div class="w-px-150 pb-0.5">
+                                                        <button type="submit" name="desbloquearEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                                                            <!-- Heroicon name: check -->
+
+                                                            <svg class="-ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
+                                                            </svg>
+                                                            Desbloquear Evaluación
+                                                        </button>
+                                                    </div>
+                                                    @endif
                                                 @endif
                                                 @if(Auth::user()->perfil  == 2)
                                                     @if($evaluacion['estado_id'] > 1)
