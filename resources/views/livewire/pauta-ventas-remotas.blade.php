@@ -299,7 +299,7 @@ Plantilla: Pauta Ventas Remotas
                                             @endif
                                             <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
                                                 @csrf
-                                                
+
                                                     <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                             <!-- Heroicon name: check -->
@@ -310,7 +310,7 @@ Plantilla: Pauta Ventas Remotas
                                                             Descartar Evaluación
                                                         </button>
                                                     </div>
-                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])    
+                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])
                                                     @if($evaluacion['estado_id'] == 2 || $evaluacion['estado_id'] == 3)
                                                      <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="desbloquearEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
@@ -369,6 +369,22 @@ Plantilla: Pauta Ventas Remotas
 
         <div class="shadow overflow-hidden sm:rounded-md">
             <div class="px-4 py-5 bg-white space-y-6 sm:p-6">
+                @if($agente_id == 82)
+                    <div class="mt-4">
+                        <label for="descripcion_caso_centro" class="block text-sm font-medium text-gray-700 @if($bloqueada) opacity-50 @endif">
+                            Descripciones Centro                            
+                        </label>
+                        <div class="mt-1">
+                            <textarea id="descripcion_caso_centro" name="descripcion_caso_centro" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md disabled:opacity-50" disabled>Descripcion Caso: {{$evaluacion['c_descripcion_caso'] }}</textarea>
+                        </div>
+                        <div class="mt-1">
+                            <textarea id="descripcion_caso_centro" name="descripcion_caso_centro" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md disabled:opacity-50" disabled>Respuesta del Ejecutivo: {{$evaluacion['c_respuesta_ejecutivo'] }}</textarea>
+                        </div>
+                        <div class="mt-1">
+                            <textarea id="descripcion_caso_centro" name="descripcion_caso_centro" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md disabled:opacity-50" disabled>Retroalimentacion: {{$evaluacion['c_retroalimentacion'] }}</textarea>
+                        </div>
+                    </div>
+                @endif
 
                 @include('componentes.formularios.pauta_textarea', [
                     'titulo' => 'Comentario Interno',

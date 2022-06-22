@@ -299,7 +299,7 @@ Versión en esteroides
                                             @endif
                                             <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
                                                 @csrf
-                                                
+
                                                     <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                             <!-- Heroicon name: check -->
@@ -310,7 +310,7 @@ Versión en esteroides
                                                             Descartar Evaluación
                                                         </button>
                                                     </div>
-                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])    
+                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])
                                                     @if($evaluacion['estado_id'] == 2 || $evaluacion['estado_id'] == 3)
                                                      <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="desbloquearEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
@@ -677,6 +677,14 @@ Versión en esteroides
                                         @include('componentes.formularios.pauta_grupo_padre', [
                                             'titulo' => '6 - Comunicación simple y empática',
                                             'padre' => 118,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_check', [
+                                            'elemento' => 506,
+                                        ])
+
+                                        @include('componentes.formularios.pauta_check', [
+                                            'elemento' => 507,
                                         ])
 
                                         @include('componentes.formularios.pauta_grupo_padre', [

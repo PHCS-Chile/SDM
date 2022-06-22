@@ -26,7 +26,7 @@ abstract class PautaBase extends Component
     public $grabaciones;
     public $marca_ici ;
     public $nivel_ec;
-
+    public $agente_id;
     public $evaluacion;
     public $respuestas;
     public $grupos;
@@ -66,7 +66,7 @@ abstract class PautaBase extends Component
         // Validaciones
         $pauta = $evaluacion->getPauta();
 //        dd($this->respuestas);
-
+        
         return view('livewire.' . $this->template, [
             'escalas' => $pauta->escalas(),
             'requeridos' => $this->requeridos,
@@ -93,7 +93,7 @@ abstract class PautaBase extends Component
     public function crearArreglosRespuestas($evaluacion)
     {
         if (Auth::user()->perfil == User::SUPERVISOR && !$this->respuestasO1) {
-            $this->respuestasO1 = $evaluacion->respuestas()->get()->keyBy('atributo_id')->toArray();
+            $this->respuestasO1 = $evaluacion->respuestas()->where('origen_id',1)->get()->keyBy('atributo_id')->toArray();
         }
         $arregloRespuestas = [];
         $arregloGrupos = ['primarios' => [], 'no_aplica' => []];

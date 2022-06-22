@@ -114,7 +114,8 @@ Versión 2
 {{--    @include('evaluacions.voz.header')--}}
 
 {{--    @livewire('pauta-ventas-remotas', ['evaluacionid' => $evaluacionfinal->id])--}}
-    @livewire('pauta-ventas-remotas', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones])
+    
+    @livewire('pauta-ventas-remotas', ['evaluacion_id' => $evaluacion_id, 'bloqueo' => $bloqueo, 'modales' => $modales, 'grabaciones' => $grabaciones, 'agente_id' => $agente_id ])
 
 </x-app-layout>
 

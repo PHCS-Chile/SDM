@@ -118,6 +118,7 @@ class EvaluacionController extends Controller
         $estados = Estado::all();
         $evaluacion = Evaluacion::find($evaluacion_id);
         $asignacion_id = $evaluacion->asignacion_id;
+        $agente_id = Asignacion::where('id',$asignacion_id)->first()->agente_id;
         $rut_ejecutivo = $evaluacion->rut_ejecutivo;
         $pauta = $evaluacion->getPauta()->id;
         $historial = Log::where('evaluacion_id', $evaluacion_id)->get();
@@ -131,7 +132,7 @@ class EvaluacionController extends Controller
 
         if (in_array($pauta, [1, 2, 3, 4, 5])) {
             return view('evaluacions.' . $this->templates[$pauta], compact(
-                'evaluacion_id','estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo', 'asignacion_id', 'rut_ejecutivo'
+                'evaluacion_id','estados', 'pauta', 'grabaciones', 'modales', 'historial', 'bloqueo', 'asignacion_id', 'rut_ejecutivo', 'agente_id'
             ));
         }
         abort(404);
