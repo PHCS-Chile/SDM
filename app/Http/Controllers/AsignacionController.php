@@ -23,6 +23,14 @@ class AsignacionController extends Controller
         ]);
     }
 
+    public function asignacionesSubEstudio($estudio_id, $subestudio){
+        $estudio = Estudio::find($estudio_id);
+        return view('asignaciones.asignaciones-estudio',[
+            'estudio' => $estudio,
+            'subestudio' => $subestudio,
+        ]);
+    }
+
     public function asignacionesEjecutivo($asignacion_id){
         $asignacion = Asignacion::find($asignacion_id);
         return view('asignaciones.asignaciones-ejecutivo',compact('asignacion'));

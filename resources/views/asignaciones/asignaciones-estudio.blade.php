@@ -12,7 +12,7 @@
         </x-slot>
 
         {{-- Contenido TODO: Este IF está bien feo --}}
-        @livewire('asignaciones-estudio', ['estudio' => $estudio])
+        @livewire('asignaciones-estudio', ['estudio' => $estudio, 'subestudio' => $subestudio])
     </x-app-layout>
 
 

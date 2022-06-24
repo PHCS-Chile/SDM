@@ -40,9 +40,35 @@ Versión 5
                                     Estudios
                                 </div>
                                 @foreach(App\Models\Estudio::all() as $estudio)
-                                <x-jet-dropdown-link href="{{ route('asignaciones.estudio', [$estudio->id]) }}">
-                                    {{ $estudio->name }}
-                                </x-jet-dropdown-link>
+                                    @if($estudio->id == 3)
+                                        <div x-data="{ opensm: false }"  @mouseover.away="opensm = false">
+                                            <div class="cursor-pointer block hover:bg-gray-100 px-4 py-2 text-sm text-gray-700" @mouseover="opensm = true">
+                                                {{ $estudio->name }}
+                                            </div>
+                                            <div x-show="opensm"
+                                                 x-transition:enter="transition ease-out duration-200"
+                                                 x-transition:enter-start="transform opacity-0 scale-95"
+                                                 x-transition:enter-end="transform opacity-100 scale-100"
+                                                 x-transition:leave="transition ease-in duration-75"
+                                                 x-transition:leave-start="transform opacity-100 scale-100"
+                                                 x-transition:leave-end="transform opacity-0 scale-95"
+                                                 class="relative z-50 mt-2 rounded-md shadow-lg"
+                                                 style="display: none;"
+                                                 @click="opensm = false">
+                                                <x-jet-dropdown-link class="border-l-8 border-gray-300 bg-gray-100 hover:bg-gray-200 hover:border-gray-400" href="{{ route('asignaciones.subestudio', [$estudio->id, 'ventas']) }}">
+                                                    Ventas
+                                                </x-jet-dropdown-link>
+                                                <x-jet-dropdown-link class="border-l-8 border-gray-300 bg-gray-100 hover:bg-gray-200 hover:border-gray-400" href="{{ route('asignaciones.subestudio', [$estudio->id, 'no-ventas']) }}">
+                                                    No Ventas
+                                                </x-jet-dropdown-link>
+                                            </div>
+                                        </div>
+
+                                    @else
+                                        <x-jet-dropdown-link href="{{ route('asignaciones.estudio', [$estudio->id]) }}">
+                                            {{ $estudio->name }}
+                                        </x-jet-dropdown-link>
+                                    @endif
                                 @endforeach
                             </x-slot>
                         </x-jet-dropdown>

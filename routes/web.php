@@ -48,6 +48,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 
 // Rutas actualizadas
 Route::get('/asignaciones/estudio/{estudio_id}',[AsignacionController::class,'asignacionesEstudio'])->name('asignaciones.estudio')->middleware(['auth:sanctum', 'verified']);
+Route::get('/asignaciones/estudio/{estudio_id}/subestudio/{subestudio}',[AsignacionController::class,'asignacionesSubEstudio'])->name('asignaciones.subestudio')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacion_id}/ejecutivos',[AsignacionController::class,'asignacionesEjecutivo'])->name('asignacion.ejecutivos')->middleware(['auth:sanctum', 'verified']);
 Route::get('/asignacion/{asignacion_id}/ejecutivo/{ejecutivo}',[AsignacionController::class,'asignacionEjecutivo'])->name('asignacion.ejecutivo')->middleware(['auth:sanctum', 'verified']);
 

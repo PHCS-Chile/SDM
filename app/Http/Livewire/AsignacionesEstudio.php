@@ -14,6 +14,7 @@ class AsignacionesEstudio extends Component
     public $paginacion = 10;
 
     public Estudio $estudio;
+    public $subestudio;
     public int $periodo_id;
     public $todosLosPeriodos;
 
@@ -34,13 +35,16 @@ class AsignacionesEstudio extends Component
 
     public function obtenerAsignaciones($paginadas=true)
     {
-        $asignaciones = Asignacion::where('estudio_id', $this->estudio->id)
-            ->where('periodo_id', $this->periodo_id)
-            ->where('n_asignacion','>',0);
+        if ($this->subestudio == 'ventas') {
+            $asignaciones = Asignacion::where('estudio_id', $this->estudio->id)
+                ->where('periodo_id', $this->periodo_id)
+                ->where('n_asignacion','>',0);
+        } else {
+            $asignaciones = Asignacion::where('estudio_id', -1);
+        }
         if ($paginadas) {
             return $asignaciones->paginate($this->paginacion);
-        }
-        return $asignaciones->get();
+        }        return $asignaciones->get();
     }
 
     public function obtenerCuentaEstadosAsignaciones($asignaciones)

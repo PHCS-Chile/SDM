@@ -18,6 +18,7 @@ use App\Models\Escala;
 use App\Models\Servicio;
 use App\Models\User;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -64,6 +65,7 @@ class EvaluacionController extends Controller
     {
         $evaluacion = Evaluacion::find($evaluacion_id);
         $respuestas = $evaluacion->respuestas->where('origen_id', 1);
+        DB::raw('lock tables respuestas write');
         foreach ($evaluacion->atributos() as $atributo) {
             $respuesta = $respuestas->firstWhere('atributo_id', $atributo->id);
             if (!$respuesta) {
@@ -87,6 +89,7 @@ class EvaluacionController extends Controller
                 $nuevaRespuesta->save();
             }
         }
+        DB::raw('unlock tables');
     }
 
 
