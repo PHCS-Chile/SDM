@@ -99,7 +99,11 @@
                                 <td class="px-6 py-2 whitespace-nowrap">
                                     <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
                                         @if($estudio->id == 3)
-                                            {{ $asignacion->base->where('tipo_gestion','Venta')->count() }}
+                                            @if($subestudio = 'ventas')
+                                                {{ $asignacion->base->where('tipo_gestion','Venta')->count() }}
+                                            @elseif($subestudio = 'no-ventas')
+                                                {{ $asignacion->base->where('tipo_gestion','No Venta')->count() }}
+                                            @endif
                                         @else
                                             {{ $asignacion->base->count() }}
                                         @endif

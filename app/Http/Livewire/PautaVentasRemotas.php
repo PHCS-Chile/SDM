@@ -18,8 +18,8 @@ use Livewire\Component;
  */
 class PautaVentasRemotas extends PautaBase
 {
-    protected $template = 'pauta-ventas-remotas';
-    protected $tipoPuntaje = 'VentasRemotas';
+    protected $template = 'pauta-ventas-remotas';    
+    protected $tipoPuntaje = 'VentasRemotas';  
     protected $escalas = [
 
     ];
@@ -64,7 +64,18 @@ class PautaVentasRemotas extends PautaBase
                 $cambios[] = [320, ""];
                 $cambios[] = [321, ""];
             }
+        }        
+        if($this->evaluacion['tipo_gestion'] == 'No Venta' && $this->tieneRespuestas([244], "Si")){
+            $cambios[] = [244, "No Aplica"];
+            $cambios[] = [250, "No Aplica"];
+            $cambios[] = [257, "No Aplica"];
+            $cambios[] = [262, "No Aplica"];
+            $cambios[] = [276, "No Aplica"];
+            $cambios[] = [283, "No Aplica"];
+            $cambios[] = [288, "No Aplica"];
+            
         }
+        
         $this->guardarRespuestas($cambios);
     }
 

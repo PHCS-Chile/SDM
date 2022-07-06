@@ -64,10 +64,10 @@ class EvaluacionController extends Controller
     public function crearRespuestas($evaluacion_id)
     {
         $evaluacion = Evaluacion::find($evaluacion_id);
-        $respuestas = $evaluacion->respuestas->where('origen_id', 1);
-        DB::raw('lock tables respuestas write');
+        //$respuestas = $evaluacion->respuestas->where('origen_id', 1);
         foreach ($evaluacion->atributos() as $atributo) {
-            $respuesta = $respuestas->firstWhere('atributo_id', $atributo->id);
+            //$respuesta = $respuestas->firstWhere('atributo_id', $atributo->id);
+            $respuesta = $evaluacion->respuestas->where('origen_id',1)->where('atributo_id', $atributo->id)->first();
             if (!$respuesta) {
                 $nuevaRespuesta = new Respuesta();
                 $nuevaRespuesta->origen_id = 1;
@@ -89,7 +89,7 @@ class EvaluacionController extends Controller
                 $nuevaRespuesta->save();
             }
         }
-        DB::raw('unlock tables');
+        
     }
 
 

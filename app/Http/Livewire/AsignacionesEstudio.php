@@ -38,9 +38,17 @@ class AsignacionesEstudio extends Component
         if ($this->subestudio == 'ventas') {
             $asignaciones = Asignacion::where('estudio_id', $this->estudio->id)
                 ->where('periodo_id', $this->periodo_id)
-                ->where('n_asignacion','>',0);
+                ->where('n_asignacion','>',0)
+                ->where('subestudio','ventas');
+        } elseif ($this->subestudio == 'no-ventas') {
+            $asignaciones = Asignacion::where('estudio_id', $this->estudio->id)
+                ->where('periodo_id', $this->periodo_id)
+                ->where('n_asignacion','>',0)
+                ->where('subestudio','no-ventas');
         } else {
-            $asignaciones = Asignacion::where('estudio_id', -1);
+            $asignaciones = Asignacion::where('estudio_id', $this->estudio->id)
+                ->where('periodo_id', $this->periodo_id)
+                ->where('n_asignacion','>',0);
         }
         if ($paginadas) {
             return $asignaciones->paginate($this->paginacion);

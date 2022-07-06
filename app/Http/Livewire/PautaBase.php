@@ -441,9 +441,9 @@ abstract class PautaBase extends Component
      *
      * @return void
      */
-    public function calcularPuntaje()
-    {
-        $evaluacion = Evaluacion::find($this->evaluacion_id);
+    public function calcularPuntaje()    {
+
+        $evaluacion = Evaluacion::find($this->evaluacion_id);        
         if ($this->tipoPuntaje == 'PEC') {
             $this->calcularPEC($evaluacion->atributos()->where('check_ec', 1));
         } elseif ($this->tipoPuntaje == 'ReclamosRetenciones') {
@@ -451,10 +451,17 @@ abstract class PautaBase extends Component
             $this->evaluacion['pf'] = $this->calcularPENC($evaluacion->atributos()->where('check_primario', 1));
             $evaluacion->pf = $this->evaluacion['pf'];
         } elseif ($this->tipoPuntaje == 'VentasRemotas') {
-            $atributosCriticos = $evaluacion->atributos()->where('check_ec', 1);
-            $atributosCriticosLeves = $evaluacion->atributos()->wherein('id', [213, 217, 240, 274, 280, 287, 320]);
-            $atributosCriticosIntermedios = $evaluacion->atributos()->wherein('id', [218, 225, 234, 248, 255, 261, 282, 285, 286]);
-            $atributosCriticosGraves = $evaluacion->atributos()->wherein('id', [219, 226, 235, 241, 242, 249, 256, 275, 281, 284, 295, 321]);
+            if($evaluacion->tipo_gestion == 'Venta'){
+                $atributosCriticos = $evaluacion->atributos()->where('check_ec', 1);
+                $atributosCriticosLeves = $evaluacion->atributos()->wherein('id', [213, 217, 240, 274, 280, 287, 320]);
+                $atributosCriticosIntermedios = $evaluacion->atributos()->wherein('id', [218, 225, 234, 248, 255, 261, 282, 285, 286]);
+                $atributosCriticosGraves = $evaluacion->atributos()->wherein('id', [219, 226, 235, 241, 242, 249, 256, 275, 281, 284, 295, 321]);
+            }else{
+                $atributosCriticos = $evaluacion->atributos()->wherein('id', [213, 217, 218, 219, 225, 226, 234, 235, 240, 241, 242, 295, 320, 321]);
+                $atributosCriticosLeves = $evaluacion->atributos()->wherein('id', [213, 217, 240, 320]);
+                $atributosCriticosIntermedios = $evaluacion->atributos()->wherein('id', [218, 225, 234]);
+                $atributosCriticosGraves = $evaluacion->atributos()->wherein('id', [219, 226, 235, 241, 242, 295, 321]);
+            }  
             $this->calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves);
         }
         if ($this->tipoPuntaje == 'ReclamosRetenciones'){

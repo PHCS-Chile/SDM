@@ -12,7 +12,13 @@
         </x-slot>
 
         {{-- Contenido TODO: Este IF está bien feo --}}
-        @livewire('asignaciones-estudio', ['estudio' => $estudio, 'subestudio' => $subestudio])
+        
+        @if($subestudio)
+            @livewire('asignaciones-estudio', ['estudio' => $estudio, 'subestudio' => $subestudio])
+        @else
+            @livewire('asignaciones-estudio', ['estudio' => $estudio])
+        @endif
+        
     </x-app-layout>
 
 

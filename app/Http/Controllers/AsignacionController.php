@@ -20,6 +20,7 @@ class AsignacionController extends Controller
         $estudio = Estudio::find($estudio_id);
         return view('asignaciones.asignaciones-estudio',[
             'estudio' => $estudio,
+            'subestudio' => null,
         ]);
     }
 

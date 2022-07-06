@@ -117,9 +117,9 @@ class EjecutivoEvaluacionesCallVoz extends Component
     public function render()
     {
         $evaluaciones= Evaluacion::where('asignacion_id','=',$this->asignacionid)
-            ->when($this->estudio == 3, function ($query) {
-                $query->where('tipo_gestion','Venta');
-            })
+            // ->when($this->estudio == 3, function ($query) {
+            //     $query->where('tipo_gestion','Venta');
+            // })
             ->when($this->searchMovil, function ($query) {
                 $query->where('movil', 'like', "%" . trim($this->searchMovil) . "%");
             })

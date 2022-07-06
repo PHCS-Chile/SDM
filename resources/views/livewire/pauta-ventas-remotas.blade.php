@@ -372,7 +372,7 @@ Plantilla: Pauta Ventas Remotas
                 @if($agente_id == 82)
                     <div class="mt-4">
                         <label for="descripcion_caso_centro" class="block text-sm font-medium text-gray-700 @if($bloqueada) opacity-50 @endif">
-                            Descripciones Centro                            
+                            Descripciones Centro
                         </label>
                         <div class="mt-1">
                             <textarea id="descripcion_caso_centro" name="descripcion_caso_centro" rows="3" class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 h-30 block w-full sm:text-sm border-gray-300 rounded-md disabled:opacity-50" disabled>Descripcion Caso: {{$evaluacion['c_descripcion_caso'] }}</textarea>
@@ -576,51 +576,52 @@ Plantilla: Pauta Ventas Remotas
                             </div>
 
                         </div>
-                        <div class="mt-5 md:mt-0 md:col-span-1 ">
-                            <div class="shadow overflow-hidden sm:rounded-md">
-                                <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
-                                    <p class="font-bold text-xl">Ingreso de Negocio</p>
-                                    <div class="md:grid md:grid-cols-3 md:gap-6">
+                        @if($evaluacion['tipo_gestion'] == 'Venta')
+                            <div class="mt-5 md:mt-0 md:col-span-1 ">
+                                <div class="shadow overflow-hidden sm:rounded-md">
+                                    <div class="px-4 py-5 bg-yellow-50 space-y-6 sm:p-6">
+                                        <p class="font-bold text-xl">Ingreso de Negocio</p>
+                                        <div class="md:grid md:grid-cols-3 md:gap-6">
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '10 - Facturación',
-                                            'padre' => 244,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '10 - Facturación',
+                                                'padre' => 244,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '11 - Cargos de Habilitación',
-                                            'padre' => 250,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '11 - Cargos de Habilitación',
+                                                'padre' => 250,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '12 - Equipo',
-                                            'padre' => 257,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '12 - Equipo',
+                                                'padre' => 257,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '13 - Validación de Datos del Cliente',
-                                            'padre' => 262,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '13 - Validación de Datos del Cliente',
+                                                'padre' => 262,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '14 - Coordinación Despacho/Activación/Instalación',
-                                            'padre' => 276,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '14 - Coordinación Despacho/Activación/Instalación',
+                                                'padre' => 276,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '15 - Scripts Obligatorios y legales',
-                                            'padre' => 283,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '15 - Scripts Obligatorios y legales',
+                                                'padre' => 283,
+                                            ])
 
-                                        @include('componentes.formularios.pauta_grupo_padre', [
-                                            'titulo' => '16 - Despedida e información de cierre',
-                                            'padre' => 288,
-                                        ])
+                                            @include('componentes.formularios.pauta_grupo_padre', [
+                                                'titulo' => '16 - Despedida e información de cierre',
+                                                'padre' => 288,
+                                            ])
 
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
+                        @endif
                         </div>
                         <div class="mt-5 md:mt-0 md:col-span-1 ">
                             <div class="shadow overflow-hidden sm:rounded-md">
