@@ -53,5 +53,10 @@ Versión 4
 
 
         @livewireScripts
+        <script>
+            Livewire.on('render', function() {
+                reproductor();
+            })
+        </script>
     </body>
 </html>
