@@ -158,7 +158,6 @@ Versión 2
                                                                     @endforeach
                                                                 </select>
                                                                 <script src="{{ asset('js/scripts.js') }}"></script>
-
                                                                 <script>
                                                                     grabaciones = [
                                                                             @foreach($grabaciones->all() as $grabacion)
@@ -169,12 +168,10 @@ Versión 2
                                                                     function reproductor() {
                                                                         $('#reproductor')[0].src = grabaciones[0];
                                                                     }
-
                                                                     $('#grabacionActiva').change(function () {
                                                                         $('#reproductor')[0].src = grabaciones[$("#grabacionActiva").val().substring(0, $("#grabacionActiva").val().indexOf("_"))]
                                                                     });
                                                                 </script>
-
 
                                                                 <div class="w-2/4 text-right">
 
@@ -302,7 +299,7 @@ Versión 2
                                             @endif
                                             <form action="{{route('evaluacions.guardaeval', $evaluacion['id'])}}" method="POST">
                                                 @csrf
-
+                                                
                                                     <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="descartarEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
                                                             <!-- Heroicon name: check -->
@@ -313,7 +310,7 @@ Versión 2
                                                             Descartar Evaluación
                                                         </button>
                                                     </div>
-                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])
+                                                @if(date('Y-m-d', strtotime('today')) == date('Y-m-d', strtotime($evaluacion['fecha_completa'])) && Auth::user()->name == $evaluacion['user_completa'])    
                                                     @if($evaluacion['estado_id'] == 2 || $evaluacion['estado_id'] == 3)
                                                      <div class="w-px-150 pb-0.5">
                                                         <button type="submit" name="desbloquearEval" class="inline-flex items-center px-2 py-1 border border-transparent rounded-md shadow-sm text-xs font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">

@@ -66,7 +66,7 @@ abstract class PautaBase extends Component
         // Validaciones
         $pauta = $evaluacion->getPauta();
 //        dd($this->respuestas);
-
+        
         return view('livewire.' . $this->template, [
             'escalas' => $pauta->escalas(),
             'requeridos' => $this->requeridos,
@@ -257,7 +257,6 @@ abstract class PautaBase extends Component
         $this->guardarRespuesta($atributo_id, $respuesta_text);
         $this->propagarCambio($atributo_id);
         $this->actualizarPadre(Atributo::find($atributo_id));
-        $this->emit('render');
     }
 
 
@@ -273,7 +272,6 @@ abstract class PautaBase extends Component
         $evaluacion = Evaluacion::find($this->evaluacion_id);
         $evaluacion->{$columna} = $valor;
         $evaluacion->save();
-        $this->emit('render');
     }
 
 
@@ -445,7 +443,7 @@ abstract class PautaBase extends Component
      */
     public function calcularPuntaje()    {
 
-        $evaluacion = Evaluacion::find($this->evaluacion_id);
+        $evaluacion = Evaluacion::find($this->evaluacion_id);        
         if ($this->tipoPuntaje == 'PEC') {
             $this->calcularPEC($evaluacion->atributos()->where('check_ec', 1));
         } elseif ($this->tipoPuntaje == 'ReclamosRetenciones') {
@@ -463,7 +461,7 @@ abstract class PautaBase extends Component
                 $atributosCriticosLeves = $evaluacion->atributos()->wherein('id', [213, 217, 240, 320]);
                 $atributosCriticosIntermedios = $evaluacion->atributos()->wherein('id', [218, 225, 234]);
                 $atributosCriticosGraves = $evaluacion->atributos()->wherein('id', [219, 226, 235, 241, 242, 295, 321]);
-            }
+            }  
             $this->calcularPECSimple($atributosCriticos, $atributosCriticosLeves, $atributosCriticosIntermedios, $atributosCriticosGraves);
         }
         if ($this->tipoPuntaje == 'ReclamosRetenciones'){
@@ -475,7 +473,7 @@ abstract class PautaBase extends Component
                 $evaluacion->atributos()->where('tipo_respuesta', 'grupo_padre')
             );
         }
-
+        
 
         $evaluacion->penc = $this->evaluacion['penc'];
 
@@ -583,7 +581,7 @@ abstract class PautaBase extends Component
             if ($respuesta == 'Si') {
                 $sumaPonderadoresMarcados += intval($atributo->ponderador);
             }
-        }
+        }        
         return 100 * ($sumaPonderadoresMarcados / $sumaPonderadoresAplican);
     }
 
