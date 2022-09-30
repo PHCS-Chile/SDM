@@ -62,6 +62,7 @@ class CreateEvaluacionsTable extends Migration
             $table->string('tipo_gestion')->nullable();
             $table->string('sub_estudio')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
+            $table->text('comentario_grabacion')->nullable();
             $table->timestamps();
         });
     }

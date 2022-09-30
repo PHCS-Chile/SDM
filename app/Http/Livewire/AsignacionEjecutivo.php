@@ -29,7 +29,7 @@ class AsignacionEjecutivo extends Component
     public $modalVisible = false;
     public $modalOK = false;
     public $datosModal = [];
-    public $modalesValidos = ["cambiar_ejecutivo", "completar", "reportar_grabacion"];
+    public $modalesValidos = ["cambiar_ejecutivo", "completar", "reportar_grabacion", "detalles"];
     public $problemaGrabacion;
 
     public $subestudioDummies;
@@ -68,16 +68,20 @@ class AsignacionEjecutivo extends Component
                     $this->datosModal['estadoGrabacion'] = "ok";
                 }
                 $this->modalOK = $this->datosModal['estadoGrabacion'] == "ok";
-
-
-//                if ($this->problemaGrabacion == "") {
-//                    if ($evaluacion->estado_conversacion == 9) {
-//                        $this->problemaGrabacion = "inexistente";
-//                    } elseif (in_array($evaluacion->estado_conversacion, [14, 15, 16])) {
-//                        $this->problemaGrabacion = "problema";
-//                    }
-//                }
-//                $this->modalOK = $this->problemaGrabacion == "inexistente";
+            }
+            elseif ($modal == "detalles") {
+                $this->datosModal['titulo'] = "Detalles de la evaluación";
+                $this->datosModal['ruta'] = "detalles";
+                $this->datosModal['movil'] = $evaluacion->movil;
+                $this->datosModal['connid'] = $evaluacion->connid;
+                $this->datosModal['fecha_grabacion'] = $evaluacion->fecha_grabacion;
+                $this->datosModal['nombre_ejecutivo'] = $evaluacion->nombre_ejecutivo;
+                $this->datosModal['rut_ejecutivo'] = $evaluacion->rut_ejecutivo;
+                $this->datosModal['nombre_supervisor'] = $evaluacion->nombre_supervisor;
+                $this->datosModal['rut_supervisor'] = $evaluacion->rut_supervisor;
+                $this->datosModal['c_descripcion_caso'] = $evaluacion->c_descripcion_caso;
+                $this->datosModal['c_respuesta_ejecutivo'] = $evaluacion->c_respuesta_ejecutivo;
+                $this->datosModal['c_retroalimentacion'] = $evaluacion->c_retroalimentacion;
             }
         }
     }

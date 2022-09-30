@@ -89,7 +89,7 @@ class EvaluacionController extends Controller
                 $nuevaRespuesta->save();
             }
         }
-        
+
     }
 
 
@@ -413,8 +413,12 @@ class EvaluacionController extends Controller
 
     public function reportarGrabacion(Request $request)
     {
-//        dd($request);
+//        dd($request->comentario_grabacion);
         $evaluacion = Evaluacion::find($request->modal_evaluacion_id);
+        if ($request->estadoGrabacion == "comentario") {
+            $evaluacion->comentario_grabacion = $request->comentario_grabacion;
+            $evaluacion->estado_id = 6;
+        }
         if ($request->estadoGrabacion == "inexistente") {
             $evaluacion->estado_conversacion = 9;
         }

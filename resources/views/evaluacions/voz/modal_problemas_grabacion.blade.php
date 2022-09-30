@@ -53,7 +53,7 @@
                         <div class="form-check pg-{{ $modal['evaluacion_id'] }} @if(!in_array($modal['estado_conversacion'], [14, 15, 16])) hidden @endif">
                             <input onchange="verificarCB{{ $modal['evaluacion_id'] }}()" class="pg-cb-{{ $modal['evaluacion_id'] }} form-check-input appearance-none rounded-full h-4 w-4 border focus:outline-none border-gray-300 bg-white checked:bg-blue-600 transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer" type="radio" name="grabacionNoEvaluable" value="inaudible" id="problema-inaudible-{{ $modal['evaluacion_id'] }}" @if($modal['estado_conversacion'] == 16) checked @endif>
                             <label class="pg-label-{{ $modal['evaluacion_id'] }} form-check-label inline-block text-gray-800" for="problema-inaudible-{{ $modal['evaluacion_id'] }}">
-                                No se entiende
+                                No se entiendee
                             </label>
                         </div>
                     </div>
